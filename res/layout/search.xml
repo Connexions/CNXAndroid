@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">
+      <TextView
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:textStyle="bold"
+          android:textSize = "18sp"
+          android:text="Search Connexions for..."
+          />
+      <EditText
+          android:id="@+id/searchCriteria"
+          android:singleLine="true"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+      />
+      <RadioGroup android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:id="@+id/SearchGroup">
+          <RadioButton android:checked="true"
+            android:id="@+id/searchcnx" 
+            android:text="Search content only"/>
+          <RadioButton android:checked="false"
+            android:id="@+id/searchgoogle" 
+            android:text="Search content, lenses and help"/>
+      </RadioGroup>
+      <Button
+          android:id="@+id/search_button"
+          android:text="Search"
+          android:layout_height="40px"
+          android:layout_width="100px"/>
+        
+</LinearLayout>

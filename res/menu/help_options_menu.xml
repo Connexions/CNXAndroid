@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/add_to_favs"
+          android:icon="@drawable/favoritesadd"
+          android:title="@string/menu_add_to_favs" />
+    <item android:id="@+id/go_to_favs"
+          android:icon="@drawable/favorites"
+          android:title="@string/menu_go_to_favs" />
+    <item android:id="@+id/search"
+          android:icon="@drawable/search_selected"
+          android:title="@string/menu_search" />   
+    <item android:id="@+id/home"
+          android:title="@string/menu_home"
+          android:icon="@drawable/home" />
+    <item android:id="@+id/viewFile"
+          android:title="@string/menu_view_file_short"
+          android:icon="@drawable/ic_menu_upload" />
+</menu>

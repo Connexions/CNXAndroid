@@ -1,0 +1,40 @@
+Version 1.8
+  - Users can now share content via other Android apps (email, text, Facebook, Twitter, etc.)
+  - Added ActionBar to web view for easy access to notes, sharing, and downloading EPUBs and PDFs
+  - Added ActionBar to Note editor for easy access to Save, Export and Delete.
+  - Fixed Search defect that could cause nothing to happen when searching
+  - Fixed user reported defect that could cause a force close when viewing Lenses 
+Version 1.7.1
+  - Modified initial Web View zoom to work better with new mobile web look.
+Version 1.7
+  - Added ability to take notes
+  - Can export notes as text files to SD Card
+  - Fixed bug that sometimes caused Lists to not refresh
+Version 1.6
+  - Added animation to list display
+  - Added Recent Content to Content listings
+  - Fixed bug reported by users that was causing a force close when viewing a lens.
+Version 1.5
+  - Made Search tab a popup window.  Search is available from every menu now.
+  - Cosmetic changes
+  - Fixed bug when changing orientation when viewing a lens.
+  - Add Featured Content to Content tab
+  - Added menu to list views
+Version 1.4
+  - Added ability to view list of downloaded files and open them in appropriate app or delete them
+  - Fixed bug that caused crash when downloading large files
+  - Added Pinch and Zoom for Android 2.1 and above
+Version 1.3
+	- Added lens tags to listings
+	- Added layout for large screens
+	- Added CNX Content Search option
+	- Added quick scroll button on lens listings
+	- Modified menu options to be more user friendly
+Version 1.2 - December 2010
+	- Fixed usability issues with lists
+		- Visual feedback is now given when a list item is pressed or selected
+		- List context menus now have name of item selected as the title
+	- Added ability to download PDF or EPUB file of content from menu
+	- Improved initial zoom and font size of web view
+Version 1.1 - November 2010 
+  - Initial release 

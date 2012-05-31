@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Parts taken from the sample Android Notepad app:
+
+http://developer.android.com/resources/samples/NotePad/index.html
+-->
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="@color/blue_background"> 
+  <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
+	<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/widget64"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:fillViewport="true"
+		android:isScrollContainer="true"
+		android:saveEnabled="true" >
+		<view
+		    class="org.cnx.android.activity.NoteEditorActivity$LinedEditText"
+		    android:id="@+id/note"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:background="@color/blue_background"
+		    android:padding="5dp"
+		    android:scrollbars="vertical"
+		    android:fadingEdge="vertical"
+		    android:gravity="top"
+		    android:textSize="18sp"
+		    android:textColor="@color/white_text"
+		    android:capitalize="sentences" />
+	</ScrollView>
+	</LinearLayout>
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+	  <RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="fill_parent" android:layout_height="45dp" android:background="@color/blue_background">
+	      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/save_w" android:id="@+id/saveButton" android:layout_alignParentTop="true" android:background="@drawable/button_bar_background" android:layout_alignParentLeft="true"></ImageButton>
+	      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/next_item_w" android:id="@+id/exportButton" android:layout_alignParentTop="true" android:background="@drawable/button_bar_background" android:layout_toRightOf="@+id/saveButton"></ImageButton>
+	      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/delete_item_w" android:id="@+id/deleteButton" android:layout_alignParentTop="true" android:background="@drawable/button_bar_background" android:layout_toRightOf="@+id/exportButton"></ImageButton>
+	  </RelativeLayout>
+  </LinearLayout>
+</LinearLayout>

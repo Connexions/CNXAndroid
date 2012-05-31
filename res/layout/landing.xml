@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#EE6600"
+    android:orientation="vertical" >
+
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" >
+		<RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+
+		    <ImageView
+		        android:id="@+id/imageView1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_centerHorizontal="true"
+		        android:src="@drawable/cnxandroid" />
+		    <TextView
+    	   	android:id="@+id/optionName"
+    	   	android:layout_width="fill_parent"
+    	   	android:layout_height="wrap_content"
+    	   	android:layout_marginTop="1dip"
+    	   	android:layout_marginBottom="1dip"
+    	   	android:text="CONNEXIONS"
+    	   	android:layout_below="@+id/imageView1"
+    	   	android:gravity="center"
+        	style="@style/TextAppearance.Title.Landing" />
+
+	    </RelativeLayout>
+	    
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFDD33" 
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:layout_toLeftOf="@+id/searchButton"
+            android:layout_gravity="fill_horizontal"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/menu_search" />
+
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/searchText"
+            android:layout_gravity="fill_horizontal"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/magnify" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        android:background="@color/blue_background">
+
+        <ListView
+            android:id="@+id/landingList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#00000000"
+            android:fastScrollEnabled="true"
+            android:smoothScrollbar="true" />
+    </LinearLayout>
+
+</LinearLayout>

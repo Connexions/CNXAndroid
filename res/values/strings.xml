@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Connexions</string>
+    <string name="no_content">No Content</string>
+    <string name="loading_title">Book Lists</string>
+    <string name="loading_lenses_description">Loading Book Lists...</string>
+    <string name="loading_favs_title">Favorites</string>
+    <string name="loading_favs_description">Loading Favorites...</string>
+    <string name="loading_single_title">Book List</string>
+    <string name="loading_lens_description">Loading Selected Book List...</string>
+    <string name="loading_web_title">Loading...</string>
+    <string name="loading_web_description">Loading Selected Content...</string> 
+    <string name="menu_add_to_favs">Add to Favorites</string>
+    <string name="menu_go_to_favs">Go to Favorites</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_delete_from_favs">Delete from Favorites</string>
+    <string name="menu_search">Search Connexions</string>
+    <string name="menu_lenses">Content</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_pdf">Download PDF</string>
+    <string name="menu_epub">Download EPUB</string>
+    <string name="menu_view_file">View Downloaded Files</string>
+    <string name="menu_view_file_short">View Files</string>
+    <string name="menu_delete_file">Delete Selected File</string>
+    <string name="menu_add">Add note</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_open">Open</string>
+    <string name="menu_revert">Revert changes</string>
+    <string name="menu_discard">Discard</string>
+    <string name="menu_home">Home</string>
+    <string name="up_one_level">Up One Level</string>
+    <string name="webcontent">webcontent</string>
+    <string name="content">content</string>
+    <string name="intro">Welcome to Connexions for Android!\n\n  Browse our content using the Content tab and save content you like to your favorites.  Use the menu to find other features like search, taking notes, downloading EPUBs or PDFs, viewing downloaded files and help.</string>
+    <string name="search_title">Search: </string>
+    <string name="file_browser_title">Connexions - Select File to View</string>
+    <string name="file_dialog_title">View</string>
+    <string name="file_browser_toast">No Application Available to View File</string>
+    <string name="lenses_fake_url">http://cnx.org</string>
+    <string name="lenses_endorsed_desc">Organization endorsed books</string>
+    <string name="lenses_affiliated_desc">Organization affiliated books</string>
+    <string name="lenses_member_desc">User created book lists</string>
+    <string name="lenses_featured_content_desc">Featured Connexions Content</string>
+    <string name="nothing_to_save">There is nothing to save.</string>
+    <string name="shared_via"> Shared via Connexions for Android app.</string>
+    <string name="tell_friend">Tell a friend about </string>
+    <string name="cache_lenstypes">lenstypes</string>
+    <string name="cache_sentcontent">sentContent</string>
+    <string name="cache_savedcontent">savedContent</string>
+    <string name="cache_contentlist">contentList</string>
+    <string name="cache_savednotecontent">savedNoteContent</string>
+</resources>
+ 
