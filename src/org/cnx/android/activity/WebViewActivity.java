@@ -388,11 +388,14 @@ public class WebViewActivity extends Activity
                           Intent intent = new Intent(Intent.ACTION_SEND);
                           intent.setType("text/plain");
 
-                          intent.putExtra(Intent.EXTRA_SUBJECT, content.getTitle());
-                          intent.putExtra(Intent.EXTRA_TEXT, content.getUrl().toString() + " " + getString(R.string.shared_via));
-
-                          Intent chooser = Intent.createChooser(intent, getString(R.string.tell_friend) + " "+ content.getTitle());
-                          startActivity(chooser);
+                          if(content != null)
+                          {
+                              intent.putExtra(Intent.EXTRA_SUBJECT, content.getTitle());
+                              intent.putExtra(Intent.EXTRA_TEXT, content.getUrl().toString() + " " + getString(R.string.shared_via));
+    
+                              Intent chooser = Intent.createChooser(intent, getString(R.string.tell_friend) + " "+ content.getTitle());
+                              startActivity(chooser);
+                          }
 
                       }
                   });
