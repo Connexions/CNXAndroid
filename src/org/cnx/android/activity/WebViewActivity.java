@@ -34,6 +34,7 @@ import android.webkit.WebViewClient;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 /**
  * Activity to view selected lens content in a web browser.  
@@ -395,6 +396,10 @@ public class WebViewActivity extends Activity
     
                               Intent chooser = Intent.createChooser(intent, getString(R.string.tell_friend) + " "+ content.getTitle());
                               startActivity(chooser);
+                          }
+                          else
+                          {
+                              Toast.makeText(WebViewActivity.this, "Data needed to share not available.  Use the back button to refresh and try again.",  Toast.LENGTH_LONG).show();
                           }
 
                       }
