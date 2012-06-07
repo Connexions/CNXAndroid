@@ -12,6 +12,7 @@ import java.net.URL;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
+import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 
@@ -129,8 +130,16 @@ public class WebViewActivity extends Activity
         {
             setLayout("http://m.cnx.org");
         }
-            
-        setUpViews();
+        
+        if(CNXUtil.isConnected(this))
+        {
+            setUpViews();
+        }
+        else
+        {
+            webView = (WebView)findViewById(R.id.web_view);
+            CNXUtil.makeNoDataToast(this);
+        }
     }
     
     /* (non-Javadoc)
