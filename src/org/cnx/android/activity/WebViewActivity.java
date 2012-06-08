@@ -454,18 +454,4 @@ public class WebViewActivity extends Activity
         progressBar = ProgressDialog.show(this, null, getString(R.string.loading_web_title), true);
     }
     
-//    private boolean checkForNote()
-//    {
-//        Cursor cursor = getContentResolver().query(Notes.CONTENT_URI, null, "notes_url='" + content.getUrl().toString() + "'", null, null);
-//        if(cursor.getCount()>0)
-//        {
-//            return true;
-//        }
-//        else
-//        {
-//            return false;
-//        }
-//    }
-    
-    
 }
