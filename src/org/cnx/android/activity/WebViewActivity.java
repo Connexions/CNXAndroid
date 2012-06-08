@@ -349,8 +349,15 @@ public class WebViewActivity extends Activity
      */
     private void download(String type)
     {
-        MenuHandler mh = new MenuHandler();
-        mh.displayAlert(this, content, type);
+        if(CNXUtil.isConnected(this))
+        { 
+            MenuHandler mh = new MenuHandler();
+            mh.displayAlert(this, content, type);
+        }
+        else
+        {
+            CNXUtil.makeNoDataToast(this);
+        }
     }
     
     /**
