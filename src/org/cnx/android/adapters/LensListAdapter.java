@@ -125,7 +125,7 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
         if(c != null)
         {
             //Log.d("LensListAdapter.getView()", "content is not null ");
-            ImageView iv = holder.imageView;
+            //ImageView iv = holder.imageView;
             TextView text = holder.textView;
             TextView other = holder.otherView;
             if (holder.imageView != null) 
