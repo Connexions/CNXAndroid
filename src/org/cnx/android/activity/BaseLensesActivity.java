@@ -42,7 +42,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /**
@@ -279,7 +278,7 @@ public class BaseLensesActivity extends ListActivity
                   AtomHandler rh = new AtomHandler();
                   content = rh.parseFeed(getApplicationContext(), feed);
                   
-                 Collections.sort((List)content);
+                 Collections.sort((List<Content>)content);
                   
                   
                   fillData(content);
