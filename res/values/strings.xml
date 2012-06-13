@@ -3,13 +3,13 @@
     <string name="app_name">Connexions</string>
     <string name="no_content">No Content</string>
     <string name="loading_title">Book Lists</string>
-    <string name="loading_lenses_description">Loading Book Lists...</string>
+    <string name="loading_lenses_description">Loading Book Lists&#8230;</string>
     <string name="loading_favs_title">Favorites</string>
-    <string name="loading_favs_description">Loading Favorites...</string>
+    <string name="loading_favs_description">Loading Favorites&#8230;</string>
     <string name="loading_single_title">Book List</string>
-    <string name="loading_lens_description">Loading Selected Book List...</string>
-    <string name="loading_web_title">Loading...</string>
-    <string name="loading_web_description">Loading Selected Content...</string> 
+    <string name="loading_lens_description">Loading Selected Book List&#8230;</string>
+    <string name="loading_web_title">Loading&#8230;</string>
+    <string name="loading_web_description">Loading Selected Content&#8230;</string> 
     <string name="menu_add_to_favs">Add to Favorites</string>
     <string name="menu_go_to_favs">Go to Favorites</string>
     <string name="menu_help">Help</string>
@@ -50,5 +50,13 @@
     <string name="cache_savedcontent">savedContent</string>
     <string name="cache_contentlist">contentList</string>
     <string name="cache_savednotecontent">savedNoteContent</string>
+    <string name="mobile_url">http://m.cnx.org</string>
+    <string name="help_page">Connexions_Android_App_Help.html</string>
+    <string name="google">google.com</string>
+    <string name="search">/search</string>
+    <string name="no_data_msg">Data needed to share not available.  Use the back button to refresh and try again.</string>
+    <string name="note_error_msg">Cannot create note.  Please try again.</string>
+    <string name="note_sql_url">notes_url=?\'</string>
+    <string name="cnx_folder">Connexions/</string>
 </resources>
  
