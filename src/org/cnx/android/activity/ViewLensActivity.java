@@ -277,7 +277,7 @@ public class ViewLensActivity extends ListActivity
                       contentList = rh.parseFeed(ViewLensActivity.this, feed);
                   }
                   
-                  Collections.sort((List)contentList);
+                  Collections.sort((List<Content>)contentList);
                   
                   fillData(contentList);
                   handler.post(finishedLoadingListTask);

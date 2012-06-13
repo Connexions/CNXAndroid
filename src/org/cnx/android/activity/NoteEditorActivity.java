@@ -13,14 +13,12 @@ import java.io.PrintWriter;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.providers.Notes;
-import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 import org.cnx.android.utils.MenuUtil;
 
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -49,7 +47,7 @@ import android.widget.Toast;
  */
 public class NoteEditorActivity extends Activity
 {
-    private static final String TAG = "NoteEditor";
+    //private static final String TAG = "NoteEditor";
 
     // This is our state data that is stored when freezing.
     private static final String ORIGINAL_CONTENT = "origContent";
@@ -119,7 +117,7 @@ public class NoteEditorActivity extends Activity
         
         if(content == null)
         {
-            Toast.makeText(NoteEditorActivity.this, "Cannot create note.  Please try again.",  Toast.LENGTH_SHORT).show();
+            Toast.makeText(NoteEditorActivity.this, getString(R.string.note_error_msg),  Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -301,7 +299,7 @@ public class NoteEditorActivity extends Activity
      */
     private final void deleteNote() 
     {
-        getContentResolver().delete(Notes.CONTENT_URI, "notes_url=?", new String[]{content.getUrl().toString()});
+        getContentResolver().delete(Notes.CONTENT_URI, getString(R.string.note_sql_url), new String[]{content.getUrl().toString()});
         editText.setText("");
         finish();
     }
@@ -314,12 +312,11 @@ public class NoteEditorActivity extends Activity
     { 
         if(content != null)
         {
-            cursor = getContentResolver().query(Notes.CONTENT_URI, null, "notes_url='" + content.getUrl().toString() + "'", null, null);
+            cursor = getContentResolver().query(Notes.CONTENT_URI, null, getString(R.string.note_sql_url) + content.getUrl().toString() + "'", null, null);
             if(cursor.getCount()>0)
             {
                 cursor.moveToNext();
                 //Log.d("NoteEditorActivity.checkDBForNote()", "cursor.count(): " + cursor.getCount());
-                //int urlColumn = cursor.getColumnIndex(Notes.URL);
                 int notesColumn = cursor.getColumnIndex(Notes.NOTE);
                 //Log.d("NoteEditorActivity.checkDBForNote()", "urlColumn: " + urlColumn);
                 //Log.d("NoteEditorActivity.checkDBForNote()", "notesColumn: " + notesColumn);

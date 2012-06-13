@@ -200,11 +200,11 @@ public class LensWebViewActivity extends Activity
               }
             }
             
-            public void onReceiveTitle(WebView view, String title)
-            {
-                super.onReceivedTitle(view, title);
-                //Log.d("LensWebView.onCreate()", "Called");
-            }
+//            public void onReceiveTitle(WebView view, String title)
+//            {
+//                super.onReceivedTitle(view, title);
+//                //Log.d("LensWebView.onCreate()", "Called");
+//            }
         });
         
         webView.setWebViewClient(webViewClient);

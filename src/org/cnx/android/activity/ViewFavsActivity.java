@@ -227,7 +227,7 @@ public class ViewFavsActivity extends ListActivity
                 
                 content = DBUtils.readCursorIntoList(getContentResolver().query(Favs.CONTENT_URI, null, null, null, null));
                 
-               Collections.sort((List)content);
+               Collections.sort((List<Content>)content);
                 
                 fillData(content);
                 handler.post(finishedLoadingListTask);
