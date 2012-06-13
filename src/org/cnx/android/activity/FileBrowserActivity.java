@@ -52,7 +52,7 @@ public class FileBrowserActivity extends ListActivity
     /**
      * The /Connexions directory as a file object
      */
-    private File currentDirectory = new File(Environment.getExternalStorageDirectory(), "Connexions/");
+    private File currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.cnx_folder));
     /**
      * List Adapter for display
      */
@@ -105,7 +105,7 @@ public class FileBrowserActivity extends ListActivity
      */
     public void readFileList()
     {
-        currentDirectory = new File(Environment.getExternalStorageDirectory(), "Connexions/");
+        currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.cnx_folder));
         if(currentDirectory.exists())
         {
             handleFile(currentDirectory);
@@ -120,7 +120,7 @@ public class FileBrowserActivity extends ListActivity
     private void handleFile(final File dirOrFile)
     {
         //Log.d("FileBrowserActivity.browseTo()", "Called");
-        if (dirOrFile.isDirectory() && !dirOrFile.getPath().endsWith("Connexions/"))
+        if (dirOrFile.isDirectory() && !dirOrFile.getPath().endsWith(getString(R.string.cnx_folder)))
         {
             this.currentDirectory = dirOrFile;
             loadList(dirOrFile.listFiles());
@@ -168,7 +168,7 @@ public class FileBrowserActivity extends ListActivity
             df.setFullPath(file.getAbsolutePath());
             directoryEntries.add(df);
         }
-        Collections.sort((List)directoryEntries);
+        Collections.sort((List<DownloadedFile>)directoryEntries);
         fileListAdapter = new FileListAdapter(this, directoryEntries);
         
         setListAdapter(fileListAdapter);
