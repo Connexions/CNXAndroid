@@ -29,7 +29,7 @@ public class FileUtil
         //Log.d("FileUtil.getFileSize()", "fileLengthStr: " + fileLengthStr);
         int fileLengthDigitCount = String.valueOf(fileLength).length();
         double fileLengthLong = fileLength;
-        double decimalVal = 0.0;
+        //double decimalVal = 0.0;
         String howBig = "";
         double fileSizeKB = 0;
 
