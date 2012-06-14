@@ -336,7 +336,7 @@ public class WebViewActivity extends Activity
     {
         RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
         int visibility = relLayout.getVisibility();
-        if(url.contains(getString(R.string.search)) || url.contains(".html"))
+        if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
         {
             if(visibility == View.VISIBLE)
             {
@@ -370,7 +370,7 @@ public class WebViewActivity extends Activity
                       public void onClick(View v) 
                       {
                           Intent intent = new Intent(Intent.ACTION_SEND);
-                          intent.setType("text/plain");
+                          intent.setType(getString(R.string.mimetype_text));
 
                           if(content != null)
                           {
