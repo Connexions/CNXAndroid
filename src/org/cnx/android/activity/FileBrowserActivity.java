@@ -52,7 +52,7 @@ public class FileBrowserActivity extends ListActivity
     /**
      * The /Connexions directory as a file object
      */
-    private File currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.cnx_folder));
+    private File currentDirectory = new File(Environment.getExternalStorageDirectory(), "Connexions/");
     /**
      * List Adapter for display
      */
@@ -105,7 +105,7 @@ public class FileBrowserActivity extends ListActivity
      */
     public void readFileList()
     {
-        currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.cnx_folder));
+        currentDirectory = new File(Environment.getExternalStorageDirectory(), "Connexions/");
         if(currentDirectory.exists())
         {
             handleFile(currentDirectory);
@@ -120,7 +120,7 @@ public class FileBrowserActivity extends ListActivity
     private void handleFile(final File dirOrFile)
     {
         //Log.d("FileBrowserActivity.browseTo()", "Called");
-        if (dirOrFile.isDirectory() && !dirOrFile.getPath().endsWith(getString(R.string.cnx_folder)))
+        if (dirOrFile.isDirectory() && !dirOrFile.getPath().endsWith("Connexions/"))
         {
             this.currentDirectory = dirOrFile;
             loadList(dirOrFile.listFiles());
@@ -227,7 +227,7 @@ public class FileBrowserActivity extends ListActivity
         }
         else if(file.getAbsolutePath().indexOf(Constants.TXT_EXTENSION) > -1)
         {
-            intent.setDataAndType(path, "text/plain");
+            intent.setDataAndType(path, getString(R.string.mimetype_text));
             ext = Constants.TXT_EXTENSION;
         }
         else
