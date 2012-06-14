@@ -57,6 +57,12 @@
     <string name="no_data_msg">Data needed to share not available.  Use the back button to refresh and try again.</string>
     <string name="note_error_msg">Cannot create note.  Please try again.</string>
     <string name="note_sql_url">notes_url=?\'</string>
-    <string name="cnx_folder">Connexions/</string>
+    <string name="cnx_folder">Connexions\/</string>
+    <string name="html_ext">.html</string>
+    <string name="mimetype_text">text/plain</string>
+    <string name="title_browse">Browse Book Lists</string>
+    <string name="title_favs">Favorites</string>
+    <string name="title_download">Downloaded Files</string>
+    <string name="title_help">Help</string>
 </resources>
  
