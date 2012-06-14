@@ -53,7 +53,7 @@ public class FileUtil
             else if(fileLengthDigitCount >9)
             {
                 fileSizeKB = Math.abs((fileLengthLong/(1024*1024*1024)));
-                decimalVal = fileLengthLong%(1024*1024*1024);
+                //decimalVal = fileLengthLong%(1024*1024*1024);
                 howBig = "GB";
             }
         }
