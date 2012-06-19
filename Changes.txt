@@ -1,3 +1,10 @@
+Version 2.3
+  - App now checks for data connection before trying to retrieve content.
+  - Fixed user reported null pointer in Note Taking feature
+Version 2.2
+ - If user does not have an app installed to read PDF or EPUB files, added option to go to Google Play and install one.
+ - Selecting the Return key on the keyboard now triggers a search.
+ - Fixed a user reported bug.
 Version 1.8
   - Users can now share content via other Android apps (email, text, Facebook, Twitter, etc.)
   - Added ActionBar to web view for easy access to notes, sharing, and downloading EPUBs and PDFs
