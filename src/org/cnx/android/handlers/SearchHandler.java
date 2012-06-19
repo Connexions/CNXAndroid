@@ -51,7 +51,8 @@ public class SearchHandler
         popUp.setBackgroundDrawable(new BitmapDrawable());
         popUp.setOutsideTouchable(true);
         popUp.setAnimationStyle(R.style.Animations_GrowFromBottom);
-        popUp.setTouchInterceptor(new OnTouchListener() {
+        popUp.setTouchInterceptor(new OnTouchListener() 
+        {
             
             public boolean onTouch(View v, MotionEvent event) 
             {

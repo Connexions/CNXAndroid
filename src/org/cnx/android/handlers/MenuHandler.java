@@ -121,17 +121,6 @@ public class MenuHandler
         }
     }
     
-    /**
-     * Opens lenses tab
-     * @param context - the current context
-     */
-//    private void setLensesTab(Context context)
-//    {
-//        Intent lensesIntent = new Intent(context, TabWidget.class);
-//        lensesIntent.putExtra(TabWidget.TAB_ID, new Integer(0));
-//        context.startActivity(lensesIntent);
-//        
-//    }
     
     /**
      * Displays alert telling user where the downloaded files are located, the size of the files to download and confirms download.
@@ -147,28 +136,7 @@ public class MenuHandler
             MenuUtil.showMissingMediaDialog(context);
             return;
         }
-//        String url = currentContent.getUrl().toString();
-//        if (type.equals(Constants.PDF_TYPE))
-//        {
-//            url = MenuUtil.fixPdfURL(url, MenuUtil.getContentType(url));
-//        }
-//        else
-//        {
-//            url = MenuUtil.fixEpubURL(url, MenuUtil.getContentType(url));
-//        }
-        	
-//        String fileLength = "";
-//        try
-//        {
-//            URLConnection con = new URL(url).openConnection();
-//            int length = con.getContentLength();
-//            fileLength = FileUtil.getFileSize(length);
-//            //Log.d("MenuHandler.displayAlert()", "length: " + length);
-//        }
-//        catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
+
         
         String message = "";
         if(type.equals(Constants.PDF_TYPE))
@@ -189,7 +157,6 @@ public class MenuHandler
                   String url = currentContent.getUrl().toString();
                   Intent intent = new Intent(context, DownloadService.class);
                   
-                  //DownloadHandler dh = new DownloadHandler();
                   if(type.equals(Constants.PDF_TYPE))
                   {
                       intent.putExtra(DownloadService.DOWNLOAD_URL,  MenuUtil.fixPdfURL(currentContent.getUrl().toString(), MenuUtil.getContentType(url)));

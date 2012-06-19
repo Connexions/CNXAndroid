@@ -18,6 +18,7 @@ import org.cnx.android.beans.Content;
 import org.cnx.android.beans.Feed;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.handlers.AtomHandler;
+import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
 import android.app.ListActivity;
@@ -250,39 +251,54 @@ public class BaseLensesActivity extends ListActivity
     /** reads feed in a separate thread.  Starts progress dialog*/
     protected void readFeed()
     {
-        progressDialog = ProgressDialog.show(
-                currentContext,
-            null,
-            getResources().getString(R.string.loading_lenses_description)
-          );
-        Thread loadFeedThread = new Thread() 
+        if(CNXUtil.isConnected(currentContext))
         {
-          public void run() {
-              Feed feed = new Feed();
-              try
-              {
-                  feed.url = new URL(atomFeedURL);
-                  feed.id = 1;
-                  //Log.d("LensViewer", "Feed id and url set");
+            progressDialog = ProgressDialog.show(
+                    currentContext,
+                null,
+                getResources().getString(R.string.loading_lenses_description)
+              );
+            Thread loadFeedThread = new Thread() 
+            {
+              public void run() {
+                  Feed feed = new Feed();
+                  try
+                  {
+                      feed.url = new URL(atomFeedURL);
+                      feed.id = 1;
+                      //Log.d("LensViewer", "Feed id and url set");
+                  }
+                  catch (MalformedURLException mue)
+                  {
+                      Log.e("BaseActivity", mue.toString());
+                  }
+                  
+                  //Read RSS feed
+                  
+                  AtomHandler rh = new AtomHandler();
+                  content = rh.parseFeed(getApplicationContext(), feed);
+                  
+                 Collections.sort((List<Content>)content);
+                  
+                  
+                  fillData(content);
+                  handler.post(finishedLoadingListTask);
               }
-              catch (MalformedURLException mue)
-              {
-                  Log.e("BaseActivity", mue.toString());
-              }
-              
-              //Read RSS feed
-              AtomHandler rh = new AtomHandler();
-              content = rh.parseFeed(getApplicationContext(), feed);
-              
-             Collections.sort((List)content);
-              
-              fillData(content);
-              handler.post(finishedLoadingListTask);
-          }
-        };
-        loadFeedThread.start();
+            };
+            loadFeedThread.start();
+        }
+        else
+        {
+            CNXUtil.makeNoDataToast(currentContext);
+        }
+        
         
     }
+    
+//    private void displayToast()
+//    {
+//        Toast.makeText(BaseLensesActivity.this, "No data connection",  Toast.LENGTH_LONG).show();
+//    }
     
     /**
      * Loads feed data into adapter on initial reading of feed

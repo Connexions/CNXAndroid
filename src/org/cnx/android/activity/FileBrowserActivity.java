@@ -168,7 +168,7 @@ public class FileBrowserActivity extends ListActivity
             df.setFullPath(file.getAbsolutePath());
             directoryEntries.add(df);
         }
-        Collections.sort((List)directoryEntries);
+        Collections.sort((List<DownloadedFile>)directoryEntries);
         fileListAdapter = new FileListAdapter(this, directoryEntries);
         
         setListAdapter(fileListAdapter);
@@ -227,7 +227,7 @@ public class FileBrowserActivity extends ListActivity
         }
         else if(file.getAbsolutePath().indexOf(Constants.TXT_EXTENSION) > -1)
         {
-            intent.setDataAndType(path, "text/plain");
+            intent.setDataAndType(path, getString(R.string.mimetype_text));
             ext = Constants.TXT_EXTENSION;
         }
         else

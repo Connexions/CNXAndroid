@@ -115,7 +115,6 @@ public class AtomHandler extends DefaultHandler
                 Builder uriBuilder = new Builder();
                 uriBuilder.scheme("http");
                 uriBuilder.path(currentContent.icon.substring(5));
-                //Uri iconuri = uriBuilder.build();
                 //Log.d("LensListAdapter" ,"uri:" + uri.toString());
                 InputStream is;
                 try
@@ -175,7 +174,6 @@ public class AtomHandler extends DefaultHandler
         
         if (inTitle && currentContent != null)
         {
-            //currentContent.title = chars;
             //Log.d("LensViewer","AtomHandler.characters() called. add title = " + chars);
             if(currentContent.title == null || currentContent.title.equals("")  )
             {

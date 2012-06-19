@@ -6,9 +6,7 @@
  */
 package org.cnx.android.adapters;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,7 +16,7 @@ import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 
 import android.content.Context;
-import android.util.Log;
+//import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,12 +162,12 @@ public class LensesAdapter extends ArrayAdapter<Content>implements SectionIndexe
      * @returns Object
      *  @throws MalformedURLException,IOException 
      */
-    private Object fetch(String address) throws MalformedURLException,IOException 
-    {
-        URL url = new URL(address);
-        Object content = url.getContent();
-        return content;
-    }
+//    private Object fetch(String address) throws MalformedURLException,IOException 
+//    {
+//        URL url = new URL(address);
+//        Object content = url.getContent();
+//        return content;
+//    }
     
     /* (non-Javadoc)
      * @see android.widget.SectionIndexer#getPositionForSection(int)

@@ -39,7 +39,7 @@ import android.widget.Toast;
  */
 public class LandingActivity extends Activity
 {
-    private static String PREVIOUS_VERSION = "1.8";
+    private static String PREVIOUS_VERSION = "2.2";
     
     private static String VERSION_PROPERTY = "cnxVersion";
     
@@ -134,16 +134,16 @@ public class LandingActivity extends Activity
         ArrayList<Content> list = new ArrayList<Content>();
         
         Content c = new Content();
-        c.setTitle("Browse Book Lists");
+        c.setTitle(getString(R.string.title_browse));
         
         Content c2 = new Content();
-        c2.setTitle("Favorites");
+        c2.setTitle(getString(R.string.title_favs));
         
         Content c3 = new Content();
-        c3.setTitle("Downloaded Files");
+        c3.setTitle(getString(R.string.title_download));
         
         Content c4 = new Content();
-        c4.setTitle("Help");
+        c4.setTitle(getString(R.string.title_help));
         
         list.add(c);
         list.add(c2);
@@ -169,23 +169,23 @@ public class LandingActivity extends Activity
      */
     private void performAction(String item)
     {
-        if(item.contains("Browse"))
+        if(item.contains(getString(R.string.title_browse)))
         {
             Intent lensesIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
             //ContentCache.setObject(getString(R.string.content), content);
             startActivity(lensesIntent);
         }
-        else if(item.contains("Favorites"))
+        else if(item.contains(getString(R.string.title_favs)))
         {
             Intent intent = new Intent(getApplicationContext(), ViewFavsActivity.class);
             startActivity(intent);
         }
-        else if(item.contains("Downloaded"))
+        else if(item.contains(getString(R.string.title_download)))
         {
             Intent viewIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
             startActivity(viewIntent);
         }
-        else if(item.contains("Help"))
+        else if(item.contains(getString(R.string.title_help)))
         {
             try
             {
@@ -215,7 +215,7 @@ public class LandingActivity extends Activity
         if(propVersion == null || propVersion.equals("") || propVersion.equals(PREVIOUS_VERSION))
         {
             SharedPreferences.Editor prefsEditor = myPrefs.edit();
-            prefsEditor.putString(VERSION_PROPERTY,"2.0");
+            prefsEditor.putString(VERSION_PROPERTY,"2.3");
             prefsEditor.commit();
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.toast, (ViewGroup) findViewById(R.id.toast_layout_root));
