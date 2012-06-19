@@ -5,6 +5,8 @@ Version 2.2
  - If user does not have an app installed to read PDF or EPUB files, added option to go to Google Play and install one.
  - Selecting the Return key on the keyboard now triggers a search.
  - Fixed a user reported bug.
+Version 2.0
+  - New look and icons to make it more user friendly.
 Version 1.8
   - Users can now share content via other Android apps (email, text, Facebook, Twitter, etc.)
   - Added ActionBar to web view for easy access to notes, sharing, and downloading EPUBs and PDFs
