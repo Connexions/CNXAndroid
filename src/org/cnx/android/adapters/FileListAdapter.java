@@ -75,7 +75,7 @@ public class FileListAdapter extends ArrayAdapter<DownloadedFile>
         }
         
         DownloadedFile c = directoryEntries.get(position);
-        ImageView iv = holder.imageView;
+        //ImageView iv = holder.imageView;
         if(c != null)
         {
             //Log.d("LensListAdapter.getView()", "content is not null ");

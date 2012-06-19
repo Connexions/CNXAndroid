@@ -12,6 +12,7 @@ import java.net.URL;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
+import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 
@@ -34,6 +35,7 @@ import android.webkit.WebViewClient;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 /**
  * Activity to view selected lens content in a web browser.  
@@ -67,7 +69,6 @@ public class WebViewActivity extends Activity
         public void onLoadResource(WebView view, String url) 
         {
             super.onLoadResource(view, url);
-            //showProgressDialog();
             //Log.d("WebViewClient.onLoadResource()", "Called");
         }
         
@@ -126,10 +127,18 @@ public class WebViewActivity extends Activity
         }
         else
         {
-            setLayout("http://m.cnx.org");
+            setLayout(getString(R.string.mobile_url));
         }
-            
-        setUpViews();
+        
+        if(CNXUtil.isConnected(this))
+        {
+            setUpViews();
+        }
+        else
+        {
+            webView = (WebView)findViewById(R.id.web_view);
+            CNXUtil.makeNoDataToast(this);
+        }
     }
     
     /* (non-Javadoc)
@@ -140,7 +149,7 @@ public class WebViewActivity extends Activity
     public boolean onCreateOptionsMenu(Menu menu) 
     {
         MenuInflater inflater = getMenuInflater();
-        if(content.getUrl().toString().indexOf("Connexions_Android_App_Help.html") == -1 && content.getUrl().toString().indexOf("/search") == -1 && content.getUrl().toString().indexOf("google.com") == -1)
+        if(content.getUrl().toString().indexOf(getString(R.string.help_page)) == -1 && content.getUrl().toString().indexOf(getString(R.string.search)) == -1 && content.getUrl().toString().indexOf(getString(R.string.google)) == -1)
         {
             //if the web menu is already being used, don't recreate it
             if(!previousMenu.equals(WEB_MENU))
@@ -224,27 +233,15 @@ public class WebViewActivity extends Activity
     protected void onResume() 
     {
         super.onResume();
-        Log.d("WebViewActivity.onResume()", "Called");
+        //Log.d("WebViewActivity.onResume()", "Called");
         Content c = (Content)ContentCache.getObject(getString(R.string.webcontent));
         if(c != null)
         {
             content = c;
             ContentCache.setObject("content", content);
         }
-        //setButton();
 
     }
-    
-    /* (non-Javadoc)
-     * @see android.app.Activity#onPause()
-     */
-//    @Override
-//    protected void onPause()
-//    {
-//        super.onPause();
-//        Log.d("WebViewActivity.onPause()", "Called");
-//        ContentCache.setObject(getString(R.string.webcontent), content);
-//    }
     
     /** sets properties on WebView and loads selected content into browser. */
     private void setUpViews() 
@@ -253,7 +250,7 @@ public class WebViewActivity extends Activity
         {
             return;
         }
-        Log.d("WebViewView.setupViews()", "Called");
+        //Log.d("WebViewView.setupViews()", "Called");
         webView = (WebView)findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
         
@@ -261,31 +258,17 @@ public class WebViewActivity extends Activity
         webView.getSettings().setDefaultFontSize(17);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
-        //webView.setInitialScale(80);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
-        //final Activity activity = this;
-        //progressBar = new ProgressDialog(this);
-        //progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        //progressBar.setIndeterminate(true);
-        //progressBar = ProgressDialog.show(this, null, "Loading...", true);
+        
         showProgressDialog();
         webView.setWebChromeClient(new WebChromeClient() 
         {
-//            public void onProgressChanged(WebView view, int progress) 
-//            {
-//              activity.setTitle(getString(R.string.loading_web_title));
-//              activity.setProgress(progress * 100);
-//              if(progress == 100)
-//              {
-//                  activity.setTitle(R.string.app_name);
-//              }
-//            }
             
-            public void onReceiveTitle(WebView view, String title)
-            {
-                super.onReceivedTitle(view, title);
-                //Log.d("LensWebView.onCreate()", "Called");
-            }
+//            public void onReceiveTitle(WebView view, String title)
+//            {
+//                super.onReceivedTitle(view, title);
+//                //Log.d("LensWebView.onCreate()", "Called");
+//            }
         });
         
         webView.setWebViewClient(webViewClient);
@@ -302,17 +285,17 @@ public class WebViewActivity extends Activity
     {
         //Log.d("WebView.fixURL()", "url: " + url);
         StringBuilder newURL = new StringBuilder();
-        int googIndex = url.indexOf("http://www.google.com/");
-        int helpIndex = url.indexOf("Connexions_Android_App_Help.html");
+        int googIndex = url.indexOf(getString(R.string.google));
+        int helpIndex = url.indexOf(getString(R.string.help_page));
         if(googIndex > -1 || helpIndex > -1)
         {
             return url;
         }
-        int index = url.indexOf("http://cnx.org/");
+        int index = url.indexOf(getString(R.string.lenses_fake_url));
         int startIndex = 14;
         if(index == -1)
         {
-            index = url.indexOf("http://m.cnx.org/");
+            index = url.indexOf(getString(R.string.mobile_url));
             startIndex = 16;
         }
         if(index > -1)
@@ -327,20 +310,21 @@ public class WebViewActivity extends Activity
         }
     }
     
-//    private void handleSearch()
-//    {
-//        SearchHandler sh = new SearchHandler();
-//        sh.displayPopup(this);
-//    }
-    
     /**
      * Displays dialog to start file download
      * @param type one of 2 types PDF or EPUB
      */
     private void download(String type)
     {
-        MenuHandler mh = new MenuHandler();
-        mh.displayAlert(this, content, type);
+        if(CNXUtil.isConnected(this))
+        { 
+            MenuHandler mh = new MenuHandler();
+            mh.displayAlert(this, content, type);
+        }
+        else
+        {
+            CNXUtil.makeNoDataToast(this);
+        }
     }
     
     /**
@@ -352,7 +336,7 @@ public class WebViewActivity extends Activity
     {
         RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
         int visibility = relLayout.getVisibility();
-        if(url.contains("/search") || url.contains(".html"))
+        if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
         {
             if(visibility == View.VISIBLE)
             {
@@ -386,13 +370,20 @@ public class WebViewActivity extends Activity
                       public void onClick(View v) 
                       {
                           Intent intent = new Intent(Intent.ACTION_SEND);
-                          intent.setType("text/plain");
+                          intent.setType(getString(R.string.mimetype_text));
 
-                          intent.putExtra(Intent.EXTRA_SUBJECT, content.getTitle());
-                          intent.putExtra(Intent.EXTRA_TEXT, content.getUrl().toString() + " " + getString(R.string.shared_via));
-
-                          Intent chooser = Intent.createChooser(intent, getString(R.string.tell_friend) + " "+ content.getTitle());
-                          startActivity(chooser);
+                          if(content != null)
+                          {
+                              intent.putExtra(Intent.EXTRA_SUBJECT, content.getTitle());
+                              intent.putExtra(Intent.EXTRA_TEXT, content.getUrl().toString() + " " + getString(R.string.shared_via));
+    
+                              Intent chooser = Intent.createChooser(intent, getString(R.string.tell_friend) + " "+ content.getTitle());
+                              startActivity(chooser);
+                          }
+                          else
+                          {
+                              Toast.makeText(WebViewActivity.this, getString(R.string.no_data_msg),  Toast.LENGTH_LONG).show();
+                          }
 
                       }
                   });
@@ -429,19 +420,5 @@ public class WebViewActivity extends Activity
     {
         progressBar = ProgressDialog.show(this, null, getString(R.string.loading_web_title), true);
     }
-    
-//    private boolean checkForNote()
-//    {
-//        Cursor cursor = getContentResolver().query(Notes.CONTENT_URI, null, "notes_url='" + content.getUrl().toString() + "'", null, null);
-//        if(cursor.getCount()>0)
-//        {
-//            return true;
-//        }
-//        else
-//        {
-//            return false;
-//        }
-//    }
-    
     
 }

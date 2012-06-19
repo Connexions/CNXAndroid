@@ -16,7 +16,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder; 
 import android.net.Uri;
-import android.util.Log;
+//import android.util.Log;
 
 /**
 *  Database provider for user favorites 
@@ -33,7 +33,7 @@ public class ConnexionsProvider extends ContentProvider
     /** database name */
    
     /** Tag for database updates */
-    private static final String TAG = "ConnexionsProvider";
+    //private static final String TAG = "ConnexionsProvider";
     /** Map of Fav table columns */
     private static HashMap<String, String> FavsProjectionMap;
     

@@ -19,6 +19,7 @@ import org.cnx.android.beans.Feed;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.handlers.AtomHandler;
 import org.cnx.android.handlers.RssHandler;
+import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
 import android.app.ListActivity;
@@ -237,50 +238,57 @@ public class ViewLensActivity extends ListActivity
     /** reads feed in a separate thread.  Starts progress dialog  */
     private void readFeed()
     {
-        progressDialog = ProgressDialog.show(
-            ViewLensActivity.this,
-            null,
-            getResources().getString(R.string.loading_lens_description)
-          );
-        Thread loadFeedThread = new Thread() 
+        if(CNXUtil.isConnected(this))
         {
-          public void run() {
-              Feed feed = new Feed();
-              if(content.url == null)
-              {
-            	  try {
-					feed.url = new URL("");
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+            progressDialog = ProgressDialog.show(
+                ViewLensActivity.this,
+                null,
+                getResources().getString(R.string.loading_lens_description)
+              );
+            Thread loadFeedThread = new Thread() 
+            {
+              public void run() {
+                  Feed feed = new Feed();
+                  if(content.url == null)
+                  {
+                	  try {
+    					feed.url = new URL("");
+    				} catch (MalformedURLException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				}
+                  }
+                  else
+                  {
+                	  feed.url = content.url;
+                  }
+                  feed.id = 1;
+                  //Log.d("LensViewer", "Feed id and url set");
+                  
+                  //Read RSS feed
+                  if(feed.url.toString().contains("/atom"))
+                  {
+                      AtomHandler rh = new AtomHandler();
+                      contentList = rh.parseFeed(ViewLensActivity.this, feed);
+                  }
+                  else
+                  {
+                      RssHandler rh = new RssHandler();
+                      contentList = rh.parseFeed(ViewLensActivity.this, feed);
+                  }
+                  
+                  Collections.sort((List<Content>)contentList);
+                  
+                  fillData(contentList);
+                  handler.post(finishedLoadingListTask);
               }
-              else
-              {
-            	  feed.url = content.url;
-              }
-              feed.id = 1;
-              //Log.d("LensViewer", "Feed id and url set");
-              
-              //Read RSS feed
-              if(feed.url.toString().contains("/atom"))
-              {
-                  AtomHandler rh = new AtomHandler();
-                  contentList = rh.parseFeed(ViewLensActivity.this, feed);
-              }
-              else
-              {
-                  RssHandler rh = new RssHandler();
-                  contentList = rh.parseFeed(ViewLensActivity.this, feed);
-              }
-              
-              Collections.sort((List)contentList);
-              
-              fillData(contentList);
-              handler.post(finishedLoadingListTask);
-          }
-        };
-        loadFeedThread.start();
+            };
+            loadFeedThread.start();
+        }
+        else
+        {
+            CNXUtil.makeNoDataToast(this);
+        }
     }
     
     /* (non-Javadoc)
