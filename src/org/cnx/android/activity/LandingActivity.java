@@ -39,7 +39,7 @@ import android.widget.Toast;
  */
 public class LandingActivity extends Activity
 {
-    private static String PREVIOUS_VERSION = "2.2";
+    private static String PREVIOUS_VERSION = "2.3";
     
     private static String VERSION_PROPERTY = "cnxVersion";
     
