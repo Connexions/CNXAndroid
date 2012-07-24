@@ -6,6 +6,7 @@
  */
 package org.cnx.android.activity;
 
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -20,6 +21,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle; 
 import android.util.Log;
 import android.view.KeyEvent;
@@ -208,10 +210,13 @@ public class WebViewActivity extends Activity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) 
     {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) 
+        if(webView != null)
         {
-            webView.goBack();
-            return true;
+            if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) 
+            {
+                webView.goBack();
+                return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -255,6 +260,7 @@ public class WebViewActivity extends Activity
         webView.getSettings().setJavaScriptEnabled(true);
         
         webView.getSettings().setUseWideViewPort(true);
+        //webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setDefaultFontSize(17);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
@@ -275,6 +281,31 @@ public class WebViewActivity extends Activity
         webView.loadUrl(fixURL(content.url.toString()));
         
      }
+    
+    private void emulateShiftHeld(WebView view)
+    {
+        try
+        {
+            KeyEvent shiftPressEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SHIFT_LEFT, 0, 0);
+            shiftPressEvent.dispatch(view);
+            if(Build.VERSION.SDK_INT == 10) 
+            {
+                Toast.makeText(this, "Select Text then tap the text", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(this, "Select Text", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        catch (Exception e)
+        {
+            Log.e("dd", "Exception in emulateShiftHeld()", e);
+        }
+
+    }
+    
+    
     
     /**
      * Replace cnx.org with mobile.cnx.org
@@ -409,6 +440,25 @@ public class WebViewActivity extends Activity
 
                       }
                   });
+                
+                ImageButton copyButton = (ImageButton)findViewById(R.id.copyButton);
+                if(Build.VERSION.SDK_INT < 11) 
+                {
+                    copyButton.setOnClickListener(new OnClickListener() 
+                    {
+                              
+                          public void onClick(View v) 
+                          {
+                              emulateShiftHeld(webView);
+
+                          }
+                      });
+                }
+                else
+                {
+                    copyButton.setVisibility(View.GONE);
+                }
+
             
         }
     }
