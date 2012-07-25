@@ -215,7 +215,7 @@ public class LandingActivity extends Activity
         if(propVersion == null || propVersion.equals("") || propVersion.equals(PREVIOUS_VERSION))
         {
             SharedPreferences.Editor prefsEditor = myPrefs.edit();
-            prefsEditor.putString(VERSION_PROPERTY,"2.3");
+            prefsEditor.putString(VERSION_PROPERTY,"2.4");
             prefsEditor.commit();
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.toast, (ViewGroup) findViewById(R.id.toast_layout_root));
