@@ -290,11 +290,11 @@ public class WebViewActivity extends Activity
             shiftPressEvent.dispatch(view);
             if(Build.VERSION.SDK_INT == 10) 
             {
-                Toast.makeText(this, "Select Text then tap the text", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Select Text then tap the text", Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(this, "Select Text", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Select Text", Toast.LENGTH_LONG).show();
             }
 
         }
