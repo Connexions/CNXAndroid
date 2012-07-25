@@ -9,7 +9,7 @@
     <supports-screens android:smallScreens="true"
       android:normalScreens="true"
       android:largeScreens="true"
-      android:anyDensity="false" /> 
+      android:anyDensity="true" /> 
     <application android:icon="@drawable/logo" android:label="@string/app_name"
         android:theme="@style/Theme.Connexions">
         <provider android:name="org.cnx.android.providers.ConnexionsProvider" android:authorities="org.cnx.android.providers.ConnexionsProvider" />
