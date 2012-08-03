@@ -259,7 +259,7 @@ public class WebViewActivity extends Activity
         webView = (WebView)findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
         
-        webView.getSettings().setUseWideViewPort(true);
+        //webView.getSettings().setUseWideViewPort(true);
         //webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setDefaultFontSize(17);
         webView.getSettings().setSupportZoom(true);
