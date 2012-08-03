@@ -1,7 +1,8 @@
 Version 2.4
   - Fixed user reported nullpointer in Web View
   - Users can now copy text from a chapter in Android 2.3 and below.
-  - Users can now share notes via email ,text, etc.
+  - Users can now share notes via email,text, etc.
+  - Fixed display of Welcome message on devices with large screens
 Version 2.3
   - App now checks for data connection before trying to retrieve content.
   - Fixed user reported null pointer in Note Taking feature
