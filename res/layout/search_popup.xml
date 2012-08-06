@@ -4,8 +4,8 @@
     android:background="@color/blue_background"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-    <TextView
+    android:layout_height="fill_content" >
+    <!-- <TextView
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:textStyle="bold"
@@ -13,18 +13,22 @@
           android:text="Search"
           android:textColor="@color/white_text"
           android:padding="3px"
-          />
+          /> -->
     <EditText
           android:id="@+id/searchCriteria"
           android:singleLine="true"
+          android:hint="@string/menu_search"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="6dp"
+          android:layout_marginLeft="3dp"
+          android:layout_marginRight="3dp"
           />
     <ImageButton 
           android:id="@+id/search_button"
           android:src="@drawable/magnify"
           android:background="@drawable/button_background"
-          android:layout_width="40px"
-          android:layout_height="40px"
-          android:layout_marginLeft="3px"/>
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_marginLeft="3dp"/>
 </LinearLayout>
