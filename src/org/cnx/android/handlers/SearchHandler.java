@@ -44,10 +44,10 @@ public class SearchHandler
      */
     public void displayPopup(final Context context)
     {
-        popUp = new PopupWindow(context);
+        //popUp = new PopupWindow(context);
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
         View layout = inflater.inflate(R.layout.search_popup, null, true);
-        popUp = new PopupWindow(layout,  300,  125,    true); 
+        popUp = new PopupWindow(layout,  300,  130,    true); 
         popUp.setBackgroundDrawable(new BitmapDrawable());
         popUp.setOutsideTouchable(true);
         popUp.setAnimationStyle(R.style.Animations_GrowFromBottom);
@@ -93,6 +93,7 @@ public class SearchHandler
                   }
               });
         popUp.showAtLocation(layout, Gravity.TOP, 0, 30); 
+        //popUp.update(350, 160);
     }
     
     /**
