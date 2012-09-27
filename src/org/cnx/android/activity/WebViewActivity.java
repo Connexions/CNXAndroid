@@ -17,7 +17,11 @@ import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -25,9 +29,6 @@ import android.os.Build;
 import android.os.Bundle; 
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -45,7 +46,7 @@ import android.widget.Toast;
  * @author Ed Woodward
  *
  */
-public class WebViewActivity extends Activity
+public class WebViewActivity extends SherlockActivity
 {
     /** Web browser view for Activity */
     private WebView webView;
@@ -150,7 +151,7 @@ public class WebViewActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
-        MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater = getSupportMenuInflater();
         if(content.getUrl().toString().indexOf(getString(R.string.help_page)) == -1 && content.getUrl().toString().indexOf(getString(R.string.search)) == -1 && content.getUrl().toString().indexOf(getString(R.string.google)) == -1)
         {
             //if the web menu is already being used, don't recreate it

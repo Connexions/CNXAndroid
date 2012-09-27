@@ -8,7 +8,8 @@ package org.cnx.android.activity;
 
 import org.cnx.android.R;
 
-import android.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem;
+
 
 /**
  * Activity to view list of Member Lenses.  Reads RSS feed from cnx.org and displays lenses.

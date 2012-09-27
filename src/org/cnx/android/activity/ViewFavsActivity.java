@@ -18,7 +18,10 @@ import org.cnx.android.providers.Favs;
 import org.cnx.android.providers.utils.DBUtils;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,8 +29,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -40,7 +41,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class ViewFavsActivity extends ListActivity
+public class ViewFavsActivity extends SherlockListActivity
 {
     /** Adaptor for Lens list display */ 
     LensListAdapter adapter;
@@ -96,42 +97,42 @@ public class ViewFavsActivity extends ListActivity
        * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
        * Creates context menu from lenses_context_menu.xml
        */
-      @Override
-      public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
-      {
-          //Log.d("ViewLenses.onCreateContextMenu()", "Called");
-          AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-          Content content = (Content)getListView().getItemAtPosition(info.position);
-          menu.setHeaderTitle(content.getTitle());
-          super.onCreateContextMenu(menu, v, menuInfo);
-          getMenuInflater().inflate(R.menu.favs_context_menu, menu);
-      }
+//      @Override
+//      public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
+//      {
+//          //Log.d("ViewLenses.onCreateContextMenu()", "Called");
+//          AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+//          Content content = (Content)getListView().getItemAtPosition(info.position);
+//          menu.setHeaderTitle(content.getTitle());
+//          super.onCreateContextMenu(menu, v, menuInfo);
+//          getMenuInflater().inflate(R.menu.favs_context_menu, menu);
+//      }
       
       /* (non-Javadoc)
        * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
        * Passes menu selection to MenuHandler
        */
-      @Override
-      public boolean onContextItemSelected(MenuItem item) 
-      {
-          AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
-          Content content = (Content)getListView().getItemAtPosition(info.position);
-          MenuHandler mh = new MenuHandler();
-          boolean returnVal = mh.handleContextMenu(item, this, content);
-          if(item.getItemId() == R.id.delete_from__favs)
-          {
-              //readDB();
-              adapter.remove(content);
-          }
-          if(returnVal)
-          {
-              return returnVal;
-          }
-          else
-          {
-              return super.onContextItemSelected(item);
-          }
-      }
+//      @Override
+//      public boolean onContextItemSelected(MenuItem item) 
+//      {
+//          AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
+//          Content content = (Content)getListView().getItemAtPosition(info.position);
+//          MenuHandler mh = new MenuHandler();
+//          boolean returnVal = mh.handleContextMenu(item, this, content);
+//          if(item.getItemId() == R.id.delete_from__favs)
+//          {
+//              //readDB();
+//              adapter.remove(content);
+//          }
+//          if(returnVal)
+//          {
+//              return returnVal;
+//          }
+//          else
+//          {
+//              return super.onContextItemSelected(item);
+//          }
+//      }
       
       /* (non-Javadoc)
        * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -140,7 +141,7 @@ public class ViewFavsActivity extends ListActivity
       public boolean onCreateOptionsMenu(Menu menu) 
       {
           
-          getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+          getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
           return true;
           
       }

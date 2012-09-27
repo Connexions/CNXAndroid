@@ -21,7 +21,10 @@ import org.cnx.android.handlers.AtomHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -29,8 +32,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -50,7 +51,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class BaseLensesActivity extends ListActivity 
+public class BaseLensesActivity extends SherlockListActivity 
 {
     
    /** Adaptor for Lens list display */ 
@@ -145,37 +146,37 @@ public class BaseLensesActivity extends ListActivity
      * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
      * Creates context menu from lenses_context_menu.xml
      */
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
-    {
-        //Log.d("ViewLenses.onCreateContextMenu()", "Called");
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        Content content = (Content)getListView().getItemAtPosition(info.position);
-        menu.setHeaderTitle(content.getTitle());
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.lens_context_menu, menu);
-    }
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
+//    {
+//        //Log.d("ViewLenses.onCreateContextMenu()", "Called");
+//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+//        Content content = (Content)getListView().getItemAtPosition(info.position);
+//        menu.setHeaderTitle(content.getTitle());
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        getMenuInflater().inflate(R.menu.lens_context_menu, menu);
+//    }
     
     /* (non-Javadoc)
      * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
      * Passes menu selection to MenuHandler
      */
-    @Override
-    public boolean onContextItemSelected(MenuItem item) 
-    {
-        AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
-        Content content = (Content)getListView().getItemAtPosition(info.position);
-        MenuHandler mh = new MenuHandler();
-        boolean returnVal = mh.handleContextMenu(item, this, content);
-        if(returnVal)
-        {
-            return returnVal;
-        }
-        else
-        {
-            return super.onContextItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) 
+//    {
+//        AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
+//        Content content = (Content)getListView().getItemAtPosition(info.position);
+//        MenuHandler mh = new MenuHandler();
+//        boolean returnVal = mh.handleContextMenu(item, this, content);
+//        if(returnVal)
+//        {
+//            return returnVal;
+//        }
+//        else
+//        {
+//            return super.onContextItemSelected(item);
+//        }
+//    }
    
     /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -185,11 +186,11 @@ public class BaseLensesActivity extends ListActivity
     {
         if(content == null || content.size() < 1)
         {
-            getMenuInflater().inflate(R.menu.empty_lenses_menu, menu);
+            getSupportMenuInflater().inflate(R.menu.empty_lenses_menu, menu);
         }
         else
         {
-            getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+            getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
         }
         return true;
         

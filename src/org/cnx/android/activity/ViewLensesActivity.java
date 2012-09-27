@@ -16,14 +16,16 @@ import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
+//import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -38,7 +40,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class ViewLensesActivity extends ListActivity 
+public class ViewLensesActivity extends SherlockListActivity 
 {
     /**
      * Constant for Endorsement label
@@ -103,38 +105,39 @@ public class ViewLensesActivity extends ListActivity
      * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
      * Creates context menu from lenses_context_menu.xml
      */
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
-    {
-        //Log.d("ViewLenses.onCreateContextMenu()", "Called");
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        Content content = (Content)getListView().getItemAtPosition(info.position);
-        menu.setHeaderTitle(content.getTitle());
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.lenses_context_menu, menu);
-    }
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
+//    {
+//        //Log.d("ViewLenses.onCreateContextMenu()", "Called");
+//        
+//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+//        Content content = (Content)getListView().getItemAtPosition(info.position);
+//        menu.setHeaderTitle(content.getTitle());
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        MenuInflater inflater = getSupportMenuInflater();
+//        inflater.inflate(R.menu.lenses_context_menu, menu);
+//    }
     
     /* (non-Javadoc)
      * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
      * Passes menu selection to MenuHandler
      */
-    @Override
-    public boolean onContextItemSelected(MenuItem item) 
-    {
-        AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
-        Content content = (Content)getListView().getItemAtPosition(info.position);
-        MenuHandler mh = new MenuHandler();
-        boolean returnVal = mh.handleContextMenu(item, this, content);
-        if(returnVal)
-        {
-            return returnVal;
-        }
-        else
-        {
-            return super.onContextItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) 
+//    {
+//        AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
+//        Content content = (Content)getListView().getItemAtPosition(info.position);
+//        MenuHandler mh = new MenuHandler();
+//        boolean returnVal = mh.handleContextMenu(item, this, content);
+//        if(returnVal)
+//        {
+//            return returnVal;
+//        }
+//        else
+//        {
+//            return super.onContextItemSelected(item);
+//        }
+//    }
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -142,9 +145,9 @@ public class ViewLensesActivity extends ListActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
-        
-        getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
-        return true;
+       
+        getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+        return super.onCreateOptionsMenu(menu);
         
     }
     
