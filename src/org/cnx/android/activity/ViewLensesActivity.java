@@ -16,6 +16,7 @@ import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.utils.ContentCache;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -77,12 +78,14 @@ public class ViewLensesActivity extends SherlockListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lenses_title);
-        TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
-        aTextView.setText("Connexions - Book Lists");
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lenses_title);
+        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
+        //aTextView.setText("Connexions - Book Lists");
+        ActionBar aBar = this.getSupportActionBar();
+        aBar.setTitle("Connexions - Book Lists");
         //get already retrieved feed and reuse if it is there
         content = (ArrayList<Content>)getLastNonConfigurationInstance();
         if(content==null && savedInstanceState != null)
