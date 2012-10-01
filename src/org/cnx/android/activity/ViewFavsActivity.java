@@ -18,6 +18,7 @@ import org.cnx.android.providers.Favs;
 import org.cnx.android.providers.utils.DBUtils;
 import org.cnx.android.utils.ContentCache;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -73,10 +74,12 @@ public class ViewFavsActivity extends SherlockListActivity
           requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
           setContentView(R.layout.list_view);
           registerForContextMenu(getListView());
-          getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lens_title);
-          TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
+          //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lens_title);
+          //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
           
-          aTextView.setText("Connexions - Favorites");
+          //aTextView.setText("Connexions - Favorites");
+          ActionBar aBar = getSupportActionBar();
+          aBar.setTitle("Connexions - Favorites");
           //get already retrieved feed and reuse if it is there
           content = (ArrayList<Content>)getLastNonConfigurationInstance();
           if(content == null)
