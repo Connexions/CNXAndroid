@@ -22,6 +22,7 @@ import org.cnx.android.handlers.RssHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -84,7 +85,7 @@ public class ViewLensActivity extends SherlockListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         content = (Content)ContentCache.getObject(getString(R.string.cache_sentcontent));
@@ -98,12 +99,14 @@ public class ViewLensActivity extends SherlockListActivity
         }
         contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
         //customize view title
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lens_title);
-        TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lens_title);
+        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         
-        aTextView.setText(content.getTitle());
+        //aTextView.setText(content.getTitle());
         
-        aTextView.setEllipsize(TruncateAt.END);
+        //aTextView.setEllipsize(TruncateAt.END);
+        ActionBar aBar = getSupportActionBar();
+        aBar.setTitle(content.getTitle());
         
         //get stored data if there is any
         if(contentList == null)
