@@ -14,7 +14,8 @@ import org.cnx.android.handlers.SearchHandler;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.SherlockActivity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,7 +38,7 @@ import android.widget.Toast;
  * @author Ed Woodward
  *
  */
-public class LandingActivity extends Activity
+public class LandingActivity extends SherlockActivity
 {
     private static String PREVIOUS_VERSION = "2.3";
     
