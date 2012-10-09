@@ -40,6 +40,11 @@ import android.util.Log;
  */
 public class MenuHandler
 {
+    public boolean handleContextMenu(android.view.MenuItem item, Context context, Content currentContent)
+    {
+        MenuItem mi = (com.actionbarsherlock.view.MenuItem)item;
+        return handleContextMenu(mi, context, currentContent);
+    }
     /**
      * Handles selected menu item actions
      * @param item MenuItem - the selected menu item
