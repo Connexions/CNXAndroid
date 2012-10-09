@@ -148,9 +148,9 @@ public class ViewLensesActivity extends SherlockListActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
-       
+        super.onCreateOptionsMenu(menu);
         getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
         
     }
     
