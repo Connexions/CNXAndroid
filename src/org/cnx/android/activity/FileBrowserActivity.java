@@ -16,8 +16,10 @@ import org.cnx.android.adapters.FileListAdapter;
 import org.cnx.android.beans.DownloadedFile;
 import org.cnx.android.utils.Constants;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,7 +45,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class FileBrowserActivity extends ListActivity
+public class FileBrowserActivity extends SherlockListActivity
 {
     /**
      * List of DownloadedFile objects that represent files in /Connexions directory
@@ -65,13 +67,15 @@ public class FileBrowserActivity extends ListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_favs_title);
-        TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_favs_title);
+        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         
-        aTextView.setText(getString(R.string.file_browser_title));
+        //aTextView.setText(getString(R.string.file_browser_title));
+        ActionBar aBar = getSupportActionBar();
+        aBar.setTitle(getString(R.string.file_browser_title));
         readFileList();
     }
     
