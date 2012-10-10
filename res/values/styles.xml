@@ -64,4 +64,9 @@
     <item name="@android:windowEnterAnimation">@anim/grow_from_bottom</item>
     <item name="@android:windowExitAnimation">@anim/shrink_from_top</item>
   </style>
+  <style name="Widget.CNXAndroidTheme.ActionBar" parent="Widget.Sherlock.ActionBar">
+        <item name="android:background">@drawable/lenses_window_title_background</item>
+        <item name="background">@drawable/lenses_window_title_background</item>
+        
+    </style>
 </resources>
