@@ -16,6 +16,8 @@
         <item name="android:buttonStyle">@style/Widget.Button</item>
         <item name="android:editTextStyle">@style/Widget.EditText</item>
         <item name="android:listViewStyle">@style/Widget.ListView</item>
+        <item name="actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
 	</style>
   <style name="Theme.LensWindow" parent="@style/Theme.Sherlock.Light.ForceOverflow">
     <!-- Colors -->
@@ -33,6 +35,8 @@
         <!-- <item name="android:buttonStyle">@style/Widget.Button</item>-->
         <!--<item name="android:editTextStyle">@style/Widget.EditText</item> -->
         <item name="android:listViewStyle">@style/Widget.ListView</item>
+        <item name="actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
   </style>
   <style name="Theme.FavsWindow" parent="@style/Theme.Sherlock.Light.ForceOverflow">
     <!-- Colors -->
@@ -50,5 +54,7 @@
         <!-- <item name="android:buttonStyle">@style/Widget.Button</item>-->
         <!--<item name="android:editTextStyle">@style/Widget.EditText</item> -->
         <item name="android:listViewStyle">@style/Widget.ListView</item>
+        <item name="actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
   </style>
 </resources>
