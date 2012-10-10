@@ -71,7 +71,7 @@ public class ViewFavsActivity extends SherlockListActivity
       public void onCreate(Bundle savedInstanceState) 
       {
           super.onCreate(savedInstanceState);
-          requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+          //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
           setContentView(R.layout.list_view);
           registerForContextMenu(getListView());
           //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lens_title);
@@ -79,7 +79,7 @@ public class ViewFavsActivity extends SherlockListActivity
           
           //aTextView.setText("Connexions - Favorites");
           ActionBar aBar = getSupportActionBar();
-          aBar.setTitle("Connexions - Favorites");
+          aBar.setTitle("Favorites");
           //get already retrieved feed and reuse if it is there
           content = (ArrayList<Content>)getLastNonConfigurationInstance();
           if(content == null)
