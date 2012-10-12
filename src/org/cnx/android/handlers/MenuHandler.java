@@ -99,12 +99,12 @@ public class MenuHandler
                 return true;
             case R.id.refresh:
                 return true;
-            case R.id.pdf:
-                displayAlert(context, currentContent,Constants.PDF_TYPE);
-                return true;
-            case R.id.epub:
-                displayAlert(context, currentContent,Constants.EPUB_TYPE);
-                return true;
+//            case R.id.pdf:
+//                displayAlert(context, currentContent,Constants.PDF_TYPE);
+//                return true;
+//            case R.id.epub:
+//                displayAlert(context, currentContent,Constants.EPUB_TYPE);
+//                return true;
             case R.id.viewFile:
                 Intent viewIntent = new Intent(context, FileBrowserActivity.class);
                 context.startActivity(viewIntent);
