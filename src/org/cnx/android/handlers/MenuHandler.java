@@ -42,8 +42,14 @@ public class MenuHandler
 {
     public boolean handleContextMenu(android.view.MenuItem item, Context context, Content currentContent)
     {
-        MenuItem mi = (com.actionbarsherlock.view.MenuItem)item;
-        return handleContextMenu(mi, context, currentContent);
+        //MenuItem mi = (com.actionbarsherlock.view.MenuItem)item;
+        return handleContextMenu(item.getItemId(), context, currentContent);
+    }
+    
+    public boolean handleContextMenu(MenuItem item, Context context, Content currentContent)
+    {
+        //MenuItem mi = (com.actionbarsherlock.view.MenuItem)item;
+        return handleContextMenu(item.getItemId(), context, currentContent);
     }
     /**
      * Handles selected menu item actions
@@ -52,9 +58,9 @@ public class MenuHandler
      * @param currentContent Content current content object
      * @return true if menu item handled otherwise false
      */
-    public boolean handleContextMenu(MenuItem item, Context context, Content currentContent)
+    public boolean handleContextMenu(int item, Context context, Content currentContent)
     {
-        switch (item.getItemId()) 
+        switch (item) 
         {
             case R.id.add_to_favs:
                 ContentValues cv = new ContentValues();
