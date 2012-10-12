@@ -85,7 +85,7 @@ public class ViewLensesActivity extends SherlockListActivity
         //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         //aTextView.setText("Connexions - Book Lists");
         ActionBar aBar = this.getSupportActionBar();
-        aBar.setTitle("Connexions - Book Lists");
+        aBar.setTitle("Book Lists");
         //get already retrieved feed and reuse if it is there
         content = (ArrayList<Content>)getLastNonConfigurationInstance();
         if(content==null && savedInstanceState != null)
