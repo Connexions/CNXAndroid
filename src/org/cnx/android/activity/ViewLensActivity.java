@@ -107,6 +107,9 @@ public class ViewLensActivity extends SherlockListActivity
         //aTextView.setEllipsize(TruncateAt.END);
         ActionBar aBar = getSupportActionBar();
         aBar.setTitle(content.getTitle());
+        aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        //aBar.setListNavigationCallbacks(mLivestreamAdapter, this);
+        //aBar.setDisplayShowTitleEnabled(false);
         
         //get stored data if there is any
         if(contentList == null)
