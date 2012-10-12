@@ -17,6 +17,7 @@ import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -124,6 +125,8 @@ public class WebViewActivity extends SherlockActivity
         getWindow().requestFeature(Window.FEATURE_PROGRESS);
         content = (Content)ContentCache.getObject(getString(R.string.webcontent));
         setContentView(R.layout.new_web_view);
+        ActionBar aBar = this.getSupportActionBar();
+        aBar.setTitle("Connexions");
         if(content != null && content.getUrl() != null)
         {
             setLayout(content.getUrl().toString());
