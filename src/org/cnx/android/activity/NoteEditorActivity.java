@@ -130,7 +130,7 @@ public class NoteEditorActivity extends SherlockActivity
         //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_favs_title);
         //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         ActionBar aBar = getSupportActionBar();
-        aBar.setTitle("Favorites");
+        //aBar.setTitle("Favorites");
         
         if(content == null)
         {
