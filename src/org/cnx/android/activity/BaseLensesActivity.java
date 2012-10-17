@@ -34,7 +34,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.View;
-import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -43,7 +42,6 @@ import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /**
@@ -81,6 +79,8 @@ public class BaseLensesActivity extends SherlockListActivity
      */
     public String atomFeedURL = "http://cnx.org/lenses/atom";
     
+    private Menu origMenu;
+    
     /** Inner class for completing load work */
     private Runnable finishedLoadingListTask = new Runnable() 
     {
@@ -98,13 +98,10 @@ public class BaseLensesActivity extends SherlockListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         //get already retrieved feed and reuse if it is there
         content = (ArrayList<Content>)ContentCache.getObject(storedKey);
-        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_favs_title);
-        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         
         //aTextView.setText(title);
         ActionBar aBar = getSupportActionBar();
@@ -187,6 +184,15 @@ public class BaseLensesActivity extends SherlockListActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
+        if(origMenu == null)
+        {
+            origMenu = menu;
+        }
+        else
+        {
+            origMenu.clear();
+        }
+        
         if(content == null || content.size() < 1)
         {
             getSupportMenuInflater().inflate(R.menu.empty_lenses_menu, menu);
@@ -249,6 +255,7 @@ public class BaseLensesActivity extends SherlockListActivity
         getListView().setSelection(0);
         getListView().setSaveEnabled(true);
         getListView().setClickable(true);
+        onCreateOptionsMenu(origMenu);
         progressDialog.dismiss();
     }
     

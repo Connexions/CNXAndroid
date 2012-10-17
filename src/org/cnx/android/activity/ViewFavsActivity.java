@@ -31,11 +31,9 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.View;
-import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /**
@@ -71,15 +69,11 @@ public class ViewFavsActivity extends SherlockListActivity
       public void onCreate(Bundle savedInstanceState) 
       {
           super.onCreate(savedInstanceState);
-          //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
           setContentView(R.layout.list_view);
           registerForContextMenu(getListView());
-          //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lens_title);
-          //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
           
-          //aTextView.setText("Connexions - Favorites");
           ActionBar aBar = getSupportActionBar();
-          aBar.setTitle("Favorites");
+          aBar.setTitle(getString(R.string.title_favs));
           //get already retrieved feed and reuse if it is there
           content = (ArrayList<Content>)getLastNonConfigurationInstance();
           if(content == null)

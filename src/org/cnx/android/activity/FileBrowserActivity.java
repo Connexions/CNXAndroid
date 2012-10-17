@@ -31,11 +31,9 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
@@ -67,13 +65,9 @@ public class FileBrowserActivity extends SherlockListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
-        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_favs_title);
-        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         
-        //aTextView.setText(getString(R.string.file_browser_title));
         ActionBar aBar = getSupportActionBar();
         aBar.setTitle(getString(R.string.file_browser_title));
         readFileList();

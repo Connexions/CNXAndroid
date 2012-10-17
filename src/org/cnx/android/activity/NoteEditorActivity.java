@@ -18,11 +18,7 @@ import org.cnx.android.utils.MenuUtil;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -32,15 +28,12 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -110,7 +103,6 @@ public class NoteEditorActivity extends SherlockActivity
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         state = STATE_EDIT;
         
         content = (Content)ContentCache.getObject(getString(R.string.content));
@@ -127,10 +119,7 @@ public class NoteEditorActivity extends SherlockActivity
 
         setContentView(R.layout.note_editor);
         
-        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_favs_title);
-        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         ActionBar aBar = getSupportActionBar();
-        //aBar.setTitle("Favorites");
         
         if(content == null)
         {
@@ -140,8 +129,6 @@ public class NoteEditorActivity extends SherlockActivity
         {
             aBar.setTitle("Note for " + content.getTitle());
         }
-        
-        //aTextView.setEllipsize(TruncateAt.END);
         
         editText = (EditText) findViewById(R.id.note);
         checkDBForNote();
@@ -207,48 +194,6 @@ public class NoteEditorActivity extends SherlockActivity
         }
     }
 
-    /* (non-Javadoc)
-     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-     */
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) 
-//    {
-//        // Inflate menu from XML resource
-//        MenuInflater inflater = getSupportMenuInflater();
-//        inflater.inflate(R.menu.editor_options_menu, menu);
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-    /* (non-Javadoc)
-     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
-     */
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) 
-//    {
-//        // Handle all of the possible menu actions.
-//        switch (item.getItemId()) 
-//        {
-//            case R.id.menu_save:
-//                saveNote();
-//                finish();
-//                break;
-//            case R.id.menu_export:
-//                exportNote();
-//                break;
-//            case R.id.menu_delete:
-//                deleteNote();
-//                finish();
-//                break;
-//            case R.id.menu_revert:
-//                editText.setText("");
-//                checkDBForNote();
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//        
-//    }
-    
     /**
      * IF the note is empty, it displays a message to the user
      * If the note has text, the title is set and the note placed in the database.

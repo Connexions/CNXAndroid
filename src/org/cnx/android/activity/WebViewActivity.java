@@ -6,7 +6,6 @@
  */
 package org.cnx.android.activity;
 
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -126,7 +125,7 @@ public class WebViewActivity extends SherlockActivity
         content = (Content)ContentCache.getObject(getString(R.string.webcontent));
         setContentView(R.layout.new_web_view);
         ActionBar aBar = this.getSupportActionBar();
-        aBar.setTitle("Connexions");
+        aBar.setTitle(getString(R.string.app_name));
         if(content != null && content.getUrl() != null)
         {
             setLayout(content.getUrl().toString());
@@ -294,11 +293,11 @@ public class WebViewActivity extends SherlockActivity
             shiftPressEvent.dispatch(view);
             if(Build.VERSION.SDK_INT == 10) 
             {
-                Toast.makeText(this, "Select Text then tap the text", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.gingerbread_copy_msg), Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(this, "Select Text", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.froyo_copy_msg), Toast.LENGTH_LONG).show();
             }
 
         }

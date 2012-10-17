@@ -31,12 +31,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils.TruncateAt;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -45,7 +43,6 @@ import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /**
@@ -98,18 +95,8 @@ public class ViewLensActivity extends SherlockListActivity
             }
         }
         contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
-        //customize view title
-        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lens_title);
-        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
-        
-        //aTextView.setText(content.getTitle());
-        
-        //aTextView.setEllipsize(TruncateAt.END);
         ActionBar aBar = getSupportActionBar();
         aBar.setTitle(content.getTitle());
-        aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        //aBar.setListNavigationCallbacks(mLivestreamAdapter, this);
-        //aBar.setDisplayShowTitleEnabled(false);
         
         //get stored data if there is any
         if(contentList == null)
