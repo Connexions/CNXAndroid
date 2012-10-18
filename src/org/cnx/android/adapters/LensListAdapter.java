@@ -22,12 +22,12 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.net.Uri.Builder;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -48,6 +48,11 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
      * list of alpha characters for section indexer
      */
     private String[] sections;
+    
+    /**
+     * Viewholder for better performance
+     */
+    ViewHolder holder;
 
     
     /**
@@ -99,7 +104,6 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
     public View getView(int position, View convertView, ViewGroup parent) 
     {
         View v = convertView;
-        ViewHolder holder;
         
         if (v == null) 
         {
@@ -125,7 +129,6 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
         if(c != null)
         {
             //Log.d("LensListAdapter.getView()", "content is not null ");
-            //ImageView iv = holder.imageView;
             TextView text = holder.textView;
             TextView other = holder.otherView;
             if (holder.imageView != null) 
@@ -137,21 +140,8 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
                     uriBuilder.path(c.icon.substring(5));
                     Uri uri = uriBuilder.build();
                     //Log.d("LensListAdapter" ,"uri:" + uri.toString());
-                    InputStream is;
-                    try
-                    {
-                        is = (InputStream) this.fetch(uri.toString());
-                        Drawable d = Drawable.createFromStream(is, "src");
-                        holder.imageView.setImageDrawable(d); 
-                    }
-                    catch (MalformedURLException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+
+                    new FetchImageTask().execute(uri.toString());
                     
                 }
                 else
@@ -201,16 +191,41 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
         return contentList;
     }
     
-    /** Fetches contents of URL 
-     * 
-     * @returns Object
-     *  @throws MalformedURLException,IOException 
+    /**
+     * inner class to download image for favorites
+     *
      */
-    private Object fetch(String address) throws MalformedURLException,IOException 
+    private class FetchImageTask extends AsyncTask<String, Integer, Object>
     {
-        URL url = new URL(address);
-        Object content = url.getContent();
-        return content;
+        @Override
+        protected Object doInBackground(String... strings )
+        {
+            Object content = null;
+            try
+            {
+                URL url = new URL(strings[0]);
+                content = url.getContent();
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            return content;
+        }
+        
+        @Override
+        protected void onPostExecute(Object result)
+        {
+            InputStream is = (InputStream)result;
+            Drawable d = Drawable.createFromStream(is, "src");
+            holder.imageView.setImageDrawable(d);
+        }
+        
+        
     }
     
     /* (non-Javadoc)
