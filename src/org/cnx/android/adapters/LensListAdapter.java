@@ -28,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -131,6 +132,7 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
             //Log.d("LensListAdapter.getView()", "content is not null ");
             TextView text = holder.textView;
             TextView other = holder.otherView;
+            holder.imageView.setTag(position);
             if (holder.imageView != null) 
             {
                 if(c.icon != null)
@@ -141,7 +143,7 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
                     Uri uri = uriBuilder.build();
                     //Log.d("LensListAdapter" ,"uri:" + uri.toString());
 
-                    new FetchImageTask().execute(uri.toString());
+                    new FetchImageTask(holder.imageView).execute(uri.toString());
                     
                 }
                 else
@@ -195,34 +197,57 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
      * inner class to download image for favorites
      *
      */
-    private class FetchImageTask extends AsyncTask<String, Integer, Object>
+    private class FetchImageTask extends AsyncTask<String, Integer, Drawable>
     {
-        @Override
-        protected Object doInBackground(String... strings )
+        private Drawable content = null;
+        private ImageView imv;
+        private int position;
+
+        
+        public FetchImageTask(ImageView imv) 
         {
-            Object content = null;
+            this.imv = imv;
+            
+            position = Integer.parseInt(imv.getTag().toString());
+       }
+
+        @Override
+        protected Drawable doInBackground(String... strings )
+        {
+            //Object content = null;
             try
             {
                 URL url = new URL(strings[0]);
-                content = url.getContent();
+                InputStream is = (InputStream)url.getContent();
+                content = Drawable.createFromStream(is, "src");
             }
-            catch (MalformedURLException e)
+            catch (MalformedURLException me)
             {
-                e.printStackTrace();
+                Log.d("LensListAdapter" ,"Exception: " + me.toString());
             }
             catch (IOException e)
             {
-                e.printStackTrace();
+                Log.d("LensListAdapter" ,"Exception: " + e.toString());
             }
             return content;
         }
         
         @Override
-        protected void onPostExecute(Object result)
+        protected void onPostExecute(Drawable result)
         {
-            InputStream is = (InputStream)result;
-            Drawable d = Drawable.createFromStream(is, "src");
-            holder.imageView.setImageDrawable(d);
+            if (!(Integer.parseInt(imv.getTag().toString()) == position)) 
+            {
+                /* The path is not same. This means that this
+                   image view is handled by some other async task. 
+                   We don't do anything and return. */
+                return;
+            }
+
+            //super.onPostExecute(result);
+            //InputStream is = (InputStream)result;
+            //Drawable d = Drawable.createFromStream(is, "src");
+            //holder.imageView.setImageDrawable(result);
+            imv.setImageDrawable(result);
         }
         
         
