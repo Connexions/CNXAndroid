@@ -243,10 +243,6 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
                 return;
             }
 
-            //super.onPostExecute(result);
-            //InputStream is = (InputStream)result;
-            //Drawable d = Drawable.createFromStream(is, "src");
-            //holder.imageView.setImageDrawable(result);
             imv.setImageDrawable(result);
         }
         
