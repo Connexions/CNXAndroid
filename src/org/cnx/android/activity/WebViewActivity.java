@@ -169,6 +169,16 @@ public class WebViewActivity extends SherlockActivity
             //no need to check for help menu since there is only one path to it.
             menu.clear();
             inflater.inflate(R.menu.help_options_menu, menu);
+            MenuItem menuItem = menu.findItem(R.id.add_to_favs);
+            if(content.getUrl().toString().indexOf(getString(R.string.help_page)) != -1)
+            {
+                
+                menuItem.setVisible(false);
+            }
+            else
+            {
+                menuItem.setVisible(true);
+            }
             previousMenu = HELP_MENU;
         }
         return true;
