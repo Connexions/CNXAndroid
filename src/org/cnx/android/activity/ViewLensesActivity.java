@@ -16,21 +16,17 @@ import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+//import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /**
  * Activity to view list of available Lens types. 
@@ -38,7 +34,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class ViewLensesActivity extends ListActivity 
+public class ViewLensesActivity extends SherlockListActivity 
 {
     /**
      * Constant for Endorsement label
@@ -75,12 +71,14 @@ public class ViewLensesActivity extends ListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lenses_title);
-        TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
-        aTextView.setText("Connexions - Book Lists");
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lenses_title);
+        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
+        //aTextView.setText("Connexions - Book Lists");
+        ActionBar aBar = this.getSupportActionBar();
+        aBar.setTitle("Book Lists");
         //get already retrieved feed and reuse if it is there
         content = (ArrayList<Content>)getLastNonConfigurationInstance();
         if(content==null && savedInstanceState != null)
@@ -100,50 +98,13 @@ public class ViewLensesActivity extends ListActivity
     }
     
     /* (non-Javadoc)
-     * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
-     * Creates context menu from lenses_context_menu.xml
-     */
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
-    {
-        //Log.d("ViewLenses.onCreateContextMenu()", "Called");
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        Content content = (Content)getListView().getItemAtPosition(info.position);
-        menu.setHeaderTitle(content.getTitle());
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.lenses_context_menu, menu);
-    }
-    
-    /* (non-Javadoc)
-     * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
-     * Passes menu selection to MenuHandler
-     */
-    @Override
-    public boolean onContextItemSelected(MenuItem item) 
-    {
-        AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
-        Content content = (Content)getListView().getItemAtPosition(info.position);
-        MenuHandler mh = new MenuHandler();
-        boolean returnVal = mh.handleContextMenu(item, this, content);
-        if(returnVal)
-        {
-            return returnVal;
-        }
-        else
-        {
-            return super.onContextItemSelected(item);
-        }
-    }
-    
-    /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
-        
-        getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+        super.onCreateOptionsMenu(menu);
+        getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
         return true;
         
     }

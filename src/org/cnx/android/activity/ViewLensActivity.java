@@ -22,19 +22,19 @@ import org.cnx.android.handlers.RssHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils.TruncateAt;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -43,7 +43,6 @@ import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /**
@@ -52,7 +51,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class ViewLensActivity extends ListActivity
+public class ViewLensActivity extends SherlockListActivity
 {
     /** Constant for serialized object passed to Activity */
     public static final String CONTENT = "content";
@@ -83,7 +82,7 @@ public class ViewLensActivity extends ListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         content = (Content)ContentCache.getObject(getString(R.string.cache_sentcontent));
@@ -96,13 +95,8 @@ public class ViewLensActivity extends ListActivity
             }
         }
         contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
-        //customize view title
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lens_title);
-        TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
-        
-        aTextView.setText(content.getTitle());
-        
-        aTextView.setEllipsize(TruncateAt.END);
+        ActionBar aBar = getSupportActionBar();
+        aBar.setTitle(content.getTitle());
         
         //get stored data if there is any
         if(contentList == null)
@@ -158,7 +152,7 @@ public class ViewLensActivity extends ListActivity
      * Passes menu selection to MenuHandler
      */
     @Override
-    public boolean onContextItemSelected(MenuItem item) 
+    public boolean onContextItemSelected(android.view.MenuItem item) 
     {
         AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
         Content content = (Content)getListView().getItemAtPosition(info.position);
@@ -181,7 +175,7 @@ public class ViewLensActivity extends ListActivity
     public boolean onCreateOptionsMenu(Menu menu) 
     {
         
-        getMenuInflater().inflate(R.menu.lens_options_menu, menu);
+        getSupportMenuInflater().inflate(R.menu.lens_options_menu, menu);
         return true;
         
     }
@@ -254,7 +248,6 @@ public class ViewLensActivity extends ListActivity
                 	  try {
     					feed.url = new URL("");
     				} catch (MalformedURLException e) {
-    					// TODO Auto-generated catch block
     					e.printStackTrace();
     				}
                   }

@@ -21,7 +21,11 @@ import org.cnx.android.handlers.AtomHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -29,10 +33,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -41,7 +42,6 @@ import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /**
@@ -50,7 +50,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class BaseLensesActivity extends ListActivity 
+public class BaseLensesActivity extends SherlockListActivity 
 {
     
    /** Adaptor for Lens list display */ 
@@ -79,6 +79,8 @@ public class BaseLensesActivity extends ListActivity
      */
     public String atomFeedURL = "http://cnx.org/lenses/atom";
     
+    private Menu origMenu;
+    
     /** Inner class for completing load work */
     private Runnable finishedLoadingListTask = new Runnable() 
     {
@@ -96,15 +98,14 @@ public class BaseLensesActivity extends ListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         //get already retrieved feed and reuse if it is there
         content = (ArrayList<Content>)ContentCache.getObject(storedKey);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_favs_title);
-        TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         
-        aTextView.setText(title);
+        //aTextView.setText(title);
+        ActionBar aBar = getSupportActionBar();
+        aBar.setTitle(title);
         if(content==null && savedInstanceState != null)
         {
             //Log.d("ViewLenses.onCreate()", "getting saved data");
@@ -161,7 +162,7 @@ public class BaseLensesActivity extends ListActivity
      * Passes menu selection to MenuHandler
      */
     @Override
-    public boolean onContextItemSelected(MenuItem item) 
+    public boolean onContextItemSelected(android.view.MenuItem item) 
     {
         AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
         Content content = (Content)getListView().getItemAtPosition(info.position);
@@ -183,13 +184,22 @@ public class BaseLensesActivity extends ListActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
-        if(content == null || content.size() < 1)
+        if(origMenu == null)
         {
-            getMenuInflater().inflate(R.menu.empty_lenses_menu, menu);
+            origMenu = menu;
         }
         else
         {
-            getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+            origMenu.clear();
+        }
+        
+        if(content == null || content.size() < 1)
+        {
+            getSupportMenuInflater().inflate(R.menu.empty_lenses_menu, menu);
+        }
+        else
+        {
+            getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
         }
         return true;
         
@@ -245,6 +255,7 @@ public class BaseLensesActivity extends ListActivity
         getListView().setSelection(0);
         getListView().setSaveEnabled(true);
         getListView().setClickable(true);
+        onCreateOptionsMenu(origMenu);
         progressDialog.dismiss();
     }
     

@@ -18,7 +18,11 @@ import org.cnx.android.providers.Favs;
 import org.cnx.android.providers.utils.DBUtils;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,21 +30,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /**
  * @author Ed Woodward
  *
  */
-public class ViewFavsActivity extends ListActivity
+public class ViewFavsActivity extends SherlockListActivity
 {
     /** Adaptor for Lens list display */ 
     LensListAdapter adapter;
@@ -69,13 +69,11 @@ public class ViewFavsActivity extends ListActivity
       public void onCreate(Bundle savedInstanceState) 
       {
           super.onCreate(savedInstanceState);
-          requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
           setContentView(R.layout.list_view);
           registerForContextMenu(getListView());
-          getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lens_title);
-          TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
           
-          aTextView.setText("Connexions - Favorites");
+          ActionBar aBar = getSupportActionBar();
+          aBar.setTitle(getString(R.string.title_favs));
           //get already retrieved feed and reuse if it is there
           content = (ArrayList<Content>)getLastNonConfigurationInstance();
           if(content == null)
@@ -112,7 +110,7 @@ public class ViewFavsActivity extends ListActivity
        * Passes menu selection to MenuHandler
        */
       @Override
-      public boolean onContextItemSelected(MenuItem item) 
+      public boolean onContextItemSelected(android.view.MenuItem item) 
       {
           AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
           Content content = (Content)getListView().getItemAtPosition(info.position);
@@ -130,6 +128,7 @@ public class ViewFavsActivity extends ListActivity
           else
           {
               return super.onContextItemSelected(item);
+              //return true;
           }
       }
       
@@ -140,7 +139,7 @@ public class ViewFavsActivity extends ListActivity
       public boolean onCreateOptionsMenu(Menu menu) 
       {
           
-          getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+          getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
           return true;
           
       }

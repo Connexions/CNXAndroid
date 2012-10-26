@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="Theme.Connexions" parent="@android:Theme.Light">
+	<style name="Theme.Connexions" parent="@style/Theme.Sherlock.Light.ForceOverflow">
 		<!-- Colors -->
         <item name="android:windowBackground">@color/color_foreground</item>
         <item name="android:colorForeground">@color/color_foreground</item>
@@ -16,8 +16,10 @@
         <item name="android:buttonStyle">@style/Widget.Button</item>
         <item name="android:editTextStyle">@style/Widget.EditText</item>
         <item name="android:listViewStyle">@style/Widget.ListView</item>
+        <item name="actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
 	</style>
-  <style name="Theme.LensWindow" parent="@android:Theme.Light">
+  <style name="Theme.LensWindow" parent="@style/Theme.Sherlock.Light.ForceOverflow">
     <!-- Colors -->
         <item name="android:windowBackground">@color/color_foreground</item>
         <item name="android:colorForeground">@color/color_foreground</item>
@@ -33,8 +35,10 @@
         <!-- <item name="android:buttonStyle">@style/Widget.Button</item>-->
         <!--<item name="android:editTextStyle">@style/Widget.EditText</item> -->
         <item name="android:listViewStyle">@style/Widget.ListView</item>
+        <item name="actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
   </style>
-  <style name="Theme.FavsWindow" parent="@android:Theme.Light">
+  <style name="Theme.FavsWindow" parent="@style/Theme.Sherlock.Light.ForceOverflow">
     <!-- Colors -->
         <item name="android:windowBackground">@color/color_foreground</item>
         <item name="android:colorForeground">@color/color_foreground</item>
@@ -50,5 +54,7 @@
         <!-- <item name="android:buttonStyle">@style/Widget.Button</item>-->
         <!--<item name="android:editTextStyle">@style/Widget.EditText</item> -->
         <item name="android:listViewStyle">@style/Widget.ListView</item>
+        <item name="actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.CNXAndroidTheme.ActionBar</item>
   </style>
 </resources>
