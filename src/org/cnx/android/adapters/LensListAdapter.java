@@ -22,6 +22,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.net.Uri.Builder;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,11 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
      * list of alpha characters for section indexer
      */
     private String[] sections;
+    
+    /**
+     * Viewholder for better performance
+     */
+    ViewHolder holder;
 
     
     /**
@@ -99,7 +105,6 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
     public View getView(int position, View convertView, ViewGroup parent) 
     {
         View v = convertView;
-        ViewHolder holder;
         
         if (v == null) 
         {
@@ -125,9 +130,9 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
         if(c != null)
         {
             //Log.d("LensListAdapter.getView()", "content is not null ");
-            //ImageView iv = holder.imageView;
             TextView text = holder.textView;
             TextView other = holder.otherView;
+            holder.imageView.setTag(position);
             if (holder.imageView != null) 
             {
                 if(c.icon != null)
@@ -137,21 +142,8 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
                     uriBuilder.path(c.icon.substring(5));
                     Uri uri = uriBuilder.build();
                     //Log.d("LensListAdapter" ,"uri:" + uri.toString());
-                    InputStream is;
-                    try
-                    {
-                        is = (InputStream) this.fetch(uri.toString());
-                        Drawable d = Drawable.createFromStream(is, "src");
-                        holder.imageView.setImageDrawable(d); 
-                    }
-                    catch (MalformedURLException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+
+                    new FetchImageTask(holder.imageView).execute(uri.toString());
                     
                 }
                 else
@@ -201,16 +193,60 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
         return contentList;
     }
     
-    /** Fetches contents of URL 
-     * 
-     * @returns Object
-     *  @throws MalformedURLException,IOException 
+    /**
+     * inner class to download image for favorites
+     *
      */
-    private Object fetch(String address) throws MalformedURLException,IOException 
+    private class FetchImageTask extends AsyncTask<String, Integer, Drawable>
     {
-        URL url = new URL(address);
-        Object content = url.getContent();
-        return content;
+        private Drawable content = null;
+        private ImageView imv;
+        private int position;
+
+        
+        public FetchImageTask(ImageView imv) 
+        {
+            this.imv = imv;
+            
+            position = Integer.parseInt(imv.getTag().toString());
+       }
+
+        @Override
+        protected Drawable doInBackground(String... strings )
+        {
+            //Object content = null;
+            try
+            {
+                URL url = new URL(strings[0]);
+                InputStream is = (InputStream)url.getContent();
+                content = Drawable.createFromStream(is, "src");
+            }
+            catch (MalformedURLException me)
+            {
+                Log.d("LensListAdapter" ,"Exception: " + me.toString());
+            }
+            catch (IOException e)
+            {
+                Log.d("LensListAdapter" ,"Exception: " + e.toString());
+            }
+            return content;
+        }
+        
+        @Override
+        protected void onPostExecute(Drawable result)
+        {
+            if (!(Integer.parseInt(imv.getTag().toString()) == position)) 
+            {
+                /* The path is not same. This means that this
+                   image view is handled by some other async task. 
+                   We don't do anything and return. */
+                return;
+            }
+
+            imv.setImageDrawable(result);
+        }
+        
+        
     }
     
     /* (non-Javadoc)

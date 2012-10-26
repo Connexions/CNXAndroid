@@ -22,6 +22,8 @@ import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 import org.cnx.android.utils.MenuUtil;
 
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -29,7 +31,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
-import android.view.MenuItem;
 
 /**
  * Handler for context and other menus
@@ -39,6 +40,17 @@ import android.view.MenuItem;
  */
 public class MenuHandler
 {
+    public boolean handleContextMenu(android.view.MenuItem item, Context context, Content currentContent)
+    {
+        //MenuItem mi = (com.actionbarsherlock.view.MenuItem)item;
+        return handleContextMenu(item.getItemId(), context, currentContent);
+    }
+    
+    public boolean handleContextMenu(MenuItem item, Context context, Content currentContent)
+    {
+        //MenuItem mi = (com.actionbarsherlock.view.MenuItem)item;
+        return handleContextMenu(item.getItemId(), context, currentContent);
+    }
     /**
      * Handles selected menu item actions
      * @param item MenuItem - the selected menu item
@@ -46,9 +58,9 @@ public class MenuHandler
      * @param currentContent Content current content object
      * @return true if menu item handled otherwise false
      */
-    public boolean handleContextMenu(MenuItem item, Context context, Content currentContent)
+    public boolean handleContextMenu(int item, Context context, Content currentContent)
     {
-        switch (item.getItemId()) 
+        switch (item) 
         {
             case R.id.add_to_favs:
                 ContentValues cv = new ContentValues();
@@ -93,12 +105,12 @@ public class MenuHandler
                 return true;
             case R.id.refresh:
                 return true;
-            case R.id.pdf:
-                displayAlert(context, currentContent,Constants.PDF_TYPE);
-                return true;
-            case R.id.epub:
-                displayAlert(context, currentContent,Constants.EPUB_TYPE);
-                return true;
+//            case R.id.pdf:
+//                displayAlert(context, currentContent,Constants.PDF_TYPE);
+//                return true;
+//            case R.id.epub:
+//                displayAlert(context, currentContent,Constants.EPUB_TYPE);
+//                return true;
             case R.id.viewFile:
                 Intent viewIntent = new Intent(context, FileBrowserActivity.class);
                 context.startActivity(viewIntent);

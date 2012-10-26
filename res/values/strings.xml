@@ -64,5 +64,7 @@
     <string name="title_favs">Favorites</string>
     <string name="title_download">Downloaded Files</string>
     <string name="title_help">Help</string>
+    <string name="gingerbread_copy_msg">Select Text then tap the text</string>
+    <string name="froyo_copy_msg">Select Text</string>
 </resources>
  

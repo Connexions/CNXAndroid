@@ -1,3 +1,9 @@
+Version 3.0
+  - Added usage of ActionbarSherlock library
+  - Modified menus to make sense as part of the actionbar
+  - Fixed bug that caused app to crash when accessing Favorites on Android 4 and above.
+  - Removed ability to save Help as a favorite.  It is no longer needed.
+  - Updated help and readme files.
 Version 2.4
   - Fixed user reported nullpointer in Web View
   - Users can now copy text from a chapter in Android 2.3 and below.

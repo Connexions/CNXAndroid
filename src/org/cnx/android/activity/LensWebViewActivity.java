@@ -13,15 +13,16 @@ import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.content.res.Configuration;
 import android.os.Bundle; 
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -37,7 +38,7 @@ import android.widget.FrameLayout;
  * @author Ed Woodward
  *
  */
-public class LensWebViewActivity extends Activity
+public class LensWebViewActivity extends SherlockActivity
 {
     /** Web browser view for Activity */
     private WebView webView;
@@ -115,7 +116,7 @@ public class LensWebViewActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
-        MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater = getSupportMenuInflater();
         if(content.getUrl().toString().indexOf("Connexions_Android_App_Help.html") == -1)
         {
             inflater.inflate(R.menu.web_options_menu, menu);
@@ -187,7 +188,7 @@ public class LensWebViewActivity extends Activity
         webView.getSettings().setDefaultFontSize(20);
         webView.setInitialScale(80);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
-        final Activity activity = this;
+        final SherlockActivity activity = this;
         webView.setWebChromeClient(new WebChromeClient() 
         {
             public void onProgressChanged(WebView view, int progress) 
