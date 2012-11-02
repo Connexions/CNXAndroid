@@ -154,10 +154,6 @@ public class WebViewActivity extends SherlockActivity
     public boolean onCreateOptionsMenu(Menu menu) 
     {
         MenuInflater inflater = getSupportMenuInflater();
-        if(content == null)
-        {
-            return false;
-        }
         if(content.getUrl().toString().indexOf(getString(R.string.help_page)) == -1 && content.getUrl().toString().indexOf(getString(R.string.search)) == -1 && content.getUrl().toString().indexOf(getString(R.string.google)) == -1)
         {
             //if the web menu is already being used, don't recreate it
@@ -263,14 +259,6 @@ public class WebViewActivity extends SherlockActivity
             ContentCache.setObject("content", content);
         }
 
-    }
-    
-    protected void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-        //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
-        ContentCache.setObject(getString(R.string.webcontent), content);
-        
     }
     
     /** sets properties on WebView and loads selected content into browser. */
