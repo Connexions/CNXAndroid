@@ -80,7 +80,7 @@ public class WebViewActivity extends SherlockActivity
         public boolean shouldOverrideUrlLoading(WebView view, String url) 
         {
             view.loadUrl(fixURL(url));
-            showProgressDialog();
+            //showProgressDialog();
             return true;
         }
         
@@ -99,10 +99,10 @@ public class WebViewActivity extends SherlockActivity
             {
                 content.setUrl(new URL(url));
                 setLayout(url);
-                if (progressBar.isShowing()) 
-                {
-                    progressBar.dismiss();
-                }
+//                if (progressBar.isShowing()) 
+//                {
+//                    progressBar.dismiss();
+//                }
             }
             catch (MalformedURLException e)
             {
@@ -154,6 +154,10 @@ public class WebViewActivity extends SherlockActivity
     public boolean onCreateOptionsMenu(Menu menu) 
     {
         MenuInflater inflater = getSupportMenuInflater();
+        if(content == null)
+        {
+            return false;
+        }
         if(content.getUrl().toString().indexOf(getString(R.string.help_page)) == -1 && content.getUrl().toString().indexOf(getString(R.string.search)) == -1 && content.getUrl().toString().indexOf(getString(R.string.google)) == -1)
         {
             //if the web menu is already being used, don't recreate it
@@ -261,6 +265,14 @@ public class WebViewActivity extends SherlockActivity
 
     }
     
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
+        ContentCache.setObject(getString(R.string.webcontent), content);
+        
+    }
+    
     /** sets properties on WebView and loads selected content into browser. */
     private void setUpViews() 
     {
@@ -279,7 +291,7 @@ public class WebViewActivity extends SherlockActivity
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
         
-        showProgressDialog();
+        //showProgressDialog();
         webView.setWebChromeClient(new WebChromeClient() 
         {
             
@@ -479,9 +491,9 @@ public class WebViewActivity extends SherlockActivity
     /**
      * Displays Loading... and spinning wheel while page loads
      */
-    private void showProgressDialog()
-    {
-        progressBar = ProgressDialog.show(this, null, getString(R.string.loading_web_title), true);
-    }
+//    private void showProgressDialog()
+//    {
+//        progressBar = ProgressDialog.show(this, null, getString(R.string.loading_web_title), true);
+//    }
     
 }
