@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Connexions</string>
-    <string name="no_content">No Content</string>
+    <string name="no_content">Loading Book List...</string>
     <string name="loading_title">Book Lists</string>
     <string name="loading_lenses_description">Loading Book Lists&#8230;</string>
     <string name="loading_favs_title">Favorites</string>
