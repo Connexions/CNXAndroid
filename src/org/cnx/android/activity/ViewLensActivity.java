@@ -234,11 +234,11 @@ public class ViewLensActivity extends SherlockListActivity
     {
         if(CNXUtil.isConnected(this))
         {
-            progressDialog = ProgressDialog.show(
-                ViewLensActivity.this,
-                null,
-                getResources().getString(R.string.loading_lens_description)
-              );
+//            progressDialog = ProgressDialog.show(
+//                ViewLensActivity.this,
+//                null,
+//                getResources().getString(R.string.loading_lens_description)
+//              );
             Thread loadFeedThread = new Thread() 
             {
               public void run() {
@@ -302,7 +302,7 @@ public class ViewLensActivity extends SherlockListActivity
         setListAdapter(adapter);
         getListView().setSelection(0);
         getListView().setClickable(true);
-        progressDialog.dismiss();
+        //progressDialog.dismiss();
     }
     
     /**
