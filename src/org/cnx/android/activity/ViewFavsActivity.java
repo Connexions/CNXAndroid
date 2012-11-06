@@ -208,17 +208,17 @@ public class ViewFavsActivity extends SherlockListActivity
       {
           setListAdapter(adapter);
           getListView().setSelection(0);
-          progressDialog.dismiss();
+          //progressDialog.dismiss();
       }
       
       /** reads feed in a separate thread.  Starts progress dialog*/
       private void readDB()
       {
-          progressDialog = ProgressDialog.show(
-              ViewFavsActivity.this,
-              null,
-              getResources().getString(R.string.loading_favs_description)
-            );
+//          progressDialog = ProgressDialog.show(
+//              ViewFavsActivity.this,
+//              null,
+//              getResources().getString(R.string.loading_favs_description)
+//            );
           Thread loadFavsThread = new Thread() 
           {
             public void run() 
