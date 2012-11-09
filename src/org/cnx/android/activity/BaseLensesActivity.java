@@ -25,6 +25,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -98,14 +99,17 @@ public class BaseLensesActivity extends SherlockListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         //get already retrieved feed and reuse if it is there
         content = (ArrayList<Content>)ContentCache.getObject(storedKey);
         
         //aTextView.setText(title);
+        
         ActionBar aBar = getSupportActionBar();
         aBar.setTitle(title);
+        setSupportProgressBarIndeterminateVisibility(true); 
         if(content==null && savedInstanceState != null)
         {
             //Log.d("ViewLenses.onCreate()", "getting saved data");
@@ -121,6 +125,7 @@ public class BaseLensesActivity extends SherlockListActivity
             //reuse existing feed data
             adapter = new LensesAdapter(currentContext, content);
             setListAdapter(adapter);
+            setSupportProgressBarIndeterminateVisibility(false);
         }
         AnimationSet set = new AnimationSet(true);
 
@@ -257,6 +262,7 @@ public class BaseLensesActivity extends SherlockListActivity
         getListView().setClickable(true);
         onCreateOptionsMenu(origMenu);
         //progressDialog.dismiss();
+        setSupportProgressBarIndeterminateVisibility(false); 
     }
     
     /** reads feed in a separate thread.  Starts progress dialog*/
