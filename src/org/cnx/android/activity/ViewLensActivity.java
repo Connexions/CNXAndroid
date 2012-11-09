@@ -26,6 +26,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -82,7 +83,7 @@ public class ViewLensActivity extends SherlockListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         content = (Content)ContentCache.getObject(getString(R.string.cache_sentcontent));
@@ -97,7 +98,7 @@ public class ViewLensActivity extends SherlockListActivity
         contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
         ActionBar aBar = getSupportActionBar();
         aBar.setTitle(content.getTitle());
-        
+        setSupportProgressBarIndeterminateVisibility(true);
         //get stored data if there is any
         if(contentList == null)
         {
@@ -113,6 +114,7 @@ public class ViewLensActivity extends SherlockListActivity
             //reuse stored data
             adapter = new LensesAdapter(ViewLensActivity.this, contentList);
             setListAdapter(adapter);
+            setSupportProgressBarIndeterminateVisibility(false);
         }
         AnimationSet set = new AnimationSet(true);
 
@@ -303,6 +305,7 @@ public class ViewLensActivity extends SherlockListActivity
         getListView().setSelection(0);
         getListView().setClickable(true);
         //progressDialog.dismiss();
+        setSupportProgressBarIndeterminateVisibility(false);
     }
     
     /**
