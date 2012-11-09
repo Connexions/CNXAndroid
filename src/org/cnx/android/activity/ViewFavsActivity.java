@@ -22,6 +22,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -69,11 +70,13 @@ public class ViewFavsActivity extends SherlockListActivity
       public void onCreate(Bundle savedInstanceState) 
       {
           super.onCreate(savedInstanceState);
+          requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
           setContentView(R.layout.list_view);
           registerForContextMenu(getListView());
           
           ActionBar aBar = getSupportActionBar();
           aBar.setTitle(getString(R.string.title_favs));
+          setSupportProgressBarIndeterminateVisibility(true);
           //get already retrieved feed and reuse if it is there
           content = (ArrayList<Content>)getLastNonConfigurationInstance();
           if(content == null)
@@ -86,6 +89,7 @@ public class ViewFavsActivity extends SherlockListActivity
                   //reuse existing feed data
                   adapter = new LensListAdapter(ViewFavsActivity.this, content);
                   setListAdapter(adapter);
+                  setSupportProgressBarIndeterminateVisibility(false);
              
           }
       }
@@ -209,6 +213,7 @@ public class ViewFavsActivity extends SherlockListActivity
           setListAdapter(adapter);
           getListView().setSelection(0);
           //progressDialog.dismiss();
+          setSupportProgressBarIndeterminateVisibility(false);
       }
       
       /** reads feed in a separate thread.  Starts progress dialog*/
