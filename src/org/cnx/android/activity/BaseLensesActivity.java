@@ -261,7 +261,6 @@ public class BaseLensesActivity extends SherlockListActivity
         getListView().setSaveEnabled(true);
         getListView().setClickable(true);
         onCreateOptionsMenu(origMenu);
-        //progressDialog.dismiss();
         setSupportProgressBarIndeterminateVisibility(false); 
     }
     
@@ -270,11 +269,7 @@ public class BaseLensesActivity extends SherlockListActivity
     {
         if(CNXUtil.isConnected(currentContext))
         {
-//            progressDialog = ProgressDialog.show(
-//                    currentContext,
-//                null,
-//                getResources().getString(R.string.loading_lenses_description)
-//              );
+
             Thread loadFeedThread = new Thread() 
             {
               public void run() {
