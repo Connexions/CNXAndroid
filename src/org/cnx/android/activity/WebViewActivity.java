@@ -56,8 +56,6 @@ public class WebViewActivity extends SherlockActivity
     /** Constant for serialized object passed to Activity */
     public static final String WEB_MENU = "web";
     public static final String HELP_MENU = "help";
-    private Stack<String> history = new Stack<String>();
-    private String prevURL = "";
     
     /**
      * Progress bar when page is loading
@@ -83,8 +81,16 @@ public class WebViewActivity extends SherlockActivity
         public boolean shouldOverrideUrlLoading(WebView view, String url) 
         {
             view.loadUrl(fixURL(url));
+            try
+            {
+                content.setUrl(new URL(url));
+                
+            }
+            catch (MalformedURLException e)
+            {
+                Log.d("WebViewActivity.shouldOverrideUrlLoading()", "Error: " + e.toString(),e);
+            }
             setSupportProgressBarIndeterminateVisibility(true);
-            //showProgressDialog();
             return true;
         }
         
@@ -98,38 +104,9 @@ public class WebViewActivity extends SherlockActivity
             //Log.d("WebViewClient.onPageFinished", "title: " + view.getTitle());
             //Log.d("WebViewClient.onPageFinished", "url: " + url);
             
-            content.setTitle(view.getTitle());
-            //first url
-            if(history.empty() && prevURL.equals(""))
-            {
-                //Log.d("WebViewClient.onPageFinished in if", "url: " + url);
-                prevURL = url;
-            }
-            else
-            {
-                //Log.d("WebViewClient.onPageFinished in else", "url: " + url);
-                //Log.d("WebViewClient.onPageFinished in else", "prev: " + prevURL);
-                if(!prevURL.equals(""))
-                {
-                    history.add(prevURL);
-                }
-                prevURL = url;
-            }
-            //history.add(url);
-            try
-            {
-                content.setUrl(new URL(url));
-                setLayout(url);
-                setSupportProgressBarIndeterminateVisibility(false);
-//                if (progressBar.isShowing()) 
-//                {
-//                    progressBar.dismiss();
-//                }
-            }
-            catch (MalformedURLException e)
-            {
-                Log.d("WebViewActivity.onPageFinished()", "Error: " + e.toString(),e);
-            }
+            setLayout(url);
+            setSupportProgressBarIndeterminateVisibility(false);
+
         }
 
     };
@@ -141,15 +118,15 @@ public class WebViewActivity extends SherlockActivity
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         //Log.d("LensWebView.onCreate()", "Called");
-        //getWindow().requestFeature(Window.FEATURE_PROGRESS);
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        content = (Content)ContentCache.getObject(getString(R.string.webcontent));
+        
         setContentView(R.layout.new_web_view);
         ActionBar aBar = this.getSupportActionBar();
-        aBar.setTitle(getString(R.string.app_name));
         setSupportProgressBarIndeterminateVisibility(true);
+        content = (Content)ContentCache.getObject(getString(R.string.webcontent));
+        aBar.setTitle(getString(R.string.app_name));
         //webView = (WebView)findViewById(R.id.web_view);
         if(content != null && content.getUrl() != null)
         {
@@ -253,32 +230,11 @@ public class WebViewActivity extends SherlockActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) 
     {
-        if(webView != null)
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) 
         {
-            if ((keyCode == KeyEvent.KEYCODE_BACK) && !history.empty()) 
-            {
-                //webView.goBack();
-                prevURL = "";
-                String prev = history.pop();
-                if(content.getUrl().toString().equals(prev) && !history.empty())
-                {
-                    prev = history.pop();
-                    webView.loadUrl(fixURL(prev));
-                    return true;
-                }
-                else
-                {
-                    webView.loadUrl(fixURL(prev));
-                    return true;
-                }
-                
-                //else
-                //{
-                      
-                //}
-                
-                
-            }
+            webView.goBack();
+            return true;
+            
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -300,13 +256,6 @@ public class WebViewActivity extends SherlockActivity
     protected void onResume() 
     {
         super.onResume();
-        //Log.d("WebViewActivity.onResume()", "Called");
-        Content c = (Content)ContentCache.getObject(getString(R.string.webcontent));
-        if(c != null)
-        {
-            content = c;
-            ContentCache.setObject("content", content);
-        }
 
     }
     
@@ -316,18 +265,8 @@ public class WebViewActivity extends SherlockActivity
         super.onSaveInstanceState(outState);
         //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
         ContentCache.setObject(getString(R.string.webcontent), content);
-        //webView.saveState(outState);
         
     }
-    
-//    @Override
-//    protected void onRestoreInstanceState(Bundle restoreState)
-//    {
-//        if(restoreState != null)
-//        {
-//            webView.restoreState(restoreState);
-//        }
-//    }
     
     /** sets properties on WebView and loads selected content into browser. */
     private void setUpViews() 
@@ -543,13 +482,5 @@ public class WebViewActivity extends SherlockActivity
             
         }
     }
-    
-    /**
-     * Displays Loading... and spinning wheel while page loads
-     */
-//    private void showProgressDialog()
-//    {
-//        progressBar = ProgressDialog.show(this, null, getString(R.string.loading_web_title), true);
-//    }
     
 }
