@@ -64,7 +64,7 @@ public class MenuHandler
         {
             case R.id.add_to_favs:
                 ContentValues cv = new ContentValues();
-                if(currentContent.getUrl().toString().indexOf("http://mobile.cnx.org/content/search") > -1)
+                if(currentContent.getUrl().toString().indexOf("http://mobile.cnx.org/content/search") > -1 || currentContent.getUrl().toString().indexOf("http://m.cnx.org/content/search") > -1)
                 {
                     String title = MenuUtil.getSearchTitle(currentContent.getUrl().toString());
                     cv.put(Favs.TITLE, title);
