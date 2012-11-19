@@ -73,6 +73,7 @@ public class WebViewActivity extends SherlockActivity
         public void onLoadResource(WebView view, String url) 
         {
             super.onLoadResource(view, url);
+            setSupportProgressBarIndeterminateVisibility(true);
             //Log.d("WebViewClient.onLoadResource()", "Called");
         }
         
@@ -90,7 +91,7 @@ public class WebViewActivity extends SherlockActivity
             {
                 Log.d("WebViewActivity.shouldOverrideUrlLoading()", "Error: " + e.toString(),e);
             }
-            setSupportProgressBarIndeterminateVisibility(true);
+            //setSupportProgressBarIndeterminateVisibility(true);
             return true;
         }
         
@@ -103,6 +104,16 @@ public class WebViewActivity extends SherlockActivity
         {
             //Log.d("WebViewClient.onPageFinished", "title: " + view.getTitle());
             //Log.d("WebViewClient.onPageFinished", "url: " + url);
+            content.setTitle(view.getTitle());
+            try
+            {
+                content.setUrl(new URL(url));
+                
+            }
+            catch (MalformedURLException e)
+            {
+                Log.d("WebViewActivity.onPageFinished()", "Error: " + e.toString(),e);
+            }
             
             setLayout(url);
             setSupportProgressBarIndeterminateVisibility(false);
