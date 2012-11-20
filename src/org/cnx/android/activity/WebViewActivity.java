@@ -8,6 +8,7 @@ package org.cnx.android.activity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Stack;
 
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
@@ -72,6 +73,7 @@ public class WebViewActivity extends SherlockActivity
         public void onLoadResource(WebView view, String url) 
         {
             super.onLoadResource(view, url);
+            setSupportProgressBarIndeterminateVisibility(true);
             //Log.d("WebViewClient.onLoadResource()", "Called");
         }
         
@@ -80,7 +82,16 @@ public class WebViewActivity extends SherlockActivity
         public boolean shouldOverrideUrlLoading(WebView view, String url) 
         {
             view.loadUrl(fixURL(url));
-            showProgressDialog();
+            try
+            {
+                content.setUrl(new URL(url));
+                
+            }
+            catch (MalformedURLException e)
+            {
+                Log.d("WebViewActivity.shouldOverrideUrlLoading()", "Error: " + e.toString(),e);
+            }
+            //setSupportProgressBarIndeterminateVisibility(true);
             return true;
         }
         
@@ -93,21 +104,20 @@ public class WebViewActivity extends SherlockActivity
         {
             //Log.d("WebViewClient.onPageFinished", "title: " + view.getTitle());
             //Log.d("WebViewClient.onPageFinished", "url: " + url);
-            
             content.setTitle(view.getTitle());
             try
             {
                 content.setUrl(new URL(url));
-                setLayout(url);
-                if (progressBar.isShowing()) 
-                {
-                    progressBar.dismiss();
-                }
+                
             }
             catch (MalformedURLException e)
             {
                 Log.d("WebViewActivity.onPageFinished()", "Error: " + e.toString(),e);
             }
+            
+            setLayout(url);
+            setSupportProgressBarIndeterminateVisibility(false);
+
         }
 
     };
@@ -119,13 +129,16 @@ public class WebViewActivity extends SherlockActivity
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         //Log.d("LensWebView.onCreate()", "Called");
-        getWindow().requestFeature(Window.FEATURE_PROGRESS);
-        content = (Content)ContentCache.getObject(getString(R.string.webcontent));
+        
         setContentView(R.layout.new_web_view);
         ActionBar aBar = this.getSupportActionBar();
+        setSupportProgressBarIndeterminateVisibility(true);
+        content = (Content)ContentCache.getObject(getString(R.string.webcontent));
         aBar.setTitle(getString(R.string.app_name));
+        //webView = (WebView)findViewById(R.id.web_view);
         if(content != null && content.getUrl() != null)
         {
             setLayout(content.getUrl().toString());
@@ -138,6 +151,7 @@ public class WebViewActivity extends SherlockActivity
         if(CNXUtil.isConnected(this))
         {
             setUpViews();
+            
         }
         else
         {
@@ -154,6 +168,10 @@ public class WebViewActivity extends SherlockActivity
     public boolean onCreateOptionsMenu(Menu menu) 
     {
         MenuInflater inflater = getSupportMenuInflater();
+        if(content == null)
+        {
+            return false;
+        }
         if(content.getUrl().toString().indexOf(getString(R.string.help_page)) == -1 && content.getUrl().toString().indexOf(getString(R.string.search)) == -1 && content.getUrl().toString().indexOf(getString(R.string.google)) == -1)
         {
             //if the web menu is already being used, don't recreate it
@@ -223,13 +241,11 @@ public class WebViewActivity extends SherlockActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) 
     {
-        if(webView != null)
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) 
         {
-            if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) 
-            {
-                webView.goBack();
-                return true;
-            }
+            webView.goBack();
+            return true;
+            
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -251,14 +267,16 @@ public class WebViewActivity extends SherlockActivity
     protected void onResume() 
     {
         super.onResume();
-        //Log.d("WebViewActivity.onResume()", "Called");
-        Content c = (Content)ContentCache.getObject(getString(R.string.webcontent));
-        if(c != null)
-        {
-            content = c;
-            ContentCache.setObject("content", content);
-        }
 
+    }
+    
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
+        ContentCache.setObject(getString(R.string.webcontent), content);
+        
     }
     
     /** sets properties on WebView and loads selected content into browser. */
@@ -268,6 +286,7 @@ public class WebViewActivity extends SherlockActivity
         {
             return;
         }
+        
         //Log.d("WebViewView.setupViews()", "Called");
         webView = (WebView)findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -279,7 +298,7 @@ public class WebViewActivity extends SherlockActivity
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
         
-        showProgressDialog();
+        //showProgressDialog();
         webView.setWebChromeClient(new WebChromeClient() 
         {
             
@@ -292,8 +311,7 @@ public class WebViewActivity extends SherlockActivity
         
         webView.setWebViewClient(webViewClient);
         webView.loadUrl(fixURL(content.url.toString()));
-        
-     }
+    }        
     
     private void emulateShiftHeld(WebView view)
     {
@@ -474,14 +492,6 @@ public class WebViewActivity extends SherlockActivity
 
             
         }
-    }
-    
-    /**
-     * Displays Loading... and spinning wheel while page loads
-     */
-    private void showProgressDialog()
-    {
-        progressBar = ProgressDialog.show(this, null, getString(R.string.loading_web_title), true);
     }
     
 }
