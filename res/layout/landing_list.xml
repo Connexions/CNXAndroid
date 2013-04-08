@@ -23,13 +23,5 @@
         	style="@style/TextAppearance.Title.Landing" />
       
   </LinearLayout>
-	<ImageView
-	   	android:id="@+id/arrowView"
-      android:layout_width="24sp"
-      android:layout_height="24sp"
-      android:layout_alignParentRight="true"
-		  android:layout_centerVertical="true"
-    	android:layout_margin="6sp" 
-      android:layout_toRightOf="@id/lensOther"
-      android:src="@drawable/arrow"/>
+	
 </RelativeLayout>
