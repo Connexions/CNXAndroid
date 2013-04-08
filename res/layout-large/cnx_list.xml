@@ -8,9 +8,9 @@
 	   	android:layout_width="48sp"
 	   	android:layout_height="48sp"
 	   	android:adjustViewBounds="true"
-	   	android:layout_marginTop="6sp"
-	   	android:layout_marginLeft="6sp" 
-    	android:layout_marginRight="6sp" />
+	   	android:layout_marginTop="10sp"
+	   	android:layout_marginLeft="10sp" 
+    	android:layout_marginRight="10sp" />
   <LinearLayout
       android:id="@+id/LinearLayout01"
       android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
     	<TextView
     	   	android:id="@+id/lensName"
     	   	android:layout_width="fill_parent"
-    	   	android:layout_height="wrap_content"
+    	   	android:layout_height="fill_parent"
     	   	android:layout_marginTop="3dip"
     	   	android:layout_marginBottom="3dip"
           android:textSize="24sp"
@@ -39,13 +39,5 @@
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"/>
   </LinearLayout>
-	<ImageView
-	   	android:id="@+id/arrowView"
-      android:layout_width="24sp"
-      android:layout_height="24sp"
-      android:layout_alignParentRight="true"
-		  android:layout_centerVertical="true"
-    	android:layout_margin="6sp" 
-      android:layout_toRightOf="@id/lensOther"
-      android:src="@drawable/arrow"/>
+	
 </RelativeLayout>
