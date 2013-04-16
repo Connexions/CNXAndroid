@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_window_focused="false" android:state_enabled="true"
-        android:drawable="@drawable/button_default" />
+        android:drawable="@color/yellow_background" />
 ﻿    <item android:state_window_focused="false" android:state_enabled="false"
-        android:drawable="@drawable/button_disabled" />
+        android:drawable="@color/yellow_background" />
     <item android:state_pressed="true" 
-        android:drawable="@drawable/button_pressed" />
+        android:drawable="@color/blue_background" />
     <item android:state_focused="true" android:state_enabled="true"
-        android:drawable="@drawable/button_focused" />
+        android:drawable="@color/yellow_background" />
     <item android:state_enabled="true"
-        android:drawable="@drawable/button_default" />
+        android:drawable="@color/yellow_background" />
     <item android:state_focused="true"
-        android:drawable="@drawable/button_disabled_focused" />
+        android:drawable="@color/yellow_background" />
     <item android:drawable="@drawable/button_disabled" />
 </selector>
