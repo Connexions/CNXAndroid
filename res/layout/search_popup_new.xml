@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_menu_root"
+    android:orientation="vertical"
+    android:background="@color/yellow_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+    <EditText
+          android:id="@+id/searchCriteria"
+          android:singleLine="true"
+          android:hint="@string/menu_search"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="6dp"
+          android:layout_marginLeft="3dp"
+          android:layout_marginRight="3dp"
+          />
+    <Button 
+          android:id="@+id/search_button"
+          android:text="Search"
+          android:layout_width="fill_parent"
+          android:background="@drawable/button_background"
+          android:layout_height="wrap_content"></Button>
+</LinearLayout>
