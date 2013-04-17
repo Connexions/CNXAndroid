@@ -14,22 +14,17 @@
     	android:layout_marginRight="10sp" 
     	android:layout_centerVertical="true"
     	android:layout_alignParentLeft="true"/>
-  <LinearLayout
-      android:id="@+id/LinearLayout01"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:layout_toRightOf="@+id/logoView"
-      android:layout_toLeftOf="@+id/arrowView">
+  
     	<TextView
-    	   	android:id="@+id/lensName"
-    	   	android:layout_width="match_parent"
-    	   	android:layout_height="wrap_content"
-    	   	android:layout_marginTop="3dip"
-    	   	android:layout_marginBottom="3dip"
-    	   	android:layout_marginRight="3dip"
-          android:layout_alignWithParentIfMissing="true"
-        	style="@style/TextAppearance.Title" />
+    	    android:id="@+id/lensName"
+    	    style="@style/TextAppearance.Title"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_marginBottom="3dip"
+    	    android:layout_marginTop="3dip"
+    	    android:layout_alignParentRight="true"
+    	    android:layout_toRightOf="@id/logoView" />
+
       <TextView
             android:id="@+id/lensOther"
             android:layout_width="wrap_content"
@@ -39,8 +34,10 @@
             android:textStyle="italic"
             android:singleLine="true"
             android:layout_marginBottom="3dip"
+            android:layout_toRightOf="@id/logoView"
+            android:layout_below="@id/lensName"
             android:ellipsize="marquee"
+            android:layout_alignParentRight="true"
             android:marqueeRepeatLimit="marquee_forever"/>
-  </LinearLayout>
 	
 </RelativeLayout>
