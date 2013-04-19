@@ -59,12 +59,12 @@
 
         <ImageButton
             android:id="@+id/searchButton"
-            android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/searchText"
             android:layout_gravity="fill_horizontal"
+            android:background="@drawable/button_background"
             android:layout_marginTop="5dip"
      		android:layout_marginBottom="5dip"
      		android:layout_marginLeft="5dip"
