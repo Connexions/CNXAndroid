@@ -41,7 +41,7 @@ public class ViewHolder
         imageView = (ImageView) base.findViewById(R.id.logoView);
         textView = (TextView) base.findViewById(R.id.lensName);
         otherView = (TextView) base.findViewById(R.id.lensOther);
-        arrowView = (ImageView) base.findViewById(R.id.arrowView);
+        //arrowView = (ImageView) base.findViewById(R.id.arrowView);
         
     }
 
