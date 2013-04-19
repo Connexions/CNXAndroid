@@ -47,7 +47,10 @@ public class SearchHandler
         //popUp = new PopupWindow(context);
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
         View layout = inflater.inflate(R.layout.search_popup_new, null, true);
-        popUp = new PopupWindow(layout,  400,  150,    true); 
+        layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int width = layout.getMeasuredWidth();
+        int height = layout.getMeasuredHeight();
+        popUp = new PopupWindow(layout,  width,  height,    true); 
         popUp.setBackgroundDrawable(new BitmapDrawable());
         popUp.setOutsideTouchable(true);
         popUp.setAnimationStyle(R.style.Animations_GrowFromBottom);
