@@ -82,6 +82,8 @@ public class BaseLensesActivity extends SherlockListActivity
     
     private Menu origMenu;
     
+    private ActionBar aBar;
+    
     /** Inner class for completing load work */
     private Runnable finishedLoadingListTask = new Runnable() 
     {
@@ -107,8 +109,9 @@ public class BaseLensesActivity extends SherlockListActivity
         
         //aTextView.setText(title);
         
-        ActionBar aBar = getSupportActionBar();
+        aBar = getSupportActionBar();
         aBar.setTitle(title);
+        aBar.setDisplayHomeAsUpEnabled(true);
         setSupportProgressBarIndeterminateVisibility(true); 
         if(content==null && savedInstanceState != null)
         {
@@ -216,16 +219,26 @@ public class BaseLensesActivity extends SherlockListActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
-        MenuHandler mh = new MenuHandler();
-        boolean returnVal = mh.handleContextMenu(item, this, null);
-        if(returnVal)
+    	if(item.getItemId() == android.R.id.home)
         {
-            return returnVal;
+            Intent mainIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mainIntent);
+            return true;
         }
-        else
-        {
-            return super.onOptionsItemSelected(item);
-        }
+    	else
+    	{
+	        MenuHandler mh = new MenuHandler();
+	        boolean returnVal = mh.handleContextMenu(item, this, null);
+	        if(returnVal)
+	        {
+	            return returnVal;
+	        }
+	        else
+	        {
+	            return super.onOptionsItemSelected(item);
+	        }
+    	}
     }
     
     /* (non-Javadoc)

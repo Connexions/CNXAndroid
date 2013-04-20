@@ -57,6 +57,8 @@ public class WebViewActivity extends SherlockActivity
     public static final String WEB_MENU = "web";
     public static final String HELP_MENU = "help";
     
+    private ActionBar aBar;
+    
     /**
      * Progress bar when page is loading
      */
@@ -134,8 +136,9 @@ public class WebViewActivity extends SherlockActivity
         //Log.d("LensWebView.onCreate()", "Called");
         
         setContentView(R.layout.new_web_view);
-        ActionBar aBar = this.getSupportActionBar();
+        aBar = this.getSupportActionBar();
         setSupportProgressBarIndeterminateVisibility(true);
+        aBar.setDisplayHomeAsUpEnabled(true);
         content = (Content)ContentCache.getObject(getString(R.string.webcontent));
         aBar.setTitle(getString(R.string.app_name));
         //webView = (WebView)findViewById(R.id.web_view);
@@ -221,16 +224,26 @@ public class WebViewActivity extends SherlockActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
-        MenuHandler mh = new MenuHandler();
-        boolean returnVal = mh.handleContextMenu(item, this, content);
-        if(returnVal)
+    	if(item.getItemId() == android.R.id.home)
         {
-            return returnVal;
+            Intent mainIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mainIntent);
+            return true;
         }
-        else
-        {
-            return super.onOptionsItemSelected(item);
-        }
+    	else
+    	{
+	        MenuHandler mh = new MenuHandler();
+	        boolean returnVal = mh.handleContextMenu(item, this, content);
+	        if(returnVal)
+	        {
+	            return returnVal;
+	        }
+	        else
+	        {
+	            return super.onOptionsItemSelected(item);
+	        }
+    	}
         
     }
     

@@ -63,6 +63,8 @@ public class ViewLensesActivity extends SherlockListActivity
     /** list of lenses as Content objects */ 
     ArrayList<Content> content;
     
+    private ActionBar aBar;
+    
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
      * Called when the activity is first created.
@@ -77,8 +79,9 @@ public class ViewLensesActivity extends SherlockListActivity
         //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lenses_title);
         //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         //aTextView.setText("Connexions - Book Lists");
-        ActionBar aBar = this.getSupportActionBar();
+        aBar = this.getSupportActionBar();
         aBar.setTitle("Book Lists");
+        aBar.setDisplayHomeAsUpEnabled(true);
         //get already retrieved feed and reuse if it is there
         content = (ArrayList<Content>)getLastNonConfigurationInstance();
         if(content==null && savedInstanceState != null)
@@ -115,16 +118,26 @@ public class ViewLensesActivity extends SherlockListActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
-        MenuHandler mh = new MenuHandler();
-        boolean returnVal = mh.handleContextMenu(item, this, null);
-        if(returnVal)
+    	if(item.getItemId() == android.R.id.home)
         {
-            return returnVal;
+            Intent mainIntent = new Intent(getApplicationContext(), LandingActivity.class);
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mainIntent);
+            return true;
         }
-        else
-        {
-            return super.onOptionsItemSelected(item);
-        }
+    	else
+    	{
+	        MenuHandler mh = new MenuHandler();
+	        boolean returnVal = mh.handleContextMenu(item, this, null);
+	        if(returnVal)
+	        {
+	            return returnVal;
+	        }
+	        else
+	        {
+	            return super.onOptionsItemSelected(item);
+	        }
+    	}
     }
     
     /* (non-Javadoc)
