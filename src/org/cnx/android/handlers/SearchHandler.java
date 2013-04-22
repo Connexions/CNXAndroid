@@ -25,8 +25,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.PopupWindow;
 
 /**
@@ -46,8 +46,11 @@ public class SearchHandler
     {
         //popUp = new PopupWindow(context);
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
-        View layout = inflater.inflate(R.layout.search_popup, null, true);
-        popUp = new PopupWindow(layout,  300,  130,    true); 
+        View layout = inflater.inflate(R.layout.search_popup_new, null, true);
+        layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int width = layout.getMeasuredWidth();
+        int height = layout.getMeasuredHeight();
+        popUp = new PopupWindow(layout,  width,  height,    true); 
         popUp.setBackgroundDrawable(new BitmapDrawable());
         popUp.setOutsideTouchable(true);
         popUp.setAnimationStyle(R.style.Animations_GrowFromBottom);
@@ -82,7 +85,7 @@ public class SearchHandler
                 return false;
             }
         });
-        ImageButton searchButton = (ImageButton)layout.findViewById(R.id.search_button);
+        Button searchButton = (Button)layout.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new OnClickListener() 
         {
                   

@@ -66,6 +66,9 @@ public class ViewLensActivity extends SherlockListActivity
     final private Handler handler = new Handler();
     /** list of lenses as Content objects */ 
     ArrayList<Content> contentList;
+    
+    private ActionBar aBar;
+    
     /** Inner class for completing load work */
     private Runnable finishedLoadingListTask = new Runnable() 
     {
@@ -96,7 +99,8 @@ public class ViewLensActivity extends SherlockListActivity
             }
         }
         contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
-        ActionBar aBar = getSupportActionBar();
+        aBar = getSupportActionBar();
+        aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setTitle(content.getTitle());
         setSupportProgressBarIndeterminateVisibility(true);
         //get stored data if there is any
@@ -188,24 +192,34 @@ public class ViewLensActivity extends SherlockListActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
-        MenuHandler mh = new MenuHandler();
-        boolean returnVal = true;
-        if(item.getItemId() == R.id.add_to_favs)
+    	if(item.getItemId() == android.R.id.home)
         {
-            returnVal = mh.handleContextMenu(item, this, content);
+            Intent mainIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mainIntent);
+            return true;
         }
-        else
-        {
-            returnVal = mh.handleContextMenu(item, this, null);
-        }
-        if(returnVal)
-        {
-            return returnVal;
-        }
-        else
-        {
-            return super.onOptionsItemSelected(item);
-        }
+    	else
+    	{
+	        MenuHandler mh = new MenuHandler();
+	        boolean returnVal = true;
+	        if(item.getItemId() == R.id.add_to_favs)
+	        {
+	            returnVal = mh.handleContextMenu(item, this, content);
+	        }
+	        else
+	        {
+	            returnVal = mh.handleContextMenu(item, this, null);
+	        }
+	        if(returnVal)
+	        {
+	            return returnVal;
+	        }
+	        else
+	        {
+	            return super.onOptionsItemSelected(item);
+	        }
+    	}
     }
     
     /* (non-Javadoc)

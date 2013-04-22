@@ -29,6 +29,10 @@ public class MenuUtil
     {
         //String newTitle = title.replaceAll("\\p{Punct}", " ");
         //String realNewTitle = newTitle.replaceAll(":", "_");
+    	if(title == null)
+    	{
+    		return "";
+    	}
         String realNewTitle = title.replaceAll("\\p{Punct}", "");
 //        if(realNewTitle.length() > 20)
 //        {

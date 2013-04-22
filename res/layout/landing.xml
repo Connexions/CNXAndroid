@@ -64,6 +64,11 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/searchText"
             android:layout_gravity="fill_horizontal"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="5dip"
+     		android:layout_marginBottom="5dip"
+     		android:layout_marginLeft="5dip"
+     		android:layout_marginRight="5dip"
             android:layout_centerHorizontal="true"
             android:src="@drawable/magnify" />
     </RelativeLayout>
@@ -80,7 +85,9 @@
             android:layout_height="wrap_content"
             android:cacheColorHint="#00000000"
             android:fastScrollEnabled="true"
-            android:smoothScrollbar="true" />
+            android:smoothScrollbar="true" 
+            android:divider="@drawable/divider"
+            android:dividerHeight="3px"/>
     </LinearLayout>
 
 </LinearLayout>
