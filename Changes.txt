@@ -1,3 +1,13 @@
+Version 3.1
+  - Added Home as Up to Actionbar
+  - Fixed user reported bug - null pointer
+  - Removed Help from landing screen
+  - Fixed search button on landing screen so it is flat and changes color when selected
+  - Changed style of search popup to match Android design specs
+  - Removed arrows from list items to match Android design specs
+  - Removed gradient from list items
+Version 3.0.1
+  - Fixed bug that caused crash when changing orientation
 Version 3.0
   - Added usage of ActionbarSherlock library
   - Modified menus to make sense as part of the actionbar

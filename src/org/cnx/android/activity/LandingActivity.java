@@ -40,7 +40,7 @@ import android.widget.Toast;
  */
 public class LandingActivity extends SherlockActivity
 {
-    private static String PREVIOUS_VERSION = "2.3";
+    private static String PREVIOUS_VERSION = "3.0.1";
     
     private static String VERSION_PROPERTY = "cnxVersion";
     
@@ -121,7 +121,7 @@ public class LandingActivity extends SherlockActivity
                 return false;
             }
         });
-        listView.setAdapter(new LandingListAdapter(this,setContentList()));
+        //listView.setAdapter(new LandingListAdapter(this,setContentList()));
         
     }
     
@@ -143,13 +143,13 @@ public class LandingActivity extends SherlockActivity
         Content c3 = new Content();
         c3.setTitle(getString(R.string.title_download));
         
-        Content c4 = new Content();
-        c4.setTitle(getString(R.string.title_help));
+        //Content c4 = new Content();
+        //c4.setTitle(getString(R.string.title_help));
         
         list.add(c);
         list.add(c2);
         list.add(c3);
-        list.add(c4);
+        //list.add(c4);
         
         return list;
     }

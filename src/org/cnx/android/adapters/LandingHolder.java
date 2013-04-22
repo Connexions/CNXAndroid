@@ -30,7 +30,7 @@ public class LandingHolder
     LandingHolder(View base)
     {
         textView = (TextView) base.findViewById(R.id.optionName);
-        arrowView = (ImageView) base.findViewById(R.id.arrowView);
+        //arrowView = (ImageView) base.findViewById(R.id.arrowView);
         
     }
 

@@ -3,6 +3,7 @@
 	<color name="color_foreground">#FFBBBBBB</color>
 	<color name="color_background">#FFBBBBBB</color>
 	<color name="blue_background">#006699</color>
+	<color name="yellow_background">#FFDD33</color>
 	<color name="white_text">#FFFFFF</color>
 	<color name="color_foreground_inverse">#FF444444</color>
 
