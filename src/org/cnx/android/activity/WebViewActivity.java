@@ -279,29 +279,6 @@ public class WebViewActivity extends SherlockActivity
         super.onConfigurationChanged(newConfig);
     }
     
-//    public boolean onTouchEvent(final MotionEvent event)
-//    {
-//    	Log.d("WebViewActivity", "onTouchEvent() called");
-//    	if (event.getAction() == MotionEvent.ACTION_MOVE) 
-//    	{
-//            float newY = webView.getScrollY();
-//            Log.d("WebViewActivity", "newY: " +newY);
-//            Log.d("WebViewActivity", "yPosition: " +yPosition);
-//            
-//            if(newY >= yPosition)
-//            {
-//            	//hide layout
-//            	hideToolbar();
-//            }
-//            else
-//            {
-//            	//show toolbar
-//            	showToolbar();
-//            }
-//            yPosition = newY;
-//        }
-//        return false;
-//    }
     
     /* (non-Javadoc)
      * @see android.app.Activity#onResume()
@@ -340,22 +317,28 @@ public class WebViewActivity extends SherlockActivity
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
         webView.setOnScrollChangedCallback(new OnScrollChangedCallback(){
-            public void onScroll(int l, int t){
+            public void onScroll(int l, int t)
+            {
+            	
+            	String url = content.getUrl().toString();
             	float newY = webView.getScrollY();
-              //Log.d("WebViewActivity", "newY: " +newY);
-              //Log.d("WebViewActivity", "yPosition: " +yPosition);
-              
-              if(newY >= yPosition)
-              {
-              	//hide layout
-              	hideToolbar();
-              }
-              else
-              {
-              	//show toolbar
-              	showToolbar();
-              }
-              yPosition = newY;
+                //Log.d("WebViewActivity", "newY: " +newY);
+                //Log.d("WebViewActivity", "yPosition: " +yPosition);
+            	if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
+                {
+            		hideToolbar();
+                }
+                else if(newY >= yPosition)
+               {
+              	 //hide layout
+              	 hideToolbar();
+               }
+               else
+               {
+              	 //show toolbar
+              	 showToolbar();
+               }
+               yPosition = newY;
             }
          });
         
