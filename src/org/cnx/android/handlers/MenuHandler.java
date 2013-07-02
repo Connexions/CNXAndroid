@@ -122,6 +122,9 @@ public class MenuHandler
                 return true;
             case R.id.menu_save:
                 return true;
+            case R.id.rate:
+            	context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=org.cnx.android")));
+                return true;
             default:
                 return false;
         }
