@@ -16,6 +16,8 @@ import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
+import org.cnx.android.views.ObservableWebView;
+import org.cnx.android.views.ObservableWebView.OnScrollChangedCallback;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -30,6 +32,7 @@ import android.os.Build;
 import android.os.Bundle; 
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -50,7 +53,7 @@ import android.widget.Toast;
 public class WebViewActivity extends SherlockActivity
 {
     /** Web browser view for Activity */
-    private WebView webView;
+    private ObservableWebView webView;
     /** Variable for serialized Content object */
     private Content content;
     /** Constant for serialized object passed to Activity */
@@ -58,6 +61,8 @@ public class WebViewActivity extends SherlockActivity
     public static final String HELP_MENU = "help";
     
     private ActionBar aBar;
+    
+    private float yPosition = 0f;
     
     /**
      * Progress bar when page is loading
@@ -119,6 +124,7 @@ public class WebViewActivity extends SherlockActivity
             
             setLayout(url);
             setSupportProgressBarIndeterminateVisibility(false);
+            yPosition = 0f;
 
         }
 
@@ -158,7 +164,7 @@ public class WebViewActivity extends SherlockActivity
         }
         else
         {
-            webView = (WebView)findViewById(R.id.web_view);
+            webView = (ObservableWebView)findViewById(R.id.web_view);
             CNXUtil.makeNoDataToast(this);
         }
     }
@@ -273,6 +279,30 @@ public class WebViewActivity extends SherlockActivity
         super.onConfigurationChanged(newConfig);
     }
     
+//    public boolean onTouchEvent(final MotionEvent event)
+//    {
+//    	Log.d("WebViewActivity", "onTouchEvent() called");
+//    	if (event.getAction() == MotionEvent.ACTION_MOVE) 
+//    	{
+//            float newY = webView.getScrollY();
+//            Log.d("WebViewActivity", "newY: " +newY);
+//            Log.d("WebViewActivity", "yPosition: " +yPosition);
+//            
+//            if(newY >= yPosition)
+//            {
+//            	//hide layout
+//            	hideToolbar();
+//            }
+//            else
+//            {
+//            	//show toolbar
+//            	showToolbar();
+//            }
+//            yPosition = newY;
+//        }
+//        return false;
+//    }
+    
     /* (non-Javadoc)
      * @see android.app.Activity#onResume()
      */
@@ -301,15 +331,33 @@ public class WebViewActivity extends SherlockActivity
         }
         
         //Log.d("WebViewView.setupViews()", "Called");
-        webView = (WebView)findViewById(R.id.web_view);
+        webView = (ObservableWebView)findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
-        
         //webView.getSettings().setUseWideViewPort(true);
         //webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setDefaultFontSize(17);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
+        webView.setOnScrollChangedCallback(new OnScrollChangedCallback(){
+            public void onScroll(int l, int t){
+            	float newY = webView.getScrollY();
+              //Log.d("WebViewActivity", "newY: " +newY);
+              //Log.d("WebViewActivity", "yPosition: " +yPosition);
+              
+              if(newY >= yPosition)
+              {
+              	//hide layout
+              	hideToolbar();
+              }
+              else
+              {
+              	//show toolbar
+              	showToolbar();
+              }
+              yPosition = newY;
+            }
+         });
         
         //showProgressDialog();
         webView.setWebChromeClient(new WebChromeClient() 
@@ -400,6 +448,32 @@ public class WebViewActivity extends SherlockActivity
         {
             CNXUtil.makeNoDataToast(this);
         }
+    }
+    
+    private void hideToolbar()
+    {
+    	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
+        int visibility = relLayout.getVisibility();
+//        if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
+//        {
+            if(visibility == View.VISIBLE)
+            {
+                relLayout.setVisibility(View.GONE);
+            }
+//        }
+    }
+    
+    private void showToolbar()
+    {
+    	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
+        int visibility = relLayout.getVisibility();
+//        if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
+//        {
+            if(visibility == View.GONE)
+            {
+                relLayout.setVisibility(View.VISIBLE);
+            }
+//        }
     }
     
     /**
