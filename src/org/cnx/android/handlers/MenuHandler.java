@@ -25,10 +25,14 @@ import org.cnx.android.utils.MenuUtil;
 import com.actionbarsherlock.view.MenuItem;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.app.DownloadManager.Request;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -42,13 +46,11 @@ public class MenuHandler
 {
     public boolean handleContextMenu(android.view.MenuItem item, Context context, Content currentContent)
     {
-        //MenuItem mi = (com.actionbarsherlock.view.MenuItem)item;
         return handleContextMenu(item.getItemId(), context, currentContent);
     }
     
     public boolean handleContextMenu(MenuItem item, Context context, Content currentContent)
     {
-        //MenuItem mi = (com.actionbarsherlock.view.MenuItem)item;
         return handleContextMenu(item.getItemId(), context, currentContent);
     }
     /**
@@ -105,12 +107,6 @@ public class MenuHandler
                 return true;
             case R.id.refresh:
                 return true;
-//            case R.id.pdf:
-//                displayAlert(context, currentContent,Constants.PDF_TYPE);
-//                return true;
-//            case R.id.epub:
-//                displayAlert(context, currentContent,Constants.EPUB_TYPE);
-//                return true;
             case R.id.viewFile:
                 Intent viewIntent = new Intent(context, FileBrowserActivity.class);
                 context.startActivity(viewIntent);
@@ -125,8 +121,6 @@ public class MenuHandler
                 context.startActivity(noteIntent);
                 return true;
             case R.id.menu_save:
-                //Intent noteIntent = new Intent(context, NoteEditorActivity.class);
-                //context.startActivity(noteIntent);
                 return true;
             default:
                 return false;
@@ -167,20 +161,27 @@ public class MenuHandler
               public void onClick(DialogInterface dialog, int which) 
               {
                   String url = currentContent.getUrl().toString();
-                  Intent intent = new Intent(context, DownloadService.class);
+                  //Intent intent = new Intent(context, DownloadService.class);
                   
-                  if(type.equals(Constants.PDF_TYPE))
-                  {
-                      intent.putExtra(DownloadService.DOWNLOAD_URL,  MenuUtil.fixPdfURL(currentContent.getUrl().toString(), MenuUtil.getContentType(url)));
-                      intent.putExtra(DownloadService.DOWNLOAD_FILE_NAME, MenuUtil.getTitle(currentContent.getTitle()) + Constants.PDF_EXTENSION);
-                  }
-                  else
-                  {
-                      intent.putExtra(DownloadService.DOWNLOAD_URL,  MenuUtil.fixEpubURL(currentContent.getUrl().toString(), MenuUtil.getContentType(url)));
-                      intent.putExtra(DownloadService.DOWNLOAD_FILE_NAME, MenuUtil.getTitle(currentContent.getTitle()) + Constants.EPUB_EXTENSION);
-                  }
-                  context.startService(intent);
-         
+            	  DownloadManager dm = (DownloadManager)context.getSystemService(Context.DOWNLOAD_SERVICE);
+            	  if(type.equals(Constants.PDF_TYPE))
+            	  {
+            		  Uri uri = Uri.parse(MenuUtil.fixPdfURL(currentContent.getUrl().toString(), MenuUtil.getContentType(url)));
+            		  DownloadManager.Request request = new Request(uri);
+            		  request.setDestinationInExternalPublicDir("/Connexions", MenuUtil.getTitle(currentContent.getTitle()) + Constants.PDF_EXTENSION);
+            		  request.setTitle(currentContent.getTitle() + Constants.PDF_EXTENSION);
+            		  dm.enqueue(request);
+            	  }
+            	  else
+            	  {
+            		  Uri uri = Uri.parse(MenuUtil.fixEpubURL(currentContent.getUrl().toString(), MenuUtil.getContentType(url)));
+            		  DownloadManager.Request request = new Request(uri);
+            		  request.setDestinationInExternalPublicDir("/Connexions", MenuUtil.getTitle(currentContent.getTitle()) + Constants.EPUB_EXTENSION);
+            		  request.setTitle(currentContent.getTitle() + Constants.EPUB_EXTENSION);
+            		  dm.enqueue(request);
+            	  }
+                	  
+
             } }); 
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, Constants.CANCEL, new DialogInterface.OnClickListener() 
         {
