@@ -10,7 +10,7 @@ http://developer.android.com/resources/samples/NotePad/index.html
   android:layout_height="fill_parent"
   android:background="@color/blue_background"> 
   <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
-	<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	<ScrollView
 		android:id="@+id/widget64"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
@@ -29,7 +29,7 @@ http://developer.android.com/resources/samples/NotePad/index.html
 		    android:gravity="top"
 		    android:textSize="18sp"
 		    android:textColor="@color/white_text"
-		    android:capitalize="sentences" />
+		    android:capitalize="sentences"/>
 	</ScrollView>
 	</LinearLayout>
 	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
