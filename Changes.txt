@@ -1,3 +1,8 @@
+Version 3.2
+  - Links and email addresses in a Note are now clickable
+  - Improved file download
+  - Added Rate this app menu item
+  - Auto hide bottom Actionbar when scrolling
 Version 3.1
   - Added Home as Up to Actionbar
   - Fixed user reported bug - null pointer

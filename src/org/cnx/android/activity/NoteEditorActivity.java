@@ -28,6 +28,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -274,6 +275,7 @@ public class NoteEditorActivity extends SherlockActivity
                 //Log.d("NoteEditorActivity.checkDBForNote()", "notesColumn: " + notesColumn);
                 editText.append(cursor.getString(notesColumn)); 
                 editText.setSelection(editText.getText().length());
+                Linkify.addLinks(editText, Linkify.ALL);
                 state = STATE_UPDATE;
             }
             else
