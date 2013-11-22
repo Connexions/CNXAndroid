@@ -58,6 +58,8 @@ public class ViewLensesActivity extends SherlockListActivity
      * Constant for recently published list label
      */
     private static String RECENT = "Recent Content";
+    
+    private static String OSC = "OpenStax College";
    /** Adaptor for Lens list display */ 
     LensesAdapter adapter;
     /** list of lenses as Content objects */ 
@@ -178,6 +180,12 @@ public class ViewLensesActivity extends SherlockListActivity
             ContentCache.setObject(getString(R.string.cache_sentcontent), contentObj);
             startActivity(new Intent(this, ViewLensActivity.class));
         }
+        else if(content.getTitle().equals(OSC) || content.getTitle().equals(OSC))
+        {
+            Content contentObj = (Content)getListView().getItemAtPosition(position);
+            ContentCache.setObject(getString(R.string.cache_sentcontent), contentObj);
+            startActivity(new Intent(this, ViewLensActivity.class));
+        }
     }
     
     /** Actions after list is loaded in View*/
@@ -207,7 +215,14 @@ public class ViewLensesActivity extends SherlockListActivity
         String fakeURL = getString(R.string.lenses_fake_url);
         try
         {
-            Content c = new Content();
+        	Content c6 = new Content();
+            c6.setTitle(OSC);
+            c6.setContentString(getString(R.string.lenses_osc_desc));
+            c6.setUrl(new URL("http://cnx.org/lenses/OpenStaxCollege/endorsements/atom"));
+            c6.setIconDrawable(R.drawable.lenses);
+        	
+            
+        	Content c = new Content();
             c.setTitle(ENDORSED);
             c.setContentString(getString(R.string.lenses_endorsed_desc));
             c.setUrl(new URL(fakeURL));
@@ -233,7 +248,7 @@ public class ViewLensesActivity extends SherlockListActivity
             
             Content c5 = new Content();
             c5.setTitle(RECENT);
-            c5.setContentString("Recently published or updated content");
+            c5.setContentString(getString(R.string.lenses_recent_desc));
             c5.setUrl(new URL("http://cnx.org/content/recent.rss"));
             c5.setIconDrawable(R.drawable.lenses);
             
@@ -242,10 +257,11 @@ public class ViewLensesActivity extends SherlockListActivity
                 content = new ArrayList<Content>();
             }
             
+            content.add(c6);
+            content.add(c4);
             content.add(c);
             content.add(c2);
             content.add(c3);
-            content.add(c4);
             content.add(c5);
             
             //Collections.sort((List)content);

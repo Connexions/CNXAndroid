@@ -43,6 +43,8 @@
     <string name="lenses_affiliated_desc">Organization affiliated books</string>
     <string name="lenses_member_desc">User created book lists</string>
     <string name="lenses_featured_content_desc">Featured Connexions Content</string>
+    <string name="lenses_osc_desc">Books from OpenStax College</string>
+    <string name="lenses_recent_desc">Recently published or updated content</string>
     <string name="nothing_to_save">There is nothing to save.</string>
     <string name="shared_via"> Shared via Connexions for Android app.</string>
     <string name="tell_friend">Tell a friend about </string>

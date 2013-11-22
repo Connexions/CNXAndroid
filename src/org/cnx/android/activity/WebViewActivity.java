@@ -64,6 +64,8 @@ public class WebViewActivity extends SherlockActivity
     
     private float yPosition = 0f;
     
+    private boolean progressBarRunning;
+    
     /**
      * Progress bar when page is loading
      */
@@ -80,14 +82,19 @@ public class WebViewActivity extends SherlockActivity
         public void onLoadResource(WebView view, String url) 
         {
             super.onLoadResource(view, url);
-            setSupportProgressBarIndeterminateVisibility(true);
-            //Log.d("WebViewClient.onLoadResource()", "Called");
+            
+            Log.d("WebViewClient.onLoadResource()", "Called");
         }
         
         /** loads URL into view */
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) 
         {
+        	Log.d("WebViewClient.shouldOverrideUrlLo()", "Called");
+        	if(!progressBarRunning)
+            {
+            	setSupportProgressBarIndeterminateVisibility(true);
+            }
             view.loadUrl(fixURL(url));
             try
             {
@@ -109,8 +116,8 @@ public class WebViewActivity extends SherlockActivity
         @Override
         public void onPageFinished(WebView view, String url)
         {
-            //Log.d("WebViewClient.onPageFinished", "title: " + view.getTitle());
-            //Log.d("WebViewClient.onPageFinished", "url: " + url);
+            Log.d("WebViewClient.onPageFinished", "title: " + view.getTitle());
+            Log.d("WebViewClient.onPageFinished", "url: " + url);
             content.setTitle(view.getTitle());
             try
             {
@@ -124,6 +131,8 @@ public class WebViewActivity extends SherlockActivity
             
             setLayout(url);
             setSupportProgressBarIndeterminateVisibility(false);
+            progressBarRunning = false;
+            Log.d("WebViewClient.onPageFinished", "setSupportProgressBarIndeterminateVisibility(false) Called");
             yPosition = 0f;
 
         }
@@ -144,6 +153,8 @@ public class WebViewActivity extends SherlockActivity
         setContentView(R.layout.new_web_view);
         aBar = this.getSupportActionBar();
         setSupportProgressBarIndeterminateVisibility(true);
+        progressBarRunning = true;
+        Log.d("WebView.onCreate()", "Called");
         aBar.setDisplayHomeAsUpEnabled(true);
         content = (Content)ContentCache.getObject(getString(R.string.webcontent));
         aBar.setTitle(getString(R.string.app_name));
