@@ -40,7 +40,7 @@ import android.widget.Toast;
  */
 public class LandingActivity extends SherlockActivity
 {
-    private static String PREVIOUS_VERSION = "3.0.1";
+    private static String PREVIOUS_VERSION = "3.2";
     
     private static String VERSION_PROPERTY = "cnxVersion";
     
@@ -216,7 +216,7 @@ public class LandingActivity extends SherlockActivity
         if(propVersion == null || propVersion.equals("") || propVersion.equals(PREVIOUS_VERSION))
         {
             SharedPreferences.Editor prefsEditor = myPrefs.edit();
-            prefsEditor.putString(VERSION_PROPERTY,"2.4");
+            prefsEditor.putString(VERSION_PROPERTY,"3.3");
             prefsEditor.commit();
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.toast, (ViewGroup) findViewById(R.id.toast_layout_root));
