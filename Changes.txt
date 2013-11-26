@@ -1,3 +1,5 @@
+Version 3.3
+  - List scrolling changes for KitKat
 Version 3.2
   - Links and email addresses in a Note are now clickable
   - Improved file download

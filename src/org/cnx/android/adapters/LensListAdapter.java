@@ -254,7 +254,16 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
      */
     public int getPositionForSection(int section) 
     {
-        String letter = sections[section];
+    	String letter="a";
+        
+    	if(section < sections.length)
+    	{
+    		letter = sections[section];
+    	}
+    	else
+    	{
+    		return 0;
+    	}
         //Log.d("LensListAdapter ", "letter: " + letter);
         return alphaIndexer.get(letter);
     }

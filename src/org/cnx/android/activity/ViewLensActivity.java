@@ -194,6 +194,7 @@ public class ViewLensActivity extends SherlockListActivity
     {
     	if(item.getItemId() == android.R.id.home)
         {
+    		ContentCache.removeObject(getString(R.string.cache_contentlist));
             Intent mainIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainIntent);

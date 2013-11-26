@@ -33,7 +33,7 @@
     <string name="up_one_level">Up One Level</string>
     <string name="webcontent">webcontent</string>
     <string name="content">content</string>
-    <string name="intro">Welcome to Connexions for Android!\n\n  Browse our content using the Content tab and save content you like to your favorites.  Use the menu to find other features like search, taking notes, downloading EPUBs or PDFs, viewing downloaded files and help.</string>
+    <string name="intro">Welcome to Connexions for Android!\n\n  Browse our content using the Book Lists and save content you like to your Favorites.  Be sure to checkout the other features like search, taking notes, downloading EPUBs or PDFs, viewing downloaded files and help.</string>
     <string name="search_title">Search: </string>
     <string name="file_browser_title">Connexions - Select File to View</string>
     <string name="file_dialog_title">View</string>
@@ -43,6 +43,8 @@
     <string name="lenses_affiliated_desc">Organization affiliated books</string>
     <string name="lenses_member_desc">User created book lists</string>
     <string name="lenses_featured_content_desc">Featured Connexions Content</string>
+    <string name="lenses_osc_desc">Books from OpenStax College</string>
+    <string name="lenses_recent_desc">Recently published or updated content</string>
     <string name="nothing_to_save">There is nothing to save.</string>
     <string name="shared_via"> Shared via Connexions for Android app.</string>
     <string name="tell_friend">Tell a friend about </string>
