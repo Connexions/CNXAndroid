@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.app.ActionBar;
+import android.app.ListActivity;
+import android.view.*;
 import org.cnx.android.R;
 import org.cnx.android.adapters.LensListAdapter;
 import org.cnx.android.beans.Content;
@@ -18,20 +21,12 @@ import org.cnx.android.providers.Favs;
 import org.cnx.android.providers.utils.DBUtils;
 import org.cnx.android.utils.ContentCache;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -41,7 +36,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class ViewFavsActivity extends SherlockListActivity
+public class ViewFavsActivity extends ListActivity
 {
     /** Adaptor for Lens list display */ 
     LensListAdapter adapter;
@@ -74,9 +69,9 @@ public class ViewFavsActivity extends SherlockListActivity
           setContentView(R.layout.list_view);
           registerForContextMenu(getListView());
           
-          ActionBar aBar = getSupportActionBar();
+          ActionBar aBar = getActionBar();
           aBar.setTitle(getString(R.string.title_favs));
-          setSupportProgressBarIndeterminateVisibility(true);
+          setProgressBarIndeterminateVisibility(true);
           //get already retrieved feed and reuse if it is there
           content = (ArrayList<Content>)getLastNonConfigurationInstance();
           if(content == null)
@@ -89,7 +84,7 @@ public class ViewFavsActivity extends SherlockListActivity
                   //reuse existing feed data
                   adapter = new LensListAdapter(ViewFavsActivity.this, content);
                   setListAdapter(adapter);
-                  setSupportProgressBarIndeterminateVisibility(false);
+                  setProgressBarIndeterminateVisibility(false);
              
           }
       }
@@ -140,10 +135,10 @@ public class ViewFavsActivity extends SherlockListActivity
        * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
        */
       @Override
-      public boolean onCreateOptionsMenu(Menu menu) 
+      public boolean onCreateOptionsMenu(Menu menu)
       {
           
-          getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+          getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
           return true;
           
       }
@@ -152,7 +147,7 @@ public class ViewFavsActivity extends SherlockListActivity
        * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
        */
       @Override
-      public boolean onOptionsItemSelected(MenuItem item) 
+      public boolean onOptionsItemSelected(MenuItem item)
       {
           MenuHandler mh = new MenuHandler();
           boolean returnVal = mh.handleContextMenu(item, this, null);
@@ -213,7 +208,7 @@ public class ViewFavsActivity extends SherlockListActivity
           setListAdapter(adapter);
           getListView().setSelection(0);
           //progressDialog.dismiss();
-          setSupportProgressBarIndeterminateVisibility(false);
+          setProgressBarIndeterminateVisibility(false);
       }
       
       /** reads feed in a separate thread.  Starts progress dialog*/

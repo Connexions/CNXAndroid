@@ -36,7 +36,7 @@
     </LinearLayout>
     
     <RelativeLayout
-        android:id="@+id/relativeLayout1"
+        android:id="@+id/relativeLayout3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#FFDD33" 
@@ -87,7 +87,7 @@
             android:fastScrollEnabled="true"
             android:smoothScrollbar="true" 
             android:divider="@drawable/divider"
-            android:dividerHeight="3px"/>
+            android:dividerHeight="3dp"/>
     </LinearLayout>
 
 </LinearLayout>

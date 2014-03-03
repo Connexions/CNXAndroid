@@ -11,13 +11,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.app.ActionBar;
+import android.app.ListActivity;
 import org.cnx.android.R;
 import org.cnx.android.adapters.FileListAdapter;
 import org.cnx.android.beans.DownloadedFile;
 import org.cnx.android.utils.Constants;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -43,7 +42,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class FileBrowserActivity extends SherlockListActivity
+public class FileBrowserActivity extends ListActivity
 {
     /**
      * List of DownloadedFile objects that represent files in /Connexions directory
@@ -68,7 +67,8 @@ public class FileBrowserActivity extends SherlockListActivity
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         
-        ActionBar aBar = getSupportActionBar();
+        ActionBar aBar = getActionBar();
+
         aBar.setTitle(getString(R.string.file_browser_title));
         readFileList();
     }

@@ -10,6 +10,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Stack;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.view.*;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
@@ -19,22 +22,12 @@ import org.cnx.android.utils.ContentCache;
 import org.cnx.android.views.ObservableWebView;
 import org.cnx.android.views.ObservableWebView.OnScrollChangedCallback;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle; 
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -50,7 +43,7 @@ import android.widget.Toast;
  * @author Ed Woodward
  *
  */
-public class WebViewActivity extends SherlockActivity
+public class WebViewActivity extends Activity
 {
     /** Web browser view for Activity */
     private ObservableWebView webView;
@@ -93,7 +86,7 @@ public class WebViewActivity extends SherlockActivity
         	Log.d("WebViewClient.shouldOverrideUrlLo()", "Called");
         	if(!progressBarRunning)
             {
-            	setSupportProgressBarIndeterminateVisibility(true);
+            	setProgressBarIndeterminateVisibility(true);
             }
             view.loadUrl(fixURL(url));
             try
@@ -130,7 +123,7 @@ public class WebViewActivity extends SherlockActivity
             }
             
             setLayout(url);
-            setSupportProgressBarIndeterminateVisibility(false);
+            setProgressBarIndeterminateVisibility(false);
             progressBarRunning = false;
             Log.d("WebViewClient.onPageFinished", "setSupportProgressBarIndeterminateVisibility(false) Called");
             yPosition = 0f;
@@ -151,8 +144,8 @@ public class WebViewActivity extends SherlockActivity
         //Log.d("LensWebView.onCreate()", "Called");
         
         setContentView(R.layout.new_web_view);
-        aBar = this.getSupportActionBar();
-        setSupportProgressBarIndeterminateVisibility(true);
+        aBar = this.getActionBar();
+        setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
         Log.d("WebView.onCreate()", "Called");
         aBar.setDisplayHomeAsUpEnabled(true);
@@ -185,9 +178,9 @@ public class WebViewActivity extends SherlockActivity
      * Creates option menu
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) 
+    public boolean onCreateOptionsMenu(Menu menu)
     {
-        MenuInflater inflater = getSupportMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         if(content == null)
         {
             return false;

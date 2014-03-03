@@ -9,7 +9,9 @@
     android:fastScrollEnabled="true"
     android:smoothScrollbar="true"
     android:cacheColorHint="#00000000"
-    android:id="@+id/android:list"/> 
+    android:clipToPadding="false"
+    android:scrollbarStyle="outsideOverlay" 
+    android:id="@android:id/list"/>
   <TextView  
     android:layout_width="fill_parent"
 		android:layout_height="wrap_content"

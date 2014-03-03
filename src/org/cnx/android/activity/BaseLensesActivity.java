@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.app.ListActivity;
+import android.support.v7.app.ActionBar;
+import android.view.*;
 import org.cnx.android.R;
 import org.cnx.android.adapters.LensesAdapter;
 import org.cnx.android.beans.Content;
@@ -21,20 +24,12 @@ import org.cnx.android.handlers.AtomHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -51,7 +46,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class BaseLensesActivity extends SherlockListActivity 
+public class BaseLensesActivity extends ListActivity
 {
     
    /** Adaptor for Lens list display */ 
@@ -82,7 +77,7 @@ public class BaseLensesActivity extends SherlockListActivity
     
     private Menu origMenu;
     
-    private ActionBar aBar;
+    private android.app.ActionBar aBar;
     
     /** Inner class for completing load work */
     private Runnable finishedLoadingListTask = new Runnable() 
@@ -109,10 +104,10 @@ public class BaseLensesActivity extends SherlockListActivity
         
         //aTextView.setText(title);
         
-        aBar = getSupportActionBar();
+        aBar = getActionBar();
         aBar.setTitle(title);
         aBar.setDisplayHomeAsUpEnabled(true);
-        setSupportProgressBarIndeterminateVisibility(true); 
+        setProgressBarIndeterminateVisibility(true);
         if(content==null && savedInstanceState != null)
         {
             //Log.d("ViewLenses.onCreate()", "getting saved data");
@@ -128,7 +123,7 @@ public class BaseLensesActivity extends SherlockListActivity
             //reuse existing feed data
             adapter = new LensesAdapter(currentContext, content);
             setListAdapter(adapter);
-            setSupportProgressBarIndeterminateVisibility(false);
+            setProgressBarIndeterminateVisibility(false);
         }
         AnimationSet set = new AnimationSet(true);
 
@@ -203,11 +198,11 @@ public class BaseLensesActivity extends SherlockListActivity
         
         if(content == null || content.size() < 1)
         {
-            getSupportMenuInflater().inflate(R.menu.empty_lenses_menu, menu);
+            getMenuInflater().inflate(R.menu.empty_lenses_menu, menu);
         }
         else
         {
-            getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+            getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
         }
         return true;
         
@@ -217,7 +212,7 @@ public class BaseLensesActivity extends SherlockListActivity
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) 
+    public boolean onOptionsItemSelected(MenuItem item)
     {
     	if(item.getItemId() == android.R.id.home)
         {
@@ -274,7 +269,7 @@ public class BaseLensesActivity extends SherlockListActivity
         getListView().setSaveEnabled(true);
         getListView().setClickable(true);
         onCreateOptionsMenu(origMenu);
-        setSupportProgressBarIndeterminateVisibility(false); 
+        setProgressBarIndeterminateVisibility(false);
     }
     
     /** reads feed in a separate thread.  Starts progress dialog*/

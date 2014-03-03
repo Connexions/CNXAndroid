@@ -10,16 +10,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import android.app.ActionBar;
+import android.app.ListActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import org.cnx.android.R;
 import org.cnx.android.adapters.LensesAdapter;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.utils.ContentCache;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 
 //import android.app.ListActivity;
 import android.content.Intent;
@@ -34,7 +33,7 @@ import android.widget.ListView;
  * @author Ed Woodward
  *
  */
-public class ViewLensesActivity extends SherlockListActivity 
+public class ViewLensesActivity extends ListActivity
 {
     /**
      * Constant for Endorsement label
@@ -81,7 +80,7 @@ public class ViewLensesActivity extends SherlockListActivity
         //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lenses_title);
         //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
         //aTextView.setText("Connexions - Book Lists");
-        aBar = this.getSupportActionBar();
+        aBar = this.getActionBar();
         aBar.setTitle("Book Lists");
         aBar.setDisplayHomeAsUpEnabled(true);
         //get already retrieved feed and reuse if it is there
@@ -106,10 +105,10 @@ public class ViewLensesActivity extends SherlockListActivity
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) 
+    public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
-        getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+        getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
         return true;
         
     }
@@ -118,7 +117,7 @@ public class ViewLensesActivity extends SherlockListActivity
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) 
+    public boolean onOptionsItemSelected(MenuItem item)
     {
     	if(item.getItemId() == android.R.id.home)
         {

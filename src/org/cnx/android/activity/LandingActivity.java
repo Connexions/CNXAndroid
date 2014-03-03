@@ -7,14 +7,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import org.cnx.android.R;
 import org.cnx.android.adapters.LandingListAdapter;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.SearchHandler;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
-
-import com.actionbarsherlock.app.SherlockActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,9 +37,9 @@ import android.widget.Toast;
  * @author Ed Woodward
  *
  */
-public class LandingActivity extends SherlockActivity
+public class LandingActivity extends Activity
 {
-    private static String PREVIOUS_VERSION = "3.2";
+    private static String PREVIOUS_VERSION = "3.3";
     
     private static String VERSION_PROPERTY = "cnxVersion";
     

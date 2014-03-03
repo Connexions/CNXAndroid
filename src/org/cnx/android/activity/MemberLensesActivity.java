@@ -6,9 +6,8 @@
  */
 package org.cnx.android.activity;
 
+import android.view.MenuItem;
 import org.cnx.android.R;
-
-import com.actionbarsherlock.view.MenuItem;
 
 
 /**
@@ -37,7 +36,7 @@ public class MemberLensesActivity extends BaseLensesActivity
      * If feed read fails, handle refresh menu item
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) 
+    public boolean onOptionsItemSelected(MenuItem item)
     {
        if(item.getItemId() == R.id.refresh)
        {

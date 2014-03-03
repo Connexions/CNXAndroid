@@ -9,23 +9,15 @@ package org.cnx.android.activity;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.app.Activity;
+import android.view.*;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import android.content.res.Configuration;
 import android.os.Bundle; 
 import android.util.Log;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -38,7 +30,7 @@ import android.widget.FrameLayout;
  * @author Ed Woodward
  *
  */
-public class LensWebViewActivity extends SherlockActivity
+public class LensWebViewActivity extends Activity
 {
     /** Web browser view for Activity */
     private WebView webView;
@@ -114,9 +106,9 @@ public class LensWebViewActivity extends SherlockActivity
      * Creates option menu
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) 
+    public boolean onCreateOptionsMenu(Menu menu)
     {
-        MenuInflater inflater = getSupportMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         if(content.getUrl().toString().indexOf("Connexions_Android_App_Help.html") == -1)
         {
             inflater.inflate(R.menu.web_options_menu, menu);
@@ -188,7 +180,7 @@ public class LensWebViewActivity extends SherlockActivity
         webView.getSettings().setDefaultFontSize(20);
         webView.setInitialScale(80);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
-        final SherlockActivity activity = this;
+        final Activity activity = this;
         webView.setWebChromeClient(new WebChromeClient() 
         {
             public void onProgressChanged(WebView view, int progress) 

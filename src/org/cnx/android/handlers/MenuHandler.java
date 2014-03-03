@@ -9,6 +9,7 @@ package org.cnx.android.handlers;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.view.MenuItem;
 import org.cnx.android.R;
 import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
@@ -21,8 +22,6 @@ import org.cnx.android.service.DownloadService;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 import org.cnx.android.utils.MenuUtil;
-
-import com.actionbarsherlock.view.MenuItem;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -44,10 +43,10 @@ import android.util.Log;
  */
 public class MenuHandler
 {
-    public boolean handleContextMenu(android.view.MenuItem item, Context context, Content currentContent)
-    {
-        return handleContextMenu(item.getItemId(), context, currentContent);
-    }
+//    public boolean handleContextMenu(android.view.MenuItem item, Context context, Content currentContent)
+//    {
+//        return handleContextMenu(item.getItemId(), context, currentContent);
+//    }
     
     public boolean handleContextMenu(MenuItem item, Context context, Content currentContent)
     {

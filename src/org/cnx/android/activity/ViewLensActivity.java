@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.app.ActionBar;
+import android.app.ListActivity;
+import android.view.*;
 import org.cnx.android.R;
 import org.cnx.android.adapters.LensesAdapter;
 import org.cnx.android.beans.Content;
@@ -22,20 +25,11 @@ import org.cnx.android.handlers.RssHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.KeyEvent;
-import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -52,7 +46,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class ViewLensActivity extends SherlockListActivity
+public class ViewLensActivity extends ListActivity
 {
     /** Constant for serialized object passed to Activity */
     public static final String CONTENT = "content";
@@ -99,10 +93,10 @@ public class ViewLensActivity extends SherlockListActivity
             }
         }
         contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
-        aBar = getSupportActionBar();
+        aBar = getActionBar();
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setTitle(content.getTitle());
-        setSupportProgressBarIndeterminateVisibility(true);
+        setProgressBarIndeterminateVisibility(true);
         //get stored data if there is any
         if(contentList == null)
         {
@@ -118,7 +112,7 @@ public class ViewLensActivity extends SherlockListActivity
             //reuse stored data
             adapter = new LensesAdapter(ViewLensActivity.this, contentList);
             setListAdapter(adapter);
-            setSupportProgressBarIndeterminateVisibility(false);
+            setProgressBarIndeterminateVisibility(false);
         }
         AnimationSet set = new AnimationSet(true);
 
@@ -178,10 +172,10 @@ public class ViewLensActivity extends SherlockListActivity
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) 
+    public boolean onCreateOptionsMenu(Menu menu)
     {
         
-        getSupportMenuInflater().inflate(R.menu.lens_options_menu, menu);
+        getMenuInflater().inflate(R.menu.lens_options_menu, menu);
         return true;
         
     }
@@ -320,7 +314,7 @@ public class ViewLensActivity extends SherlockListActivity
         getListView().setSelection(0);
         getListView().setClickable(true);
         //progressDialog.dismiss();
-        setSupportProgressBarIndeterminateVisibility(false);
+        setProgressBarIndeterminateVisibility(false);
     }
     
     /**
