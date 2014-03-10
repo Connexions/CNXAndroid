@@ -10,11 +10,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.ActionBar;
 import android.app.ListActivity;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.*;
+import android.widget.SimpleAdapter;
 import org.cnx.android.R;
 import org.cnx.android.adapters.LensesAdapter;
 import org.cnx.android.beans.Content;
@@ -62,6 +66,13 @@ public class ViewLensActivity extends ListActivity
     ArrayList<Content> contentList;
     
     private ActionBar aBar;
+
+    private List<HashMap<String,String>> navTitles;
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
+    String[] from = { "nav_icon","nav_item" };
+    int[] to = { R.id.nav_icon , R.id.nav_item};
     
     /** Inner class for completing load work */
     private Runnable finishedLoadingListTask = new Runnable() 
@@ -94,7 +105,7 @@ public class ViewLensActivity extends ListActivity
         }
         contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
         aBar = getActionBar();
-        aBar.setDisplayHomeAsUpEnabled(true);
+        //aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setTitle(content.getTitle());
         setProgressBarIndeterminateVisibility(true);
         //get stored data if there is any
@@ -130,6 +141,43 @@ public class ViewLensActivity extends ListActivity
         LayoutAnimationController controller = new LayoutAnimationController(set, 0.5f);
         ListView listView = getListView();        
         listView.setLayoutAnimation(controller);
+
+        String[] items = getResources().getStringArray(R.array.nav_list);
+        setDrawer(items);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawerList = (ListView)findViewById(R.id.left_drawer);
+        SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
+
+        // Set the adapter for the list view
+        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
+        // Set the list's click listener
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                drawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(getString(R.string.app_name));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(getString(R.string.app_name));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.syncState();
+        drawerLayout.setDrawerListener(drawerToggle);
+        //aBar.setTitle(getString(R.string.app_name));
+        //aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        aBar.setDisplayHomeAsUpEnabled(true);
+        aBar.setHomeButtonEnabled(true);
+        drawerList.setAdapter(sAdapter);
     }
     
     /* (non-Javadoc)
@@ -186,6 +234,11 @@ public class ViewLensActivity extends ListActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
+        if (drawerToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+
     	if(item.getItemId() == android.R.id.home)
         {
     		ContentCache.removeObject(getString(R.string.cache_contentlist));
@@ -238,6 +291,37 @@ public class ViewLensActivity extends ListActivity
         ContentCache.setObject(getString(R.string.cache_savedcontent), content);
         ContentCache.setObject(getString(R.string.cache_contentlist), contentList);
         
+    }
+
+    private void selectItem(int position)
+    {
+        switch (position)
+        {
+            case 0:
+                Intent landingIntent = new Intent(getApplicationContext(), LandingActivity.class);
+                startActivity(landingIntent);
+
+                break;
+            case 1:
+                Intent lensesIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
+                startActivity(lensesIntent);
+                break;
+
+            case 2:
+                Intent favsIntent = new Intent(getApplicationContext(), ViewFavsActivity.class);
+                startActivity(favsIntent);
+                break;
+
+            case 3:
+                Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
+                startActivity(fileIntent);
+                break;
+
+            case 4:
+                Intent helpIntent = new Intent(getApplicationContext(), WebViewActivity.class);
+                startActivity(helpIntent);
+                break;
+        }
     }
     
     /** reads feed in a separate thread.  Starts progress dialog  */
@@ -325,5 +409,45 @@ public class ViewLensActivity extends ListActivity
     {
         //Log.d("LensViewer", "fillData() called");
         adapter = new LensesAdapter(ViewLensActivity.this, contentList);
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener
+    {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id)
+        {
+            selectItem(position);
+        }
+    }
+
+    private void setDrawer(String[] items)
+    {
+        HashMap hm1 = new HashMap<String,String>();
+        hm1.put("nav_icon",Integer.toString(R.drawable.home));
+        hm1.put("nav_item",items[0]);
+
+        HashMap hm2 = new HashMap<String,String>();
+        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put("nav_item",items[1]);
+
+        HashMap hm3 = new HashMap<String,String>();
+        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
+        hm3.put("nav_item",items[2]);
+
+        HashMap hm4 = new HashMap<String,String>();
+        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
+        hm4.put("nav_item",items[3]);
+
+        HashMap hm5 = new HashMap<String,String>();
+        hm5.put("nav_icon",Integer.toString(R.drawable.ic_action_help));
+        hm5.put("nav_item",items[4]);
+
+        navTitles = new ArrayList<HashMap<String,String>>();
+
+        navTitles.add(hm1);
+        navTitles.add(hm2);
+        navTitles.add(hm3);
+        navTitles.add(hm4);
+        navTitles.add(hm5);
     }
 }

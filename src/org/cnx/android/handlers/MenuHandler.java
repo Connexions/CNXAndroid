@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.view.MenuItem;
+import android.widget.Toast;
 import org.cnx.android.R;
 import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
@@ -78,6 +79,7 @@ public class MenuHandler
                 cv.put(Favs.ICON, currentContent.getIcon());
                 cv.put(Favs.OTHER, currentContent.getContentString());
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
+                Toast.makeText(context, currentContent.getTitle() + " added to Favorites", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.go_to_favs:
                 Intent intent = new Intent(context, ViewFavsActivity.class);
@@ -118,11 +120,6 @@ public class MenuHandler
                 ContentCache.setObject("content", currentContent);
                 Intent noteIntent = new Intent(context, NoteEditorActivity.class);
                 context.startActivity(noteIntent);
-                return true;
-            case R.id.menu_save:
-                return true;
-            case R.id.rate:
-            	context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=org.cnx.android")));
                 return true;
             default:
                 return false;
