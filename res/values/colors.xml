@@ -4,6 +4,7 @@
 	<color name="color_background">#FFBBBBBB</color>
 	<color name="blue_background">#006699</color>
 	<color name="yellow_background">#FFDD33</color>
+    <color name="nav_background">#ffed95</color>
 	<color name="white_text">#FFFFFF</color>
     <color name="black_text">#000000</color>
 	<color name="color_foreground_inverse">#FF444444</color>

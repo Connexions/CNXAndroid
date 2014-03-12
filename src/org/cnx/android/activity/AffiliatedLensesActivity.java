@@ -36,19 +36,19 @@ public class AffiliatedLensesActivity extends BaseLensesActivity
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      * If feed read fails, handle refresh menu item
      */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-       if(item.getItemId() == R.id.refresh)
-       {
-           //refresh selected so reread the rss feed
-           super.readFeed();
-           return true;
-       }
-       else
-       {
-           super.onOptionsItemSelected(item);
-           return true;
-       }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item)
+//    {
+//       if(item.getItemId() == R.id.refresh)
+//       {
+//           //refresh selected so reread the rss feed
+//           super.readFeed();
+//           return true;
+//       }
+//       else
+//       {
+//           super.onOptionsItemSelected(item);
+//           return true;
+//       }
+//    }
 }
