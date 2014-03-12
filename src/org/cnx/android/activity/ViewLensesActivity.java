@@ -132,12 +132,12 @@ public class ViewLensesActivity extends ListActivity
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(getString(R.string.app_name));
+                //getActionBar().setTitle(getString(R.string.app_name));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(getString(R.string.app_name));
+                //getActionBar().setTitle(getString(R.string.app_name));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -349,11 +349,6 @@ public class ViewLensesActivity extends ListActivity
                 Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
                 startActivity(fileIntent);
                 break;
-
-            case 4:
-                Intent helpIntent = new Intent(getApplicationContext(), WebViewActivity.class);
-                startActivity(helpIntent);
-                break;
         }
     }
 
@@ -368,25 +363,21 @@ public class ViewLensesActivity extends ListActivity
 
     private void setDrawer(String[] items)
     {
-        HashMap hm1 = new HashMap<String,String>();
+        HashMap<String,String> hm1 = new HashMap<String,String>();
         hm1.put("nav_icon",Integer.toString(R.drawable.home));
         hm1.put("nav_item",items[0]);
 
-        HashMap hm2 = new HashMap<String,String>();
+        HashMap<String,String> hm2 = new HashMap<String,String>();
         hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
         hm2.put("nav_item",items[1]);
 
-        HashMap hm3 = new HashMap<String,String>();
+        HashMap<String,String> hm3 = new HashMap<String,String>();
         hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
         hm3.put("nav_item",items[2]);
 
-        HashMap hm4 = new HashMap<String,String>();
+        HashMap<String,String> hm4 = new HashMap<String,String>();
         hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
         hm4.put("nav_item",items[3]);
-
-        HashMap hm5 = new HashMap<String,String>();
-        hm5.put("nav_icon",Integer.toString(R.drawable.ic_action_help));
-        hm5.put("nav_item",items[4]);
 
         navTitles = new ArrayList<HashMap<String,String>>();
 
@@ -394,7 +385,6 @@ public class ViewLensesActivity extends ListActivity
         navTitles.add(hm2);
         navTitles.add(hm3);
         navTitles.add(hm4);
-        navTitles.add(hm5);
     }
     
 }

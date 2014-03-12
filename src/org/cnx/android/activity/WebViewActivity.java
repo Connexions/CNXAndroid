@@ -201,12 +201,12 @@ public class WebViewActivity extends Activity
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(getString(R.string.app_name));
+                //getActionBar().setTitle(getString(R.string.app_name));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(getString(R.string.app_name));
+                //getActionBar().setTitle(getString(R.string.app_name));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -227,51 +227,52 @@ public class WebViewActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
+        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        if(content == null)
-        {
-            return false;
-        }
-        if(content.getUrl().toString().indexOf(getString(R.string.help_page)) == -1 && content.getUrl().toString().indexOf(getString(R.string.search)) == -1 && content.getUrl().toString().indexOf(getString(R.string.google)) == -1)
-        {
-            //if the web menu is already being used, don't recreate it
-            if(!previousMenu.equals(WEB_MENU))
-            {
-                menu.clear();
+//        if(content == null)
+//        {
+//            return false;
+//        }
+//        if(content.getUrl().toString().indexOf(getString(R.string.help_page)) == -1 && content.getUrl().toString().indexOf(getString(R.string.search)) == -1 && content.getUrl().toString().indexOf(getString(R.string.google)) == -1)
+//        {
+//            //if the web menu is already being used, don't recreate it
+//            if(!previousMenu.equals(WEB_MENU))
+//            {
+//                menu.clear();
                 inflater.inflate(R.menu.web_options_menu, menu);
-                previousMenu = WEB_MENU;
-            }
-        }
-        else 
-        {
-            //no need to check for help menu since there is only one path to it.
-            menu.clear();
-            inflater.inflate(R.menu.help_options_menu, menu);
-            MenuItem menuItem = menu.findItem(R.id.add_to_favs);
-            if(content.getUrl().toString().indexOf(getString(R.string.help_page)) != -1)
-            {
-                
-                menuItem.setVisible(false);
-            }
-            else
-            {
-                menuItem.setVisible(true);
-            }
-            previousMenu = HELP_MENU;
-        }
+//                previousMenu = WEB_MENU;
+//                }
+//                }
+//                else
+//                {
+//                //no need to check for help menu since there is only one path to it.
+//                menu.clear();
+//                inflater.inflate(R.menu.help_options_menu, menu);
+//                MenuItem menuItem = menu.findItem(R.id.add_to_favs);
+//                if(content.getUrl().toString().indexOf(getString(R.string.help_page)) != -1)
+//                {
+//
+//                menuItem.setVisible(false);
+//                }
+//                else
+//                {
+//                menuItem.setVisible(true);
+//                }
+//                previousMenu = HELP_MENU;
+//                }
         return true;
     }
     
-    /* (non-Javadoc)
-     * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
-     */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) 
-    {
-        super.onPrepareOptionsMenu(menu);
-        //handle changing menu based on URL
-        return onCreateOptionsMenu(menu);
-    }
+//    /* (non-Javadoc)
+//     * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
+//     */
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu)
+//    {
+//        super.onPrepareOptionsMenu(menu);
+//        //handle changing menu based on URL
+//        return onCreateOptionsMenu(menu);
+//    }
 
     
     /* (non-Javadoc)
@@ -644,11 +645,6 @@ public class WebViewActivity extends Activity
                 Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
                 startActivity(fileIntent);
                 break;
-
-            case 4:
-                Intent helpIntent = new Intent(getApplicationContext(), WebViewActivity.class);
-                startActivity(helpIntent);
-                break;
         }
     }
 
@@ -663,25 +659,21 @@ public class WebViewActivity extends Activity
 
     private void setDrawer(String[] items)
     {
-        HashMap hm1 = new HashMap<String,String>();
+        HashMap<String,String> hm1 = new HashMap<String,String>();
         hm1.put("nav_icon",Integer.toString(R.drawable.home));
         hm1.put("nav_item",items[0]);
 
-        HashMap hm2 = new HashMap<String,String>();
+        HashMap<String,String> hm2 = new HashMap<String,String>();
         hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
         hm2.put("nav_item",items[1]);
 
-        HashMap hm3 = new HashMap<String,String>();
+        HashMap<String,String> hm3 = new HashMap<String,String>();
         hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
         hm3.put("nav_item",items[2]);
 
-        HashMap hm4 = new HashMap<String,String>();
+        HashMap<String,String> hm4 = new HashMap<String,String>();
         hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
         hm4.put("nav_item",items[3]);
-
-        HashMap hm5 = new HashMap<String,String>();
-        hm5.put("nav_icon",Integer.toString(R.drawable.ic_action_help));
-        hm5.put("nav_item",items[4]);
 
         navTitles = new ArrayList<HashMap<String,String>>();
 
@@ -689,7 +681,6 @@ public class WebViewActivity extends Activity
         navTitles.add(hm2);
         navTitles.add(hm3);
         navTitles.add(hm4);
-        navTitles.add(hm5);
     }
     
 }

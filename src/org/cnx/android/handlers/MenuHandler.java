@@ -81,10 +81,6 @@ public class MenuHandler
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
                 Toast.makeText(context, currentContent.getTitle() + " added to Favorites", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.go_to_favs:
-                Intent intent = new Intent(context, ViewFavsActivity.class);
-                context.startActivity(intent);
-                return true;
             case R.id.help:
                 try
                 {
