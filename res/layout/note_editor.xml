@@ -34,10 +34,10 @@ http://developer.android.com/resources/samples/NotePad/index.html
 	</LinearLayout>
 	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
 	  <RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="fill_parent" android:layout_height="45dp" android:background="@color/blue_background">
-	      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/save_w" android:id="@+id/saveButton" android:layout_alignParentTop="true" android:background="@drawable/button_bar_background" android:layout_alignParentLeft="true"></ImageButton>
+	      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_action_accept" android:id="@+id/saveButton" android:layout_alignParentTop="true" android:background="@drawable/button_bar_background" android:layout_alignParentLeft="true"></ImageButton>
 	      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/next_item_w" android:id="@+id/exportButton" android:layout_alignParentTop="true" android:background="@drawable/button_bar_background" android:layout_toRightOf="@+id/saveButton"></ImageButton>
 	      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/delete_item_w" android:id="@+id/deleteButton" android:layout_alignParentTop="true" android:background="@drawable/button_bar_background" android:layout_toRightOf="@+id/exportButton"></ImageButton>
-	      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_title_share_sm" android:id="@+id/shareButton" android:layout_alignParentTop="true" android:background="@drawable/button_bar_background" android:layout_toRightOf="@+id/deleteButton"></ImageButton>
+	      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_action_share" android:id="@+id/shareButton" android:layout_alignParentTop="true" android:background="@drawable/button_bar_background" android:layout_toRightOf="@+id/deleteButton"></ImageButton>
 	  </RelativeLayout>
   </LinearLayout>
 </LinearLayout>
