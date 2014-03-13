@@ -215,6 +215,7 @@ public class ViewLensesActivity extends ListActivity
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) 
     {
+        ContentCache.removeObject(getString(R.string.cache_savedcontent));
         Content content = (Content)getListView().getItemAtPosition(position);
         if(content.getTitle().equals(ENDORSED))
         {
