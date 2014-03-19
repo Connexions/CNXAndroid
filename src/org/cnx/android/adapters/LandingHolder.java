@@ -22,16 +22,12 @@ public class LandingHolder
     
     protected TextView textView;
     
-    /**
-     * image view for arrow in listview
-     */
-    protected ImageView arrowView;
+
     
     LandingHolder(View base)
     {
         textView = (TextView) base.findViewById(R.id.optionName);
-        //arrowView = (ImageView) base.findViewById(R.id.arrowView);
-        
+
     }
 
 }
