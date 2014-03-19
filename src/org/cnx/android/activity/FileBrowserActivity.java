@@ -90,8 +90,6 @@ public class FileBrowserActivity extends ListActivity
         drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the adapter for the list view
-        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -115,8 +113,6 @@ public class FileBrowserActivity extends ListActivity
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
         drawerLayout.setDrawerListener(drawerToggle);
-        //aBar.setTitle(getString(R.string.app_name));
-        //aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeButtonEnabled(true);
         drawerList.setAdapter(sAdapter);
@@ -160,14 +156,9 @@ public class FileBrowserActivity extends ListActivity
 
         MenuHandler mh = new MenuHandler();
         boolean returnVal = mh.handleContextMenu(item, this, null);
-        if(returnVal)
-        {
-            return returnVal;
-        }
-        else
-        {
-            return super.onOptionsItemSelected(item);
-        }
+
+        return returnVal;
+
     }
 
     /**
@@ -238,7 +229,7 @@ public class FileBrowserActivity extends ListActivity
             df.setFullPath(file.getAbsolutePath());
             directoryEntries.add(df);
         }
-        Collections.sort((List<DownloadedFile>)directoryEntries);
+        Collections.sort(directoryEntries);
         fileListAdapter = new FileListAdapter(this, directoryEntries);
         
         setListAdapter(fileListAdapter);
@@ -285,17 +276,17 @@ public class FileBrowserActivity extends ListActivity
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         final String ext;
-        if(file.getAbsolutePath().indexOf(Constants.PDF_EXTENSION) > -1)
+        if(file.getAbsolutePath().contains(Constants.PDF_EXTENSION))
         {
             intent.setDataAndType(path, "application/pdf");
             ext = Constants.PDF_EXTENSION;
         }
-        else if(file.getAbsolutePath().indexOf(Constants.EPUB_EXTENSION) > -1)
+        else if(file.getAbsolutePath().contains(Constants.EPUB_EXTENSION))
         {
             intent.setDataAndType(path, "application/epub+zip");
             ext = Constants.EPUB_EXTENSION;
         }
-        else if(file.getAbsolutePath().indexOf(Constants.TXT_EXTENSION) > -1)
+        else if(file.getAbsolutePath().contains(Constants.TXT_EXTENSION))
         {
             intent.setDataAndType(path, getString(R.string.mimetype_text));
             ext = Constants.TXT_EXTENSION;

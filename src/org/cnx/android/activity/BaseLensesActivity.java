@@ -58,8 +58,6 @@ public class BaseLensesActivity extends ListActivity
     /** list of lenses as Content objects */ 
     ArrayList<Content> content;
     
-    /** progress window displayed while feed is loading*/
-    protected ProgressDialog progressDialog;
     /**handler */
     final private Handler handler = new Handler();
     /**
@@ -159,8 +157,6 @@ public class BaseLensesActivity extends ListActivity
         drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the adapter for the list view
-        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -172,20 +168,16 @@ public class BaseLensesActivity extends ListActivity
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
             public void onDrawerClosed(View view) {
-                //getActionBar().setTitle(getString(R.string.app_name));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                //getActionBar().setTitle(getString(R.string.app_name));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
         drawerLayout.setDrawerListener(drawerToggle);
-        //aBar.setTitle(getString(R.string.app_name));
-        //aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeButtonEnabled(true);
         drawerList.setAdapter(sAdapter);
@@ -219,14 +211,9 @@ public class BaseLensesActivity extends ListActivity
         Content content = (Content)getListView().getItemAtPosition(info.position);
         MenuHandler mh = new MenuHandler();
         boolean returnVal = mh.handleContextMenu(item, this, content);
-        if(returnVal)
-        {
-            return returnVal;
-        }
-        else
-        {
-            return super.onContextItemSelected(item);
-        }
+
+        return returnVal;
+
     }
    
     /* (non-Javadoc)
@@ -235,23 +222,8 @@ public class BaseLensesActivity extends ListActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
-//        if(origMenu == null)
-//        {
-//            origMenu = menu;
-//        }
-//        else
-//        {
-//            origMenu.clear();
-//        }
-//
-//        if(content == null || content.size() < 1)
-//        {
-//            getMenuInflater().inflate(R.menu.empty_lenses_menu, menu);
-//        }
-//        else
-//        {
-            getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
-        //}
+
+        getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
         return true;
         
     }
@@ -278,14 +250,9 @@ public class BaseLensesActivity extends ListActivity
     	{
 	        MenuHandler mh = new MenuHandler();
 	        boolean returnVal = mh.handleContextMenu(item, this, null);
-	        if(returnVal)
-	        {
-	            return returnVal;
-	        }
-	        else
-	        {
-	            return super.onOptionsItemSelected(item);
-	        }
+
+            return returnVal;
+
     	}
     }
     
@@ -321,7 +288,6 @@ public class BaseLensesActivity extends ListActivity
         getListView().setSelection(0);
         getListView().setSaveEnabled(true);
         getListView().setClickable(true);
-        //onCreateOptionsMenu(origMenu);
         setProgressBarIndeterminateVisibility(false);
     }
     
@@ -351,7 +317,7 @@ public class BaseLensesActivity extends ListActivity
                   AtomHandler rh = new AtomHandler();
                   content = rh.parseFeed(getApplicationContext(), feed);
                   
-                 Collections.sort((List<Content>)content);
+                 Collections.sort(content);
                   
                   
                   fillData(content);
@@ -367,11 +333,6 @@ public class BaseLensesActivity extends ListActivity
         
         
     }
-    
-//    private void displayToast()
-//    {
-//        Toast.makeText(BaseLensesActivity.this, "No data connection",  Toast.LENGTH_LONG).show();
-//    }
     
     /**
      * Loads feed data into adapter on initial reading of feed

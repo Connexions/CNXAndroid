@@ -136,14 +136,10 @@ public class LandingActivity extends Activity
         Content c3 = new Content();
         c3.setTitle(getString(R.string.title_download));
         
-        //Content c4 = new Content();
-        //c4.setTitle(getString(R.string.title_help));
-        
         list.add(c);
         list.add(c2);
         list.add(c3);
-        //list.add(c4);
-        
+
         return list;
     }
     
@@ -179,22 +175,7 @@ public class LandingActivity extends Activity
             Intent viewIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
             startActivity(viewIntent);
         }
-        else if(item.contains(getString(R.string.title_help)))
-        {
-            try
-            {
-                Content content = new Content();
-                content.setUrl(new URL(Constants.HELP_FILE_URL)); 
-                ContentCache.setObject(getString(R.string.webcontent), content);
-                startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
-                
-            }
-            catch (MalformedURLException e)
-            {
-                e.printStackTrace();
-            }
-            
-        }
+
     }
     
 
