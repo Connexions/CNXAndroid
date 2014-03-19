@@ -11,7 +11,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -108,7 +107,6 @@ public class WebViewActivity extends Activity
             {
                 Log.d("WebViewActivity.shouldOverrideUrlLoading()", "Error: " + e.toString(),e);
             }
-            //setSupportProgressBarIndeterminateVisibility(true);
             return true;
         }
         
@@ -158,10 +156,8 @@ public class WebViewActivity extends Activity
         setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
         Log.d("WebView.onCreate()", "Called");
-        //aBar.setDisplayHomeAsUpEnabled(true);
         content = (Content)ContentCache.getObject(getString(R.string.webcontent));
         aBar.setTitle(getString(R.string.app_name));
-        //webView = (WebView)findViewById(R.id.web_view);
         if(content != null && content.getUrl() != null)
         {
             setLayout(content.getUrl().toString());
@@ -213,8 +209,6 @@ public class WebViewActivity extends Activity
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
         drawerLayout.setDrawerListener(drawerToggle);
-        //aBar.setTitle(getString(R.string.app_name));
-        //aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeButtonEnabled(true);
         drawerList.setAdapter(sAdapter);
@@ -229,52 +223,11 @@ public class WebViewActivity extends Activity
     {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-//        if(content == null)
-//        {
-//            return false;
-//        }
-//        if(content.getUrl().toString().indexOf(getString(R.string.help_page)) == -1 && content.getUrl().toString().indexOf(getString(R.string.search)) == -1 && content.getUrl().toString().indexOf(getString(R.string.google)) == -1)
-//        {
-//            //if the web menu is already being used, don't recreate it
-//            if(!previousMenu.equals(WEB_MENU))
-//            {
-//                menu.clear();
-                inflater.inflate(R.menu.web_options_menu, menu);
-//                previousMenu = WEB_MENU;
-//                }
-//                }
-//                else
-//                {
-//                //no need to check for help menu since there is only one path to it.
-//                menu.clear();
-//                inflater.inflate(R.menu.help_options_menu, menu);
-//                MenuItem menuItem = menu.findItem(R.id.add_to_favs);
-//                if(content.getUrl().toString().indexOf(getString(R.string.help_page)) != -1)
-//                {
-//
-//                menuItem.setVisible(false);
-//                }
-//                else
-//                {
-//                menuItem.setVisible(true);
-//                }
-//                previousMenu = HELP_MENU;
-//                }
+
         return true;
     }
     
-//    /* (non-Javadoc)
-//     * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
-//     */
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu)
-//    {
-//        super.onPrepareOptionsMenu(menu);
-//        //handle changing menu based on URL
-//        return onCreateOptionsMenu(menu);
-//    }
 
-    
     /* (non-Javadoc)
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      * Handles selected options menu item
@@ -299,14 +252,9 @@ public class WebViewActivity extends Activity
     	{
 	        MenuHandler mh = new MenuHandler();
 	        boolean returnVal = mh.handleContextMenu(item, this, content);
-	        if(returnVal)
-	        {
-	            return returnVal;
-	        }
-	        else
-	        {
-	            return super.onOptionsItemSelected(item);
-	        }
+
+            return returnVal;
+
     	}
         
     }
@@ -368,8 +316,6 @@ public class WebViewActivity extends Activity
         //Log.d("WebViewView.setupViews()", "Called");
         webView = (ObservableWebView)findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
-        //webView.getSettings().setUseWideViewPort(true);
-        //webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setDefaultFontSize(17);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
@@ -403,12 +349,7 @@ public class WebViewActivity extends Activity
         //showProgressDialog();
         webView.setWebChromeClient(new WebChromeClient() 
         {
-            
-//            public void onReceiveTitle(WebView view, String title)
-//            {
-//                super.onReceivedTitle(view, title);
-//                //Log.d("LensWebView.onCreate()", "Called");
-//            }
+
         });
         
         webView.setWebViewClient(webViewClient);
@@ -495,26 +436,21 @@ public class WebViewActivity extends Activity
     {
     	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
         int visibility = relLayout.getVisibility();
-//        if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
-//        {
-            if(visibility == View.VISIBLE)
-            {
-                relLayout.setVisibility(View.GONE);
-            }
-//        }
+        if(visibility == View.VISIBLE)
+        {
+            relLayout.setVisibility(View.GONE);
+        }
     }
     
     private void showToolbar()
     {
     	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
         int visibility = relLayout.getVisibility();
-//        if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
-//        {
-            if(visibility == View.GONE)
-            {
-                relLayout.setVisibility(View.VISIBLE);
-            }
-//        }
+
+        if(visibility == View.GONE)
+        {
+            relLayout.setVisibility(View.VISIBLE);
+        }
     }
     
     /**

@@ -87,12 +87,8 @@ public class ViewLensesActivity extends ListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
-        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lenses_title);
-        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
-        //aTextView.setText("Connexions - Book Lists");
         aBar = this.getActionBar();
         aBar.setTitle("Book Lists");
         aBar.setDisplayHomeAsUpEnabled(true);
@@ -119,8 +115,6 @@ public class ViewLensesActivity extends ListActivity
         drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the adapter for the list view
-        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -144,8 +138,6 @@ public class ViewLensesActivity extends ListActivity
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
         drawerLayout.setDrawerListener(drawerToggle);
-        //aBar.setTitle(getString(R.string.app_name));
-        //aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeButtonEnabled(true);
         drawerList.setAdapter(sAdapter);
@@ -185,14 +177,9 @@ public class ViewLensesActivity extends ListActivity
     	{
 	        MenuHandler mh = new MenuHandler();
 	        boolean returnVal = mh.handleContextMenu(item, this, null);
-	        if(returnVal)
-	        {
-	            return returnVal;
-	        }
-	        else
-	        {
-	            return super.onOptionsItemSelected(item);
-	        }
+
+            return returnVal;
+
     	}
     }
     

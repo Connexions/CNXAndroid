@@ -130,8 +130,6 @@ public class ViewFavsActivity extends ListActivity
           drawerToggle.setDrawerIndicatorEnabled(true);
           drawerToggle.syncState();
           drawerLayout.setDrawerListener(drawerToggle);
-          //aBar.setTitle(getString(R.string.app_name));
-          //aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
           aBar.setDisplayHomeAsUpEnabled(true);
           aBar.setHomeButtonEnabled(true);
           drawerList.setAdapter(sAdapter);
@@ -168,15 +166,9 @@ public class ViewFavsActivity extends ListActivity
               //readDB();
               adapter.remove(content);
           }
-          if(returnVal)
-          {
-              return returnVal;
-          }
-          else
-          {
-              return super.onContextItemSelected(item);
-              //return true;
-          }
+
+          return returnVal;
+
       }
       
       /* (non-Javadoc)
@@ -204,14 +196,9 @@ public class ViewFavsActivity extends ListActivity
 
           MenuHandler mh = new MenuHandler();
           boolean returnVal = mh.handleContextMenu(item, this, null);
-          if(returnVal)
-          {
-              return returnVal;
-          }
-          else
-          {
-              return super.onOptionsItemSelected(item);
-          }
+
+          return returnVal;
+
       }
       
       /* (non-Javadoc)
@@ -260,18 +247,13 @@ public class ViewFavsActivity extends ListActivity
       {
           setListAdapter(adapter);
           getListView().setSelection(0);
-          //progressDialog.dismiss();
           setProgressBarIndeterminateVisibility(false);
       }
       
       /** reads feed in a separate thread.  Starts progress dialog*/
       private void readDB()
       {
-//          progressDialog = ProgressDialog.show(
-//              ViewFavsActivity.this,
-//              null,
-//              getResources().getString(R.string.loading_favs_description)
-//            );
+
           Thread loadFavsThread = new Thread() 
           {
             public void run() 
@@ -279,7 +261,7 @@ public class ViewFavsActivity extends ListActivity
                 
                 content = DBUtils.readCursorIntoList(getContentResolver().query(Favs.CONTENT_URI, null, null, null, null));
                 
-               Collections.sort((List<Content>)content);
+               Collections.sort(content);
                 
                 fillData(content);
                 handler.post(finishedLoadingListTask);
