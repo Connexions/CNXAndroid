@@ -103,7 +103,7 @@ public class AtomHandler extends DefaultHandler
             }
             catch(MalformedURLException mue)
             {
-                Log.e("LensViewer", mue.toString());
+                Log.e("AtomHandler", mue.toString());
             }
         }
         else if (name.trim().equals("img"))

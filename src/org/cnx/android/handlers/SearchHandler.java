@@ -44,8 +44,7 @@ public class SearchHandler
      */
     public void displayPopup(final Context context)
     {
-        //popUp = new PopupWindow(context);
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.search_popup_new, null, true);
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int width = layout.getMeasuredWidth();
@@ -132,12 +131,7 @@ public class SearchHandler
     {
         StringBuilder sb = new StringBuilder();
         searchFor.replaceAll(" ", "+");
-        if(searchType == Constants.GOOGLE_SEARCH)
-        {
-            sb.append("http://www.google.com/search?hl=en&q=site%3Acnx.org+");
-            sb.append(searchFor);
-        }
-        else if(searchType == Constants.CNX_SEARCH)
+        if(searchType == Constants.CNX_SEARCH)
         {
             sb.append("http://m.cnx.org/content/search?words=");
             sb.append(searchFor);

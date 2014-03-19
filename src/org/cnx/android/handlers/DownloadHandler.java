@@ -87,7 +87,6 @@ public class DownloadHandler
                         //Log.d("DownloadHandler.download", "read = " + read);
                         //Log.d("DownloadHandler.download", "percent complete = " + complete);
                     }
-                    //fos.flush();
                     fos.close();
                     bis.close();
                     notificationManager.cancel(42);

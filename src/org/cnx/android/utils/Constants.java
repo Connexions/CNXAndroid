@@ -29,7 +29,6 @@ public class Constants
     public static final int COLLECTION_TYPE = 1;
     public static final int MODULE_TYPE = 0;
     public static final int CNX_SEARCH = 2;
-    public static final int GOOGLE_SEARCH = 3;
     public static final String MOBILE_CNX_URL = "http://mobile.cnx.org";
     public static final String PDF_EXTENSION = ".pdf";
     public static final String EPUB_EXTENSION = ".epub";
