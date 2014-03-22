@@ -13,4 +13,4 @@ Connexions for Android provides free textbooks covering Science, Mathematics, En
 
 Dependency
 ==========
-Connexions for Android uses the ActionBarSherlock library: http://actionbarsherlock.com/
+Connexions for Android uses the Android appcompat library
