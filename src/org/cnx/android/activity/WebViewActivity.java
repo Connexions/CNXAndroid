@@ -266,7 +266,7 @@ public class WebViewActivity extends Activity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) 
     {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) 
+        if (webView != null && ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()))
         {
             webView.goBack();
             return true;
