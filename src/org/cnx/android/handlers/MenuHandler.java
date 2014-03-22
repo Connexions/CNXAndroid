@@ -9,6 +9,8 @@ package org.cnx.android.handlers;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.view.MenuItem;
+import android.widget.Toast;
 import org.cnx.android.R;
 import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
@@ -21,8 +23,6 @@ import org.cnx.android.service.DownloadService;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 import org.cnx.android.utils.MenuUtil;
-
-import com.actionbarsherlock.view.MenuItem;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -44,11 +44,6 @@ import android.util.Log;
  */
 public class MenuHandler
 {
-    public boolean handleContextMenu(android.view.MenuItem item, Context context, Content currentContent)
-    {
-        return handleContextMenu(item.getItemId(), context, currentContent);
-    }
-    
     public boolean handleContextMenu(MenuItem item, Context context, Content currentContent)
     {
         return handleContextMenu(item.getItemId(), context, currentContent);
@@ -66,7 +61,7 @@ public class MenuHandler
         {
             case R.id.add_to_favs:
                 ContentValues cv = new ContentValues();
-                if(currentContent.getUrl().toString().indexOf("http://mobile.cnx.org/content/search") > -1 || currentContent.getUrl().toString().indexOf("http://m.cnx.org/content/search") > -1)
+                if(currentContent.getUrl().toString().contains("http://mobile.cnx.org/content/search") || currentContent.getUrl().toString().contains("http://m.cnx.org/content/search"))
                 {
                     String title = MenuUtil.getSearchTitle(currentContent.getUrl().toString());
                     cv.put(Favs.TITLE, title);
@@ -79,10 +74,7 @@ public class MenuHandler
                 cv.put(Favs.ICON, currentContent.getIcon());
                 cv.put(Favs.OTHER, currentContent.getContentString());
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
-                return true;
-            case R.id.go_to_favs:
-                Intent intent = new Intent(context, ViewFavsActivity.class);
-                context.startActivity(intent);
+                Toast.makeText(context, currentContent.getTitle() + " added to Favorites", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.help:
                 try
@@ -119,11 +111,6 @@ public class MenuHandler
                 ContentCache.setObject("content", currentContent);
                 Intent noteIntent = new Intent(context, NoteEditorActivity.class);
                 context.startActivity(noteIntent);
-                return true;
-            case R.id.menu_save:
-                return true;
-            case R.id.rate:
-            	context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=org.cnx.android")));
                 return true;
             default:
                 return false;

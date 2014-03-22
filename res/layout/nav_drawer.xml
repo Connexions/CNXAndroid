@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:background="@drawable/nav_item_background"
+                android:layout_height="60dp" >
+
+    <ImageView
+            android:id="@+id/nav_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:choiceMode="singleChoice"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="hello" />
+
+    <TextView
+            android:id="@+id/nav_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/nav_icon"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black_text"
+            android:textSize="15sp" />
+
+</RelativeLayout>

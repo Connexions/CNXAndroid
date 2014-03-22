@@ -8,8 +8,15 @@ package org.cnx.android.activity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
+import android.app.ActionBar;
+import android.app.ListActivity;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.*;
+import android.widget.SimpleAdapter;
 import org.cnx.android.R;
 import org.cnx.android.adapters.LensListAdapter;
 import org.cnx.android.beans.Content;
@@ -18,20 +25,12 @@ import org.cnx.android.providers.Favs;
 import org.cnx.android.providers.utils.DBUtils;
 import org.cnx.android.utils.ContentCache;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -41,7 +40,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Ed Woodward
  *
  */
-public class ViewFavsActivity extends SherlockListActivity
+public class ViewFavsActivity extends ListActivity
 {
     /** Adaptor for Lens list display */ 
     LensListAdapter adapter;
@@ -52,6 +51,13 @@ public class ViewFavsActivity extends SherlockListActivity
     protected ProgressDialog progressDialog;
     /**handler */
     final private Handler handler = new Handler();
+
+    private List<HashMap<String,String>> navTitles;
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
+    String[] from = { "nav_icon","nav_item" };
+    int[] to = { R.id.nav_icon , R.id.nav_item};
     
     /** Inner class for completing load work */
     private Runnable finishedLoadingListTask = new Runnable() 
@@ -74,9 +80,9 @@ public class ViewFavsActivity extends SherlockListActivity
           setContentView(R.layout.list_view);
           registerForContextMenu(getListView());
           
-          ActionBar aBar = getSupportActionBar();
+          ActionBar aBar = getActionBar();
           aBar.setTitle(getString(R.string.title_favs));
-          setSupportProgressBarIndeterminateVisibility(true);
+          setProgressBarIndeterminateVisibility(true);
           //get already retrieved feed and reuse if it is there
           content = (ArrayList<Content>)getLastNonConfigurationInstance();
           if(content == null)
@@ -89,9 +95,44 @@ public class ViewFavsActivity extends SherlockListActivity
                   //reuse existing feed data
                   adapter = new LensListAdapter(ViewFavsActivity.this, content);
                   setListAdapter(adapter);
-                  setSupportProgressBarIndeterminateVisibility(false);
+                  setProgressBarIndeterminateVisibility(false);
              
           }
+
+          String[] items = getResources().getStringArray(R.array.nav_list);
+          setDrawer(items);
+          drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+          drawerList = (ListView)findViewById(R.id.left_drawer);
+          SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
+
+          // Set the adapter for the list view
+          //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
+          // Set the list's click listener
+          drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+          drawerToggle = new ActionBarDrawerToggle(
+                  this,                  /* host Activity */
+                  drawerLayout,         /* DrawerLayout object */
+                  R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                  R.string.drawer_open,  /* "open drawer" description for accessibility */
+                  R.string.drawer_close  /* "close drawer" description for accessibility */
+          ) {
+              public void onDrawerClosed(View view) {
+                  //getActionBar().setTitle(getString(R.string.app_name));
+                  invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+              }
+
+              public void onDrawerOpened(View drawerView) {
+                  //getActionBar().setTitle(getString(R.string.app_name));
+                  invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+              }
+          };
+          drawerToggle.setDrawerIndicatorEnabled(true);
+          drawerToggle.syncState();
+          drawerLayout.setDrawerListener(drawerToggle);
+          aBar.setDisplayHomeAsUpEnabled(true);
+          aBar.setHomeButtonEnabled(true);
+          drawerList.setAdapter(sAdapter);
       }
       
       /* (non-Javadoc)
@@ -125,25 +166,19 @@ public class ViewFavsActivity extends SherlockListActivity
               //readDB();
               adapter.remove(content);
           }
-          if(returnVal)
-          {
-              return returnVal;
-          }
-          else
-          {
-              return super.onContextItemSelected(item);
-              //return true;
-          }
+
+          return returnVal;
+
       }
       
       /* (non-Javadoc)
        * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
        */
       @Override
-      public boolean onCreateOptionsMenu(Menu menu) 
+      public boolean onCreateOptionsMenu(Menu menu)
       {
           
-          getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+          getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
           return true;
           
       }
@@ -152,18 +187,18 @@ public class ViewFavsActivity extends SherlockListActivity
        * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
        */
       @Override
-      public boolean onOptionsItemSelected(MenuItem item) 
+      public boolean onOptionsItemSelected(MenuItem item)
       {
+          if (drawerToggle.onOptionsItemSelected(item))
+          {
+              return true;
+          }
+
           MenuHandler mh = new MenuHandler();
           boolean returnVal = mh.handleContextMenu(item, this, null);
-          if(returnVal)
-          {
-              return returnVal;
-          }
-          else
-          {
-              return super.onOptionsItemSelected(item);
-          }
+
+          return returnVal;
+
       }
       
       /* (non-Javadoc)
@@ -212,18 +247,13 @@ public class ViewFavsActivity extends SherlockListActivity
       {
           setListAdapter(adapter);
           getListView().setSelection(0);
-          //progressDialog.dismiss();
-          setSupportProgressBarIndeterminateVisibility(false);
+          setProgressBarIndeterminateVisibility(false);
       }
       
       /** reads feed in a separate thread.  Starts progress dialog*/
       private void readDB()
       {
-//          progressDialog = ProgressDialog.show(
-//              ViewFavsActivity.this,
-//              null,
-//              getResources().getString(R.string.loading_favs_description)
-//            );
+
           Thread loadFavsThread = new Thread() 
           {
             public void run() 
@@ -231,7 +261,7 @@ public class ViewFavsActivity extends SherlockListActivity
                 
                 content = DBUtils.readCursorIntoList(getContentResolver().query(Favs.CONTENT_URI, null, null, null, null));
                 
-               Collections.sort((List<Content>)content);
+               Collections.sort(content);
                 
                 fillData(content);
                 handler.post(finishedLoadingListTask);
@@ -261,6 +291,63 @@ public class ViewFavsActivity extends SherlockListActivity
           c.close();
           return count;
           
-      }
+    }
+
+    private void selectItem(int position)
+    {
+        switch (position)
+        {
+            case 0:
+                Intent landingIntent = new Intent(getApplicationContext(), LandingActivity.class);
+                startActivity(landingIntent);
+                break;
+            case 1:
+                Intent lensesIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
+                startActivity(lensesIntent);
+                break;
+            case 2:
+                drawerLayout.closeDrawers();
+                break;
+            case 3:
+                Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
+                startActivity(fileIntent);
+                break;
+        }
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener
+    {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id)
+        {
+            selectItem(position);
+        }
+    }
+
+    private void setDrawer(String[] items)
+    {
+        HashMap<String,String> hm1 = new HashMap<String,String>();
+        hm1.put("nav_icon",Integer.toString(R.drawable.home));
+        hm1.put("nav_item",items[0]);
+
+        HashMap<String,String> hm2 = new HashMap<String,String>();
+        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put("nav_item",items[1]);
+
+        HashMap<String,String> hm3 = new HashMap<String,String>();
+        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
+        hm3.put("nav_item",items[2]);
+
+        HashMap<String,String> hm4 = new HashMap<String,String>();
+        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
+        hm4.put("nav_item",items[3]);
+
+        navTitles = new ArrayList<HashMap<String,String>>();
+
+        navTitles.add(hm1);
+        navTitles.add(hm2);
+        navTitles.add(hm3);
+        navTitles.add(hm4);
+    }
 
 }

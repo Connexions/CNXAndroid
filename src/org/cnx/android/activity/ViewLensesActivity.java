@@ -9,17 +9,22 @@ package org.cnx.android.activity;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import android.app.ActionBar;
+import android.app.ListActivity;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.SimpleAdapter;
 import org.cnx.android.R;
 import org.cnx.android.adapters.LensesAdapter;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.utils.ContentCache;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 
 //import android.app.ListActivity;
 import android.content.Intent;
@@ -34,7 +39,7 @@ import android.widget.ListView;
  * @author Ed Woodward
  *
  */
-public class ViewLensesActivity extends SherlockListActivity 
+public class ViewLensesActivity extends ListActivity
 {
     /**
      * Constant for Endorsement label
@@ -66,6 +71,13 @@ public class ViewLensesActivity extends SherlockListActivity
     ArrayList<Content> content;
     
     private ActionBar aBar;
+
+    private List<HashMap<String,String>> navTitles;
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
+    String[] from = { "nav_icon","nav_item" };
+    int[] to = { R.id.nav_icon , R.id.nav_item};
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -75,13 +87,9 @@ public class ViewLensesActivity extends SherlockListActivity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
-        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.view_lenses_title);
-        //TextView aTextView=(TextView)findViewById(R.id.lensNameInTitle);
-        //aTextView.setText("Connexions - Book Lists");
-        aBar = this.getSupportActionBar();
+        aBar = this.getActionBar();
         aBar.setTitle("Book Lists");
         aBar.setDisplayHomeAsUpEnabled(true);
         //get already retrieved feed and reuse if it is there
@@ -100,16 +108,49 @@ public class ViewLensesActivity extends SherlockListActivity
         finishedLoadingList();
             
         setListAdapter(adapter);
+
+        String[] items = getResources().getStringArray(R.array.nav_list);
+        setDrawer(items);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawerList = (ListView)findViewById(R.id.left_drawer);
+        SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
+
+        // Set the list's click listener
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                drawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                //getActionBar().setTitle(getString(R.string.app_name));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                //getActionBar().setTitle(getString(R.string.app_name));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.syncState();
+        drawerLayout.setDrawerListener(drawerToggle);
+        aBar.setDisplayHomeAsUpEnabled(true);
+        aBar.setHomeButtonEnabled(true);
+        drawerList.setAdapter(sAdapter);
     }
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) 
+    public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
-        getSupportMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+        getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
         return true;
         
     }
@@ -118,8 +159,13 @@ public class ViewLensesActivity extends SherlockListActivity
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) 
+    public boolean onOptionsItemSelected(MenuItem item)
     {
+        if (drawerToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+
     	if(item.getItemId() == android.R.id.home)
         {
             Intent mainIntent = new Intent(getApplicationContext(), LandingActivity.class);
@@ -131,14 +177,9 @@ public class ViewLensesActivity extends SherlockListActivity
     	{
 	        MenuHandler mh = new MenuHandler();
 	        boolean returnVal = mh.handleContextMenu(item, this, null);
-	        if(returnVal)
-	        {
-	            return returnVal;
-	        }
-	        else
-	        {
-	            return super.onOptionsItemSelected(item);
-	        }
+
+            return returnVal;
+
     	}
     }
     
@@ -161,6 +202,7 @@ public class ViewLensesActivity extends SherlockListActivity
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) 
     {
+        ContentCache.removeObject(getString(R.string.cache_savedcontent));
         Content content = (Content)getListView().getItemAtPosition(position);
         if(content.getTitle().equals(ENDORSED))
         {
@@ -271,6 +313,66 @@ public class ViewLensesActivity extends SherlockListActivity
             Log.d("ViewLenses.createList()", "Error: " + e.toString(),e);
         }
         
+    }
+
+    private void selectItem(int position)
+    {
+        switch (position)
+        {
+            case 0:
+                Intent landingIntent = new Intent(getApplicationContext(), LandingActivity.class);
+                startActivity(landingIntent);
+
+                break;
+            case 1:
+                drawerLayout.closeDrawers();
+                break;
+
+            case 2:
+                Intent favsIntent = new Intent(getApplicationContext(), ViewFavsActivity.class);
+                startActivity(favsIntent);
+                break;
+
+            case 3:
+                Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
+                startActivity(fileIntent);
+                break;
+        }
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener
+    {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id)
+        {
+            selectItem(position);
+        }
+    }
+
+    private void setDrawer(String[] items)
+    {
+        HashMap<String,String> hm1 = new HashMap<String,String>();
+        hm1.put("nav_icon",Integer.toString(R.drawable.home));
+        hm1.put("nav_item",items[0]);
+
+        HashMap<String,String> hm2 = new HashMap<String,String>();
+        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put("nav_item",items[1]);
+
+        HashMap<String,String> hm3 = new HashMap<String,String>();
+        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
+        hm3.put("nav_item",items[2]);
+
+        HashMap<String,String> hm4 = new HashMap<String,String>();
+        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
+        hm4.put("nav_item",items[3]);
+
+        navTitles = new ArrayList<HashMap<String,String>>();
+
+        navTitles.add(hm1);
+        navTitles.add(hm2);
+        navTitles.add(hm3);
+        navTitles.add(hm4);
     }
     
 }

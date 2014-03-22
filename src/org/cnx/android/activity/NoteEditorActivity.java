@@ -10,14 +10,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.providers.Notes;
 import org.cnx.android.utils.ContentCache;
 import org.cnx.android.utils.MenuUtil;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -43,7 +42,7 @@ import android.widget.Toast;
  * @author Ed Woodward
  *
  */
-public class NoteEditorActivity extends SherlockActivity
+public class NoteEditorActivity extends Activity
 {
     private static final String TAG = "NoteEditor";
 
@@ -120,7 +119,7 @@ public class NoteEditorActivity extends SherlockActivity
 
         setContentView(R.layout.note_editor);
         
-        ActionBar aBar = getSupportActionBar();
+        ActionBar aBar = getActionBar();
         
         if(content == null)
         {

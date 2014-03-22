@@ -31,18 +31,14 @@ public class ViewHolder
      * TextView for other information in ListView
      */
     protected TextView otherView;
-    /**
-     * image view for arrow in listview
-     */
-    protected ImageView arrowView;
+
     
     ViewHolder(View base)
     {
         imageView = (ImageView) base.findViewById(R.id.logoView);
         textView = (TextView) base.findViewById(R.id.lensName);
         otherView = (TextView) base.findViewById(R.id.lensOther);
-        //arrowView = (ImageView) base.findViewById(R.id.arrowView);
-        
+
     }
 
 }

@@ -8,8 +8,16 @@ package org.cnx.android.activity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.*;
+import android.widget.*;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
@@ -19,30 +27,17 @@ import org.cnx.android.utils.ContentCache;
 import org.cnx.android.views.ObservableWebView;
 import org.cnx.android.views.ObservableWebView.OnScrollChangedCallback;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle; 
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings.LayoutAlgorithm;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 /**
  * Activity to view selected lens content in a web browser.  
@@ -50,7 +45,7 @@ import android.widget.Toast;
  * @author Ed Woodward
  *
  */
-public class WebViewActivity extends SherlockActivity
+public class WebViewActivity extends Activity
 {
     /** Web browser view for Activity */
     private ObservableWebView webView;
@@ -65,6 +60,13 @@ public class WebViewActivity extends SherlockActivity
     private float yPosition = 0f;
     
     private boolean progressBarRunning;
+
+    private List<HashMap<String,String>> navTitles;
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
+    String[] from = { "nav_icon","nav_item" };
+    int[] to = { R.id.nav_icon , R.id.nav_item};
     
     /**
      * Progress bar when page is loading
@@ -93,7 +95,7 @@ public class WebViewActivity extends SherlockActivity
         	Log.d("WebViewClient.shouldOverrideUrlLo()", "Called");
         	if(!progressBarRunning)
             {
-            	setSupportProgressBarIndeterminateVisibility(true);
+            	setProgressBarIndeterminateVisibility(true);
             }
             view.loadUrl(fixURL(url));
             try
@@ -105,7 +107,6 @@ public class WebViewActivity extends SherlockActivity
             {
                 Log.d("WebViewActivity.shouldOverrideUrlLoading()", "Error: " + e.toString(),e);
             }
-            //setSupportProgressBarIndeterminateVisibility(true);
             return true;
         }
         
@@ -130,7 +131,7 @@ public class WebViewActivity extends SherlockActivity
             }
             
             setLayout(url);
-            setSupportProgressBarIndeterminateVisibility(false);
+            setProgressBarIndeterminateVisibility(false);
             progressBarRunning = false;
             Log.d("WebViewClient.onPageFinished", "setSupportProgressBarIndeterminateVisibility(false) Called");
             yPosition = 0f;
@@ -151,14 +152,12 @@ public class WebViewActivity extends SherlockActivity
         //Log.d("LensWebView.onCreate()", "Called");
         
         setContentView(R.layout.new_web_view);
-        aBar = this.getSupportActionBar();
-        setSupportProgressBarIndeterminateVisibility(true);
+        aBar = this.getActionBar();
+        setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
         Log.d("WebView.onCreate()", "Called");
-        aBar.setDisplayHomeAsUpEnabled(true);
         content = (Content)ContentCache.getObject(getString(R.string.webcontent));
         aBar.setTitle(getString(R.string.app_name));
-        //webView = (WebView)findViewById(R.id.web_view);
         if(content != null && content.getUrl() != null)
         {
             setLayout(content.getUrl().toString());
@@ -178,6 +177,41 @@ public class WebViewActivity extends SherlockActivity
             webView = (ObservableWebView)findViewById(R.id.web_view);
             CNXUtil.makeNoDataToast(this);
         }
+
+        String[] items = getResources().getStringArray(R.array.nav_list);
+        setDrawer(items);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawerList = (ListView)findViewById(R.id.left_drawer);
+        SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
+
+        // Set the adapter for the list view
+        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
+        // Set the list's click listener
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                drawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                //getActionBar().setTitle(getString(R.string.app_name));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                //getActionBar().setTitle(getString(R.string.app_name));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.syncState();
+        drawerLayout.setDrawerListener(drawerToggle);
+        aBar.setDisplayHomeAsUpEnabled(true);
+        aBar.setHomeButtonEnabled(true);
+        drawerList.setAdapter(sAdapter);
     }
     
     /* (non-Javadoc)
@@ -185,55 +219,15 @@ public class WebViewActivity extends SherlockActivity
      * Creates option menu
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) 
+    public boolean onCreateOptionsMenu(Menu menu)
     {
-        MenuInflater inflater = getSupportMenuInflater();
-        if(content == null)
-        {
-            return false;
-        }
-        if(content.getUrl().toString().indexOf(getString(R.string.help_page)) == -1 && content.getUrl().toString().indexOf(getString(R.string.search)) == -1 && content.getUrl().toString().indexOf(getString(R.string.google)) == -1)
-        {
-            //if the web menu is already being used, don't recreate it
-            if(!previousMenu.equals(WEB_MENU))
-            {
-                menu.clear();
-                inflater.inflate(R.menu.web_options_menu, menu);
-                previousMenu = WEB_MENU;
-            }
-        }
-        else 
-        {
-            //no need to check for help menu since there is only one path to it.
-            menu.clear();
-            inflater.inflate(R.menu.help_options_menu, menu);
-            MenuItem menuItem = menu.findItem(R.id.add_to_favs);
-            if(content.getUrl().toString().indexOf(getString(R.string.help_page)) != -1)
-            {
-                
-                menuItem.setVisible(false);
-            }
-            else
-            {
-                menuItem.setVisible(true);
-            }
-            previousMenu = HELP_MENU;
-        }
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+
         return true;
     }
     
-    /* (non-Javadoc)
-     * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
-     */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) 
-    {
-        super.onPrepareOptionsMenu(menu);
-        //handle changing menu based on URL
-        return onCreateOptionsMenu(menu);
-    }
 
-    
     /* (non-Javadoc)
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      * Handles selected options menu item
@@ -241,6 +235,11 @@ public class WebViewActivity extends SherlockActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
+        if (drawerToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+
     	if(item.getItemId() == android.R.id.home)
         {
     		ContentCache.removeObject(getString(R.string.cache_contentlist));
@@ -253,14 +252,9 @@ public class WebViewActivity extends SherlockActivity
     	{
 	        MenuHandler mh = new MenuHandler();
 	        boolean returnVal = mh.handleContextMenu(item, this, content);
-	        if(returnVal)
-	        {
-	            return returnVal;
-	        }
-	        else
-	        {
-	            return super.onOptionsItemSelected(item);
-	        }
+
+            return returnVal;
+
     	}
         
     }
@@ -272,7 +266,7 @@ public class WebViewActivity extends SherlockActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) 
     {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) 
+        if (webView != null && ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()))
         {
             webView.goBack();
             return true;
@@ -322,8 +316,6 @@ public class WebViewActivity extends SherlockActivity
         //Log.d("WebViewView.setupViews()", "Called");
         webView = (ObservableWebView)findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
-        //webView.getSettings().setUseWideViewPort(true);
-        //webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setDefaultFontSize(17);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
@@ -357,12 +349,7 @@ public class WebViewActivity extends SherlockActivity
         //showProgressDialog();
         webView.setWebChromeClient(new WebChromeClient() 
         {
-            
-//            public void onReceiveTitle(WebView view, String title)
-//            {
-//                super.onReceivedTitle(view, title);
-//                //Log.d("LensWebView.onCreate()", "Called");
-//            }
+
         });
         
         webView.setWebViewClient(webViewClient);
@@ -449,26 +436,21 @@ public class WebViewActivity extends SherlockActivity
     {
     	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
         int visibility = relLayout.getVisibility();
-//        if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
-//        {
-            if(visibility == View.VISIBLE)
-            {
-                relLayout.setVisibility(View.GONE);
-            }
-//        }
+        if(visibility == View.VISIBLE)
+        {
+            relLayout.setVisibility(View.GONE);
+        }
     }
     
     private void showToolbar()
     {
     	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
         int visibility = relLayout.getVisibility();
-//        if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
-//        {
-            if(visibility == View.GONE)
-            {
-                relLayout.setVisibility(View.VISIBLE);
-            }
-//        }
+
+        if(visibility == View.GONE)
+        {
+            relLayout.setVisibility(View.VISIBLE);
+        }
     }
     
     /**
@@ -574,6 +556,67 @@ public class WebViewActivity extends SherlockActivity
 
             
         }
+    }
+
+    private void selectItem(int position)
+    {
+        switch (position)
+        {
+            case 0:
+                Intent landingIntent = new Intent(getApplicationContext(), LandingActivity.class);
+                startActivity(landingIntent);
+
+                break;
+            case 1:
+                Intent lensesIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
+                startActivity(lensesIntent);
+                break;
+
+            case 2:
+                Intent favsIntent = new Intent(getApplicationContext(), ViewFavsActivity.class);
+                startActivity(favsIntent);
+                break;
+
+            case 3:
+                Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
+                startActivity(fileIntent);
+                break;
+        }
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener
+    {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id)
+        {
+            selectItem(position);
+        }
+    }
+
+    private void setDrawer(String[] items)
+    {
+        HashMap<String,String> hm1 = new HashMap<String,String>();
+        hm1.put("nav_icon",Integer.toString(R.drawable.home));
+        hm1.put("nav_item",items[0]);
+
+        HashMap<String,String> hm2 = new HashMap<String,String>();
+        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put("nav_item",items[1]);
+
+        HashMap<String,String> hm3 = new HashMap<String,String>();
+        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
+        hm3.put("nav_item",items[2]);
+
+        HashMap<String,String> hm4 = new HashMap<String,String>();
+        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
+        hm4.put("nav_item",items[3]);
+
+        navTitles = new ArrayList<HashMap<String,String>>();
+
+        navTitles.add(hm1);
+        navTitles.add(hm2);
+        navTitles.add(hm3);
+        navTitles.add(hm4);
     }
     
 }

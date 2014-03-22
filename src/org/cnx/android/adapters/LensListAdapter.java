@@ -149,19 +149,19 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
                 else
                 {
                     //set correct icon based on URL
-                    if(c.url.toString().indexOf("lenses") > -1)
+                    if(c.url.toString().contains("lenses"))
                     {
                         holder.imageView.setImageResource(R.drawable.lenses);
                     }
-                    else if(c.url.toString().indexOf("content/m") > -1)
+                    else if(c.url.toString().contains("content/m"))
                     {
                         holder.imageView.setImageResource(R.drawable.modules);
                     }
-                    else if(c.url.toString().indexOf("content/col") > -1)
+                    else if(c.url.toString().contains("content/col"))
                     {
                         holder.imageView.setImageResource(R.drawable.collections);
                     }
-                    else if(c.url.toString().indexOf("google.com") > -1 || c.url.toString().indexOf("cnx.org/content/search") > -1 )
+                    else if(c.url.toString().contains("google.com") || c.url.toString().contains("cnx.org/content/search") )
                     {
                         holder.imageView.setImageResource(R.drawable.search_selected);
                     }

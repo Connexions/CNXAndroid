@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nav_list">
+        <item>Home</item>
+        <item>Book Lists</item>
+        <item>Favorites</item>
+        <item>Downloaded Files</item>
+        <item>Help</item>
+    </string-array>
+</resources>
