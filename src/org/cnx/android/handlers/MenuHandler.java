@@ -137,11 +137,11 @@ public class MenuHandler
         String message = "";
         if(type.equals(Constants.PDF_TYPE))
         {
-            message = "PDF files are saved in a Connexions folder on the SDCard or on the device's internal memory.  Press OK to continue.";
+            message = "PDF files are saved in an OpenStaxCNX folder on the SDCard or on the device's internal memory.  Press OK to continue.";
         }
         else
         {
-            message = "EPUB files are saved in a Connexions folder on the SDCard or on the device's internal memory.  Press OK to continue.";
+            message = "EPUB files are saved in an OpenStaxCNX folder on the SDCard or on the device's internal memory.  Press OK to continue.";
         }
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Download");
