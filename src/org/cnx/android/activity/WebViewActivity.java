@@ -221,8 +221,19 @@ public class WebViewActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        super.onCreateOptionsMenu(menu);
+//        super.onCreateOptionsMenu(menu);
+//        MenuInflater inflater = getMenuInflater();
+//
+//        return true;
         MenuInflater inflater = getMenuInflater();
+        if(content == null)
+        {
+            return false;
+        }
+
+        menu.clear();
+        inflater.inflate(R.menu.web_options_menu, menu);
+        previousMenu = WEB_MENU;
 
         return true;
     }
