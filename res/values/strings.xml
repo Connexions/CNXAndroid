@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Connexions</string>
+    <string name="app_name">OpenStax CNX</string>
     <string name="no_content">Loading Book List...</string>
     <string name="loading_title">Book Lists</string>
     <string name="loading_lenses_description">Loading Book Lists&#8230;</string>
@@ -14,7 +14,7 @@
     <string name="menu_go_to_favs">Go to Favorites</string>
     <string name="menu_help">Help</string>
     <string name="menu_delete_from_favs">Delete from Favorites</string>
-    <string name="menu_search">Search Connexions</string>
+    <string name="menu_search">Search OpenStax CNX</string>
     <string name="menu_lenses">Content</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_pdf">Download PDF</string>
@@ -35,7 +35,7 @@
     <string name="content">content</string>
     <string name="intro">Welcome to Connexions for Android!\n\n  Browse our content using the Book Lists and save content you like to your Favorites.  Be sure to checkout the other features like search, taking notes, downloading EPUBs or PDFs, viewing downloaded files and help.</string>
     <string name="search_title">Search: </string>
-    <string name="file_browser_title">Connexions - Select File to View</string>
+    <string name="file_browser_title">OpenStax CNX - Select File to View</string>
     <string name="file_dialog_title">View</string>
     <string name="file_browser_toast">No Application Available to View File</string>
     <string name="lenses_fake_url">http://cnx.org</string>
@@ -46,7 +46,7 @@
     <string name="lenses_osc_desc">Books from OpenStax College</string>
     <string name="lenses_recent_desc">Recently published or updated content</string>
     <string name="nothing_to_save">There is nothing to save.</string>
-    <string name="shared_via"> Shared via Connexions for Android app.</string>
+    <string name="shared_via"> Shared via the OpenStax CNX app.</string>
     <string name="tell_friend">Tell a friend about </string>
     <string name="cache_lenstypes">lenstypes</string>
     <string name="cache_sentcontent">sentContent</string>
@@ -60,7 +60,7 @@
     <string name="no_data_msg">Data needed to share not available.  Use the back button to refresh and try again.</string>
     <string name="note_error_msg">Cannot create note.  Please try again.</string>
     <string name="note_sql_url">notes_url=?\'</string>
-    <string name="cnx_folder">Connexions\/</string>
+    <string name="cnx_folder">OpenStaxCNX\/</string>
     <string name="html_ext">.html</string>
     <string name="mimetype_text">text/plain</string>
     <string name="title_browse">Browse Book Lists</string>
