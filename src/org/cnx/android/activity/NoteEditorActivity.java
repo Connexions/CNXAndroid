@@ -295,7 +295,7 @@ public class NoteEditorActivity extends Activity
      */
     private void exportNote()
     {
-        File cnxDir = new File(Environment.getExternalStorageDirectory(), "OpenStaxCNX/");
+        File cnxDir = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
         if(!cnxDir.exists())
         {
             cnxDir.mkdir();

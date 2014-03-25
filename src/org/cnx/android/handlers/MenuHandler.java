@@ -160,7 +160,7 @@ public class MenuHandler
             	  {
             		  Uri uri = Uri.parse(MenuUtil.fixPdfURL(currentContent.getUrl().toString(), MenuUtil.getContentType(url)));
             		  DownloadManager.Request request = new Request(uri);
-            		  request.setDestinationInExternalPublicDir("/OpenStaxCNX", MenuUtil.getTitle(currentContent.getTitle()) + Constants.PDF_EXTENSION);
+            		  request.setDestinationInExternalPublicDir("/" + context.getString(R.string.folder_name), MenuUtil.getTitle(currentContent.getTitle()) + Constants.PDF_EXTENSION);
             		  request.setTitle(currentContent.getTitle() + Constants.PDF_EXTENSION);
             		  dm.enqueue(request);
             	  }
@@ -168,7 +168,7 @@ public class MenuHandler
             	  {
             		  Uri uri = Uri.parse(MenuUtil.fixEpubURL(currentContent.getUrl().toString(), MenuUtil.getContentType(url)));
             		  DownloadManager.Request request = new Request(uri);
-            		  request.setDestinationInExternalPublicDir("/OpenStaxCNX", MenuUtil.getTitle(currentContent.getTitle()) + Constants.EPUB_EXTENSION);
+            		  request.setDestinationInExternalPublicDir("/" + context.getString(R.string.folder_name), MenuUtil.getTitle(currentContent.getTitle()) + Constants.EPUB_EXTENSION);
             		  request.setTitle(currentContent.getTitle() + Constants.EPUB_EXTENSION);
             		  dm.enqueue(request);
             	  }

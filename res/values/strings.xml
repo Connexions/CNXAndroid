@@ -34,7 +34,7 @@
     <string name="webcontent">webcontent</string>
     <string name="content">content</string>
     <string name="intro">Welcome to Connexions for Android!\n\n  Browse our content using the Book Lists and save content you like to your Favorites.  Be sure to checkout the other features like search, taking notes, downloading EPUBs or PDFs, viewing downloaded files and help.</string>
-    <string name="search_title">Search: </string>
+    <string name="search_title">OpenStax CNX Search: </string>
     <string name="file_browser_title">OpenStax CNX - Select File to View</string>
     <string name="file_dialog_title">View</string>
     <string name="file_browser_toast">No Application Available to View File</string>
@@ -71,5 +71,6 @@
     <string name="froyo_copy_msg">Select Text</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+    <string name="folder_name">OpenStaxCNX</string>
 </resources>
  

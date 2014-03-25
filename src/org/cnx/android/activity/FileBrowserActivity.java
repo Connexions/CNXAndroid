@@ -56,7 +56,7 @@ public class FileBrowserActivity extends ListActivity
     /**
      * The /Connexions directory as a file object
      */
-    private File currentDirectory = new File(Environment.getExternalStorageDirectory(), "OpenStaxCNX/");
+    private File currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
     /**
      * List Adapter for display
      */
@@ -270,7 +270,7 @@ public class FileBrowserActivity extends ListActivity
     private void openFile(File file)
     {
        
-        File newFile = new File(Environment.getExternalStorageDirectory() + "/OpenStaxCNX/" + file.getName());
+        File newFile = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.folder_name) + "/" + file.getName());
         Uri path = Uri.fromFile(newFile);
         //Log.d("FileBrowserActivity", "path: " + path.toString());
         Intent intent = new Intent(Intent.ACTION_VIEW);
