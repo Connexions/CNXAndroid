@@ -40,7 +40,7 @@ public class DownloadHandler
         /**
          * The directory to store the files in
          */
-        final String STORAGE_PATH = "Connexions/";
+        final String STORAGE_PATH = "OpenStaxCNX/";
         /**
          * Download buffer size 
          */
