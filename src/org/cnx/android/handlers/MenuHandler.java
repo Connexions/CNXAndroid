@@ -61,20 +61,22 @@ public class MenuHandler
         {
             case R.id.add_to_favs:
                 ContentValues cv = new ContentValues();
+                String title;
                 if(currentContent.getUrl().toString().contains("http://mobile.cnx.org/content/search") || currentContent.getUrl().toString().contains("http://m.cnx.org/content/search"))
                 {
-                    String title = MenuUtil.getSearchTitle(currentContent.getUrl().toString());
+                    title = MenuUtil.getSearchTitle(currentContent.getUrl().toString());
                     cv.put(Favs.TITLE, title);
                 }
                 else
                 {
                     cv.put(Favs.TITLE, currentContent.getTitle());
+                    title = currentContent.getTitle();
                 }
                 cv.put(Favs.URL, currentContent.getUrl().toString());
                 cv.put(Favs.ICON, currentContent.getIcon());
                 cv.put(Favs.OTHER, currentContent.getContentString());
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
-                Toast.makeText(context, currentContent.getTitle() + " added to Favorites", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, title + " added to Favorites", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.help:
                 try

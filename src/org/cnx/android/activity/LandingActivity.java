@@ -3,8 +3,6 @@
  */
 package org.cnx.android.activity;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -13,24 +11,16 @@ import org.cnx.android.adapters.LandingListAdapter;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.SearchHandler;
 import org.cnx.android.utils.Constants;
-import org.cnx.android.utils.ContentCache;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Activity for Landing page
