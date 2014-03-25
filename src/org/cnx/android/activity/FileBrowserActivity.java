@@ -56,7 +56,7 @@ public class FileBrowserActivity extends ListActivity
     /**
      * The /Connexions directory as a file object
      */
-    private File currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
+    private File currentDirectory;
     /**
      * List Adapter for display
      */
@@ -80,6 +80,7 @@ public class FileBrowserActivity extends ListActivity
         registerForContextMenu(getListView());
         
         ActionBar aBar = getActionBar();
+        currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
 
         aBar.setTitle(getString(R.string.file_browser_title));
         readFileList();
