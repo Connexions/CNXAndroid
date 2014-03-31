@@ -418,11 +418,14 @@ public class WebViewActivity extends Activity
         {
             newURL.append(Constants.MOBILE_CNX_URL);
             newURL.append(url.substring(startIndex));
+            Log.d("WebViewActivity","URL = " + newURL.toString());
             return newURL.toString();
         }
         else
         {
+
             return url;
+            //return "http://m.qa.cnx.org/content/m11932/latest/";
         }
     }
     
