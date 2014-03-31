@@ -56,7 +56,7 @@ public class FileBrowserActivity extends ListActivity
     /**
      * The /Connexions directory as a file object
      */
-    private File currentDirectory = new File(Environment.getExternalStorageDirectory(), "Connexions/");
+    private File currentDirectory;
     /**
      * List Adapter for display
      */
@@ -80,6 +80,7 @@ public class FileBrowserActivity extends ListActivity
         registerForContextMenu(getListView());
         
         ActionBar aBar = getActionBar();
+        currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
 
         aBar.setTitle(getString(R.string.file_browser_title));
         readFileList();
@@ -166,7 +167,7 @@ public class FileBrowserActivity extends ListActivity
      */
     public void readFileList()
     {
-        currentDirectory = new File(Environment.getExternalStorageDirectory(), "Connexions/");
+        currentDirectory = new File(Environment.getExternalStorageDirectory(), "OpenStaxCNX/");
         if(currentDirectory.exists())
         {
             handleFile(currentDirectory);
@@ -181,7 +182,7 @@ public class FileBrowserActivity extends ListActivity
     private void handleFile(final File dirOrFile)
     {
         //Log.d("FileBrowserActivity.browseTo()", "Called");
-        if (dirOrFile.isDirectory() && !dirOrFile.getPath().endsWith("Connexions/"))
+        if (dirOrFile.isDirectory() && !dirOrFile.getPath().endsWith("OpenStaxCNX/"))
         {
             this.currentDirectory = dirOrFile;
             loadList(dirOrFile.listFiles());
@@ -270,7 +271,7 @@ public class FileBrowserActivity extends ListActivity
     private void openFile(File file)
     {
        
-        File newFile = new File(Environment.getExternalStorageDirectory() + "/Connexions/" + file.getName());
+        File newFile = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.folder_name) + "/" + file.getName());
         Uri path = Uri.fromFile(newFile);
         //Log.d("FileBrowserActivity", "path: " + path.toString());
         Intent intent = new Intent(Intent.ACTION_VIEW);

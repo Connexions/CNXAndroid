@@ -295,7 +295,7 @@ public class NoteEditorActivity extends Activity
      */
     private void exportNote()
     {
-        File cnxDir = new File(Environment.getExternalStorageDirectory(), "Connexions/");
+        File cnxDir = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
         if(!cnxDir.exists())
         {
             cnxDir.mkdir();
@@ -311,7 +311,7 @@ public class NoteEditorActivity extends Activity
             pw.write(text);
             pw.flush();
             //pw.close();
-            Toast.makeText(this, fileName + " saved to Connexions folder.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, fileName + " saved to OpenStaxCNX folder.", Toast.LENGTH_LONG).show();
         }
         catch (FileNotFoundException e)
         {

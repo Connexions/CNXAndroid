@@ -4,22 +4,13 @@
     android:layout_height="fill_parent"
     android:background="@color/blue_background"
     android:cacheColorHint="#00000000">
-	
-  <!--  <LinearLayout
-      android:id="@+id/LinearLayout01"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:gravity="center">-->
-    	<TextView
-    	   	android:id="@+id/optionName"
-    	   	android:layout_width="wrap_content"
-    	   	android:layout_height="wrap_content"
-    	   	android:layout_marginTop="15dip"
-    	   	android:layout_marginBottom="15dip"
-    	   	android:layout_marginLeft="6dip"
-    	   	android:layout_centerVertical="true"        	style="@style/TextAppearance.Title.Landing" />
-      
-  <!--</LinearLayout>-->
-	
+    <TextView
+        android:id="@+id/optionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:layout_marginBottom="15dip"
+        android:layout_marginLeft="6dip"
+        android:layout_centerVertical="true"
+        style="@style/TextAppearance.Title.LandingList" />
 </RelativeLayout>

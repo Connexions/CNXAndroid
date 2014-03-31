@@ -133,7 +133,7 @@ public class MenuUtil
         StringBuilder sb = new StringBuilder();
         String newTitle = "";
         int wordsIndex = title.indexOf("words=");
-        sb.append("Connexions search: ");
+        sb.append("OpenStaxCNX search: ");
         int ampIndex = title.indexOf("&", wordsIndex);
         if(wordsIndex != -1 && ampIndex != -1)
         {

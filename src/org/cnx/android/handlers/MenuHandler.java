@@ -61,20 +61,22 @@ public class MenuHandler
         {
             case R.id.add_to_favs:
                 ContentValues cv = new ContentValues();
+                String title;
                 if(currentContent.getUrl().toString().contains("http://mobile.cnx.org/content/search") || currentContent.getUrl().toString().contains("http://m.cnx.org/content/search"))
                 {
-                    String title = MenuUtil.getSearchTitle(currentContent.getUrl().toString());
+                    title = MenuUtil.getSearchTitle(currentContent.getUrl().toString());
                     cv.put(Favs.TITLE, title);
                 }
                 else
                 {
                     cv.put(Favs.TITLE, currentContent.getTitle());
+                    title = currentContent.getTitle();
                 }
                 cv.put(Favs.URL, currentContent.getUrl().toString());
                 cv.put(Favs.ICON, currentContent.getIcon());
                 cv.put(Favs.OTHER, currentContent.getContentString());
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
-                Toast.makeText(context, currentContent.getTitle() + " added to Favorites", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, title + " added to Favorites", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.help:
                 try
@@ -137,11 +139,11 @@ public class MenuHandler
         String message = "";
         if(type.equals(Constants.PDF_TYPE))
         {
-            message = "PDF files are saved in a Connexions folder on the SDCard or on the device's internal memory.  Press OK to continue.";
+            message = "PDF files are saved in an OpenStaxCNX folder on the SDCard or on the device's internal memory.  Press OK to continue.";
         }
         else
         {
-            message = "EPUB files are saved in a Connexions folder on the SDCard or on the device's internal memory.  Press OK to continue.";
+            message = "EPUB files are saved in an OpenStaxCNX folder on the SDCard or on the device's internal memory.  Press OK to continue.";
         }
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Download");
@@ -158,7 +160,7 @@ public class MenuHandler
             	  {
             		  Uri uri = Uri.parse(MenuUtil.fixPdfURL(currentContent.getUrl().toString(), MenuUtil.getContentType(url)));
             		  DownloadManager.Request request = new Request(uri);
-            		  request.setDestinationInExternalPublicDir("/Connexions", MenuUtil.getTitle(currentContent.getTitle()) + Constants.PDF_EXTENSION);
+            		  request.setDestinationInExternalPublicDir("/" + context.getString(R.string.folder_name), MenuUtil.getTitle(currentContent.getTitle()) + Constants.PDF_EXTENSION);
             		  request.setTitle(currentContent.getTitle() + Constants.PDF_EXTENSION);
             		  dm.enqueue(request);
             	  }
@@ -166,7 +168,7 @@ public class MenuHandler
             	  {
             		  Uri uri = Uri.parse(MenuUtil.fixEpubURL(currentContent.getUrl().toString(), MenuUtil.getContentType(url)));
             		  DownloadManager.Request request = new Request(uri);
-            		  request.setDestinationInExternalPublicDir("/Connexions", MenuUtil.getTitle(currentContent.getTitle()) + Constants.EPUB_EXTENSION);
+            		  request.setDestinationInExternalPublicDir("/" + context.getString(R.string.folder_name), MenuUtil.getTitle(currentContent.getTitle()) + Constants.EPUB_EXTENSION);
             		  request.setTitle(currentContent.getTitle() + Constants.EPUB_EXTENSION);
             		  dm.enqueue(request);
             	  }
