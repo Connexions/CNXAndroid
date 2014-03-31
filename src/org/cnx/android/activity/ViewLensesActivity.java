@@ -204,6 +204,7 @@ public class ViewLensesActivity extends ListActivity
     {
         ContentCache.removeObject(getString(R.string.cache_savedcontent));
         ContentCache.removeObject(getString(R.string.cache_sentcontent));
+        ContentCache.removeObject(getString(R.string.cache_contentlist));
         Content content = (Content)getListView().getItemAtPosition(position);
         if(content.getTitle().equals(ENDORSED))
         {
