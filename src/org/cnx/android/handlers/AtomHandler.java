@@ -186,7 +186,7 @@ public class AtomHandler extends DefaultHandler
         }
         else if(inListItem && currentContent != null && !chars.equals("\n") )
         {
-            currentContent.setContentString(chars.trim() + " chapters and/or books");
+            currentContent.setContentString(chars.trim() + " pages and/or books");
             //Log.d("AtomHandler.characters()","contentString = " + chars);
             inListItem = false;
         }

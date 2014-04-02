@@ -16,6 +16,7 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.*;
@@ -72,6 +73,7 @@ public class WebViewActivity extends Activity
 
     String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562"};
     List<String> bookList = Arrays.asList(oscBooks);
+    SharedPreferences sharedPref;
     
     /**
      * Progress bar when page is loading
@@ -158,6 +160,7 @@ public class WebViewActivity extends Activity
         
         setContentView(R.layout.new_web_view);
         aBar = this.getActionBar();
+        sharedPref = getSharedPreferences("org.cnx.android",MODE_PRIVATE);
         setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
         Log.d("WebView.onCreate()", "Called");
@@ -217,6 +220,14 @@ public class WebViewActivity extends Activity
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeButtonEnabled(true);
         drawerList.setAdapter(sAdapter);
+        String pref = sharedPref.getString("cacheCleared", "");
+        if(pref.equals(""))
+        {
+            webView.clearCache(true);
+            SharedPreferences.Editor ed = sharedPref.edit();
+            ed.putString("cacheCleared", "true");
+            ed.commit();
+        }
     }
     
     /* (non-Javadoc)
