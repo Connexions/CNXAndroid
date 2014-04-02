@@ -106,7 +106,6 @@ public class WebViewActivity extends Activity
             try
             {
                 content.setUrl(new URL(url));
-                setUpViews();
                 
             }
             catch (MalformedURLException e)
@@ -129,7 +128,7 @@ public class WebViewActivity extends Activity
             try
             {
                 content.setUrl(new URL(url));
-                
+
             }
             catch (MalformedURLException e)
             {
