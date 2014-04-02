@@ -6,9 +6,11 @@
  */
 package org.cnx.android.activity;
 
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -67,6 +69,9 @@ public class WebViewActivity extends Activity
     private ActionBarDrawerToggle drawerToggle;
     String[] from = { "nav_icon","nav_item" };
     int[] to = { R.id.nav_icon , R.id.nav_item};
+
+    String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562"};
+    List<String> bookList = Arrays.asList(oscBooks);
     
     /**
      * Progress bar when page is loading
@@ -101,6 +106,7 @@ public class WebViewActivity extends Activity
             try
             {
                 content.setUrl(new URL(url));
+                setUpViews();
                 
             }
             catch (MalformedURLException e)
@@ -529,26 +535,39 @@ public class WebViewActivity extends Activity
                   });
                 
                 ImageButton epubButton = (ImageButton)findViewById(R.id.epubButton);
-                epubButton.setOnClickListener(new OnClickListener() 
-                {
-                          
-                      public void onClick(View v) 
-                      {
-                          download(Constants.EPUB_TYPE);
-
-                      }
-                  });
                 
                 ImageButton pdfButton = (ImageButton)findViewById(R.id.pdfButton);
-                pdfButton.setOnClickListener(new OnClickListener() 
-                {
-                          
-                      public void onClick(View v) 
-                      {
-                          download(Constants.PDF_TYPE);
 
-                      }
-                  });
+                if(isOSCBook(content.getUrl().toString()))
+                {
+                    epubButton.setVisibility(View.GONE);
+                    pdfButton.setVisibility(View.GONE);
+                }
+                else
+                {
+                    epubButton.setVisibility(View.VISIBLE);
+                    pdfButton.setVisibility(View.VISIBLE);
+                    epubButton.setOnClickListener(new OnClickListener()
+                    {
+
+                        public void onClick(View v)
+                        {
+                            download(Constants.EPUB_TYPE);
+
+                        }
+                    });
+
+                    pdfButton.setOnClickListener(new OnClickListener()
+                    {
+
+                        public void onClick(View v)
+                        {
+                            download(Constants.PDF_TYPE);
+
+                        }
+                    });
+
+                }
                 
                 ImageButton copyButton = (ImageButton)findViewById(R.id.copyButton);
                 if(Build.VERSION.SDK_INT < 11) 
@@ -631,6 +650,26 @@ public class WebViewActivity extends Activity
         navTitles.add(hm2);
         navTitles.add(hm3);
         navTitles.add(hm4);
+    }
+
+    private boolean isOSCBook(String url)
+    {
+        boolean isOSC = false;
+        if(url.contains("content/m"))
+        {
+            return isOSC;
+        }
+
+        for(int i = 0; i < bookList.size(); i++)
+        {
+            if(url.contains("content/" + bookList.get(i)))
+            {
+                isOSC = true;
+                break;
+            }
+        }
+
+        return isOSC;
     }
     
 }
