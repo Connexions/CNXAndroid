@@ -72,5 +72,28 @@
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
     <string name="folder_name">OpenStaxCNX</string>
+    <string name="physics">College Physics</string>
+    <string name="sociology">Introduction to Sociology</string>
+    <string name="biology">Biology</string>
+    <string name="concepts_biology">Concepts of Biology</string>
+    <string name="anatomy">Anatomy and Physiology</string>
+    <string name="statistics">Introductory Statistics</string>
+    <string name="precalculus">Precalculus</string>
+    <string name="psychology">Psychology</string>
+    <string name="chemistry">Chemistry</string>
+    <string name="history">US History</string>
+    <string name="econ">Principles of Economics</string>
+    <string name="micro_econ">Micro-Economics</string>
+    <string name="macro_econ">Macro-Economics</string>
+    <string name="coming_soon">Coming Soon!</string>
+    <string name="landing_title_sociology">Sociology</string>
+    <string name="landing_title_economics">Economics</string>
+    <string name="landing_title_anatomy">Anatomy</string>
+    <string name="physics_desc">Introductory, algebra-based, two-semester book</string>
+    <string name="sociology_desc">Intro book covering current events</string>
+    <string name="biology_desc">Multi-semester biology book for science majors</string>
+    <string name="concepts_biology_desc">Introductory biology book for non-science majors</string>
+    <string name="anatomy_desc">Two-semester anatomy and physiology</string>
+    <string name="statistics_desc">One-semester introduction to statistics for students who are not mathematics or engineering majors.</string>
 </resources>
  
