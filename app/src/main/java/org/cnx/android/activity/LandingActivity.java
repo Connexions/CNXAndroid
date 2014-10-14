@@ -15,6 +15,7 @@ import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.SearchHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.Constants;
+import org.cnx.android.utils.ContentCache;
 
 import android.content.Context;
 import android.content.Intent;
@@ -47,6 +48,8 @@ public class LandingActivity extends Activity
     private ListView listView;
 
     private ArrayList<Content> content;
+
+    
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -96,8 +99,8 @@ public class LandingActivity extends Activity
 
                 Content c = content.get(position);
                 Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
-                i.putExtra("webcontent",c);
-                //ContentCache.setObject(getString(R.string.webcontent), c);
+                //i.putExtra("webcontent",c);
+                ContentCache.setObject(getString(R.string.webcontent), c);
                 startActivity(i);
 
             }

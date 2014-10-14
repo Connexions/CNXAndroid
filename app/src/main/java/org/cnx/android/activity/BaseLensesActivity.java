@@ -16,7 +16,6 @@ import java.util.List;
 import android.app.ListActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.SimpleAdapter;
 import org.cnx.android.R;

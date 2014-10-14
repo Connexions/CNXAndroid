@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dip"
             android:singleLine="true"
             android:maxLines="1"
             android:textColor="#000000"
@@ -34,22 +35,20 @@
             android:layout_alignTop="@+id/searchText"
             android:layout_gravity="fill_horizontal"
             android:background="@drawable/button_background"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="5dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
+
             android:layout_centerHorizontal="true"
             android:src="@drawable/magnify" />
         <TextView
             android:id="@+id/optionName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dip"
-            android:layout_marginBottom="1dip"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
             android:text="Featured Books"
             android:layout_below="@+id/searchButton"
             android:gravity="center"
-            android:background="@color/white_text"
+            android:background="@color/blue_background"
             style="@style/TextAppearance.Title.Landing" />
     </RelativeLayout>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
