@@ -6,8 +6,10 @@ package org.cnx.android.activity;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import org.cnx.android.R;
 import org.cnx.android.adapters.LandingListAdapter;
@@ -21,10 +23,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -35,6 +41,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 /**
@@ -48,8 +55,14 @@ public class LandingActivity extends Activity
     private ListView listView;
 
     private ArrayList<Content> content;
+    private ActionBar aBar;
 
-    
+    private List<HashMap<String,String>> navTitles;
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
+    String[] from = { "nav_icon","nav_item" };
+    int[] to = { R.id.nav_icon , R.id.nav_item};
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -58,6 +71,8 @@ public class LandingActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_landing);
+        aBar = this.getActionBar();
+        aBar.setTitle(Html.fromHtml("open<b>stax</b> cnx"));
         createList();
         GridView gridView = (GridView) findViewById(R.id.gridView);
         int orient = getResources().getConfiguration().orientation;
@@ -108,6 +123,51 @@ public class LandingActivity extends Activity
 
         //listView = (ListView)findViewById(R.id.landingList);
         setLayout();
+
+        String[] items = getResources().getStringArray(R.array.nav_list);
+        setDrawer(items);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawerList = (ListView)findViewById(R.id.left_drawer);
+        SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
+
+        // Set the adapter for the list view
+        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
+        // Set the list's click listener
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                drawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                //getActionBar().setTitle(getString(R.string.app_name));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                //getActionBar().setTitle(getString(R.string.app_name));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.syncState();
+        drawerLayout.setDrawerListener(drawerToggle);
+        aBar.setDisplayHomeAsUpEnabled(true);
+        aBar.setHomeButtonEnabled(true);
+        drawerList.setAdapter(sAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if(drawerToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -269,6 +329,24 @@ public class LandingActivity extends Activity
             c13.setUrl(new URL(fakeURL));
             c13.setIconDrawable(R.drawable.psychology_lg);
 
+            Content c14 = new Content();
+            c14.setTitle(getString(R.string.bus_fundamentals));
+            c14.setContentString(getString(R.string.bus_fundamentals));
+            c14.setUrl(new URL(fakeURL));
+            c14.setIconDrawable(R.drawable.bus_fundamentals);
+
+//            Content c15 = new Content();
+//            c15.setTitle(getString(R.string.elec_engineering));
+//            c15.setContentString(getString(R.string.elec_engineering));
+//            c15.setUrl(new URL(fakeURL));
+//            c15.setIconDrawable(R.drawable.elec_engineering);
+//
+//            Content c16 = new Content();
+//            c16.setTitle(getString(R.string.elem_algebra));
+//            c16.setContentString(getString(R.string.elem_algebra));
+//            c16.setUrl(new URL(fakeURL));
+//            c16.setIconDrawable(R.drawable.elem_algebra);
+
             if(content == null)
             {
                 content = new ArrayList<Content>();
@@ -287,6 +365,9 @@ public class LandingActivity extends Activity
             content.add(c9);
             content.add(c10);
             content.add(c13);
+            content.add(c14);
+//            content.add(c15);
+//            content.add(c16);
 
         }
         catch (MalformedURLException e)
@@ -304,6 +385,66 @@ public class LandingActivity extends Activity
     {
         SearchHandler sh = new SearchHandler();
         sh.performSearch(searchFor, Constants.CNX_SEARCH, this);
+    }
+
+    private void selectItem(int position)
+    {
+        switch (position)
+        {
+            case 0:
+                drawerLayout.closeDrawers();
+                break;
+
+            case 1:
+                Intent lensesIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
+                startActivity(lensesIntent);
+                break;
+
+            case 2:
+                Intent favsIntent = new Intent(getApplicationContext(), ViewFavsActivity.class);
+                startActivity(favsIntent);
+                break;
+
+            case 3:
+                Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
+                startActivity(fileIntent);
+                break;
+        }
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener
+    {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id)
+        {
+            selectItem(position);
+        }
+    }
+
+    private void setDrawer(String[] items)
+    {
+        HashMap<String,String> hm1 = new HashMap<String,String>();
+        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
+        hm1.put("nav_item",items[0]);
+
+        HashMap<String,String> hm2 = new HashMap<String,String>();
+        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put("nav_item",items[1]);
+
+        HashMap<String,String> hm3 = new HashMap<String,String>();
+        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
+        hm3.put("nav_item",items[2]);
+
+        HashMap<String,String> hm4 = new HashMap<String,String>();
+        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
+        hm4.put("nav_item",items[3]);
+
+        navTitles = new ArrayList<HashMap<String,String>>();
+
+        navTitles.add(hm1);
+        navTitles.add(hm2);
+        navTitles.add(hm3);
+        navTitles.add(hm4);
     }
 
     class ImageAdapter extends BaseAdapter
@@ -328,7 +469,10 @@ public class LandingActivity extends Activity
             bookcovers.add(new Bookcover("",R.drawable.precalculus_lg));
             bookcovers.add(new Bookcover("",R.drawable.psychology_lg));
             bookcovers.add(new Bookcover("",R.drawable.chemistry_lg));
+            bookcovers.add(new Bookcover("",R.drawable.bus_fundamentals));
             bookcovers.add(new Bookcover("",R.drawable.history_lg));
+//            bookcovers.add(new Bookcover("",R.drawable.elec_engineering));
+//            bookcovers.add(new Bookcover("",R.drawable.elem_algebra));
 
         }
 

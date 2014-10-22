@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Html;
 import android.view.*;
 import android.widget.*;
 import org.cnx.android.R;
@@ -165,7 +166,7 @@ public class WebViewActivity extends Activity
         progressBarRunning = true;
         Log.d("WebView.onCreate()", "Called");
         content = (Content)ContentCache.getObject(getString(R.string.webcontent));
-        aBar.setTitle(getString(R.string.app_name));
+        aBar.setTitle(Html.fromHtml("open<b>stax</b> cnx"));
         if(content != null && content.getUrl() != null)
         {
             setLayout(content.getUrl().toString());
@@ -548,7 +549,7 @@ public class WebViewActivity extends Activity
                 
                 ImageButton pdfButton = (ImageButton)findViewById(R.id.pdfButton);
 
-                if(isOSCBook(content.getUrl().toString()))
+                if(content != null && isOSCBook(content.getUrl().toString()))
                 {
                     epubButton.setVisibility(View.GONE);
                     pdfButton.setVisibility(View.GONE);
@@ -639,7 +640,7 @@ public class WebViewActivity extends Activity
     private void setDrawer(String[] items)
     {
         HashMap<String,String> hm1 = new HashMap<String,String>();
-        hm1.put("nav_icon",Integer.toString(R.drawable.home));
+        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
         hm1.put("nav_item",items[0]);
 
         HashMap<String,String> hm2 = new HashMap<String,String>();

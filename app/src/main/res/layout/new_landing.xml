@@ -1,73 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/relativeLayout3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFDD33"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/searchText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dip"
-            android:singleLine="true"
-            android:maxLines="1"
-            android:textColor="#000000"
-            android:scrollHorizontally="true"
-            android:layout_toLeftOf="@+id/searchButton"
-            android:layout_gravity="fill_horizontal"
-            android:layout_centerHorizontal="true"
-            android:hint="@string/menu_search" />
-
-        <ImageButton
-            android:id="@+id/searchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/searchText"
-            android:layout_gravity="fill_horizontal"
-            android:background="@drawable/button_background"
-
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/magnify" />
-        <TextView
-            android:id="@+id/optionName"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:text="Featured Books"
-            android:layout_below="@+id/searchButton"
-            android:gravity="center"
-            android:background="@color/blue_background"
-            style="@style/TextAppearance.Title.Landing" />
-    </RelativeLayout>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:background="@color/blue_background">
-        <GridView
-            android:id="@+id/gridView"
-            android:numColumns="2"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:columnWidth="200dp"
-            android:stretchMode="columnWidth"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:background="#FFDD33"
+            android:orientation="horizontal">
 
-    </FrameLayout>
+            <EditText
+                android:id="@+id/searchText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dip"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:scrollHorizontally="true"
+                android:layout_toLeftOf="@+id/searchButton"
+                android:layout_gravity="fill_horizontal"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/menu_search" />
+
+            <ImageButton
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/searchText"
+                android:layout_gravity="fill_horizontal"
+                android:background="@drawable/button_background"
+
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/magnify" />
+            <TextView
+                android:id="@+id/optionName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:text="Featured Books"
+                android:layout_below="@+id/searchButton"
+                android:gravity="center"
+                android:background="@color/blue_background"
+                style="@style/TextAppearance.Title.Landing" />
+        </RelativeLayout>
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:background="@color/white_text">
+            <GridView
+                android:id="@+id/gridView"
+                android:numColumns="2"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:columnWidth="200dp"
+                android:stretchMode="columnWidth"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
 
 
-</LinearLayout>
+    </LinearLayout>
+    <ListView android:id="@+id/left_drawer"
+              android:layout_width="240dp"
+              android:layout_height="match_parent"
+              android:layout_gravity="start"
+              android:choiceMode="singleChoice"
+              android:divider="@android:color/black"
+              android:background="@color/white_text"
+              android:dividerHeight="1dp"/>
+</android.support.v4.widget.DrawerLayout>

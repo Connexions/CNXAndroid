@@ -419,7 +419,7 @@ public class ViewLensActivity extends ListActivity
     private void setDrawer(String[] items)
     {
         HashMap<String,String> hm1 = new HashMap<String,String>();
-        hm1.put("nav_icon",Integer.toString(R.drawable.home));
+        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
         hm1.put("nav_item",items[0]);
 
         HashMap<String,String> hm2 = new HashMap<String,String>();

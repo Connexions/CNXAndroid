@@ -14,7 +14,7 @@
     <string name="menu_go_to_favs">Go to Favorites</string>
     <string name="menu_help">Help</string>
     <string name="menu_delete_from_favs">Delete from Favorites</string>
-    <string name="menu_search">Search OpenStax CNX</string>
+    <string name="menu_search">Find a Textbook</string>
     <string name="menu_lenses">Content</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_pdf">Download PDF</string>
@@ -35,7 +35,7 @@
     <string name="content">content</string>
     <string name="intro">Welcome to Connexions for Android!\n\n  Browse our content using the Book Lists and save content you like to your Favorites.  Be sure to checkout the other features like search, taking notes, downloading EPUBs or PDFs, viewing downloaded files and help.</string>
     <string name="search_title">OpenStax CNX Search: </string>
-    <string name="file_browser_title">OpenStax CNX - Select File to View</string>
+    <string name="file_browser_title">Select File to View</string>
     <string name="file_dialog_title">View</string>
     <string name="file_browser_toast">No Application Available to View File</string>
     <string name="lenses_fake_url">http://cnx.org</string>
@@ -85,6 +85,9 @@
     <string name="econ">Principles of Economics</string>
     <string name="micro_econ">Micro-Economics</string>
     <string name="macro_econ">Macro-Economics</string>
+    <string name="bus_fundamentals">Business Fundamentals</string>
+    <string name="elec_engineering">Fundamentals of Electrical Engineering</string>
+    <string name="elem_algebra">Elementary Algebra</string>
     <string name="coming_soon">Coming Soon!</string>
     <string name="landing_title_sociology">Sociology</string>
     <string name="landing_title_economics">Economics</string>

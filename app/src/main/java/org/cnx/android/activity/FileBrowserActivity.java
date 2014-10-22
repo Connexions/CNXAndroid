@@ -16,6 +16,7 @@ import android.app.ActionBar;
 import android.app.ListActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Html;
 import android.widget.SimpleAdapter;
 import org.cnx.android.R;
 import org.cnx.android.adapters.FileListAdapter;
@@ -82,7 +83,7 @@ public class FileBrowserActivity extends ListActivity
         ActionBar aBar = getActionBar();
         currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
 
-        aBar.setTitle(getString(R.string.file_browser_title));
+        aBar.setTitle(Html.fromHtml("open<b>stax</b> cnx") + " " + getString(R.string.file_browser_title));
         readFileList();
 
         String[] items = getResources().getStringArray(R.array.nav_list);
@@ -424,7 +425,7 @@ public class FileBrowserActivity extends ListActivity
     private void setDrawer(String[] items)
     {
         HashMap<String,String> hm1 = new HashMap<String,String>();
-        hm1.put("nav_icon",Integer.toString(R.drawable.home));
+        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
         hm1.put("nav_item",items[0]);
 
         HashMap<String,String> hm2 = new HashMap<String,String>();
