@@ -311,24 +311,24 @@ public class LandingActivity extends Activity
             c8.setContentString(getString(R.string.coming_soon));
             c8.setUrl(new URL("http://m.cnx.org/content/col11667/latest/"));
             c8.setIconDrawable(R.drawable.precalculus_lg);
+//
+//            Content c9 = new Content();
+//            c9.setTitle(getString(R.string.chemistry));
+//            c9.setContentString(getString(R.string.coming_soon));
+//            c9.setUrl(new URL(fakeURL));
+//            c9.setIconDrawable(R.drawable.chemistry_lg);
 
-            Content c9 = new Content();
-            c9.setTitle(getString(R.string.chemistry));
-            c9.setContentString(getString(R.string.coming_soon));
-            c9.setUrl(new URL(fakeURL));
-            c9.setIconDrawable(R.drawable.chemistry_lg);
+//            Content c10 = new Content();
+//            c10.setTitle(getString(R.string.history));
+//            c10.setContentString(getString(R.string.coming_soon));
+//            c10.setUrl(new URL(fakeURL));
+//            c10.setIconDrawable(R.drawable.history_lg);
 
-            Content c10 = new Content();
-            c10.setTitle(getString(R.string.history));
-            c10.setContentString(getString(R.string.coming_soon));
-            c10.setUrl(new URL(fakeURL));
-            c10.setIconDrawable(R.drawable.history_lg);
-
-            Content c13 = new Content();
-            c13.setTitle(getString(R.string.psychology));
-            c13.setContentString(getString(R.string.coming_soon));
-            c13.setUrl(new URL("http://m.cnx.org/content/col11629/latest/"));
-            c13.setIconDrawable(R.drawable.psychology_lg);
+//            Content c13 = new Content();
+//            c13.setTitle(getString(R.string.psychology));
+//            c13.setContentString(getString(R.string.coming_soon));
+//            c13.setUrl(new URL("http://m.cnx.org/content/col11629/latest/"));
+//            c13.setIconDrawable(R.drawable.psychology_lg);
 
             Content c14 = new Content();
             c14.setTitle(getString(R.string.bus_fundamentals));
@@ -378,11 +378,11 @@ public class LandingActivity extends Activity
             c21.setUrl(new URL("http://m.cnx.org/content/col10611/latest/"));
             c21.setIconDrawable(R.drawable.flowering_light);
 
-            Content c22 = new Content();
-            c22.setTitle(getString(R.string.hearing_harmony));
-            c22.setContentString(getString(R.string.hearing_harmony));
-            c22.setUrl(new URL(fakeURL));
-            c22.setIconDrawable(R.drawable.hearing_harmony);
+//            Content c22 = new Content();
+//            c22.setTitle(getString(R.string.hearing_harmony));
+//            c22.setContentString(getString(R.string.hearing_harmony));
+//            c22.setUrl(new URL(fakeURL));
+//            c22.setIconDrawable(R.drawable.hearing_harmony);
 
             Content c23 = new Content();
             c23.setTitle(getString(R.string.houston_reflections));
@@ -423,9 +423,9 @@ public class LandingActivity extends Activity
             content.add(c11);
             content.add(c12);
             content.add(c8);
-            content.add(c9);
-            content.add(c10);
-            content.add(c13);
+            //content.add(c9);
+            //content.add(c10);
+            //content.add(c13);
             content.add(c14);
             content.add(c15);
             content.add(c16);
@@ -434,11 +434,12 @@ public class LandingActivity extends Activity
             content.add(c19);
             content.add(c20);
             content.add(c21);
-            content.add(c22);
+            //content.add(c22);
             content.add(c23);
             content.add(c24);
             content.add(c25);
             content.add(c26);
+            Collections.sort(content);
 
 
 
@@ -533,7 +534,7 @@ public class LandingActivity extends Activity
             bookcovers.add(new Bookcover("College Physics",R.drawable.physics_lg));
             bookcovers.add(new Bookcover("Introduction To Sociology",R.drawable.sociology_lg));
             bookcovers.add(new Bookcover("Biology", R.drawable.biology_lg));
-            bookcovers.add(new Bookcover("Concepts in Biology",R.drawable.concepts_biology_lg));
+            bookcovers.add(new Bookcover("Concepts of Biology",R.drawable.concepts_biology_lg));
             bookcovers.add(new Bookcover("Anatomy and Physiology",R.drawable.anatomy_lg));
             bookcovers.add(new Bookcover("Introductory Statistics",R.drawable.statistics_lg));
             bookcovers.add(new Bookcover("Principles of Economics",R.drawable.econ_lg));

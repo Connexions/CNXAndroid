@@ -83,8 +83,8 @@
     <string name="chemistry">Chemistry</string>
     <string name="history">US History</string>
     <string name="econ">Principles of Economics</string>
-    <string name="micro_econ">Micro-Economics</string>
-    <string name="macro_econ">Macro-Economics</string>
+    <string name="micro_econ">Principles of Micro-Economics</string>
+    <string name="macro_econ">Principles of Macro-Economics</string>
     <string name="bus_fundamentals">Business Fundamentals</string>
     <string name="elec_engineering">Fundamentals of Electrical Engineering</string>
     <string name="elem_algebra">Elementary Algebra</string>
