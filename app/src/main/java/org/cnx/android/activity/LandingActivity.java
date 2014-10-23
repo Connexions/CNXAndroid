@@ -309,7 +309,7 @@ public class LandingActivity extends Activity
             Content c8 = new Content();
             c8.setTitle(getString(R.string.precalculus));
             c8.setContentString(getString(R.string.coming_soon));
-            c8.setUrl(new URL(fakeURL));
+            c8.setUrl(new URL("http://m.cnx.org/content/col11667/latest/"));
             c8.setIconDrawable(R.drawable.precalculus_lg);
 
             Content c9 = new Content();
@@ -327,55 +327,55 @@ public class LandingActivity extends Activity
             Content c13 = new Content();
             c13.setTitle(getString(R.string.psychology));
             c13.setContentString(getString(R.string.coming_soon));
-            c13.setUrl(new URL(fakeURL));
+            c13.setUrl(new URL("http://m.cnx.org/content/col11629/latest/"));
             c13.setIconDrawable(R.drawable.psychology_lg);
 
             Content c14 = new Content();
             c14.setTitle(getString(R.string.bus_fundamentals));
             c14.setContentString(getString(R.string.bus_fundamentals));
-            c14.setUrl(new URL(fakeURL));
+            c14.setUrl(new URL("http://m.cnx.org/content/col11227/latest/"));
             c14.setIconDrawable(R.drawable.bus_fundamentals);
 
             Content c15 = new Content();
             c15.setTitle(getString(R.string.elec_engineering));
             c15.setContentString(getString(R.string.elec_engineering));
-            c15.setUrl(new URL(fakeURL));
+            c15.setUrl(new URL("http://m.cnx.org/content/col10040/latest/"));
             c15.setIconDrawable(R.drawable.elec_engineering);
 
             Content c16 = new Content();
             c16.setTitle(getString(R.string.elem_algebra));
             c16.setContentString(getString(R.string.elem_algebra));
-            c16.setUrl(new URL(fakeURL));
+            c16.setUrl(new URL("http://m.cnx.org/content/col10614/latest/"));
             c16.setIconDrawable(R.drawable.elem_algebra);
 
             Content c17 = new Content();
             c17.setTitle(getString(R.string.advanced_algebra));
             c17.setContentString(getString(R.string.advanced_algebra));
-            c17.setUrl(new URL(fakeURL));
+            c17.setUrl(new URL("http://m.cnx.org/content/col10624/latest/"));
             c17.setIconDrawable(R.drawable.advanced_algebra);
 
             Content c18 = new Content();
             c18.setTitle(getString(R.string.applied_probability));
             c18.setContentString(getString(R.string.applied_probability));
-            c18.setUrl(new URL(fakeURL));
+            c18.setUrl(new URL("http://m.cnx.org/content/col10708/latest/"));
             c18.setIconDrawable(R.drawable.applied_probability);
 
             Content c19 = new Content();
             c19.setTitle(getString(R.string.fast_fourier));
             c19.setContentString(getString(R.string.fast_fourier));
-            c19.setUrl(new URL(fakeURL));
+            c19.setUrl(new URL("http://m.cnx.org/content/col10550/latest/"));
             c19.setIconDrawable(R.drawable.fast_fourier);
 
             Content c20 = new Content();
             c20.setTitle(getString(R.string.first_course));
             c20.setContentString(getString(R.string.first_course));
-            c20.setUrl(new URL(fakeURL));
+            c20.setUrl(new URL("http://m.cnx.org/content/col10685/latest/"));
             c20.setIconDrawable(R.drawable.first_course);
 
             Content c21 = new Content();
             c21.setTitle(getString(R.string.flowering_light));
             c21.setContentString(getString(R.string.flowering_light));
-            c21.setUrl(new URL(fakeURL));
+            c21.setUrl(new URL("http://m.cnx.org/content/col10611/latest/"));
             c21.setIconDrawable(R.drawable.flowering_light);
 
             Content c22 = new Content();
@@ -387,25 +387,25 @@ public class LandingActivity extends Activity
             Content c23 = new Content();
             c23.setTitle(getString(R.string.houston_reflections));
             c23.setContentString(getString(R.string.houston_reflections));
-            c23.setUrl(new URL(fakeURL));
+            c23.setUrl(new URL("http://m.cnx.org/content/col10526/latest/"));
             c23.setIconDrawable(R.drawable.houston_reflections);
 
             Content c24 = new Content();
             c24.setTitle(getString(R.string.memorable_cases));
             c24.setContentString(getString(R.string.memorable_cases));
-            c24.setUrl(new URL(fakeURL));
+            c24.setUrl(new URL("http://m.cnx.org/content/col10449/latest/"));
             c24.setIconDrawable(R.drawable.memorable_cases);
 
             Content c25 = new Content();
             c25.setTitle(getString(R.string.music_theory));
             c25.setContentString(getString(R.string.music_theory));
-            c25.setUrl(new URL(fakeURL));
+            c25.setUrl(new URL("http://m.cnx.org/content/col10363/latest/"));
             c25.setIconDrawable(R.drawable.music_theory);
 
             Content c26 = new Content();
             c26.setTitle(getString(R.string.programming_fundamentals));
             c26.setContentString(getString(R.string.programming_fundamentals));
-            c26.setUrl(new URL(fakeURL));
+            c26.setUrl(new URL("http://m.cnx.org/content/col10621/latest/"));
             c26.setIconDrawable(R.drawable.programming_fundamentals);
 
             if(content == null)
@@ -540,10 +540,10 @@ public class LandingActivity extends Activity
             bookcovers.add(new Bookcover("Principles of Macroeconomics",R.drawable.macro_econ_lg));
             bookcovers.add(new Bookcover("Principles of Microeconomics",R.drawable.micro_econ_lg));
             bookcovers.add(new Bookcover("Precalculus",R.drawable.precalculus_lg));
-            bookcovers.add(new Bookcover("Psychology",R.drawable.psychology_lg));
-            bookcovers.add(new Bookcover("Chemistry",R.drawable.chemistry_lg));
+            //bookcovers.add(new Bookcover("Psychology",R.drawable.psychology_lg));
+            //bookcovers.add(new Bookcover("Chemistry",R.drawable.chemistry_lg));
             bookcovers.add(new Bookcover("Business Fundamentals",R.drawable.bus_fundamentals));
-            bookcovers.add(new Bookcover("US History",R.drawable.history_lg));
+            //bookcovers.add(new Bookcover("US History",R.drawable.history_lg));
             bookcovers.add(new Bookcover("Fundamentals of Electrical Engineering",R.drawable.elec_engineering));
             bookcovers.add(new Bookcover("Elementary Algebra",R.drawable.elem_algebra));
             bookcovers.add(new Bookcover("Advanced Algebra II",R.drawable.advanced_algebra));
@@ -551,9 +551,9 @@ public class LandingActivity extends Activity
             bookcovers.add(new Bookcover("Fast Fourier Transforms",R.drawable.fast_fourier));
             bookcovers.add(new Bookcover("First Course in Electrical Engineering",R.drawable.first_course));
             bookcovers.add(new Bookcover("Flowering Light",R.drawable.flowering_light));
-            bookcovers.add(new Bookcover("Hearing Harmony",R.drawable.hearing_harmony));
+            //bookcovers.add(new Bookcover("Hearing Harmony",R.drawable.hearing_harmony));
             bookcovers.add(new Bookcover("Houston Reflections",R.drawable.houston_reflections));
-            bookcovers.add(new Bookcover("50 Memorable Cases",R.drawable.memorable_cases));
+            bookcovers.add(new Bookcover("Images of Memorable Cases",R.drawable.memorable_cases));
             bookcovers.add(new Bookcover("Understanding Basic Music Theory",R.drawable.music_theory));
             bookcovers.add(new Bookcover("Programming Fundamentals",R.drawable.programming_fundamentals));
             Collections.sort(bookcovers);
