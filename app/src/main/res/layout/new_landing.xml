@@ -47,7 +47,7 @@
                 android:id="@+id/optionName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Featured Books"
+                android:text="Featured Textbooks"
                 android:layout_below="@+id/searchButton"
                 android:gravity="center"
                 android:background="@color/blue_background"
