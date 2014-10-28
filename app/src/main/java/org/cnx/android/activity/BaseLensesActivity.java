@@ -16,7 +16,6 @@ import java.util.List;
 import android.app.ListActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.SimpleAdapter;
 import org.cnx.android.R;
@@ -381,7 +380,7 @@ public class BaseLensesActivity extends ListActivity
     private void setDrawer(String[] items)
     {
         HashMap<String,String> hm1 = new HashMap<String,String>();
-        hm1.put("nav_icon",Integer.toString(R.drawable.home));
+        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
         hm1.put("nav_item",items[0]);
 
         HashMap<String,String> hm2 = new HashMap<String,String>();

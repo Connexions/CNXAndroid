@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="nav_list">
-        <item>Home</item>
+        <item>Search/Featured Textbooks</item>
         <item>Book Lists</item>
         <item>Favorites</item>
         <item>Downloaded Files</item>
