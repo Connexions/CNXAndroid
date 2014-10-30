@@ -306,11 +306,11 @@ public class LandingActivity extends Activity
             c12.setIconDrawable(R.drawable.micro_econ_lg);
             c12.setIcon("micro");
 
-            Content c8 = new Content();
-            c8.setTitle(getString(R.string.precalculus));
-            c8.setContentString(getString(R.string.coming_soon));
-            c8.setUrl(new URL("http://m.cnx.org/content/col11667/latest/"));
-            c8.setIconDrawable(R.drawable.precalculus_lg);
+//            Content c8 = new Content();
+//            c8.setTitle(getString(R.string.precalculus));
+//            c8.setContentString(getString(R.string.coming_soon));
+//            c8.setUrl(new URL("http://m.cnx.org/content/col11667/latest/"));
+//            c8.setIconDrawable(R.drawable.precalculus_lg);
 //
 //            Content c9 = new Content();
 //            c9.setTitle(getString(R.string.chemistry));
@@ -422,7 +422,7 @@ public class LandingActivity extends Activity
             content.add(c7);
             content.add(c11);
             content.add(c12);
-            content.add(c8);
+            //content.add(c8);
             //content.add(c9);
             //content.add(c10);
             //content.add(c13);
@@ -540,7 +540,7 @@ public class LandingActivity extends Activity
             bookcovers.add(new Bookcover("Principles of Economics",R.drawable.econ_lg));
             bookcovers.add(new Bookcover("Principles of Macroeconomics",R.drawable.macro_econ_lg));
             bookcovers.add(new Bookcover("Principles of Microeconomics",R.drawable.micro_econ_lg));
-            bookcovers.add(new Bookcover("Precalculus",R.drawable.precalculus_lg));
+            //bookcovers.add(new Bookcover("Precalculus",R.drawable.precalculus_lg));
             //bookcovers.add(new Bookcover("Psychology",R.drawable.psychology_lg));
             //bookcovers.add(new Bookcover("Chemistry",R.drawable.chemistry_lg));
             bookcovers.add(new Bookcover("Business Fundamentals",R.drawable.bus_fundamentals));
