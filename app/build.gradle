@@ -1,18 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
 
     defaultConfig {
         applicationId "org.cnx.android"
         minSdkVersion 14
-        targetSdkVersion 20
-        versionCode 25
-        versionName "3.6.1"
+        targetSdkVersion 21
+        versionCode 26
+        versionName "3.6.2"
     }
     dependencies{
-        compile 'com.android.support:support-v4:20.0.0'
+        compile 'com.android.support:support-v4:21.0.0'
     }
     buildTypes {
         release {
