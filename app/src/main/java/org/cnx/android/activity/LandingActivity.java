@@ -287,28 +287,28 @@ public class LandingActivity extends Activity
 
             Content c7 = new Content();
             c7.setTitle(getString(R.string.econ));
-            c7.setContentString(getString(R.string.coming_soon));
+            c7.setContentString(getString(R.string.economics_desc));
             c7.setUrl(new URL("http://m.cnx.org/content/col11613/latest/"));
             c7.setIconDrawable(R.drawable.econ_lg);
             c7.setIcon("econ");
 
             Content c11 = new Content();
             c11.setTitle(getString(R.string.macro_econ));
-            c11.setContentString(getString(R.string.coming_soon));
+            c11.setContentString(getString(R.string.macro_desc));
             c11.setUrl(new URL("http://m.cnx.org/content/col11626/latest/"));
             c11.setIconDrawable(R.drawable.macro_econ_lg);
             c11.setIcon("macro");
 
             Content c12 = new Content();
             c12.setTitle(getString(R.string.micro_econ));
-            c12.setContentString(getString(R.string.coming_soon));
+            c12.setContentString(getString(R.string.micro_desc));
             c12.setUrl(new URL("http://m.cnx.org/content/col11627/latest/"));
             c12.setIconDrawable(R.drawable.micro_econ_lg);
             c12.setIcon("micro");
 
             Content c8 = new Content();
             c8.setTitle(getString(R.string.precalculus));
-            c8.setContentString(getString(R.string.coming_soon));
+            c8.setContentString(getString(R.string.precalculus_desc));
             c8.setUrl(new URL("http://m.cnx.org/content/col11667/latest/"));
             c8.setIconDrawable(R.drawable.precalculus_lg);
 //
@@ -320,13 +320,13 @@ public class LandingActivity extends Activity
 
             Content c10 = new Content();
             c10.setTitle(getString(R.string.history));
-            c10.setContentString(getString(R.string.coming_soon));
+            c10.setContentString(getString(R.string.history_desc));
             c10.setUrl(new URL("http://m.cnx.org/content/col11740/latest/"));
             c10.setIconDrawable(R.drawable.history_lg);
 
             Content c13 = new Content();
             c13.setTitle(getString(R.string.psychology));
-            c13.setContentString(getString(R.string.coming_soon));
+            c13.setContentString(getString(R.string.psychology_desc));
             c13.setUrl(new URL("http://m.cnx.org/content/col11629/latest/"));
             c13.setIconDrawable(R.drawable.psychology_lg);
 
