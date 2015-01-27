@@ -8,7 +8,7 @@ android {
         applicationId "org.cnx.android"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 26
+        versionCode 27
         versionName "3.7"
     }
     dependencies{
