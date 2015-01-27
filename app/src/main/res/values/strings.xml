@@ -108,5 +108,11 @@
     <string name="concepts_biology_desc">Introductory biology book for non-science majors</string>
     <string name="anatomy_desc">Two-semester anatomy and physiology</string>
     <string name="statistics_desc">One-semester introduction to statistics for students who are not mathematics or engineering majors.</string>
+    <string name="economics_desc">A two-semester principles of economics sequence</string>
+    <string name="macro_desc">Designed for a one-semester macroeconomics introductory course</string>
+    <string name="micro_desc">Designed for a one-semester microeconomics introductory course</string>
+    <string name="precalculus_desc">Intended for college-level Precalculus students</string>
+    <string name="history_desc">For a two-semester American history sequence</string>
+    <string name="psychology_desc">Introductory Psychology book</string>
 </resources>
  
