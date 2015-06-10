@@ -176,34 +176,7 @@ public class LandingActivity extends Activity
      */
     private void setLayout()
     {
-//        listView.setAdapter(new LandingListAdapter(this,setContentList()));
-//
-//        listView.setOnItemClickListener(new ListView.OnItemClickListener()
-//        {
-//            public void onItemClick(AdapterView<?> a, View v, int i, long l)
-//            {
-//                Content c = (Content)listView.getItemAtPosition(i);
-//                performAction(c.getTitle());
-//
-//
-//            }
-//        });
-//
-//        listView.setOnItemSelectedListener(new ListView.OnItemSelectedListener()
-//        {
-//            public void onItemSelected(AdapterView<?> a, View v, int i, long l)
-//            {
-//                Content c = (Content)listView.getItemAtPosition(i);
-//                performAction(c.getTitle());
-//            }
-//
-//            public void onNothingSelected(AdapterView<?> arg0)
-//            {
-//                //do nothing
-//            }
-//
-//        });
-        
+
         ImageButton searchButton = (ImageButton)findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new OnClickListener() 
         {
@@ -232,8 +205,7 @@ public class LandingActivity extends Activity
                 return false;
             }
         });
-        //listView.setAdapter(new LandingListAdapter(this,setContentList()));
-        
+
     }
 
     private void createList()
@@ -311,12 +283,12 @@ public class LandingActivity extends Activity
             c8.setContentString(getString(R.string.precalculus_desc));
             c8.setUrl(new URL("http://m.cnx.org/content/col11667/latest/"));
             c8.setIconDrawable(R.drawable.precalculus_lg);
-//
-//            Content c9 = new Content();
-//            c9.setTitle(getString(R.string.chemistry));
-//            c9.setContentString(getString(R.string.coming_soon));
-//            c9.setUrl(new URL(fakeURL));
-//            c9.setIconDrawable(R.drawable.chemistry_lg);
+
+            Content c9 = new Content();
+            c9.setTitle(getString(R.string.chemistry));
+            c9.setContentString(getString(R.string.coming_soon));
+            c9.setUrl(new URL("http://m.cnx.org/content/col11760/latest/"));
+            c9.setIconDrawable(R.drawable.chemistry_lg);
 
             Content c10 = new Content();
             c10.setTitle(getString(R.string.history));
@@ -410,6 +382,20 @@ public class LandingActivity extends Activity
             c26.setUrl(new URL("http://m.cnx.org/content/col10621/latest/"));
             c26.setIconDrawable(R.drawable.programming_fundamentals);
 
+            Content c27 = new Content();
+            c27.setTitle(getString(R.string.algebra));
+            c27.setContentString(getString(R.string.coming_soon));
+            c27.setUrl(new URL("http://m.cnx.org/content/col11759/latest/"));
+            c27.setIconDrawable(R.drawable.algebra_lg);
+            //c27.setIcon("algebra");
+
+            Content c28 = new Content();
+            c28.setTitle(getString(R.string.trig));
+            c28.setContentString(getString(R.string.coming_soon));
+            c28.setUrl(new URL("http://m.cnx.org/content/col11758/latest/"));
+            c28.setIconDrawable(R.drawable.trig_lg);
+            //c28.setIcon("trig");
+
             if(content == null)
             {
                 content = new ArrayList<Content>();
@@ -425,7 +411,7 @@ public class LandingActivity extends Activity
             content.add(c11);
             content.add(c12);
             content.add(c8);
-            //content.add(c9);
+            content.add(c9);
             content.add(c10);
             content.add(c13);
             content.add(c14);
@@ -441,6 +427,8 @@ public class LandingActivity extends Activity
             content.add(c24);
             content.add(c25);
             content.add(c26);
+            content.add(c27);
+            content.add(c28);
             Collections.sort(content);
 
 
@@ -448,7 +436,7 @@ public class LandingActivity extends Activity
         }
         catch (MalformedURLException e)
         {
-            Log.d("LandingActivity.createList()", "Error: " + e.toString(), e);
+            Log.d("LActivity.createList()", "Error: " + e.toString(), e);
         }
 
     }
@@ -544,7 +532,7 @@ public class LandingActivity extends Activity
             bookcovers.add(new Bookcover("Principles of Microeconomics",R.drawable.micro_econ_lg));
             bookcovers.add(new Bookcover("Precalculus",R.drawable.precalculus_lg));
             bookcovers.add(new Bookcover("Psychology",R.drawable.psychology_lg));
-            //bookcovers.add(new Bookcover("Chemistry",R.drawable.chemistry_lg));
+            bookcovers.add(new Bookcover("Chemistry",R.drawable.chemistry_lg));
             bookcovers.add(new Bookcover("Business Fundamentals",R.drawable.bus_fundamentals));
             bookcovers.add(new Bookcover("US History",R.drawable.history_lg));
             bookcovers.add(new Bookcover("Fundamentals of Electrical Engineering",R.drawable.elec_engineering));
@@ -559,6 +547,8 @@ public class LandingActivity extends Activity
             bookcovers.add(new Bookcover("Images of Memorable Cases",R.drawable.memorable_cases));
             bookcovers.add(new Bookcover("Understanding Basic Music Theory",R.drawable.music_theory));
             bookcovers.add(new Bookcover("Programming Fundamentals",R.drawable.programming_fundamentals));
+            bookcovers.add(new Bookcover("College Algebra",R.drawable.algebra_lg));
+            bookcovers.add(new Bookcover("Algebra and Trigonometry",R.drawable.trig_lg));
             Collections.sort(bookcovers);
 
         }

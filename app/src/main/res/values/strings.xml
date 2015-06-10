@@ -114,5 +114,7 @@
     <string name="precalculus_desc">Intended for college-level Precalculus students</string>
     <string name="history_desc">For a two-semester American history sequence</string>
     <string name="psychology_desc">Introductory Psychology book</string>
+    <string name="algebra">College Algebra</string>
+    <string name="trig">Algebra and Trigonometry</string>
 </resources>
  
