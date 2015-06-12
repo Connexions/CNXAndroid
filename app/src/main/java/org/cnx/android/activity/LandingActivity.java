@@ -286,7 +286,7 @@ public class LandingActivity extends Activity
 
             Content c9 = new Content();
             c9.setTitle(getString(R.string.chemistry));
-            c9.setContentString(getString(R.string.coming_soon));
+            c9.setContentString(getString(R.string.chemistry_desc));
             c9.setUrl(new URL("http://m.cnx.org/content/col11760/latest/"));
             c9.setIconDrawable(R.drawable.chemistry_lg);
 
@@ -384,14 +384,14 @@ public class LandingActivity extends Activity
 
             Content c27 = new Content();
             c27.setTitle(getString(R.string.algebra));
-            c27.setContentString(getString(R.string.coming_soon));
+            c27.setContentString(getString(R.string.algebra_desc));
             c27.setUrl(new URL("http://m.cnx.org/content/col11759/latest/"));
             c27.setIconDrawable(R.drawable.algebra_lg);
             //c27.setIcon("algebra");
 
             Content c28 = new Content();
             c28.setTitle(getString(R.string.trig));
-            c28.setContentString(getString(R.string.coming_soon));
+            c28.setContentString(getString(R.string.trig_desc));
             c28.setUrl(new URL("http://m.cnx.org/content/col11758/latest/"));
             c28.setIconDrawable(R.drawable.trig_lg);
             //c28.setIcon("trig");
