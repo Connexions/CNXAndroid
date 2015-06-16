@@ -8,11 +8,12 @@ android {
         applicationId "org.cnx.android"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 27
-        versionName "3.7"
+        versionCode 28
+        versionName "3.8"
     }
     dependencies{
         compile 'com.android.support:support-v4:21.0.2'
+        compile 'com.android.support:recyclerview-v7:21.0.2'
     }
     buildTypes {
         release {

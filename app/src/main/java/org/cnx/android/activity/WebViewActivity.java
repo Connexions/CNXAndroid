@@ -72,7 +72,7 @@ public class WebViewActivity extends Activity
     String[] from = { "nav_icon","nav_item" };
     int[] to = { R.id.nav_icon , R.id.nav_item};
 
-    String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562","col11667","col11740","col11629"};
+    String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562","col11667","col11740","col11629","col11758","col11759","col11760"};
     List<String> bookList = Arrays.asList(oscBooks);
     SharedPreferences sharedPref;
     
@@ -93,14 +93,14 @@ public class WebViewActivity extends Activity
         {
             super.onLoadResource(view, url);
             
-            Log.d("WebViewClient.onLoadResource()", "Called");
+            Log.d("WbVClt.onLoadResource()", "Called");
         }
         
         /** loads URL into view */
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) 
         {
-        	Log.d("WebViewClient.shouldOverrideUrlLo()", "Called");
+        	Log.d("WV.shouldOverrideUrl()", "Called");
         	if(!progressBarRunning)
             {
             	setProgressBarIndeterminateVisibility(true);
@@ -113,7 +113,7 @@ public class WebViewActivity extends Activity
             }
             catch (MalformedURLException e)
             {
-                Log.d("WebViewActivity.shouldOverrideUrlLoading()", "Error: " + e.toString(),e);
+                Log.d("WV.shouldOverrideUrl()", "Error: " + e.toString(),e);
             }
             return true;
         }
@@ -125,8 +125,8 @@ public class WebViewActivity extends Activity
         @Override
         public void onPageFinished(WebView view, String url)
         {
-            Log.d("WebViewClient.onPageFinished", "title: " + view.getTitle());
-            Log.d("WebViewClient.onPageFinished", "url: " + url);
+            Log.d("WebViewC.onPageFinished", "title: " + view.getTitle());
+            Log.d("WebViewC.onPageFinished", "url: " + url);
             content.setTitle(view.getTitle());
             try
             {
@@ -135,13 +135,13 @@ public class WebViewActivity extends Activity
             }
             catch (MalformedURLException e)
             {
-                Log.d("WebViewActivity.onPageFinished()", "Error: " + e.toString(),e);
+                Log.d("WebVA.onPageFinished()", "Error: " + e.toString(),e);
             }
             
             setLayout(url);
             setProgressBarIndeterminateVisibility(false);
             progressBarRunning = false;
-            Log.d("WebViewClient.onPageFinished", "setSupportProgressBarIndeterminateVisibility(false) Called");
+            Log.d("WebViewC.onPageFinished", "setSupportProgressBarIndeterminateVisibility(false) Called");
             yPosition = 0f;
 
         }
@@ -238,9 +238,6 @@ public class WebViewActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-//        super.onCreateOptionsMenu(menu);
-//        MenuInflater inflater = getMenuInflater();
-//
 //        return true;
         MenuInflater inflater = getMenuInflater();
         if(content == null)

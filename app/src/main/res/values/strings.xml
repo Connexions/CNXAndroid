@@ -81,6 +81,7 @@
     <string name="precalculus">Precalculus</string>
     <string name="psychology">Psychology</string>
     <string name="chemistry">Chemistry</string>
+    <string name="chemistry_desc">OpenStax College Chemistry</string>
     <string name="history">US History</string>
     <string name="econ">Principles of Economics</string>
     <string name="micro_econ">Principles of Micro-Economics</string>
@@ -114,5 +115,9 @@
     <string name="precalculus_desc">Intended for college-level Precalculus students</string>
     <string name="history_desc">For a two-semester American history sequence</string>
     <string name="psychology_desc">Introductory Psychology book</string>
+    <string name="algebra">College Algebra</string>
+    <string name="algebra_desc">OpenStax College College Algebra</string>
+    <string name="trig">Algebra and Trigonometry</string>
+    <string name="trig_desc">OpenStax College Algebra and Trigonometry</string>
 </resources>
  

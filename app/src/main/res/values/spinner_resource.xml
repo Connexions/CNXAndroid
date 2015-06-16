@@ -2,7 +2,7 @@
 <resources>
     <string-array name="nav_list">
         <item>Search/Featured Textbooks</item>
-        <item>Book Lists</item>
+        <item>Discover</item>
         <item>Favorites</item>
         <item>Downloaded Files</item>
         <item>Help</item>

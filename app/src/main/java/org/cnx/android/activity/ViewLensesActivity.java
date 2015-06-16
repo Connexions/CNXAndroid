@@ -90,7 +90,7 @@ public class ViewLensesActivity extends ListActivity
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         aBar = this.getActionBar();
-        aBar.setTitle("Book Lists");
+        aBar.setTitle("Discover Books");
         aBar.setDisplayHomeAsUpEnabled(true);
         //get already retrieved feed and reuse if it is there
         content = (ArrayList<Content>)getLastNonConfigurationInstance();
@@ -278,11 +278,11 @@ public class ViewLensesActivity extends ListActivity
             c2.setUrl(new URL(fakeURL));
             c2.setIconDrawable(R.drawable.lenses);
             
-            Content c3 = new Content();
-            c3.setTitle(MEMBER);
-            c3.setContentString(getString(R.string.lenses_member_desc));
-            c3.setUrl(new URL(fakeURL));
-            c3.setIconDrawable(R.drawable.lenses);
+//            Content c3 = new Content();
+//            c3.setTitle(MEMBER);
+//            c3.setContentString(getString(R.string.lenses_member_desc));
+//            c3.setUrl(new URL(fakeURL));
+//            c3.setIconDrawable(R.drawable.lenses);
             
             Content c4 = new Content();
             c4.setTitle(FEATURED);
@@ -290,11 +290,11 @@ public class ViewLensesActivity extends ListActivity
             c4.setUrl(new URL("http://cnx.org/lenses/cnxorg/featured/atom"));
             c4.setIconDrawable(R.drawable.lenses);
             
-            Content c5 = new Content();
-            c5.setTitle(RECENT);
-            c5.setContentString(getString(R.string.lenses_recent_desc));
-            c5.setUrl(new URL("http://cnx.org/content/recent.rss"));
-            c5.setIconDrawable(R.drawable.lenses);
+//            Content c5 = new Content();
+//            c5.setTitle(RECENT);
+//            c5.setContentString(getString(R.string.lenses_recent_desc));
+//            c5.setUrl(new URL("http://cnx.org/content/recent.rss"));
+//            c5.setIconDrawable(R.drawable.lenses);
             
             if(content == null)
             {
@@ -305,8 +305,8 @@ public class ViewLensesActivity extends ListActivity
             content.add(c4);
             content.add(c);
             content.add(c2);
-            content.add(c3);
-            content.add(c5);
+            //content.add(c3);
+            //content.add(c5);
             
             //Collections.sort((List)content);
         }
