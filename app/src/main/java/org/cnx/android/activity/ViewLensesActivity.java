@@ -118,20 +118,15 @@ public class ViewLensesActivity extends ListActivity
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                //getActionBar().setTitle(getString(R.string.app_name));
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
+        {
+            public void onDrawerClosed(View view)
+            {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            public void onDrawerOpened(View drawerView) {
-                //getActionBar().setTitle(getString(R.string.app_name));
+            public void onDrawerOpened(View drawerView)
+            {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -213,10 +208,6 @@ public class ViewLensesActivity extends ListActivity
         else if(content.getTitle().equals(AFFILIATED))
         {
             startActivity(new Intent(this, AffiliatedLensesActivity.class));
-        }
-        else if(content.getTitle().equals(MEMBER))
-        {
-            startActivity(new Intent(this, MemberLensesActivity.class));
         }
         else if(content.getTitle().equals(FEATURED) || content.getTitle().equals(RECENT))
         {
@@ -369,7 +360,7 @@ public class ViewLensesActivity extends ListActivity
         hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
         hm4.put("nav_item",items[3]);
 
-        navTitles = new ArrayList<HashMap<String,String>>();
+        navTitles = new ArrayList<>();
 
         navTitles.add(hm1);
         navTitles.add(hm2);

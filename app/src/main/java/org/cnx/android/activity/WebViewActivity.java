@@ -6,7 +6,6 @@
  */
 package org.cnx.android.activity;
 
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -193,25 +192,18 @@ public class WebViewActivity extends Activity
         drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the adapter for the list view
-        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                //getActionBar().setTitle(getString(R.string.app_name));
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
+        {
+            public void onDrawerClosed(View view)
+            {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            public void onDrawerOpened(View drawerView) {
-                //getActionBar().setTitle(getString(R.string.app_name));
+            public void onDrawerOpened(View drawerView)
+            {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -371,8 +363,7 @@ public class WebViewActivity extends Activity
             }
          });
         
-        //showProgressDialog();
-        webView.setWebChromeClient(new WebChromeClient() 
+        webView.setWebChromeClient(new WebChromeClient()
         {
 
         });
@@ -652,7 +643,7 @@ public class WebViewActivity extends Activity
         hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
         hm4.put("nav_item",items[3]);
 
-        navTitles = new ArrayList<HashMap<String,String>>();
+        navTitles = new ArrayList<>();
 
         navTitles.add(hm1);
         navTitles.add(hm2);

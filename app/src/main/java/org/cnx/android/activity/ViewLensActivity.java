@@ -153,30 +153,21 @@ public class ViewLensActivity extends ListActivity
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                //getActionBar().setTitle(getString(R.string.app_name));
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
+        {
+            public void onDrawerClosed(View view)
+            {
+                invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView)
             {
-                //aBar.setTitle(content.getTitle());
-                //getActionBar().setTitle(getString(R.string.app_name));
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
         };
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
         drawerLayout.setDrawerListener(drawerToggle);
-        //aBar.setTitle(getString(R.string.app_name));
-        //aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         aBar.setDisplayHomeAsUpEnabled(true);
         aBar.setHomeButtonEnabled(true);
         drawerList.setAdapter(sAdapter);
@@ -252,7 +243,7 @@ public class ViewLensActivity extends ListActivity
     	else
     	{
 	        MenuHandler mh = new MenuHandler();
-	        boolean returnVal = true;
+	        boolean returnVal;
 	        if(item.getItemId() == R.id.add_to_favs)
 	        {
 	            returnVal = mh.handleContextMenu(item, this, content);
@@ -325,11 +316,7 @@ public class ViewLensActivity extends ListActivity
     {
         if(CNXUtil.isConnected(this))
         {
-//            progressDialog = ProgressDialog.show(
-//                ViewLensActivity.this,
-//                null,
-//                getResources().getString(R.string.loading_lens_description)
-//              );
+//
             Thread loadFeedThread = new Thread() 
             {
               public void run() {
@@ -361,7 +348,7 @@ public class ViewLensActivity extends ListActivity
                       contentList = rh.parseFeed(ViewLensActivity.this, feed);
                   }
                   
-                  Collections.sort((List<Content>)contentList);
+                  Collections.sort(contentList);
                   
                   fillData(contentList);
                   handler.post(finishedLoadingListTask);
@@ -393,7 +380,6 @@ public class ViewLensActivity extends ListActivity
         setListAdapter(adapter);
         getListView().setSelection(0);
         getListView().setClickable(true);
-        //progressDialog.dismiss();
         setProgressBarIndeterminateVisibility(false);
     }
     
@@ -434,7 +420,7 @@ public class ViewLensActivity extends ListActivity
         hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
         hm4.put("nav_item",items[3]);
 
-        navTitles = new ArrayList<HashMap<String,String>>();
+        navTitles = new ArrayList<>();
 
         navTitles.add(hm1);
         navTitles.add(hm2);

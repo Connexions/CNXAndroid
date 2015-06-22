@@ -161,8 +161,6 @@ public class NoteEditorActivity extends Activity
     @Override
     protected void onSaveInstanceState(Bundle outState) 
     {
-        // Save away the original text, so we still have it if the activity
-        // needs to be killed while paused.
         outState.putString(ORIGINAL_CONTENT, originalContent);
         ContentCache.setObject(getString(R.string.cache_savednotecontent), content);
     }
@@ -310,7 +308,6 @@ public class NoteEditorActivity extends Activity
             pw = new PrintWriter(file);
             pw.write(text);
             pw.flush();
-            //pw.close();
             Toast.makeText(this, fileName + " saved to OpenStaxCNX folder.", Toast.LENGTH_LONG).show();
         }
         catch (FileNotFoundException e)

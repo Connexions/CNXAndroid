@@ -105,26 +105,18 @@ public class ViewFavsActivity extends ListActivity
           drawerList = (ListView)findViewById(R.id.left_drawer);
           SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-          // Set the adapter for the list view
-          //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
-          // Set the list's click listener
           drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-          drawerToggle = new ActionBarDrawerToggle(
-                  this,                  /* host Activity */
-                  drawerLayout,         /* DrawerLayout object */
-                  R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                  R.string.drawer_open,  /* "open drawer" description for accessibility */
-                  R.string.drawer_close  /* "close drawer" description for accessibility */
-          ) {
-              public void onDrawerClosed(View view) {
-                  //getActionBar().setTitle(getString(R.string.app_name));
-                  invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+          drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
+          {
+              public void onDrawerClosed(View view)
+              {
+                  invalidateOptionsMenu();
               }
 
-              public void onDrawerOpened(View drawerView) {
-                  //getActionBar().setTitle(getString(R.string.app_name));
-                  invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+              public void onDrawerOpened(View drawerView)
+              {
+                  invalidateOptionsMenu();
               }
           };
           drawerToggle.setDrawerIndicatorEnabled(true);
@@ -163,7 +155,6 @@ public class ViewFavsActivity extends ListActivity
           boolean returnVal = mh.handleContextMenu(item, this, content);
           if(item.getItemId() == R.id.delete_from__favs)
           {
-              //readDB();
               adapter.remove(content);
           }
 
@@ -228,7 +219,6 @@ public class ViewFavsActivity extends ListActivity
       protected void onListItemClick(ListView l, View v, int position, long id) 
       {
           Content content = (Content)getListView().getItemAtPosition(position);
-          //ContentCache.setObject("content", content);
           int index = content.getUrl().toString().indexOf("lenses");
           if(index > -1)
           {

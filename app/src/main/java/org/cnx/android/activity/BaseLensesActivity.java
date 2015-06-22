@@ -110,8 +110,7 @@ public class BaseLensesActivity extends ListActivity
         //get already retrieved feed and reuse if it is there
         content = (ArrayList<Content>)ContentCache.getObject(storedKey);
         
-        //aTextView.setText(title);
-        
+
         aBar = getActionBar();
         aBar.setTitle(title);
         aBar.setDisplayHomeAsUpEnabled(true);
@@ -159,19 +158,14 @@ public class BaseLensesActivity extends ListActivity
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
+        {
             public void onDrawerClosed(View view) {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
         };
         drawerToggle.setDrawerIndicatorEnabled(true);
@@ -181,7 +175,6 @@ public class BaseLensesActivity extends ListActivity
         aBar.setHomeButtonEnabled(true);
         drawerList.setAdapter(sAdapter);
         
-        //
     }
     
     /* (non-Javadoc)
@@ -395,7 +388,7 @@ public class BaseLensesActivity extends ListActivity
         hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
         hm4.put("nav_item",items[3]);
 
-        navTitles = new ArrayList<HashMap<String,String>>();
+        navTitles = new ArrayList<>();
 
         navTitles.add(hm1);
         navTitles.add(hm2);
