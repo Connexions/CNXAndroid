@@ -49,7 +49,6 @@ public class DownloadHandler
 
         // configure the notification
         final Notification notification = new Notification(R.drawable.download_icon, "Downloading " + fileName, System.currentTimeMillis());
-        notification.flags = notification.flags |=Notification.FLAG_AUTO_CANCEL;
         notification.contentIntent = pendingIntent;
         notification.setLatestEventInfo(context, "Downloading file", "Downloading " + fileName, pendingIntent);
 

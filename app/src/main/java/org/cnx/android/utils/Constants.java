@@ -25,7 +25,7 @@ public class Constants
     /**
      * URL to application help file
      */
-    public static final String HELP_FILE_URL = "http://cnx.org/android/help/Connexions_Android_App_Help.html/";
+    //public static final String HELP_FILE_URL = "http://cnx.org/android/help/Connexions_Android_App_Help.html/";
     public static final int COLLECTION_TYPE = 1;
     public static final int MODULE_TYPE = 0;
     public static final int CNX_SEARCH = 2;

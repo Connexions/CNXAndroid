@@ -27,21 +27,13 @@ public class MenuUtil
      */
     public static String getTitle(String title)
     {
-        //String newTitle = title.replaceAll("\\p{Punct}", " ");
-        //String realNewTitle = newTitle.replaceAll(":", "_");
     	if(title == null)
     	{
     		return "";
     	}
         String realNewTitle = title.replaceAll("\\p{Punct}", "");
-//        if(realNewTitle.length() > 20)
-//        {
-//            return realNewTitle.substring(0,20);
-//        }
-//        else
-//        {
-            return realNewTitle;
-        //}
+
+        return realNewTitle;
     }
     
     /**
