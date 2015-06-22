@@ -67,7 +67,7 @@ public class LensListAdapter extends ArrayAdapter<Content> implements SectionInd
         this.context = context;
         this.contentList = contentList;
         
-        alphaIndexer = new HashMap<String, Integer>();
+        alphaIndexer = new HashMap<>();
         int size = contentList.size();
 
         for (int x = 0; x < size; x++) 
