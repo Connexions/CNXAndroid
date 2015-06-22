@@ -77,7 +77,6 @@ public class SearchHandler
                 {
                     if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)
                     {
-                        //EditText searchFor = (EditText)findViewById(R.id.searchText);
                         performSearch(searchCriteria.getText().toString(),Constants.CNX_SEARCH, context);
                     }
                 }
@@ -95,7 +94,6 @@ public class SearchHandler
                   }
               });
         popUp.showAtLocation(layout, Gravity.TOP, 0, 30); 
-        //popUp.update(350, 160);
     }
     
     /**

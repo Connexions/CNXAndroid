@@ -15,11 +15,9 @@ import org.cnx.android.R;
 import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
 import org.cnx.android.activity.NoteEditorActivity;
-import org.cnx.android.activity.ViewFavsActivity;
 import org.cnx.android.activity.WebViewActivity;
 import org.cnx.android.beans.Content;
 import org.cnx.android.providers.Favs;
-import org.cnx.android.service.DownloadService;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.utils.ContentCache;
 import org.cnx.android.utils.MenuUtil;
@@ -32,7 +30,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -153,8 +150,7 @@ public class MenuHandler
               public void onClick(DialogInterface dialog, int which) 
               {
                   String url = currentContent.getUrl().toString();
-                  //Intent intent = new Intent(context, DownloadService.class);
-                  
+
             	  DownloadManager dm = (DownloadManager)context.getSystemService(Context.DOWNLOAD_SERVICE);
             	  if(type.equals(Constants.PDF_TYPE))
             	  {

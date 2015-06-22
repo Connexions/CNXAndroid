@@ -8,8 +8,8 @@ android {
         applicationId "org.cnx.android"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 28
-        versionName "3.8"
+        versionCode 29
+        versionName "3.9"
     }
     dependencies{
         compile 'com.android.support:support-v4:21.0.2'

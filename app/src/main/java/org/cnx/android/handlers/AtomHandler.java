@@ -77,10 +77,6 @@ public class AtomHandler extends DefaultHandler
         {
             inTitle = true;
         }
-        /*else if (name.trim().equals("item"))
-        {
-            inItem = true;
-        }*/
         else if (name.trim().equals("link"))
         {
             try
@@ -88,7 +84,6 @@ public class AtomHandler extends DefaultHandler
                 String href = atts.getValue("href");
                 if(href.endsWith("latest/"))
                 {
-                    //currentContent.url = new URL("http://cnx.org" + href);
                     currentContent.url = new URL(Constants.MOBILE_CNX_URL + href);
                 }
                 else if(href.endsWith("/"))
