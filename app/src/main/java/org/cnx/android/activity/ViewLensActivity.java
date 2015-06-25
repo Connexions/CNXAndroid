@@ -15,7 +15,7 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.ListActivity;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.*;
 import android.widget.SimpleAdapter;
@@ -29,7 +29,6 @@ import org.cnx.android.handlers.RssHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,24 +51,16 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  */
 public class ViewLensActivity extends ListActivity
 {
-    /** Constant for serialized object passed to Activity */
-    public static final String CONTENT = "content";
     /** Variable for serialized Content object */
     private Content content;
     /** Adaptor for Lens list display*/
     private LensesAdapter adapter;
-    /** progress window displayed while feed is loading  */
-    protected ProgressDialog progressDialog;
     /** handler */
     final private Handler handler = new Handler();
     /** list of lenses as Content objects */ 
     ArrayList<Content> contentList;
     
-    private ActionBar aBar;
-
     private List<HashMap<String,String>> navTitles;
-    private DrawerLayout drawerLayout;
-    private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     String[] from = { "nav_icon","nav_item" };
     int[] to = { R.id.nav_icon , R.id.nav_item};
@@ -104,19 +95,13 @@ public class ViewLensActivity extends ListActivity
             }
         }
         contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
-        aBar = getActionBar();
-        //aBar.setDisplayHomeAsUpEnabled(true);
-        aBar.setTitle(content.getTitle());
+        ActionBar aBar = getActionBar();
+        aBar.setTitle("  " + content.getTitle());
         setProgressBarIndeterminateVisibility(true);
         //get stored data if there is any
         if(contentList == null)
         {
-            contentList = (ArrayList<Content>)getLastNonConfigurationInstance();
-            if(contentList == null)
-            {
-                //no stored data, so read RSS feed
-                readFeed();
-            }
+            readFeed();
         }
         else
         {
@@ -144,16 +129,14 @@ public class ViewLensActivity extends ListActivity
 
         String[] items = getResources().getStringArray(R.array.nav_list);
         setDrawer(items);
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawerList = (ListView)findViewById(R.id.left_drawer);
+        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the adapter for the list view
-        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
         {
             public void onDrawerClosed(View view)
             {
@@ -404,19 +387,19 @@ public class ViewLensActivity extends ListActivity
 
     private void setDrawer(String[] items)
     {
-        HashMap<String,String> hm1 = new HashMap<String,String>();
+        HashMap<String,String> hm1 = new HashMap<>();
         hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
         hm1.put("nav_item",items[0]);
 
-        HashMap<String,String> hm2 = new HashMap<String,String>();
+        HashMap<String,String> hm2 = new HashMap<>();
         hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
         hm2.put("nav_item",items[1]);
 
-        HashMap<String,String> hm3 = new HashMap<String,String>();
+        HashMap<String,String> hm3 = new HashMap<>();
         hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
         hm3.put("nav_item",items[2]);
 
-        HashMap<String,String> hm4 = new HashMap<String,String>();
+        HashMap<String,String> hm4 = new HashMap<>();
         hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
         hm4.put("nav_item",items[3]);
 

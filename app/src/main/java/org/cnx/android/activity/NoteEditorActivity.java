@@ -44,7 +44,7 @@ import android.widget.Toast;
  */
 public class NoteEditorActivity extends Activity
 {
-    private static final String TAG = "NoteEditor";
+    //private static final String TAG = "NoteEditor";
 
     // This is our state data that is stored when freezing.
     private static final String ORIGINAL_CONTENT = "origContent";
@@ -197,7 +197,7 @@ public class NoteEditorActivity extends Activity
      * If the note has text, the title is set and the note placed in the database.
      * Handles updating or inserting a new note based on the flag set in checkDBForNote()
      */
-    private final void saveNote() 
+    private void saveNote()
     {
         
         ContentValues values = new ContentValues();

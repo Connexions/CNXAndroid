@@ -14,7 +14,7 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.ListActivity;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +26,6 @@ import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.utils.ContentCache;
 
-//import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,20 +48,11 @@ public class ViewLensesActivity extends ListActivity
      * Constant for Affiliation label
      */
     private static String AFFILIATED = "Affiliation List";
-    /**
-     * Constant for Member List label
-     */
-    private static String MEMBER = "Member Listed Books";
-    
+
     /**
      * Constant for Featured Content List label
      */
     private static String FEATURED = "Featured Content";
-    
-    /**
-     * Constant for recently published list label
-     */
-    private static String RECENT = "Recent Content";
     
     private static String OSC = "OpenStax College";
    /** Adaptor for Lens list display */ 
@@ -70,11 +60,8 @@ public class ViewLensesActivity extends ListActivity
     /** list of lenses as Content objects */ 
     ArrayList<Content> content;
     
-    private ActionBar aBar;
-
     private List<HashMap<String,String>> navTitles;
     private DrawerLayout drawerLayout;
-    private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     String[] from = { "nav_icon","nav_item" };
     int[] to = { R.id.nav_icon , R.id.nav_item};
@@ -89,11 +76,9 @@ public class ViewLensesActivity extends ListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
-        aBar = this.getActionBar();
-        aBar.setTitle("Discover Books");
+        ActionBar aBar = this.getActionBar();
+        aBar.setTitle("  Discover Books");
         aBar.setDisplayHomeAsUpEnabled(true);
-        //get already retrieved feed and reuse if it is there
-        content = (ArrayList<Content>)getLastNonConfigurationInstance();
         if(content==null && savedInstanceState != null)
         {
             //Log.d("ViewLenses.onCreate()", "getting saved data");
@@ -112,22 +97,22 @@ public class ViewLensesActivity extends ListActivity
         String[] items = getResources().getStringArray(R.array.nav_list);
         setDrawer(items);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawerList = (ListView)findViewById(R.id.left_drawer);
+        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
         {
             public void onDrawerClosed(View view)
             {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView)
             {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
         };
         drawerToggle.setDrawerIndicatorEnabled(true);
@@ -171,9 +156,7 @@ public class ViewLensesActivity extends ListActivity
     	else
     	{
 	        MenuHandler mh = new MenuHandler();
-	        boolean returnVal = mh.handleContextMenu(item, this, null);
-
-            return returnVal;
+	        return mh.handleContextMenu(item, this, null);
 
     	}
     }
@@ -209,13 +192,13 @@ public class ViewLensesActivity extends ListActivity
         {
             startActivity(new Intent(this, AffiliatedLensesActivity.class));
         }
-        else if(content.getTitle().equals(FEATURED) || content.getTitle().equals(RECENT))
+        else if(content.getTitle().equals(FEATURED))
         {
             Content contentObj = (Content)getListView().getItemAtPosition(position);
             ContentCache.setObject(getString(R.string.cache_sentcontent), contentObj);
             startActivity(new Intent(this, ViewLensActivity.class));
         }
-        else if(content.getTitle().equals(OSC) || content.getTitle().equals(OSC))
+        else if(content.getTitle().equals(OSC))
         {
             Content contentObj = (Content)getListView().getItemAtPosition(position);
             ContentCache.setObject(getString(R.string.cache_sentcontent), contentObj);
@@ -269,23 +252,11 @@ public class ViewLensesActivity extends ListActivity
             c2.setUrl(new URL(fakeURL));
             c2.setIconDrawable(R.drawable.lenses);
             
-//            Content c3 = new Content();
-//            c3.setTitle(MEMBER);
-//            c3.setContentString(getString(R.string.lenses_member_desc));
-//            c3.setUrl(new URL(fakeURL));
-//            c3.setIconDrawable(R.drawable.lenses);
-            
             Content c4 = new Content();
             c4.setTitle(FEATURED);
             c4.setContentString(getString(R.string.lenses_featured_content_desc));
             c4.setUrl(new URL("http://cnx.org/lenses/cnxorg/featured/atom"));
             c4.setIconDrawable(R.drawable.lenses);
-            
-//            Content c5 = new Content();
-//            c5.setTitle(RECENT);
-//            c5.setContentString(getString(R.string.lenses_recent_desc));
-//            c5.setUrl(new URL("http://cnx.org/content/recent.rss"));
-//            c5.setIconDrawable(R.drawable.lenses);
             
             if(content == null)
             {
@@ -296,9 +267,7 @@ public class ViewLensesActivity extends ListActivity
             content.add(c4);
             content.add(c);
             content.add(c2);
-            //content.add(c3);
-            //content.add(c5);
-            
+
             //Collections.sort((List)content);
         }
         catch (MalformedURLException e)
@@ -344,19 +313,19 @@ public class ViewLensesActivity extends ListActivity
 
     private void setDrawer(String[] items)
     {
-        HashMap<String,String> hm1 = new HashMap<String,String>();
+        HashMap<String,String> hm1 = new HashMap<>();
         hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
         hm1.put("nav_item",items[0]);
 
-        HashMap<String,String> hm2 = new HashMap<String,String>();
+        HashMap<String,String> hm2 = new HashMap<>();
         hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
         hm2.put("nav_item",items[1]);
 
-        HashMap<String,String> hm3 = new HashMap<String,String>();
+        HashMap<String,String> hm3 = new HashMap<>();
         hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
         hm3.put("nav_item",items[2]);
 
-        HashMap<String,String> hm4 = new HashMap<String,String>();
+        HashMap<String,String> hm4 = new HashMap<>();
         hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
         hm4.put("nav_item",items[3]);
 

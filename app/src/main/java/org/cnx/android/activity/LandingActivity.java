@@ -13,7 +13,6 @@ import java.util.List;
 import android.app.ActionBar;
 import android.app.Activity;
 import org.cnx.android.R;
-import org.cnx.android.adapters.LandingListAdapter;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.SearchHandler;
 import org.cnx.android.utils.CNXUtil;
@@ -24,7 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.util.Log;
@@ -43,7 +42,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 /**
  * Activity for Landing page
@@ -54,11 +52,9 @@ public class LandingActivity extends Activity
 {
     
     private ArrayList<Content> content;
-    private ActionBar aBar;
 
     private List<HashMap<String,String>> navTitles;
     private DrawerLayout drawerLayout;
-    private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     String[] from = { "nav_icon","nav_item" };
     int[] to = { R.id.nav_icon , R.id.nav_item};
@@ -70,8 +66,8 @@ public class LandingActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_landing);
-        aBar = this.getActionBar();
-        aBar.setTitle(Html.fromHtml("open<b>stax</b> cnx"));
+        ActionBar aBar = this.getActionBar();
+        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;open<b>stax</b> cnx"));
         createList();
         GridView gridView = (GridView) findViewById(R.id.gridView);
         int orient = getResources().getConfiguration().orientation;
@@ -106,9 +102,11 @@ public class LandingActivity extends Activity
         }
 
         gridView.setAdapter(new ImageAdapter(this));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+            {
 
                 Content c = content.get(position);
                 Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
@@ -123,13 +121,13 @@ public class LandingActivity extends Activity
         String[] items = getResources().getStringArray(R.array.nav_list);
         setDrawer(items);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawerList = (ListView)findViewById(R.id.left_drawer);
+        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
         // Set the drawer click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
         {
             public void onDrawerClosed(View view) {
                 invalidateOptionsMenu();
@@ -370,7 +368,7 @@ public class LandingActivity extends Activity
 
             if(content == null)
             {
-                content = new ArrayList<Content>();
+                content = new ArrayList<>();
             }
 
             content.add(c);
@@ -459,19 +457,19 @@ public class LandingActivity extends Activity
 
     private void setDrawer(String[] items)
     {
-        HashMap<String,String> hm1 = new HashMap<String,String>();
+        HashMap<String,String> hm1 = new HashMap<>();
         hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
         hm1.put("nav_item",items[0]);
 
-        HashMap<String,String> hm2 = new HashMap<String,String>();
+        HashMap<String,String> hm2 = new HashMap<>();
         hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
         hm2.put("nav_item",items[1]);
 
-        HashMap<String,String> hm3 = new HashMap<String,String>();
+        HashMap<String,String> hm3 = new HashMap<>();
         hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
         hm3.put("nav_item",items[2]);
 
-        HashMap<String,String> hm4 = new HashMap<String,String>();
+        HashMap<String,String> hm4 = new HashMap<>();
         hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
         hm4.put("nav_item",items[3]);
 
@@ -487,7 +485,7 @@ public class LandingActivity extends Activity
     {
         private Context context;
 
-        List<Bookcover> bookcovers = new ArrayList<Bookcover>();
+        List<Bookcover> bookcovers = new ArrayList<>();
 
         public ImageAdapter(Context c)
         {
