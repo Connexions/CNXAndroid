@@ -26,7 +26,6 @@ import android.util.Log;
 */
 public class NotesProvider extends ContentProvider
 {
-    public static final String AUTHORITY = "org.cnx.android.providers.NotesProvider";
     /** notes table name */
     private static final String NOTES_TABLE = "notes";
     /** Map of Notes table columns */

@@ -31,9 +31,8 @@ public class MenuUtil
     	{
     		return "";
     	}
-        String realNewTitle = title.replaceAll("\\p{Punct}", "");
+        return title.replaceAll("\\p{Punct}", "");
 
-        return realNewTitle;
     }
     
     /**
@@ -43,7 +42,7 @@ public class MenuUtil
      */
     public static int getContentType(String url)
     {
-        if(url.indexOf("/col") > -1)
+        if(url.contains("/col"))
         {
             return Constants.COLLECTION_TYPE;
         }

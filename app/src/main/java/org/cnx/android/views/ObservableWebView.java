@@ -44,10 +44,6 @@ public class ObservableWebView extends WebView
     	}
     }
 
-    public OnScrollChangedCallback getOnScrollChangedCallback()
-    {
-        return mOnScrollChangedCallback;
-    }
 
     public void setOnScrollChangedCallback(final OnScrollChangedCallback onScrollChangedCallback)
     {

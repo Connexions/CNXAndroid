@@ -63,8 +63,6 @@ public class CNXUtil
         {
             xlarge = true;
         }
-        //int test = activityContext.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-
         //Log.d("CNXUtil.isTabletDevice()", "screenLayout = " + test);
         //Log.d("CNXUtil.isTabletDevice()","screenlayout size mask = " + Configuration.SCREENLAYOUT_SIZE_MASK);
 

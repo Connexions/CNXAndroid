@@ -37,7 +37,7 @@ public class DBUtils
      */
     public static ArrayList<Content> readCursorIntoList(Cursor c)
     {
-        ArrayList<Content> contentList = new ArrayList<Content>();
+        ArrayList<Content> contentList = new ArrayList<>();
         
         int titleColumn = c.getColumnIndex(Favs.TITLE); 
         int urlColumn = c.getColumnIndex(Favs.URL);
