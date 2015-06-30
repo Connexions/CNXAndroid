@@ -75,20 +75,6 @@ public class MenuHandler
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
                 Toast.makeText(context, title + " added to Favorites", Toast.LENGTH_SHORT).show();
                 return true;
-//            case R.id.help:
-//                try
-//                {
-//                    Content content = new Content();
-//                    content.setUrl(new URL(Constants.HELP_FILE_URL));
-//                    ContentCache.setObject(context.getString(R.string.webcontent), content);
-//                    context.startActivity(new Intent(context, WebViewActivity.class));
-//
-//                }
-//                catch (MalformedURLException e)
-//                {
-//                    e.printStackTrace();
-//                }
-//                return true;
             case R.id.delete_from__favs:
                 context.getContentResolver().delete(Favs.CONTENT_URI, "_id="+ currentContent.getId(), null);
                 return true;

@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -28,7 +26,6 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 /** 
@@ -38,15 +35,10 @@ import android.util.Log;
  */
 public class RssHandler extends DefaultHandler
 {
-    public static List<String> BAD_STRINGS = Arrays.asList("", "\n",null);
     /** set to true when in the title element */
     private boolean inTitle = false;
     
     private boolean inLink = false;
-    /**
-     * Cons tant for class name
-     */
-    private static String HANDLER = "RssHandler";
 
     // Feed and Article objects to use for temporary storage
     /** Current Content object */
@@ -156,44 +148,18 @@ public class RssHandler extends DefaultHandler
         } 
         catch (IOException e) 
         {
-            Log.e(HANDLER, e.toString(),e);
+            Log.e("RssHandler", e.toString(),e);
         } 
         catch (SAXException e) 
         {
-            Log.e(HANDLER, e.toString(),e);
+            Log.e("RssHandler", e.toString(),e);
         } 
         catch (ParserConfigurationException e) 
         {
-            Log.e(HANDLER, e.toString(),e);
+            Log.e("RssHandler", e.toString(),e);
         } 
         return contentList;
     }
-    
-    /* (non-Javadoc)
-     * @see org.cnx.android.tasks.LoadImageAsyncTask.LoadImageAsyncTaskResponder#imageLoading()
-     */
-    public void imageLoading() 
-    {
-        //do nothing
-    }
-
-      /* (non-Javadoc)
-     * @see org.cnx.android.tasks.LoadImageAsyncTask.LoadImageAsyncTaskResponder#imageLoadCancelled()
-     */
-    public void imageLoadCancelled() 
-      {
-        // do nothing
-      }
-
-      /* (non-Javadoc)
-     * @see org.cnx.android.tasks.LoadImageAsyncTask.LoadImageAsyncTaskResponder#imageLoaded(android.graphics.drawable.Drawable)
-     */
-    public Drawable imageLoaded(Drawable drawable) 
-   {
-        //Log.d("LensListAdapter.imageLoaded()", "setting image in view");
-        currentContent.setIconImage(drawable);
-        return drawable;
-   }
     
     /**
      * Sets icon based on URL
@@ -202,19 +168,19 @@ public class RssHandler extends DefaultHandler
     {
         //Log.d("AtomHandler.setIcon()","called");
         String url = currentContent.url.toString();
-        if(url.indexOf("lenses") > -1)
+        if(url.contains("lenses"))
         {
             currentContent.setIconDrawable(R.drawable.lenses);
         }
-        else if(url.indexOf("content/m") > -1)
+        else if(url.contains("content/m"))
         {
             currentContent.setIconDrawable(R.drawable.modules);
         }
-        else if(url.indexOf("content/col") > -1)
+        else if(url.contains("content/col"))
         {
             currentContent.setIconDrawable(R.drawable.collections);
         }
-        else if(url.indexOf("google.com") > -1 || url.indexOf("http://cnx.org/content/search") > -1)
+        else if(url.contains("google.com") || url.contains("http://cnx.org/content/search"))
         {
             currentContent.setIconDrawable(R.drawable.search_selected);
         }

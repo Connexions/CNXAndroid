@@ -25,7 +25,6 @@ import org.cnx.android.providers.Favs;
 import org.cnx.android.providers.utils.DBUtils;
 import org.cnx.android.utils.ContentCache;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;

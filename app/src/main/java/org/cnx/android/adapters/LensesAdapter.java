@@ -6,7 +6,6 @@
  */
 package org.cnx.android.adapters;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

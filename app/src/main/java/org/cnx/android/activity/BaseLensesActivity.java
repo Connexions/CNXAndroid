@@ -76,10 +76,6 @@ public class BaseLensesActivity extends ListActivity
      */
     public String atomFeedURL = "http://cnx.org/lenses/atom";
     
-    private Menu origMenu;
-    
-    //private android.app.ActionBar aBar;
-
     private List<HashMap<String,String>> navTitles;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;

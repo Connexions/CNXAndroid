@@ -44,7 +44,6 @@ import android.widget.Toast;
  */
 public class NoteEditorActivity extends Activity
 {
-    //private static final String TAG = "NoteEditor";
 
     // This is our state data that is stored when freezing.
     private static final String ORIGINAL_CONTENT = "origContent";
@@ -266,7 +265,6 @@ public class NoteEditorActivity extends Activity
             {
                 cursor.moveToNext();
                 //Log.d("NoteEditorActivity.checkDBForNote()", "cursor.count(): " + cursor.getCount());
-                //int urlColumn = cursor.getColumnIndex(Notes.URL);
                 int notesColumn = cursor.getColumnIndex(Notes.NOTE);
                 //Log.d("NoteEditorActivity.checkDBForNote()", "urlColumn: " + urlColumn);
                 //Log.d("NoteEditorActivity.checkDBForNote()", "notesColumn: " + notesColumn);
