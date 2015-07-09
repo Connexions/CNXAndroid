@@ -6,16 +6,12 @@
  */
 package org.cnx.android.handlers;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import android.view.MenuItem;
 import android.widget.Toast;
 import org.cnx.android.R;
 import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
 import org.cnx.android.activity.NoteEditorActivity;
-import org.cnx.android.activity.WebViewActivity;
 import org.cnx.android.beans.Content;
 import org.cnx.android.providers.Favs;
 import org.cnx.android.utils.Constants;

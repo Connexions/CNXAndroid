@@ -78,7 +78,7 @@ public class RssHandler extends DefaultHandler
             }
             catch (MalformedURLException e)
             {
-                e.printStackTrace();
+                Log.e("RssHandler", e.toString(), e);
             }
         }
         inTitle = false;

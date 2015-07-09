@@ -43,18 +43,18 @@ public class ViewLensesActivity extends ListActivity
     /**
      * Constant for Endorsement label
      */
-    private static String ENDORSED = "Endorsement List";
+    private final static String ENDORSED = "Endorsement List";
     /**
      * Constant for Affiliation label
      */
-    private static String AFFILIATED = "Affiliation List";
+    private final static String AFFILIATED = "Affiliation List";
 
     /**
      * Constant for Featured Content List label
      */
-    private static String FEATURED = "Featured Content";
+    private final static String FEATURED = "Featured Content";
     
-    private static String OSC = "OpenStax College";
+    private final static String OSC = "OpenStax College";
    /** Adaptor for Lens list display */ 
     LensesAdapter adapter;
     /** list of lenses as Content objects */ 
@@ -63,7 +63,7 @@ public class ViewLensesActivity extends ListActivity
     private List<HashMap<String,String>> navTitles;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    String[] from = { "nav_icon","nav_item" };
+    String[] from = {"nav_icon","nav_item" };
     int[] to = { R.id.nav_icon , R.id.nav_item};
     
     /* (non-Javadoc)
@@ -314,20 +314,20 @@ public class ViewLensesActivity extends ListActivity
     private void setDrawer(String[] items)
     {
         HashMap<String,String> hm1 = new HashMap<>();
-        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
-        hm1.put("nav_item",items[0]);
+        hm1.put(getString(R.string.nav_icon),Integer.toString(R.drawable.magnify));
+        hm1.put(getString(R.string.nav_item),items[0]);
 
         HashMap<String,String> hm2 = new HashMap<>();
-        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
-        hm2.put("nav_item",items[1]);
+        hm2.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put(getString(R.string.nav_item),items[1]);
 
         HashMap<String,String> hm3 = new HashMap<>();
-        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
-        hm3.put("nav_item",items[2]);
+        hm3.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
+        hm3.put(getString(R.string.nav_item),items[2]);
 
         HashMap<String,String> hm4 = new HashMap<>();
-        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
-        hm4.put("nav_item",items[3]);
+        hm4.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
+        hm4.put(getString(R.string.nav_item),items[3]);
 
         navTitles = new ArrayList<>();
 

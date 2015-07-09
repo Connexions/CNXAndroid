@@ -40,7 +40,7 @@ import android.util.Log;
  */
 public class AtomHandler extends DefaultHandler
 {
-    public static List<String> BAD_STRINGS = Arrays.asList("", "\n",null);
+    public static final List<String> BAD_STRINGS = Arrays.asList("", "\n",null);
     /** set to true when in an item element */
    //private boolean inItem = false;
     /** set to true when in the title element */
@@ -95,7 +95,7 @@ public class AtomHandler extends DefaultHandler
         else if (name.trim().equals("img"))
         {
             currentContent.icon = atts.getValue("src");
-            if(currentContent.icon != null || !currentContent.icon.equals(""))
+            if(currentContent.icon != null && !currentContent.icon.equals(""))
             {
                 
                 Builder uriBuilder = new Builder();
@@ -118,11 +118,11 @@ public class AtomHandler extends DefaultHandler
                 }
                 catch (MalformedURLException e)
                 {
-                    e.printStackTrace();
+                    Log.e("AtomHandler", e.toString());
                 }
                 catch (IOException e)
                 {
-                    e.printStackTrace();
+                    Log.e("AtomHandler", e.toString());
                 }
             }
             //Log.d("LensViewer","AtomHandler.startElement() added icon src");

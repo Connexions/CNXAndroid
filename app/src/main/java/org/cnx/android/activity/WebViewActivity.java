@@ -62,7 +62,7 @@ public class WebViewActivity extends Activity
 
     private List<HashMap<String,String>> navTitles;
     private ActionBarDrawerToggle drawerToggle;
-    String[] from = { "nav_icon","nav_item" };
+    String[] from = { "nav_icon","nav_item"};
     int[] to = { R.id.nav_icon , R.id.nav_item};
 
     String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562","col11667","col11740","col11629","col11758","col11759","col11760"};
@@ -613,20 +613,20 @@ public class WebViewActivity extends Activity
     private void setDrawer(String[] items)
     {
         HashMap<String,String> hm1 = new HashMap<>();
-        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
-        hm1.put("nav_item",items[0]);
+        hm1.put(getString(R.string.nav_icon),Integer.toString(R.drawable.magnify));
+        hm1.put(getString(R.string.nav_item),items[0]);
 
         HashMap<String,String> hm2 = new HashMap<>();
-        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
-        hm2.put("nav_item",items[1]);
+        hm2.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put(getString(R.string.nav_item),items[1]);
 
         HashMap<String,String> hm3 = new HashMap<>();
-        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
-        hm3.put("nav_item",items[2]);
+        hm3.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
+        hm3.put(getString(R.string.nav_item),items[2]);
 
         HashMap<String,String> hm4 = new HashMap<>();
-        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
-        hm4.put("nav_item",items[3]);
+        hm4.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
+        hm4.put(getString(R.string.nav_item),items[3]);
 
         navTitles = new ArrayList<>();
 

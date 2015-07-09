@@ -119,5 +119,7 @@
     <string name="algebra_desc">OpenStax College College Algebra</string>
     <string name="trig">Algebra and Trigonometry</string>
     <string name="trig_desc">OpenStax College Algebra and Trigonometry</string>
+    <string name="nav_icon">nav_icon</string>
+    <string name="nav_item">nav_item</string>
 </resources>
  

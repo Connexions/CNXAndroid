@@ -18,6 +18,7 @@ import org.cnx.android.utils.ContentCache;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -73,12 +74,12 @@ public class SearchHandler
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event)
             {
-                if(event.getAction() == KeyEvent.ACTION_DOWN)
+                if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER))
                 {
-                    if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)
-                    {
+                    //if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)
+                    //{
                         performSearch(searchCriteria.getText().toString(),Constants.CNX_SEARCH, context);
-                    }
+                    //}
                 }
                 return false;
             }
@@ -114,7 +115,7 @@ public class SearchHandler
         }
         catch (MalformedURLException e)
         {
-            e.printStackTrace();
+            Log.e("SearchHandler", e.toString(), e);
         }
         
     }
@@ -127,8 +128,8 @@ public class SearchHandler
      */
     private String createQueryString(String searchFor, int searchType)
     {
-        StringBuilder sb = new StringBuilder();
-        searchFor.replaceAll(" ", "+");
+        StringBuilder sb = new StringBuilder(40);
+        searchFor = searchFor.replaceAll(" ", "+");
         if(searchType == Constants.CNX_SEARCH)
         {
             sb.append("http://m.cnx.org/content/search?words=");

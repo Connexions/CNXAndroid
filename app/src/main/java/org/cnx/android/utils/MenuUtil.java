@@ -12,6 +12,7 @@ import java.net.URLDecoder;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 
 /**
  * Utility class for MenuHandler
@@ -121,8 +122,8 @@ public class MenuUtil
      */
     public static String getSearchTitle(String title)
     {
-        StringBuilder sb = new StringBuilder();
-        String newTitle = "";
+        StringBuilder sb = new StringBuilder(20);
+        String newTitle;
         int wordsIndex = title.indexOf("words=");
         sb.append("OpenStaxCNX search: ");
         int ampIndex = title.indexOf("&", wordsIndex);
@@ -140,7 +141,7 @@ public class MenuUtil
         }
         catch (UnsupportedEncodingException e)
         {
-            e.printStackTrace();
+            Log.e("MenuUtil", e.toString(), e);
         }
         sb.append(newTitle);
         return sb.toString();
