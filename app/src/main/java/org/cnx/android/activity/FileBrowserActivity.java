@@ -82,7 +82,7 @@ public class FileBrowserActivity extends ListActivity
         ActionBar aBar = getActionBar();
         currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
 
-        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;open<b>stax</b> cnx - Select File to View"));
+        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html) + " - Select File to View"));
         readFileList();
 
         String[] items = getResources().getStringArray(R.array.nav_list);

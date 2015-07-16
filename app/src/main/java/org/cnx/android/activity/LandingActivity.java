@@ -67,7 +67,7 @@ public class LandingActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_landing);
         ActionBar aBar = this.getActionBar();
-        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;open<b>stax</b> cnx"));
+        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
         createList();
         GridView gridView = (GridView) findViewById(R.id.gridView);
         int orient = getResources().getConfiguration().orientation;

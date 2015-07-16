@@ -159,7 +159,7 @@ public class WebViewActivity extends Activity
         progressBarRunning = true;
         Log.d("WebView.onCreate()", "Called");
         content = (Content)ContentCache.getObject(getString(R.string.webcontent));
-        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;open<b>stax</b> cnx"));
+        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
         if(content != null && content.getUrl() != null)
         {
             setLayout(content.getUrl().toString());
