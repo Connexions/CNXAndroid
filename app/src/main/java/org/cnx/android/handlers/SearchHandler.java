@@ -50,7 +50,8 @@ public class SearchHandler
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int width = layout.getMeasuredWidth();
         int height = layout.getMeasuredHeight();
-        popUp = new PopupWindow(layout,  width,  height,    true); 
+        popUp = new PopupWindow(layout,  width * 2,  height,    true);
+        //popUp = new PopupWindow(layout);
         popUp.setBackgroundDrawable(new BitmapDrawable());
         popUp.setOutsideTouchable(true);
         popUp.setAnimationStyle(R.style.Animations_GrowFromBottom);
