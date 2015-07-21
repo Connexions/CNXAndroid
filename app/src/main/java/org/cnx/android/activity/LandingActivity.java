@@ -13,7 +13,6 @@ import java.util.List;
 import android.app.ActionBar;
 import android.app.Activity;
 import org.cnx.android.R;
-import org.cnx.android.adapters.LandingListAdapter;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.SearchHandler;
 import org.cnx.android.utils.CNXUtil;
@@ -24,7 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.util.Log;
@@ -43,7 +42,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 /**
  * Activity for Landing page
@@ -53,14 +51,10 @@ import android.widget.Toast;
 public class LandingActivity extends Activity
 {
     
-    private ListView listView;
-
     private ArrayList<Content> content;
-    private ActionBar aBar;
 
     private List<HashMap<String,String>> navTitles;
     private DrawerLayout drawerLayout;
-    private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     String[] from = { "nav_icon","nav_item" };
     int[] to = { R.id.nav_icon , R.id.nav_item};
@@ -72,8 +66,8 @@ public class LandingActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_landing);
-        aBar = this.getActionBar();
-        aBar.setTitle(Html.fromHtml("open<b>stax</b> cnx"));
+        ActionBar aBar = this.getActionBar();
+        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
         createList();
         GridView gridView = (GridView) findViewById(R.id.gridView);
         int orient = getResources().getConfiguration().orientation;
@@ -96,7 +90,6 @@ public class LandingActivity extends Activity
         }
         else if(orient == Configuration.ORIENTATION_PORTRAIT && isTablet)
         {
-            //gridView.setNumColumns(3);
 
             if(CNXUtil.isXLarge(this))
             {
@@ -109,48 +102,39 @@ public class LandingActivity extends Activity
         }
 
         gridView.setAdapter(new ImageAdapter(this));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+            {
 
                 Content c = content.get(position);
                 Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
-                //i.putExtra("webcontent",c);
                 ContentCache.setObject(getString(R.string.webcontent), c);
                 startActivity(i);
 
             }
         });
 
-        //listView = (ListView)findViewById(R.id.landingList);
         setLayout();
 
         String[] items = getResources().getStringArray(R.array.nav_list);
         setDrawer(items);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawerList = (ListView)findViewById(R.id.left_drawer);
+        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the adapter for the list view
-        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
-        // Set the list's click listener
+        // Set the drawer click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
+        {
             public void onDrawerClosed(View view) {
-                //getActionBar().setTitle(getString(R.string.app_name));
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
-                //getActionBar().setTitle(getString(R.string.app_name));
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
         };
         drawerToggle.setDrawerIndicatorEnabled(true);
@@ -194,13 +178,13 @@ public class LandingActivity extends Activity
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event)
             {
-                if(event.getAction() == KeyEvent.ACTION_DOWN)
+                if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER))
                 {
-                    if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)
-                    {
+//                    if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)
+//                    {
                         EditText searchFor = (EditText)findViewById(R.id.searchText);
                         performSearch(searchFor.getText().toString());
-                    }
+                    //}
                 }
                 return false;
             }
@@ -210,7 +194,6 @@ public class LandingActivity extends Activity
 
     private void createList()
     {
-        String fakeURL = getString(R.string.lenses_fake_url);
         try
         {
             Content c = new Content();
@@ -219,35 +202,30 @@ public class LandingActivity extends Activity
             //c.setUrl(new URL("http://archive.alpha.cnx.org:6543/contents/031da8d3-b525-429c-80cf-6c8ed997733a@7.31.html"));
             c.setUrl(new URL("http://m.cnx.org/content/col11406/latest"));
             c.setIconDrawable(R.drawable.physics_lg);
-            //c.setIcon("physics");
 
             Content c2 = new Content();
             c2.setTitle(getString(R.string.sociology));
             c2.setContentString(getString(R.string.sociology_desc));
             c2.setUrl(new URL("http://m.cnx.org/content/col11407/latest/"));
             c2.setIconDrawable(R.drawable.sociology_lg);
-            //c2.setIcon("sociology");
 
             Content c3 = new Content();
             c3.setTitle(getString(R.string.biology));
             c3.setContentString(getString(R.string.biology_desc));
             c3.setUrl(new URL("http://m.cnx.org/content/col11448/latest/"));
             c3.setIconDrawable(R.drawable.biology_lg);
-            //c3.setIcon("biology");
 
             Content c4 = new Content();
             c4.setTitle(getString(R.string.concepts_biology));
             c4.setContentString(getString(R.string.concepts_biology_desc));
             c4.setUrl(new URL("http://m.cnx.org/content/col11487/latest/"));
             c4.setIconDrawable(R.drawable.concepts_biology_lg);
-            //c4.setIcon("concepts");
 
             Content c5 = new Content();
             c5.setTitle(getString(R.string.anatomy));
             c5.setContentString(getString(R.string.anatomy_desc));
             c5.setUrl(new URL("http://m.cnx.org/content/col11496/latest/"));
             c5.setIconDrawable(R.drawable.anatomy_lg);
-            //c5.setIcon("anatomy");
 
             Content c6 = new Content();
             c6.setTitle(getString(R.string.statistics));
@@ -255,28 +233,24 @@ public class LandingActivity extends Activity
             //c6.setUrl(new URL("http://cnx.org/contents/30189442-6998-4686-ac05-ed152b91b9de@16.5"));
             c6.setUrl(new URL("http://m.cnx.org/content/col11562/latest/"));
             c6.setIconDrawable(R.drawable.statistics_lg);
-            //c6.setIcon("statistics");
 
             Content c7 = new Content();
             c7.setTitle(getString(R.string.econ));
             c7.setContentString(getString(R.string.economics_desc));
             c7.setUrl(new URL("http://m.cnx.org/content/col11613/latest/"));
             c7.setIconDrawable(R.drawable.econ_lg);
-            //c7.setIcon("economics");
 
             Content c11 = new Content();
             c11.setTitle(getString(R.string.macro_econ));
             c11.setContentString(getString(R.string.macro_desc));
             c11.setUrl(new URL("http://m.cnx.org/content/col11626/latest/"));
             c11.setIconDrawable(R.drawable.macro_econ_lg);
-            //c11.setIcon("macro");
 
             Content c12 = new Content();
             c12.setTitle(getString(R.string.micro_econ));
             c12.setContentString(getString(R.string.micro_desc));
             c12.setUrl(new URL("http://m.cnx.org/content/col11627/latest/"));
             c12.setIconDrawable(R.drawable.micro_econ_lg);
-            //c12.setIcon("micro");
 
             Content c8 = new Content();
             c8.setTitle(getString(R.string.precalculus));
@@ -295,14 +269,12 @@ public class LandingActivity extends Activity
             c10.setContentString(getString(R.string.history_desc));
             c10.setUrl(new URL("http://m.cnx.org/content/col11740/latest/"));
             c10.setIconDrawable(R.drawable.history_lg);
-            //c10.setIcon("history");
 
             Content c13 = new Content();
             c13.setTitle(getString(R.string.psychology));
             c13.setContentString(getString(R.string.psychology_desc));
             c13.setUrl(new URL("http://m.cnx.org/content/col11629/latest/"));
             c13.setIconDrawable(R.drawable.psychology_lg);
-            //c13.setIcon("psychology");
 
             Content c14 = new Content();
             c14.setTitle(getString(R.string.bus_fundamentals));
@@ -387,18 +359,16 @@ public class LandingActivity extends Activity
             c27.setContentString(getString(R.string.algebra_desc));
             c27.setUrl(new URL("http://m.cnx.org/content/col11759/latest/"));
             c27.setIconDrawable(R.drawable.algebra_lg);
-            //c27.setIcon("algebra");
 
             Content c28 = new Content();
             c28.setTitle(getString(R.string.trig));
             c28.setContentString(getString(R.string.trig_desc));
             c28.setUrl(new URL("http://m.cnx.org/content/col11758/latest/"));
             c28.setIconDrawable(R.drawable.trig_lg);
-            //c28.setIcon("trig");
 
             if(content == null)
             {
-                content = new ArrayList<Content>();
+                content = new ArrayList<>();
             }
 
             content.add(c);
@@ -487,23 +457,23 @@ public class LandingActivity extends Activity
 
     private void setDrawer(String[] items)
     {
-        HashMap<String,String> hm1 = new HashMap<String,String>();
-        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
-        hm1.put("nav_item",items[0]);
+        HashMap<String,String> hm1 = new HashMap<>();
+        hm1.put(getString(R.string.nav_icon), Integer.toString(R.drawable.magnify));
+        hm1.put(getString(R.string.nav_item),items[0]);
 
-        HashMap<String,String> hm2 = new HashMap<String,String>();
-        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
-        hm2.put("nav_item",items[1]);
+        HashMap<String,String> hm2 = new HashMap<>();
+        hm2.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put(getString(R.string.nav_item),items[1]);
 
-        HashMap<String,String> hm3 = new HashMap<String,String>();
-        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
-        hm3.put("nav_item",items[2]);
+        HashMap<String,String> hm3 = new HashMap<>();
+        hm3.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
+        hm3.put(getString(R.string.nav_item),items[2]);
 
-        HashMap<String,String> hm4 = new HashMap<String,String>();
-        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
-        hm4.put("nav_item",items[3]);
+        HashMap<String,String> hm4 = new HashMap<>();
+        hm4.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
+        hm4.put(getString(R.string.nav_item),items[3]);
 
-        navTitles = new ArrayList<HashMap<String,String>>();
+        navTitles = new ArrayList<>();
 
         navTitles.add(hm1);
         navTitles.add(hm2);
@@ -515,7 +485,7 @@ public class LandingActivity extends Activity
     {
         private Context context;
 
-        List<Bookcover> bookcovers = new ArrayList<Bookcover>();
+        List<Bookcover> bookcovers = new ArrayList<>();
 
         public ImageAdapter(Context c)
         {
@@ -589,22 +559,18 @@ public class LandingActivity extends Activity
 
             View v = convertView;
             ImageView picture;
-            //TextView name;
 
             if(v == null) {
 
                 v = LayoutInflater.from(context).inflate(R.layout.gridcell, parent, false);
                 v.setTag(R.id.grid_item_image, v.findViewById(R.id.grid_item_image));
-                //v.setTag(R.id.text, v.findViewById(R.id.text));
             }
 
             picture = (ImageView)v.getTag(R.id.grid_item_image);
-            //name = (TextView)v.getTag(R.id.text);
 
             Bookcover item = (Bookcover)getItem(position);
 
             picture.setImageResource(item.drawableId);
-            //name.setText(item.name);
 
             return v;
         }

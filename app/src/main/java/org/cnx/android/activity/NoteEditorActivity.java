@@ -44,7 +44,6 @@ import android.widget.Toast;
  */
 public class NoteEditorActivity extends Activity
 {
-    private static final String TAG = "NoteEditor";
 
     // This is our state data that is stored when freezing.
     private static final String ORIGINAL_CONTENT = "origContent";
@@ -161,8 +160,6 @@ public class NoteEditorActivity extends Activity
     @Override
     protected void onSaveInstanceState(Bundle outState) 
     {
-        // Save away the original text, so we still have it if the activity
-        // needs to be killed while paused.
         outState.putString(ORIGINAL_CONTENT, originalContent);
         ContentCache.setObject(getString(R.string.cache_savednotecontent), content);
     }
@@ -199,7 +196,7 @@ public class NoteEditorActivity extends Activity
      * If the note has text, the title is set and the note placed in the database.
      * Handles updating or inserting a new note based on the flag set in checkDBForNote()
      */
-    private final void saveNote() 
+    private void saveNote()
     {
         
         ContentValues values = new ContentValues();
@@ -268,7 +265,6 @@ public class NoteEditorActivity extends Activity
             {
                 cursor.moveToNext();
                 //Log.d("NoteEditorActivity.checkDBForNote()", "cursor.count(): " + cursor.getCount());
-                //int urlColumn = cursor.getColumnIndex(Notes.URL);
                 int notesColumn = cursor.getColumnIndex(Notes.NOTE);
                 //Log.d("NoteEditorActivity.checkDBForNote()", "urlColumn: " + urlColumn);
                 //Log.d("NoteEditorActivity.checkDBForNote()", "notesColumn: " + notesColumn);
@@ -310,7 +306,6 @@ public class NoteEditorActivity extends Activity
             pw = new PrintWriter(file);
             pw.write(text);
             pw.flush();
-            //pw.close();
             Toast.makeText(this, fileName + " saved to OpenStaxCNX folder.", Toast.LENGTH_LONG).show();
         }
         catch (FileNotFoundException e)

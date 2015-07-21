@@ -6,7 +6,6 @@
  */
 package org.cnx.android.activity;
 
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.List;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.view.*;
@@ -31,7 +30,6 @@ import org.cnx.android.utils.ContentCache;
 import org.cnx.android.views.ObservableWebView;
 import org.cnx.android.views.ObservableWebView.OnScrollChangedCallback;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -57,19 +55,14 @@ public class WebViewActivity extends Activity
     private Content content;
     /** Constant for serialized object passed to Activity */
     public static final String WEB_MENU = "web";
-    public static final String HELP_MENU = "help";
-    
-    private ActionBar aBar;
-    
+
     private float yPosition = 0f;
     
     private boolean progressBarRunning;
 
     private List<HashMap<String,String>> navTitles;
-    private DrawerLayout drawerLayout;
-    private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
-    String[] from = { "nav_icon","nav_item" };
+    String[] from = { "nav_icon","nav_item"};
     int[] to = { R.id.nav_icon , R.id.nav_item};
 
     String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562","col11667","col11740","col11629","col11758","col11759","col11760"};
@@ -79,7 +72,7 @@ public class WebViewActivity extends Activity
     /**
      * Progress bar when page is loading
      */
-    private ProgressDialog progressBar;
+    //private ProgressDialog progressBar;
     
     /**
      * keeps track of the previous menu for when the back button is used.
@@ -93,14 +86,14 @@ public class WebViewActivity extends Activity
         {
             super.onLoadResource(view, url);
             
-            Log.d("WbVClt.onLoadResource()", "Called");
+            //Log.d("WbVClt.onLoadResource()", "Called");
         }
         
         /** loads URL into view */
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) 
         {
-        	Log.d("WV.shouldOverrideUrl()", "Called");
+        	//Log.d("WV.shouldOverrideUrl()", "Called");
         	if(!progressBarRunning)
             {
             	setProgressBarIndeterminateVisibility(true);
@@ -125,8 +118,8 @@ public class WebViewActivity extends Activity
         @Override
         public void onPageFinished(WebView view, String url)
         {
-            Log.d("WebViewC.onPageFinished", "title: " + view.getTitle());
-            Log.d("WebViewC.onPageFinished", "url: " + url);
+            //Log.d("WebViewC.onPageFinished", "title: " + view.getTitle());
+            //Log.d("WebViewC.onPageFinished", "url: " + url);
             content.setTitle(view.getTitle());
             try
             {
@@ -160,13 +153,13 @@ public class WebViewActivity extends Activity
         //Log.d("LensWebView.onCreate()", "Called");
         
         setContentView(R.layout.new_web_view);
-        aBar = this.getActionBar();
+        ActionBar aBar = this.getActionBar();
         sharedPref = getSharedPreferences("org.cnx.android",MODE_PRIVATE);
         setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
         Log.d("WebView.onCreate()", "Called");
         content = (Content)ContentCache.getObject(getString(R.string.webcontent));
-        aBar.setTitle(Html.fromHtml("open<b>stax</b> cnx"));
+        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
         if(content != null && content.getUrl() != null)
         {
             setLayout(content.getUrl().toString());
@@ -189,30 +182,23 @@ public class WebViewActivity extends Activity
 
         String[] items = getResources().getStringArray(R.array.nav_list);
         setDrawer(items);
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawerList = (ListView)findViewById(R.id.left_drawer);
+        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the adapter for the list view
-        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, navTitles));
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                //getActionBar().setTitle(getString(R.string.app_name));
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
+        {
+            public void onDrawerClosed(View view)
+            {
+                invalidateOptionsMenu();
             }
 
-            public void onDrawerOpened(View drawerView) {
-                //getActionBar().setTitle(getString(R.string.app_name));
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            public void onDrawerOpened(View drawerView)
+            {
+                invalidateOptionsMenu();
             }
         };
         drawerToggle.setDrawerIndicatorEnabled(true);
@@ -227,7 +213,7 @@ public class WebViewActivity extends Activity
             webView.clearCache(true);
             SharedPreferences.Editor ed = sharedPref.edit();
             ed.putString("cacheCleared", "true");
-            ed.commit();
+            ed.apply();
         }
     }
     
@@ -238,7 +224,6 @@ public class WebViewActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-//        return true;
         MenuInflater inflater = getMenuInflater();
         if(content == null)
         {
@@ -276,9 +261,7 @@ public class WebViewActivity extends Activity
     	else
     	{
 	        MenuHandler mh = new MenuHandler();
-	        boolean returnVal = mh.handleContextMenu(item, this, content);
-
-            return returnVal;
+	        return mh.handleContextMenu(item, this, content);
 
     	}
         
@@ -371,8 +354,7 @@ public class WebViewActivity extends Activity
             }
          });
         
-        //showProgressDialog();
-        webView.setWebChromeClient(new WebChromeClient() 
+        webView.setWebChromeClient(new WebChromeClient()
         {
 
         });
@@ -415,12 +397,6 @@ public class WebViewActivity extends Activity
     {
         //Log.d("WebView.fixURL()", "url: " + url);
         StringBuilder newURL = new StringBuilder();
-        int googIndex = url.indexOf(getString(R.string.google));
-        int helpIndex = url.indexOf(getString(R.string.help_page));
-        if(googIndex > -1 || helpIndex > -1)
-        {
-            return url;
-        }
         int index = url.indexOf(getString(R.string.lenses_fake_url));
         int startIndex = 14;
         if(index == -1)
@@ -636,23 +612,23 @@ public class WebViewActivity extends Activity
 
     private void setDrawer(String[] items)
     {
-        HashMap<String,String> hm1 = new HashMap<String,String>();
-        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
-        hm1.put("nav_item",items[0]);
+        HashMap<String,String> hm1 = new HashMap<>();
+        hm1.put(getString(R.string.nav_icon),Integer.toString(R.drawable.magnify));
+        hm1.put(getString(R.string.nav_item),items[0]);
 
-        HashMap<String,String> hm2 = new HashMap<String,String>();
-        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
-        hm2.put("nav_item",items[1]);
+        HashMap<String,String> hm2 = new HashMap<>();
+        hm2.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put(getString(R.string.nav_item),items[1]);
 
-        HashMap<String,String> hm3 = new HashMap<String,String>();
-        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
-        hm3.put("nav_item",items[2]);
+        HashMap<String,String> hm3 = new HashMap<>();
+        hm3.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
+        hm3.put(getString(R.string.nav_item),items[2]);
 
-        HashMap<String,String> hm4 = new HashMap<String,String>();
-        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
-        hm4.put("nav_item",items[3]);
+        HashMap<String,String> hm4 = new HashMap<>();
+        hm4.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
+        hm4.put(getString(R.string.nav_item),items[3]);
 
-        navTitles = new ArrayList<HashMap<String,String>>();
+        navTitles = new ArrayList<>();
 
         navTitles.add(hm1);
         navTitles.add(hm2);

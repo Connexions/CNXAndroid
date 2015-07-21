@@ -6,7 +6,6 @@
  */
 package org.cnx.android.adapters;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -59,7 +58,7 @@ public class LensesAdapter extends ArrayAdapter<Content>implements SectionIndexe
         this.context = context;
         this.contentList = contentList;
         
-        alphaIndexer = new HashMap<String, Integer>();
+        alphaIndexer = new HashMap<>();
         int size = contentList.size();
 
         for (int x = 0; x < size; x++) 

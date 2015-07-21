@@ -26,7 +26,6 @@ import android.util.Log;
 */
 public class NotesProvider extends ContentProvider
 {
-    public static final String AUTHORITY = "org.cnx.android.providers.NotesProvider";
     /** notes table name */
     private static final String NOTES_TABLE = "notes";
     /** Map of Notes table columns */
@@ -35,7 +34,7 @@ public class NotesProvider extends ContentProvider
     /** static section to initialize notes table map */
     static
     {
-        NotesProjectionMap = new HashMap<String,String>();
+        NotesProjectionMap = new HashMap<>();
         NotesProjectionMap.put(Notes.ID, Notes.ID);
         NotesProjectionMap.put(Notes.TITLE, Notes.TITLE);
         NotesProjectionMap.put(Notes.URL, Notes.URL);

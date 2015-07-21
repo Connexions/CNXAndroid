@@ -40,7 +40,7 @@ import android.util.Log;
  */
 public class AtomHandler extends DefaultHandler
 {
-    public static List<String> BAD_STRINGS = Arrays.asList("", "\n",null);
+    public static final List<String> BAD_STRINGS = Arrays.asList("", "\n",null);
     /** set to true when in an item element */
    //private boolean inItem = false;
     /** set to true when in the title element */
@@ -49,21 +49,12 @@ public class AtomHandler extends DefaultHandler
     private boolean inListItem = false;
     
     private boolean inTags = false;
-    /**
-     * Cons tant for class name
-     */
-    private static String HANDLER = "AtomHandler";
 
-    // Feed and Article objects to use for temporary storage
     /** Current Content object */
     private Content currentContent;
-    /** Feed object */
-
-    // A flag to know if looking for Articles or Feed name
-    //private int targetFlag;
 
     /** List for storing Content objects from RSS feed */
-    private ArrayList<Content> contentList = new ArrayList<Content>();
+    private ArrayList<Content> contentList = new ArrayList<>();
 
     /** Required method for Sax parser */
     public void startElement(String uri, String name, String qName, Attributes atts) 
@@ -77,10 +68,6 @@ public class AtomHandler extends DefaultHandler
         {
             inTitle = true;
         }
-        /*else if (name.trim().equals("item"))
-        {
-            inItem = true;
-        }*/
         else if (name.trim().equals("link"))
         {
             try
@@ -88,7 +75,6 @@ public class AtomHandler extends DefaultHandler
                 String href = atts.getValue("href");
                 if(href.endsWith("latest/"))
                 {
-                    //currentContent.url = new URL("http://cnx.org" + href);
                     currentContent.url = new URL(Constants.MOBILE_CNX_URL + href);
                 }
                 else if(href.endsWith("/"))
@@ -109,7 +95,7 @@ public class AtomHandler extends DefaultHandler
         else if (name.trim().equals("img"))
         {
             currentContent.icon = atts.getValue("src");
-            if(currentContent.icon != null || !currentContent.icon.equals(""))
+            if(currentContent.icon != null && !currentContent.icon.equals(""))
             {
                 
                 Builder uriBuilder = new Builder();
@@ -132,11 +118,11 @@ public class AtomHandler extends DefaultHandler
                 }
                 catch (MalformedURLException e)
                 {
-                    e.printStackTrace();
+                    Log.e("AtomHandler", e.toString());
                 }
                 catch (IOException e)
                 {
-                    e.printStackTrace();
+                    Log.e("AtomHandler", e.toString());
                 }
             }
             //Log.d("LensViewer","AtomHandler.startElement() added icon src");
@@ -227,15 +213,15 @@ public class AtomHandler extends DefaultHandler
         } 
         catch (IOException e) 
         {
-            Log.e(HANDLER, e.toString(),e);
+            Log.e("AtomHandler", e.toString(),e);
         } 
         catch (SAXException e) 
         {
-            Log.e(HANDLER, e.toString(),e);
+            Log.e("AtomHandler", e.toString(),e);
         } 
         catch (ParserConfigurationException e) 
         {
-            Log.e(HANDLER, e.toString(),e);
+            Log.e("AtomHandler", e.toString(),e);
         } 
         return contentList;
     }
@@ -243,28 +229,28 @@ public class AtomHandler extends DefaultHandler
     /* (non-Javadoc)
      * @see org.cnx.android.tasks.LoadImageAsyncTask.LoadImageAsyncTaskResponder#imageLoading()
      */
-    public void imageLoading() 
-    {
-        //do nothing
-    }
+//    public void imageLoading()
+//    {
+//        //do nothing
+//    }
 
       /* (non-Javadoc)
      * @see org.cnx.android.tasks.LoadImageAsyncTask.LoadImageAsyncTaskResponder#imageLoadCancelled()
      */
-    public void imageLoadCancelled() 
-      {
-        // do nothing
-      }
+//    public void imageLoadCancelled()
+//      {
+//        // do nothing
+//      }
 
       /* (non-Javadoc)
      * @see org.cnx.android.tasks.LoadImageAsyncTask.LoadImageAsyncTaskResponder#imageLoaded(android.graphics.drawable.Drawable)
      */
-    public Drawable imageLoaded(Drawable drawable) 
-   {
-        //Log.d("LensListAdapter.imageLoaded()", "setting image in view");
-        currentContent.setIconImage(drawable);
-        return drawable;
-   }
+//    public Drawable imageLoaded(Drawable drawable)
+//   {
+//        //Log.d("LensListAdapter.imageLoaded()", "setting image in view");
+//        currentContent.setIconImage(drawable);
+//        return drawable;
+//   }
     
     /**
      * removes trailing comma from the list of keywords
@@ -289,19 +275,19 @@ public class AtomHandler extends DefaultHandler
     {
         //Log.d("AtomHandler.setIcon()","called");
         String url = currentContent.url.toString();
-        if(url.indexOf("lenses") > -1)
+        if(url.contains("lenses"))
         {
             currentContent.setIconDrawable(R.drawable.lenses);
         }
-        else if(url.indexOf("content/m") > -1)
+        else if(url.contains("content/m"))
         {
             currentContent.setIconDrawable(R.drawable.modules);
         }
-        else if(url.indexOf("content/col") > -1)
+        else if(url.contains("content/col"))
         {
             currentContent.setIconDrawable(R.drawable.collections);
         }
-        else if(url.indexOf("google.com") > -1 || url.indexOf("http://cnx.org/content/search") > -1)
+        else if(url.contains("google.com") || url.contains("http://cnx.org/content/search"))
         {
             currentContent.setIconDrawable(R.drawable.search_selected);
         }

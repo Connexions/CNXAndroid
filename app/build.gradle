@@ -1,26 +1,35 @@
 apply plugin: 'com.android.application'
+apply from: '../config/quality.gradle'
 
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.1"
+    project.archivesBaseName = "CNXAndroid";
 
     defaultConfig {
         applicationId "org.cnx.android"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 28
-        versionName "3.8"
+        versionCode 29
+        versionName "3.9"
     }
     dependencies{
         compile 'com.android.support:support-v4:21.0.2'
-        compile 'com.android.support:recyclerview-v7:21.0.2'
+        compile 'com.android.support:appcompat-v7:21.0.2'
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace(".apk", "-" + defaultConfig.versionName + ".apk"))
+                }
+            }
         }
     }
+
 }
 
 dependencies {

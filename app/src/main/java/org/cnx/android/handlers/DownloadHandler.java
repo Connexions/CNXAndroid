@@ -48,14 +48,19 @@ public class DownloadHandler
         final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context,context.getClass()), 0);
 
         // configure the notification
-        final Notification notification = new Notification(R.drawable.download_icon, "Downloading " + fileName, System.currentTimeMillis());
-        notification.flags = notification.flags |=Notification.FLAG_AUTO_CANCEL;
-        notification.contentIntent = pendingIntent;
-        notification.setLatestEventInfo(context, "Downloading file", "Downloading " + fileName, pendingIntent);
+        //final Notification notification = new Notification(R.drawable.download_icon, "Downloading " + fileName, System.currentTimeMillis());
+        //notification.contentIntent = pendingIntent;
+        //notification.setLatestEventInfo(context, "Downloading file", "Downloading " + fileName, pendingIntent);
+        Notification.Builder notification = new Notification.Builder(context);
+        notification.setContentText("Downloading " + fileName);
+        notification.setSmallIcon(R.drawable.download_icon);
+        notification.setWhen(System.currentTimeMillis());
+        notification.setContentIntent(pendingIntent);
+        Notification n = notification.build();
 
         final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(42, notification);
+        notificationManager.notify(42, n);
         
         Thread downloadThread = new Thread() 
         {
@@ -94,7 +99,7 @@ public class DownloadHandler
                 }
                 catch(Exception ioe)
                 {
-                    Log.d("DownloadHandler.download", "Error: " + ioe.toString(), ioe);
+                    Log.d("DownloadHandlr.download", "Error: " + ioe.toString(), ioe);
                 }
             }
         };

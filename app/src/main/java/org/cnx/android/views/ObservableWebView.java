@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.webkit.WebView;
 
 /**
- * Web View to allow hidding of toolbar when user scrolls up
+ * Web View to allow hiding of toolbar when user scrolls up
  * @author Ed Woodward
  *
  */
@@ -44,10 +44,6 @@ public class ObservableWebView extends WebView
     	}
     }
 
-    public OnScrollChangedCallback getOnScrollChangedCallback()
-    {
-        return mOnScrollChangedCallback;
-    }
 
     public void setOnScrollChangedCallback(final OnScrollChangedCallback onScrollChangedCallback)
     {
@@ -55,11 +51,11 @@ public class ObservableWebView extends WebView
     }
 
     /**
-     * Impliment in the activity/fragment/view that you want to listen to the webview
+     * Implement in the activity/fragment/view that you want to listen to the webview
      */
-    public static interface OnScrollChangedCallback
+    public interface OnScrollChangedCallback
     {
-        public void onScroll(int l, int t);
+        void onScroll(int l, int t);
     }
 }
 

@@ -57,7 +57,7 @@ public class DownloadedFile implements Serializable, Comparable<DownloadedFile>
         }
         else
         {
-            return fullPath.toString().compareTo(another.getFullPath().toString());
+            return fullPath.compareTo(another.getFullPath());
         }
         
     }

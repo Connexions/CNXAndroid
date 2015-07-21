@@ -12,6 +12,7 @@ import java.net.URLDecoder;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 
 /**
  * Utility class for MenuHandler
@@ -27,21 +28,12 @@ public class MenuUtil
      */
     public static String getTitle(String title)
     {
-        //String newTitle = title.replaceAll("\\p{Punct}", " ");
-        //String realNewTitle = newTitle.replaceAll(":", "_");
     	if(title == null)
     	{
     		return "";
     	}
-        String realNewTitle = title.replaceAll("\\p{Punct}", "");
-//        if(realNewTitle.length() > 20)
-//        {
-//            return realNewTitle.substring(0,20);
-//        }
-//        else
-//        {
-            return realNewTitle;
-        //}
+        return title.replaceAll("\\p{Punct}", "");
+
     }
     
     /**
@@ -51,7 +43,7 @@ public class MenuUtil
      */
     public static int getContentType(String url)
     {
-        if(url.indexOf("/col") > -1)
+        if(url.contains("/col"))
         {
             return Constants.COLLECTION_TYPE;
         }
@@ -130,8 +122,8 @@ public class MenuUtil
      */
     public static String getSearchTitle(String title)
     {
-        StringBuilder sb = new StringBuilder();
-        String newTitle = "";
+        StringBuilder sb = new StringBuilder(20);
+        String newTitle;
         int wordsIndex = title.indexOf("words=");
         sb.append("OpenStaxCNX search: ");
         int ampIndex = title.indexOf("&", wordsIndex);
@@ -149,7 +141,7 @@ public class MenuUtil
         }
         catch (UnsupportedEncodingException e)
         {
-            e.printStackTrace();
+            Log.e("MenuUtil", e.toString(), e);
         }
         sb.append(newTitle);
         return sb.toString();

@@ -30,7 +30,6 @@
         <activity android:name=".activity.ViewFavsActivity" android:label="@string/app_name" android:theme="@style/Theme.LensWindow"/>
         <activity android:name=".activity.EndorsedLensesActivity" android:label="@string/app_name" android:theme="@style/Theme.FavsWindow"/>
         <activity android:name=".activity.AffiliatedLensesActivity" android:label="@string/app_name" android:theme="@style/Theme.FavsWindow"/>
-        <activity android:name=".activity.MemberLensesActivity" android:label="@string/app_name" android:theme="@style/Theme.FavsWindow"/>
         <activity android:name=".activity.NoteEditorActivity" android:label="@string/app_name" android:theme="@style/Theme.FavsWindow"/>
         <service android:name=".service.DownloadService"/>
     </application> 

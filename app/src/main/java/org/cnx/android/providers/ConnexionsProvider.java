@@ -26,21 +26,19 @@ import android.net.Uri;
 */
 public class ConnexionsProvider extends ContentProvider
 {
-    public static final String AUTHORITY = "org.cnx.android.providers.ConnexionsProvider";
+    //public static final String AUTHORITY = "org.cnx.android.providers.ConnexionsProvider";
     /** Favorites table name */
     public static final String FAVS_TABLE = "favs";
     public static final String NOTES_TABLE = "notes";
     /** database name */
    
-    /** Tag for database updates */
-    //private static final String TAG = "ConnexionsProvider";
     /** Map of Fav table columns */
     private static HashMap<String, String> FavsProjectionMap;
     
     /** static section to initialize fav table map */
     static
     {
-        FavsProjectionMap = new HashMap<String,String>();
+        FavsProjectionMap = new HashMap<>();
         FavsProjectionMap.put(Favs.ID, Favs.ID);
         FavsProjectionMap.put(Favs.TITLE, Favs.TITLE);
         FavsProjectionMap.put(Favs.URL, Favs.URL);

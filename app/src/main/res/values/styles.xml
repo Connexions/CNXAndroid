@@ -71,6 +71,7 @@
   </style>
   <style name="Widget.CNXAndroidTheme.ActionBar" parent="android:Widget.ActionBar">
         <item name="android:background">@drawable/lenses_window_title_background</item>
+        <item name="android:icon">@android:color/transparent</item>
         <!--<item name="background">@drawable/lenses_window_title_background</item> -->
         
     </style>

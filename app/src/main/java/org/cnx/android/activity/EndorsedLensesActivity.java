@@ -6,9 +6,6 @@
  */
 package org.cnx.android.activity;
 
-import android.view.MenuItem;
-import org.cnx.android.R;
-
 
 
 /**

@@ -14,7 +14,7 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.ListActivity;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.widget.SimpleAdapter;
@@ -65,7 +65,6 @@ public class FileBrowserActivity extends ListActivity
 
     private List<HashMap<String,String>> navTitles;
     private DrawerLayout drawerLayout;
-    private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     String[] from = { "nav_icon","nav_item" };
     int[] to = { R.id.nav_icon , R.id.nav_item};
@@ -83,33 +82,26 @@ public class FileBrowserActivity extends ListActivity
         ActionBar aBar = getActionBar();
         currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
 
-        aBar.setTitle(Html.fromHtml("open<b>stax</b> cnx - Select File to View"));
+        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html) + " - Select File to View"));
         readFileList();
 
         String[] items = getResources().getStringArray(R.array.nav_list);
         setDrawer(items);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawerList = (ListView)findViewById(R.id.left_drawer);
+        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
+        {
             public void onDrawerClosed(View view) {
-                //getActionBar().setTitle(getString(R.string.app_name));
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
-                //getActionBar().setTitle(getString(R.string.app_name));
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
         };
         drawerToggle.setDrawerIndicatorEnabled(true);
@@ -141,8 +133,7 @@ public class FileBrowserActivity extends ListActivity
     {
         AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
         DownloadedFile content = (DownloadedFile)getListView().getItemAtPosition(info.position);
-        boolean returnVal = handleDeleteFile(content);
-        return returnVal;
+        return handleDeleteFile(content);
     }
 
     /* (non-Javadoc)
@@ -157,9 +148,7 @@ public class FileBrowserActivity extends ListActivity
         }
 
         MenuHandler mh = new MenuHandler();
-        boolean returnVal = mh.handleContextMenu(item, this, null);
-
-        return returnVal;
+       return mh.handleContextMenu(item, this, null);
 
     }
 
@@ -245,7 +234,6 @@ public class FileBrowserActivity extends ListActivity
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) 
     {
-        int selectedItem = position;
         DownloadedFile df = this.directoryEntries.get(position);
         String selectedFileString = df.getDisplayPath();
         if (selectedFileString.equals(".")) 
@@ -256,7 +244,7 @@ public class FileBrowserActivity extends ListActivity
         else 
         {
             //Log.d("FileBrowserActivity.onListItemClick()", "in else stmt");
-            File clickedFile = new File(this.directoryEntries.get(selectedItem).getFullPath());
+            File clickedFile = new File(this.directoryEntries.get(position).getFullPath());
             if(clickedFile != null)
             {
                 handleFile(clickedFile);
@@ -424,23 +412,23 @@ public class FileBrowserActivity extends ListActivity
 
     private void setDrawer(String[] items)
     {
-        HashMap<String,String> hm1 = new HashMap<String,String>();
-        hm1.put("nav_icon",Integer.toString(R.drawable.magnify));
-        hm1.put("nav_item",items[0]);
+        HashMap<String,String> hm1 = new HashMap<>();
+        hm1.put(getString(R.string.nav_icon),Integer.toString(R.drawable.magnify));
+        hm1.put(getString(R.string.nav_item),items[0]);
 
-        HashMap<String,String> hm2 = new HashMap<String,String>();
-        hm2.put("nav_icon",Integer.toString(R.drawable.ic_action_device_access_storage_1));
-        hm2.put("nav_item",items[1]);
+        HashMap<String,String> hm2 = new HashMap<>();
+        hm2.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put(getString(R.string.nav_item),items[1]);
 
-        HashMap<String,String> hm3 = new HashMap<String,String>();
-        hm3.put("nav_icon",Integer.toString(R.drawable.ic_action_star));
-        hm3.put("nav_item",items[2]);
+        HashMap<String,String> hm3 = new HashMap<>();
+        hm3.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
+        hm3.put(getString(R.string.nav_item),items[2]);
 
-        HashMap<String,String> hm4 = new HashMap<String,String>();
-        hm4.put("nav_icon",Integer.toString(R.drawable.ic_action_download));
-        hm4.put("nav_item",items[3]);
+        HashMap<String,String> hm4 = new HashMap<>();
+        hm4.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
+        hm4.put(getString(R.string.nav_item),items[3]);
 
-        navTitles = new ArrayList<HashMap<String,String>>();
+        navTitles = new ArrayList<>();
 
         navTitles.add(hm1);
         navTitles.add(hm2);
