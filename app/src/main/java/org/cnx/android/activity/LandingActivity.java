@@ -366,6 +366,12 @@ public class LandingActivity extends Activity
             c28.setUrl(new URL("http://m.cnx.org/content/col11758/latest/"));
             c28.setIconDrawable(R.drawable.trig_lg);
 
+            Content c29 = new Content();
+            c29.setTitle(getString(R.string.ap_physics));
+            c29.setContentString(getString(R.string.ap_physics_desc));
+            c29.setUrl(new URL("http://m.cnx.org/content/col11844/latest/"));
+            c29.setIconDrawable(R.drawable.ap_physics_lg);
+
             if(content == null)
             {
                 content = new ArrayList<>();
@@ -399,6 +405,7 @@ public class LandingActivity extends Activity
             content.add(c26);
             content.add(c27);
             content.add(c28);
+            content.add(c29);
             Collections.sort(content);
 
 
@@ -519,6 +526,7 @@ public class LandingActivity extends Activity
             bookcovers.add(new Bookcover("Programming Fundamentals",R.drawable.programming_fundamentals));
             bookcovers.add(new Bookcover("College Algebra",R.drawable.algebra_lg));
             bookcovers.add(new Bookcover("Algebra and Trigonometry",R.drawable.trig_lg));
+            bookcovers.add(new Bookcover("College Physics For AP® Courses",R.drawable.ap_physics_lg));
             Collections.sort(bookcovers);
 
         }
