@@ -12,42 +12,48 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.ActionBar;
-import android.app.ListActivity;
+import android.app.Activity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.*;
 import android.widget.SimpleAdapter;
 import org.cnx.android.R;
-import org.cnx.android.adapters.LensListAdapter;
+import org.cnx.android.adapters.FavsRecyclerViewAdapter;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.providers.Favs;
 import org.cnx.android.providers.utils.DBUtils;
-import org.cnx.android.utils.ContentCache;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
+
+import co.paulburke.android.itemtouchhelperdemo.helper.OnStartDragListener;
+import co.paulburke.android.itemtouchhelperdemo.helper.SimpleItemTouchHelperCallback;
 
 /**
  * @author Ed Woodward
  *
  */
-public class ViewFavsActivity extends ListActivity
+public class ViewFavsActivity extends Activity implements OnStartDragListener
 {
-    /** Adaptor for Lens list display */ 
-    LensListAdapter adapter;
+    FavsRecyclerViewAdapter adapter;
+    RecyclerView recyclerView;
     /** list of lenses as Content objects */ 
     ArrayList<Content> content;
     
     /**handler */
     final private Handler handler = new Handler();
+
+    private ItemTouchHelper itemTouchHelper;
 
     private List<HashMap<String,String>> navTitles;
     private DrawerLayout drawerLayout;
@@ -73,11 +79,13 @@ public class ViewFavsActivity extends ListActivity
       {
           super.onCreate(savedInstanceState);
           requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-          setContentView(R.layout.list_view);
-          registerForContextMenu(getListView());
+          setContentView(R.layout.card_view);
           
           ActionBar aBar = getActionBar();
           aBar.setTitle("  " + getString(R.string.title_favs));
+          recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+          recyclerView.setLayoutManager(new LinearLayoutManager(this));
+          recyclerView.setItemAnimator(new DefaultItemAnimator());
           setProgressBarIndeterminateVisibility(true);
           //get already retrieved feed and reuse if it is there
           if(content == null)
@@ -87,10 +95,13 @@ public class ViewFavsActivity extends ListActivity
           }
           else
           {
-                  //reuse existing feed data
-                  adapter = new LensListAdapter(ViewFavsActivity.this, content);
-                  setListAdapter(adapter);
-                  setProgressBarIndeterminateVisibility(false);
+              //reuse existing feed data
+              adapter = new FavsRecyclerViewAdapter(content, R.layout.card_row, this);
+              recyclerView.setAdapter(adapter);
+              ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+              itemTouchHelper = new ItemTouchHelper(callback);
+              itemTouchHelper.attachToRecyclerView(recyclerView);
+              setProgressBarIndeterminateVisibility(false);
              
           }
 
@@ -122,40 +133,7 @@ public class ViewFavsActivity extends ListActivity
           drawerList.setAdapter(sAdapter);
       }
       
-      /* (non-Javadoc)
-       * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
-       * Creates context menu from lenses_context_menu.xml
-       */
-      @Override
-      public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
-      {
-          //Log.d("ViewLenses.onCreateContextMenu()", "Called");
-          AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-          Content content = (Content)getListView().getItemAtPosition(info.position);
-          menu.setHeaderTitle(content.getTitle());
-          super.onCreateContextMenu(menu, v, menuInfo);
-          getMenuInflater().inflate(R.menu.favs_context_menu, menu);
-      }
-      
-      /* (non-Javadoc)
-       * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
-       * Passes menu selection to MenuHandler
-       */
-      @Override
-      public boolean onContextItemSelected(MenuItem item)
-      {
-          AdapterContextMenuInfo info= (AdapterContextMenuInfo) item.getMenuInfo();
-          Content content = (Content)getListView().getItemAtPosition(info.position);
-          MenuHandler mh = new MenuHandler();
-          boolean returnVal = mh.handleContextMenu(item, this, content);
-          if(item.getItemId() == R.id.delete_from__favs)
-          {
-              adapter.remove(content);
-          }
 
-          return returnVal;
-
-      }
       
       /* (non-Javadoc)
        * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -168,6 +146,16 @@ public class ViewFavsActivity extends ListActivity
           return true;
           
       }
+
+    /**
+     * For OnStartDragListener
+     * @param viewHolder The holder of the view to drag.
+     */
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder)
+    {
+        itemTouchHelper.startDrag(viewHolder);
+    }
       
       /* (non-Javadoc)
        * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
@@ -206,32 +194,15 @@ public class ViewFavsActivity extends ListActivity
           }
       }
       
-      /* (non-Javadoc)
-       * Handles selection of an item in the Lenses list
-       * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
-       */
-      @Override
-      protected void onListItemClick(ListView l, View v, int position, long id) 
-      {
-          Content content = (Content)getListView().getItemAtPosition(position);
-          int index = content.getUrl().toString().indexOf("lenses");
-          if(index > -1)
-          {
-              ContentCache.setObject(getString(R.string.cache_sentcontent), content);
-              startActivity(new Intent(this, ViewLensActivity.class));
-          }
-          else
-          {
-              ContentCache.setObject(getString(R.string.webcontent), content);
-              startActivity(new Intent(this, WebViewActivity.class));
-          }
-      }
+
       
       /** Actions after list is loaded in View*/
       protected void finishedLoadingList() 
       {
-          setListAdapter(adapter);
-          getListView().setSelection(0);
+          recyclerView.setAdapter(adapter);
+          ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+          itemTouchHelper = new ItemTouchHelper(callback);
+          itemTouchHelper.attachToRecyclerView(recyclerView);
           setProgressBarIndeterminateVisibility(false);
       }
       
@@ -262,7 +233,7 @@ public class ViewFavsActivity extends ListActivity
       private void fillData(ArrayList<Content> contentList) 
       {
           //Log.d("LensViewer", "fillData() called");
-          adapter = new LensListAdapter(ViewFavsActivity.this, contentList);
+          adapter = new FavsRecyclerViewAdapter(contentList, R.layout.card_row,this);
       }
       
       /**

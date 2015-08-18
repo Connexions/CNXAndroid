@@ -122,5 +122,8 @@
     <string name="nav_icon">nav_icon</string>
     <string name="nav_item">nav_item</string>
     <string name="app_name_html">open&lt;b>stax&lt;/b> cnx</string>
+    <string name="license_title">Open Source Licenses</string>
+    <string name="ap_physics">College Physics For AP® Courses</string>
+    <string name="ap_physics_desc">OpenStax College Physics For AP® Courses</string>
 </resources>
  
