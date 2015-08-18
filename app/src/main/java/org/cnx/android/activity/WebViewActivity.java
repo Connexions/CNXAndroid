@@ -158,7 +158,13 @@ public class WebViewActivity extends Activity
         setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
         Log.d("WebView.onCreate()", "Called");
-        content = (Content)ContentCache.getObject(getString(R.string.webcontent));
+        Intent intent = getIntent();
+        content = (Content)intent.getSerializableExtra(getString(R.string.webcontent));
+
+        if(content == null)
+        {
+            content = (Content)ContentCache.getObject(getString(R.string.webcontent));
+        }
         aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
         if(content != null && content.getUrl() != null)
         {
