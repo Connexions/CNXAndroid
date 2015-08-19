@@ -65,7 +65,7 @@ public class WebViewActivity extends Activity
     String[] from = { "nav_icon","nav_item"};
     int[] to = { R.id.nav_icon , R.id.nav_item};
 
-    String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562","col11667","col11740","col11629","col11758","col11759","col11760"};
+    String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562","col11667","col11740","col11629","col11758","col11759","col11760","col11844"};
     List<String> bookList = Arrays.asList(oscBooks);
     SharedPreferences sharedPref;
     
@@ -158,7 +158,13 @@ public class WebViewActivity extends Activity
         setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
         Log.d("WebView.onCreate()", "Called");
-        content = (Content)ContentCache.getObject(getString(R.string.webcontent));
+        Intent intent = getIntent();
+        content = (Content)intent.getSerializableExtra(getString(R.string.webcontent));
+
+        if(content == null)
+        {
+            content = (Content)ContentCache.getObject(getString(R.string.webcontent));
+        }
         aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
         if(content != null && content.getUrl() != null)
         {

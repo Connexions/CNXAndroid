@@ -6,7 +6,9 @@
  */
 package org.cnx.android.handlers;
 
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.Toast;
 import org.cnx.android.R;
 import org.cnx.android.activity.FileBrowserActivity;
@@ -93,6 +95,9 @@ public class MenuHandler
                 Intent noteIntent = new Intent(context, NoteEditorActivity.class);
                 context.startActivity(noteIntent);
                 return true;
+            case R.id.viewLicense:
+                displayLicensesAlert(context);
+                return true;
             default:
                 return false;
         }
@@ -161,5 +166,16 @@ public class MenuHandler
          
             } }); 
         alertDialog.show();
+    }
+
+    private void displayLicensesAlert(Context context)
+    {
+        WebView view = (WebView) LayoutInflater.from(context).inflate(R.layout.license_dialog, null);
+        view.loadUrl("file:///android_asset/licenses.html");
+        AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.Theme_AppCompat_Light_Dialog)
+                .setTitle(context.getString(R.string.license_title))
+                .setView(view)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 }

@@ -4,4 +4,8 @@
           android:icon="@drawable/magnify"
           android:title="@string/menu_search" 
           android:showAsAction="ifRoom"/>
+    <item android:id="@+id/viewLicense"
+          android:title="@string/license_title"
+          android:icon="@drawable/ic_action_new"
+          android:showAsAction="never"/>
 </menu>
