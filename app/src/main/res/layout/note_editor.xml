@@ -18,7 +18,7 @@ http://developer.android.com/resources/samples/NotePad/index.html
 		android:isScrollContainer="true"
 		android:saveEnabled="true" >
 		<view
-		    class="org.cnx.android.activity.NoteEditorActivity$LinedEditText"
+		    class="org.cnx.android.fragments.NoteEditorFragment$LinedEditText"
 		    android:id="@+id/note"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
