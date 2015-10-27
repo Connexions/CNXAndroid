@@ -148,17 +148,6 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
             }
         }
 
-        //        viewHolder.itemView.setOnClickListener(new View.OnClickListener()
-        //        {
-        //            @Override public void onClick(View v)
-        //            {
-        //                contentList.get(i);
-        //                Intent wv = new Intent(context, WebViewActivity.class);
-        //                wv.putExtra(v.getContext().getString(R.string.webcontent), content);
-        //
-        //                context.startActivity(wv);
-        //            }
-        //        });
     }
 
     @Override

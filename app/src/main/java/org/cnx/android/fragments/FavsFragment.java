@@ -94,7 +94,6 @@ public class FavsFragment extends Fragment implements OnStartDragListener
             ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
             itemTouchHelper = new ItemTouchHelper(callback);
             itemTouchHelper.attachToRecyclerView(recyclerView);
-            //setProgressBarIndeterminateVisibility(false);
 
         }
     }
@@ -132,7 +131,6 @@ public class FavsFragment extends Fragment implements OnStartDragListener
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        //setProgressBarIndeterminateVisibility(false);
     }
 
     /** reads feed in a separate thread.  Starts progress dialog*/
