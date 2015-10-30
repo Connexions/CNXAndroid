@@ -101,7 +101,6 @@ public class AtomHandler extends DefaultHandler
                 Builder uriBuilder = new Builder();
                 uriBuilder.scheme("http");
                 uriBuilder.path(currentContent.icon.substring(5));
-                //Log.d("LensListAdapter" ,"uri:" + uri.toString());
                 InputStream is;
                 try
                 {
@@ -225,32 +224,6 @@ public class AtomHandler extends DefaultHandler
         } 
         return contentList;
     }
-    
-    /* (non-Javadoc)
-     * @see org.cnx.android.tasks.LoadImageAsyncTask.LoadImageAsyncTaskResponder#imageLoading()
-     */
-//    public void imageLoading()
-//    {
-//        //do nothing
-//    }
-
-      /* (non-Javadoc)
-     * @see org.cnx.android.tasks.LoadImageAsyncTask.LoadImageAsyncTaskResponder#imageLoadCancelled()
-     */
-//    public void imageLoadCancelled()
-//      {
-//        // do nothing
-//      }
-
-      /* (non-Javadoc)
-     * @see org.cnx.android.tasks.LoadImageAsyncTask.LoadImageAsyncTaskResponder#imageLoaded(android.graphics.drawable.Drawable)
-     */
-//    public Drawable imageLoaded(Drawable drawable)
-//   {
-//        //Log.d("LensListAdapter.imageLoaded()", "setting image in view");
-//        currentContent.setIconImage(drawable);
-//        return drawable;
-//   }
     
     /**
      * removes trailing comma from the list of keywords

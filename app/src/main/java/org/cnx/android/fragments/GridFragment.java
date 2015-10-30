@@ -99,13 +99,8 @@ public class GridFragment extends Fragment
 
                 Content c = content.get(position);
                 bookListener.onBookSelected(c);
-                //                Intent i = new Intent(activity, WebViewActivity.class);
-                //                i.putExtra("webcontent", c);
-                //                startActivity(i);
-
             }
         });
-        //return inflater.inflate(R.layout.grid_fragment, container, false);
         return v;
     }
 

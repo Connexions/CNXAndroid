@@ -12,9 +12,9 @@ import android.app.Activity;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.fragments.NoteEditorFragment;
-import org.cnx.android.utils.ContentCache;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -27,7 +27,7 @@ import android.widget.Toast;
 public class NoteEditorActivity extends Activity
 {
 
-    private Content content;
+    //private Content content;
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -37,12 +37,9 @@ public class NoteEditorActivity extends Activity
     {
         super.onCreate(savedInstanceState);
 
-        content = (Content)ContentCache.getObject(getString(R.string.content));
-        if(content == null)
-        {
-            content = (Content)ContentCache.getObject(getString(R.string.cache_savednotecontent));
-        }
-        
+        Intent intent = getIntent();
+        Content content = (Content)intent.getSerializableExtra(getString(R.string.content));
+
         if(content == null)
         {
             Toast.makeText(NoteEditorActivity.this, "Cannot create note.  Please try again.",  Toast.LENGTH_SHORT).show();

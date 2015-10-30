@@ -17,7 +17,6 @@ import org.cnx.android.activity.NoteEditorActivity;
 import org.cnx.android.beans.Content;
 import org.cnx.android.providers.Favs;
 import org.cnx.android.utils.Constants;
-import org.cnx.android.utils.ContentCache;
 import org.cnx.android.utils.MenuUtil;
 
 import android.app.AlertDialog;
@@ -73,15 +72,11 @@ public class MenuHandler
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
                 Toast.makeText(context, title + " added to Favorites", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.delete_from__favs:
-                context.getContentResolver().delete(Favs.CONTENT_URI, "_id="+ currentContent.getId(), null);
-                return true;
             case R.id.search:
                 SearchHandler sh = new SearchHandler();
                 sh.displayPopup(context);
                 return true;
-            case R.id.refresh:
-                return true;
+
             case R.id.viewFile:
                 Intent viewIntent = new Intent(context, FileBrowserActivity.class);
                 context.startActivity(viewIntent);
@@ -91,8 +86,9 @@ public class MenuHandler
                 context.startActivity(homeIntent);
                 return true;
             case R.id.note:
-                ContentCache.setObject("content", currentContent);
+                //ContentCache.setObject("content", currentContent);
                 Intent noteIntent = new Intent(context, NoteEditorActivity.class);
+                noteIntent.putExtra(context.getString(R.string.content), currentContent);
                 context.startActivity(noteIntent);
                 return true;
             case R.id.viewLicense:
@@ -132,7 +128,7 @@ public class MenuHandler
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Download");
         alertDialog.setMessage(message);
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, Constants.OK, new DialogInterface.OnClickListener() 
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, context.getString(R.string.ok), new DialogInterface.OnClickListener()
         {
               public void onClick(DialogInterface dialog, int which) 
               {
@@ -158,7 +154,7 @@ public class MenuHandler
                 	  
 
             } }); 
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, Constants.CANCEL, new DialogInterface.OnClickListener() 
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, context.getString(R.string.cancel), new DialogInterface.OnClickListener()
         {
               public void onClick(DialogInterface dialog, int which) 
               {

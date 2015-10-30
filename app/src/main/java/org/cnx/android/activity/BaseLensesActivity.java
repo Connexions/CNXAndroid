@@ -103,7 +103,12 @@ public class BaseLensesActivity extends ListActivity
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         //get already retrieved feed and reuse if it is there
-        content = (ArrayList<Content>)ContentCache.getObject(storedKey);
+        Intent intent = getIntent();
+        content = (ArrayList<Content>)intent.getSerializableExtra(storedKey);
+        if(content == null)
+        {
+            content = (ArrayList<Content>) ContentCache.getObject(storedKey);
+        }
 
 
         ActionBar aBar = getActionBar();
@@ -247,6 +252,7 @@ public class BaseLensesActivity extends ListActivity
         super.onSaveInstanceState(outState);
         //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
         ContentCache.setObject(storedKey, content);
+        //outState.putSerializable(storedKey, content);
         
     }
     
@@ -259,7 +265,8 @@ public class BaseLensesActivity extends ListActivity
     {
         Content content = (Content)getListView().getItemAtPosition(position);
         Intent intent = new Intent(currentContext, ViewLensActivity.class);
-        ContentCache.setObject(getString(R.string.cache_sentcontent), content);
+       // ContentCache.setObject(getString(R.string.cache_sentcontent), content);
+        intent.putExtra(getString(R.string.cache_sentcontent), content);
         startActivity(intent);
     }
     

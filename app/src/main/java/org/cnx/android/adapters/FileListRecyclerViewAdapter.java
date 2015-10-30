@@ -67,7 +67,7 @@ public class FileListRecyclerViewAdapter extends RecyclerView.Adapter<FileListRe
         DownloadedFile c = directoryEntries.get(i);
         if(c != null)
         {
-            //Log.d("LensListAdapter.getView()", "content is not null ");
+            //Log.d("FileList.onBind()", "content is not null ");
             if(c.getDisplayPath().contains(Constants.PDF_EXTENSION))
             {
                 viewHolder.logo.setImageResource(R.drawable.pdf_icon);

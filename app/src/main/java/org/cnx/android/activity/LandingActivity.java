@@ -3,10 +3,7 @@
  */
 package org.cnx.android.activity;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,32 +13,22 @@ import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.fragments.GridFragment;
 import org.cnx.android.handlers.SearchHandler;
-import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.Constants;
-import org.cnx.android.utils.ContentCache;
 
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.util.Log;
-import android.view.Display;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -77,7 +64,6 @@ public class LandingActivity extends Activity implements GridFragment.OnBookSele
         ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the drawer click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
@@ -107,7 +93,7 @@ public class LandingActivity extends Activity implements GridFragment.OnBookSele
     {
 
         Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
-        i.putExtra("webcontent",content);
+        i.putExtra(getString(R.string.webcontent),content);
         startActivity(i);
 
 

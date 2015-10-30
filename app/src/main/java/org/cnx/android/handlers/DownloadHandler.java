@@ -48,9 +48,6 @@ public class DownloadHandler
         final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context,context.getClass()), 0);
 
         // configure the notification
-        //final Notification notification = new Notification(R.drawable.download_icon, "Downloading " + fileName, System.currentTimeMillis());
-        //notification.contentIntent = pendingIntent;
-        //notification.setLatestEventInfo(context, "Downloading file", "Downloading " + fileName, pendingIntent);
         Notification.Builder notification = new Notification.Builder(context);
         notification.setContentText("Downloading " + fileName);
         notification.setSmallIcon(R.drawable.download_icon);

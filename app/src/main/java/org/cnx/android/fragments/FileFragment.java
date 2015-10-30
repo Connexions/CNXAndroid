@@ -125,14 +125,4 @@ public class FileFragment extends Fragment implements OnStartDragListener
 
     }
 
-    /** Actions after list is loaded in View*/
-//    protected void finishedLoadingList()
-//    {
-//        recyclerView.setAdapter(adapter);
-//        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
-//        itemTouchHelper = new ItemTouchHelper(callback);
-//        itemTouchHelper.attachToRecyclerView(recyclerView);
-//        //setProgressBarIndeterminateVisibility(false);
-//    }
-
 }

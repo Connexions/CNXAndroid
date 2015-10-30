@@ -24,7 +24,6 @@ import org.cnx.android.R;
 import org.cnx.android.adapters.LensesAdapter;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
-import org.cnx.android.utils.ContentCache;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -100,7 +99,6 @@ public class ViewLensesActivity extends ListActivity
         ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
@@ -180,9 +178,6 @@ public class ViewLensesActivity extends ListActivity
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) 
     {
-        ContentCache.removeObject(getString(R.string.cache_savedcontent));
-        ContentCache.removeObject(getString(R.string.cache_sentcontent));
-        ContentCache.removeObject(getString(R.string.cache_contentlist));
         Content content = (Content)getListView().getItemAtPosition(position);
         if(content.getTitle().equals(ENDORSED))
         {
@@ -192,17 +187,11 @@ public class ViewLensesActivity extends ListActivity
         {
             startActivity(new Intent(this, AffiliatedLensesActivity.class));
         }
-        else if(content.getTitle().equals(FEATURED))
+        else if(content.getTitle().equals(FEATURED) || (content.getTitle().equals(OSC)))
         {
-            Content contentObj = (Content)getListView().getItemAtPosition(position);
-            ContentCache.setObject(getString(R.string.cache_sentcontent), contentObj);
-            startActivity(new Intent(this, ViewLensActivity.class));
-        }
-        else if(content.getTitle().equals(OSC))
-        {
-            Content contentObj = (Content)getListView().getItemAtPosition(position);
-            ContentCache.setObject(getString(R.string.cache_sentcontent), contentObj);
-            startActivity(new Intent(this, ViewLensActivity.class));
+            Intent i = new Intent(getApplicationContext(), ViewLensActivity.class);
+            i.putExtra(getString(R.string.cache_sentcontent), content);
+            startActivity(i);
         }
     }
     
@@ -260,7 +249,7 @@ public class ViewLensesActivity extends ListActivity
             
             if(content == null)
             {
-                content = new ArrayList<Content>();
+                content = new ArrayList<>();
             }
             
             content.add(c6);

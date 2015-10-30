@@ -8,7 +8,7 @@ package org.cnx.android.fragments;
 
 /**
  * Fragment for note editor
- * @author Ed Woodward
+ *
  */
 
 import android.app.Activity;
@@ -116,25 +116,6 @@ public class NoteEditorFragment extends Fragment
         View v = inflater.inflate(R.layout.note_editor, container, false);
 
         state = STATE_EDIT;
-
-        //        if(content == null)
-        //        {
-        //            Toast.makeText(activity, "Cannot create note.  Please try again.", Toast.LENGTH_SHORT).show();
-        //            return;
-        //        }
-
-        //        setContentView(R.layout.note_editor);
-        //
-        //        ActionBar aBar = getActionBar();
-        //
-        //        if(content == null)
-        //        {
-        //            aBar.setTitle("Note not created correctly.");
-        //        }
-        //        else
-        //        {
-        //            aBar.setTitle("Note for " + content.getTitle());
-        //        }
 
         editText = (EditText) v.findViewById(R.id.note);
         checkDBForNote();

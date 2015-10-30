@@ -85,20 +85,27 @@ public class ViewLensActivity extends ListActivity
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
-        content = (Content)ContentCache.getObject(getString(R.string.cache_sentcontent));
+        Intent intent = getIntent();
+        content = (Content)intent.getSerializableExtra(getString(R.string.cache_sentcontent));
         if(content==null)
         {
-            content = (Content)ContentCache.getObject(getString(R.string.cache_savedcontent));
+            content = (Content) ContentCache.getObject(getString(R.string.cache_savedcontent));
             if(content==null)
             {
                 return;
             }
         }
-        contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
+        if(savedInstanceState != null)
+        {
+            contentList = (ArrayList<Content>) savedInstanceState.getSerializable(getString(R.string.cache_contentlist));
+            if(contentList == null)
+            {
+                contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
+            }
+        }
         ActionBar aBar = getActionBar();
         aBar.setTitle("  " + content.getTitle());
         setProgressBarIndeterminateVisibility(true);
-        //get stored data if there is any
         if(contentList == null)
         {
             readFeed();
@@ -133,7 +140,6 @@ public class ViewLensActivity extends ListActivity
         ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
@@ -217,7 +223,7 @@ public class ViewLensActivity extends ListActivity
 
     	if(item.getItemId() == android.R.id.home)
         {
-    		ContentCache.removeObject(getString(R.string.cache_contentlist));
+    		//ContentCache.removeObject(getString(R.string.cache_contentlist));
             Intent mainIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainIntent);
@@ -253,7 +259,7 @@ public class ViewLensActivity extends ListActivity
     {
         if (keyCode == KeyEvent.KEYCODE_BACK) 
         {
-            ContentCache.removeObject(getString(R.string.cache_contentlist));
+            //ContentCache.removeObject(getString(R.string.cache_contentlist));
             return super.onKeyDown(keyCode, event);
         }
         return super.onKeyDown(keyCode, event);
@@ -353,8 +359,9 @@ public class ViewLensActivity extends ListActivity
     protected void onListItemClick(ListView l, View v, int position, long id) 
     {
         Content content = (Content)getListView().getItemAtPosition(position);
-        ContentCache.setObject(getString(R.string.webcontent), content);
-        startActivity(new Intent(this, WebViewActivity.class));
+        Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
+        i.putExtra(getString(R.string.webcontent),content);
+        startActivity(i);
     }
     
     /** Actions after list is loaded in View */

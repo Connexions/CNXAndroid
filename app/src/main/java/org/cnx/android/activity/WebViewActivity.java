@@ -26,7 +26,6 @@ import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.Constants;
-import org.cnx.android.utils.ContentCache;
 import org.cnx.android.views.ObservableWebView;
 import org.cnx.android.views.ObservableWebView.OnScrollChangedCallback;
 
@@ -157,14 +156,11 @@ public class WebViewActivity extends Activity
         sharedPref = getSharedPreferences("org.cnx.android",MODE_PRIVATE);
         setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
-        Log.d("WebView.onCreate()", "Called");
+        //Log.d("WebView.onCreate()", "Called");
         Intent intent = getIntent();
         content = (Content)intent.getSerializableExtra(getString(R.string.webcontent));
 
-        if(content == null)
-        {
-            content = (Content)ContentCache.getObject(getString(R.string.webcontent));
-        }
+
         aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
         if(content != null && content.getUrl() != null)
         {
@@ -192,7 +188,6 @@ public class WebViewActivity extends Activity
         ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
@@ -258,7 +253,6 @@ public class WebViewActivity extends Activity
 
     	if(item.getItemId() == android.R.id.home)
         {
-    		ContentCache.removeObject(getString(R.string.cache_contentlist));
             Intent mainIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainIntent);
@@ -315,8 +309,8 @@ public class WebViewActivity extends Activity
     {
         super.onSaveInstanceState(outState);
         //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
-        ContentCache.setObject(getString(R.string.webcontent), content);
-        
+        outState.putSerializable(getString(R.string.webcontent), content);
+
     }
     
     /** sets properties on WebView and loads selected content into browser. */
@@ -494,7 +488,7 @@ public class WebViewActivity extends Activity
                       public void onClick(View v) 
                       {
                           Intent noteintent = new Intent(getApplicationContext(), NoteEditorActivity.class);
-                          ContentCache.setObject(getString(R.string.content), content);
+                          noteintent.putExtra(getString(R.string.content), content);
                           startActivity(noteintent);
                       }
                   });

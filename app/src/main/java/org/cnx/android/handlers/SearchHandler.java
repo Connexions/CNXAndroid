@@ -13,7 +13,6 @@ import org.cnx.android.R;
 import org.cnx.android.activity.WebViewActivity;
 import org.cnx.android.beans.Content;
 import org.cnx.android.utils.Constants;
-import org.cnx.android.utils.ContentCache;
 
 import android.content.Context;
 import android.content.Intent;
@@ -51,7 +50,6 @@ public class SearchHandler
         int width = layout.getMeasuredWidth();
         int height = layout.getMeasuredHeight();
         popUp = new PopupWindow(layout,  width * 2,  height,    true);
-        //popUp = new PopupWindow(layout);
         popUp.setBackgroundDrawable(new BitmapDrawable());
         popUp.setOutsideTouchable(true);
         popUp.setAnimationStyle(R.style.Animations_GrowFromBottom);
@@ -77,10 +75,7 @@ public class SearchHandler
             {
                 if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER))
                 {
-                    //if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)
-                    //{
-                        performSearch(searchCriteria.getText().toString(),Constants.CNX_SEARCH, context);
-                    //}
+                    performSearch(searchCriteria.getText().toString(),Constants.CNX_SEARCH, context);
                 }
                 return false;
             }
@@ -111,7 +106,7 @@ public class SearchHandler
             content.setUrl(new URL(createQueryString(searchFor, searchType))); 
             content.setTitle(context.getString(R.string.search_title) + searchFor);
             Intent webintent = new Intent(context, WebViewActivity.class);
-            ContentCache.setObject(context.getString(R.string.webcontent), content);
+            webintent.putExtra(context.getString(R.string.webcontent), content);
             context.startActivity(webintent);
         }
         catch (MalformedURLException e)
