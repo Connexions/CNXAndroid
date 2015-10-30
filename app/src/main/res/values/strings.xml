@@ -127,5 +127,8 @@
     <string name="ap_physics_desc">OpenStax College Physics For AP® Courses</string>
     <string name="ap_macro">Principles of Macroeconomics For AP® Courses</string>
     <string name="ap_micro">Principles of Microeconomics For AP® Courses</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
 </resources>
  
