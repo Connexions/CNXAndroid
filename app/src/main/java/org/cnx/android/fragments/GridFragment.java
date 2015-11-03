@@ -138,7 +138,7 @@ public class GridFragment extends Fragment
             Content c2 = new Content();
             c2.setTitle(getString(R.string.sociology));
             c2.setContentString(getString(R.string.sociology_desc));
-            c2.setUrl(new URL("http://m.cnx.org/content/col11407/latest/"));
+            c2.setUrl(new URL("http://m.cnx.org/content/col11762/latest/"));
             c2.setIconDrawable(R.drawable.sociology_lg);
             c2.setIcon("sociology");
 
