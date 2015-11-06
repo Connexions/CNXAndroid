@@ -92,7 +92,7 @@ public class FileFragment extends Fragment implements OnStartDragListener
 
     public void readFileList()
     {
-        currentDirectory = new File(Environment.getExternalStorageDirectory(), "OpenStaxCNX/");
+        currentDirectory = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
         if(currentDirectory.exists())
         {
             handleFile(currentDirectory);

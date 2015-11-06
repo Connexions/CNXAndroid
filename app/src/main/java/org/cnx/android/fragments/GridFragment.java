@@ -44,7 +44,7 @@ public class GridFragment extends Fragment
     // Container Activity must implement this interface
     public interface OnBookSelectedListener
     {
-        public void onBookSelected(Content content);
+        void onBookSelected(Content content);
     }
 
 
@@ -389,37 +389,37 @@ public class GridFragment extends Fragment
         {
             context = c;
 
-            bookcovers.add(new Bookcover("College Physics",R.drawable.physics_lg));
-            bookcovers.add(new Bookcover("Introduction To Sociology",R.drawable.sociology_lg));
-            bookcovers.add(new Bookcover("Biology", R.drawable.biology_lg));
-            bookcovers.add(new Bookcover("Concepts of Biology",R.drawable.concepts_biology_lg));
-            bookcovers.add(new Bookcover("Anatomy and Physiology",R.drawable.anatomy_lg));
-            bookcovers.add(new Bookcover("Introductory Statistics",R.drawable.statistics_lg));
-            bookcovers.add(new Bookcover("Principles of Economics",R.drawable.econ_lg));
-            bookcovers.add(new Bookcover("Principles of Macroeconomics",R.drawable.macro_econ_lg));
-            bookcovers.add(new Bookcover("Principles of Microeconomics",R.drawable.micro_econ_lg));
-            bookcovers.add(new Bookcover("Precalculus",R.drawable.precalculus_lg));
-            bookcovers.add(new Bookcover("Psychology",R.drawable.psychology_lg));
-            bookcovers.add(new Bookcover("Chemistry",R.drawable.chemistry_lg));
-            bookcovers.add(new Bookcover("Business Fundamentals",R.drawable.bus_fundamentals));
-            bookcovers.add(new Bookcover("US History",R.drawable.history_lg));
-            bookcovers.add(new Bookcover("Fundamentals of Electrical Engineering",R.drawable.elec_engineering));
-            bookcovers.add(new Bookcover("Elementary Algebra",R.drawable.elem_algebra));
-            bookcovers.add(new Bookcover("Advanced Algebra II",R.drawable.advanced_algebra));
-            bookcovers.add(new Bookcover("Applied Probability",R.drawable.applied_probability));
-            bookcovers.add(new Bookcover("Fast Fourier Transforms",R.drawable.fast_fourier));
-            bookcovers.add(new Bookcover("First Course in Electrical Engineering",R.drawable.first_course));
-            bookcovers.add(new Bookcover("Flowering Light",R.drawable.flowering_light));
+            bookcovers.add(new Bookcover(context.getString(R.string.physics),R.drawable.physics_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.sociology),R.drawable.sociology_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.biology), R.drawable.biology_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.concepts_biology),R.drawable.concepts_biology_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.anatomy),R.drawable.anatomy_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.statistics),R.drawable.statistics_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.econ),R.drawable.econ_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.macro_econ),R.drawable.macro_econ_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.micro_econ),R.drawable.micro_econ_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.precalculus),R.drawable.precalculus_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.psychology),R.drawable.psychology_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.chemistry),R.drawable.chemistry_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.bus_fundamentals),R.drawable.bus_fundamentals));
+            bookcovers.add(new Bookcover(context.getString(R.string.history),R.drawable.history_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.elec_engineering),R.drawable.elec_engineering));
+            bookcovers.add(new Bookcover(context.getString(R.string.elem_algebra),R.drawable.elem_algebra));
+            bookcovers.add(new Bookcover(context.getString(R.string.advanced_algebra),R.drawable.advanced_algebra));
+            bookcovers.add(new Bookcover(context.getString(R.string.applied_probability),R.drawable.applied_probability));
+            bookcovers.add(new Bookcover(context.getString(R.string.fast_fourier),R.drawable.fast_fourier));
+            bookcovers.add(new Bookcover(context.getString(R.string.first_course),R.drawable.first_course));
+            bookcovers.add(new Bookcover(context.getString(R.string.flowering_light),R.drawable.flowering_light));
             //bookcovers.add(new Bookcover("Hearing Harmony",R.drawable.hearing_harmony));
-            bookcovers.add(new Bookcover("Houston Reflections",R.drawable.houston_reflections));
-            bookcovers.add(new Bookcover("Images of Memorable Cases",R.drawable.memorable_cases));
-            bookcovers.add(new Bookcover("Understanding Basic Music Theory",R.drawable.music_theory));
-            bookcovers.add(new Bookcover("Programming Fundamentals",R.drawable.programming_fundamentals));
-            bookcovers.add(new Bookcover("College Algebra",R.drawable.algebra_lg));
-            bookcovers.add(new Bookcover("Algebra and Trigonometry",R.drawable.trig_lg));
-            bookcovers.add(new Bookcover("College Physics For AP® Courses",R.drawable.ap_physics_lg));
-            bookcovers.add(new Bookcover("Principles of Macroeconomics For AP® Courses", R.drawable.ap_macro));
-            bookcovers.add(new Bookcover("Principles of Microeconomics For AP® Courses", R.drawable.ap_micro));
+            bookcovers.add(new Bookcover(context.getString(R.string.houston_reflections),R.drawable.houston_reflections));
+            bookcovers.add(new Bookcover(context.getString(R.string.memorable_cases),R.drawable.memorable_cases));
+            bookcovers.add(new Bookcover(context.getString(R.string.music_theory),R.drawable.music_theory));
+            bookcovers.add(new Bookcover(context.getString(R.string.programming_fundamentals),R.drawable.programming_fundamentals));
+            bookcovers.add(new Bookcover(context.getString(R.string.algebra),R.drawable.algebra_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.trig),R.drawable.trig_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.ap_physics),R.drawable.ap_physics_lg));
+            bookcovers.add(new Bookcover(context.getString(R.string.ap_macro), R.drawable.ap_macro));
+            bookcovers.add(new Bookcover(context.getString(R.string.ap_micro), R.drawable.ap_micro));
             Collections.sort(bookcovers);
 
 

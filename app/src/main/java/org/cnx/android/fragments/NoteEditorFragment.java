@@ -112,7 +112,7 @@ public class NoteEditorFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         activity = getActivity();
-        content = (Content)getArguments().get("content");
+        content = (Content)getArguments().get(activity.getString(R.string.content));
         View v = inflater.inflate(R.layout.note_editor, container, false);
 
         state = STATE_EDIT;
@@ -278,7 +278,7 @@ public class NoteEditorFragment extends Fragment
      */
     private void exportNote()
     {
-        File cnxDir = new File(Environment.getExternalStorageDirectory(), "OpenStaxCollege/");
+        File cnxDir = new File(Environment.getExternalStorageDirectory(), getString(R.string.folder_name) + "/");
         if(!cnxDir.exists())
         {
             cnxDir.mkdir();

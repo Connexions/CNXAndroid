@@ -80,7 +80,7 @@ public class FavsFragment extends Fragment implements OnStartDragListener
 
 
         //get already retrieved feed and reuse if it is there
-        content = (ArrayList<Content>)activity.getLastNonConfigurationInstance();
+        //content = (ArrayList<Content>)activity.getLastNonConfigurationInstance();
         if(content == null)
         {
             //no previous data, so database must be read
