@@ -123,6 +123,14 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
             {
                 viewHolder.logo.setImageResource(R.drawable.ap_physics_lg);
             }
+            else if(content.getIcon().equals("ap-macro"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.ap_macro);
+            }
+            else if(content.getIcon().equals("ap-micro"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.ap_micro);
+            }
         }
         else
         {

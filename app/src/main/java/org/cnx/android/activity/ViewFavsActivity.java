@@ -6,7 +6,6 @@
  */
 package org.cnx.android.activity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,10 +19,10 @@ import android.widget.SimpleAdapter;
 import org.cnx.android.R;
 import org.cnx.android.fragments.FavsFragment;
 import org.cnx.android.handlers.MenuHandler;
+import org.cnx.android.listeners.DrawerItemClickListener;
+import org.cnx.android.utils.CNXUtil;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 /**
@@ -34,8 +33,6 @@ import android.widget.ListView;
 public class ViewFavsActivity extends Activity
 {
 
-    private List<HashMap<String,String>> navTitles;
-    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     String[] from = {"nav_icon","nav_item"};
     int[] to = { R.id.nav_icon , R.id.nav_item};
@@ -59,13 +56,12 @@ public class ViewFavsActivity extends Activity
           transaction.add(R.id.favsFragment, fragment);
           transaction.commit();
 
-          String[] items = getResources().getStringArray(R.array.nav_list);
-          setDrawer(items);
-          drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+          List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
+          DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
           ListView drawerList = (ListView)findViewById(R.id.left_drawer);
           SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-          drawerList.setOnItemClickListener(new DrawerItemClickListener());
+          drawerList.setOnItemClickListener(new DrawerItemClickListener(this, drawerLayout));
 
           drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
           {
@@ -119,61 +115,4 @@ public class ViewFavsActivity extends Activity
 
       }
       
-    private void selectItem(int position)
-    {
-        switch (position)
-        {
-            case 0:
-                Intent landingIntent = new Intent(getApplicationContext(), LandingActivity.class);
-                startActivity(landingIntent);
-                break;
-            case 1:
-                Intent lensesIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
-                startActivity(lensesIntent);
-                break;
-            case 2:
-                drawerLayout.closeDrawers();
-                break;
-            case 3:
-                Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
-                startActivity(fileIntent);
-                break;
-        }
-    }
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener
-    {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id)
-        {
-            selectItem(position);
-        }
-    }
-
-    private void setDrawer(String[] items)
-    {
-        HashMap<String,String> hm1 = new HashMap<>();
-        hm1.put(getString(R.string.nav_icon),Integer.toString(R.drawable.magnify));
-        hm1.put(getString(R.string.nav_item),items[0]);
-
-        HashMap<String,String> hm2 = new HashMap<>();
-        hm2.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
-        hm2.put(getString(R.string.nav_item),items[1]);
-
-        HashMap<String,String> hm3 = new HashMap<>();
-        hm3.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
-        hm3.put(getString(R.string.nav_item),items[2]);
-
-        HashMap<String,String> hm4 = new HashMap<>();
-        hm4.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
-        hm4.put(getString(R.string.nav_item),items[3]);
-
-        navTitles = new ArrayList<>();
-
-        navTitles.add(hm1);
-        navTitles.add(hm2);
-        navTitles.add(hm3);
-        navTitles.add(hm4);
-    }
-
 }

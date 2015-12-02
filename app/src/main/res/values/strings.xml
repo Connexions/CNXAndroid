@@ -129,6 +129,7 @@
     <string name="ap_micro">Principles of Microeconomics For AP® Courses</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-
+    <string name="NAVIGATION_DRAWER_OPEN">Open navigation drawer</string>
+    <string name="NAVIGATION_DRAWER_CLOSE">Close navigation drawer</string>
 </resources>
  

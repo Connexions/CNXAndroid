@@ -26,6 +26,7 @@ import org.cnx.android.beans.Feed;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.handlers.AtomHandler;
 import org.cnx.android.handlers.RssHandler;
+import org.cnx.android.listeners.DrawerItemClickListener;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
@@ -60,7 +61,6 @@ public class ViewLensActivity extends ListActivity
     /** list of lenses as Content objects */ 
     ArrayList<Content> contentList;
     
-    private List<HashMap<String,String>> navTitles;
     private ActionBarDrawerToggle drawerToggle;
     String[] from = {"nav_icon","nav_item"};
     int[] to = { R.id.nav_icon , R.id.nav_item};
@@ -86,6 +86,7 @@ public class ViewLensActivity extends ListActivity
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         Intent intent = getIntent();
+        //content =  (Content)ContentCache.getObject(getString(R.string.cache_sentcontent));
         content = (Content)intent.getSerializableExtra(getString(R.string.cache_sentcontent));
         if(content==null)
         {
@@ -134,13 +135,12 @@ public class ViewLensActivity extends ListActivity
         ListView listView = getListView();        
         listView.setLayoutAnimation(controller);
 
-        String[] items = getResources().getStringArray(R.array.nav_list);
-        setDrawer(items);
+        List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
         DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        drawerList.setOnItemClickListener(new DrawerItemClickListener(this,drawerLayout));
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
         {
@@ -273,32 +273,6 @@ public class ViewLensActivity extends ListActivity
         ContentCache.setObject(getString(R.string.cache_contentlist), contentList);
         
     }
-
-    private void selectItem(int position)
-    {
-        switch (position)
-        {
-            case 0:
-                Intent landingIntent = new Intent(getApplicationContext(), LandingActivity.class);
-                startActivity(landingIntent);
-
-                break;
-            case 1:
-                Intent lensesIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
-                startActivity(lensesIntent);
-                break;
-
-            case 2:
-                Intent favsIntent = new Intent(getApplicationContext(), ViewFavsActivity.class);
-                startActivity(favsIntent);
-                break;
-
-            case 3:
-                Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
-                startActivity(fileIntent);
-                break;
-        }
-    }
     
     /** reads feed in a separate thread.  Starts progress dialog  */
     private void readFeed()
@@ -383,38 +357,4 @@ public class ViewLensActivity extends ListActivity
         adapter = new LensesAdapter(ViewLensActivity.this, contentList);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener
-    {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id)
-        {
-            selectItem(position);
-        }
-    }
-
-    private void setDrawer(String[] items)
-    {
-        HashMap<String,String> hm1 = new HashMap<>();
-        hm1.put(getString(R.string.nav_icon),Integer.toString(R.drawable.magnify));
-        hm1.put(getString(R.string.nav_item),items[0]);
-
-        HashMap<String,String> hm2 = new HashMap<>();
-        hm2.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
-        hm2.put(getString(R.string.nav_item),items[1]);
-
-        HashMap<String,String> hm3 = new HashMap<>();
-        hm3.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
-        hm3.put(getString(R.string.nav_item),items[2]);
-
-        HashMap<String,String> hm4 = new HashMap<>();
-        hm4.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
-        hm4.put(getString(R.string.nav_item),items[3]);
-
-        navTitles = new ArrayList<>();
-
-        navTitles.add(hm1);
-        navTitles.add(hm2);
-        navTitles.add(hm3);
-        navTitles.add(hm4);
-    }
 }

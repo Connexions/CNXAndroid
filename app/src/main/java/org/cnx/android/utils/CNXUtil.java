@@ -16,6 +16,12 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.cnx.android.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * General Utility Class
  * @author Ed Woodward
@@ -84,6 +90,38 @@ public class CNXUtil
         }
 
         return false;
+    }
+
+    public static List<HashMap<String,String>> createNavItems(Context c)
+    {
+        String[] items = c.getResources().getStringArray(R.array.nav_list);
+        List<HashMap<String,String>> navTitles;
+        String[] from = { "nav_icon","nav_item" };
+        int[] to = { R.id.nav_icon , R.id.nav_item};
+        HashMap<String,String> hm1 = new HashMap<>();
+        hm1.put(c.getString(R.string.nav_icon), Integer.toString(R.drawable.magnify));
+        hm1.put(c.getString(R.string.nav_item),items[0]);
+
+        HashMap<String,String> hm2 = new HashMap<>();
+        hm2.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put(c.getString(R.string.nav_item),items[1]);
+
+        HashMap<String,String> hm3 = new HashMap<>();
+        hm3.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
+        hm3.put(c.getString(R.string.nav_item),items[2]);
+
+        HashMap<String,String> hm4 = new HashMap<>();
+        hm4.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
+        hm4.put(c.getString(R.string.nav_item),items[3]);
+
+        navTitles = new ArrayList<>();
+
+        navTitles.add(hm1);
+        navTitles.add(hm2);
+        navTitles.add(hm3);
+        navTitles.add(hm4);
+
+        return navTitles;
     }
 
 }
