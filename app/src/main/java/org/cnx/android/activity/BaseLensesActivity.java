@@ -264,7 +264,8 @@ public class BaseLensesActivity extends ListActivity
         Content content = (Content)getListView().getItemAtPosition(position);
         Intent intent = new Intent(currentContext, ViewLensActivity.class);
         ContentCache.setObject(getString(R.string.cache_sentcontent), content);
-        //intent.putExtra(getString(R.string.cache_sentcontent), content);
+        //putExtra(getString(R.string.cache_sentcontent), content);
+        intent.putExtra(getString(R.string.cache_sentcontent), content);
         startActivity(intent);
     }
     
