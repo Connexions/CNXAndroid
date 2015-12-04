@@ -25,6 +25,7 @@ import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.listeners.DrawerItemClickListener;
 import org.cnx.android.utils.CNXUtil;
+import org.cnx.android.utils.ContentCache;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -188,7 +189,8 @@ public class ViewLensesActivity extends ListActivity
         else if(content.getTitle().equals(FEATURED) || (content.getTitle().equals(OSC)))
         {
             Intent i = new Intent(getApplicationContext(), ViewLensActivity.class);
-            i.putExtra(getString(R.string.cache_sentcontent), content);
+            //i.putExtra(getString(R.string.cache_sentcontent), content);
+            ContentCache.setObject(getString(R.string.cache_sentcontent), content);
             startActivity(i);
         }
     }

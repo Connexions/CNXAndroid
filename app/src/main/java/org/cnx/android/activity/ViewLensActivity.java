@@ -86,8 +86,8 @@ public class ViewLensActivity extends ListActivity
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
         Intent intent = getIntent();
-        //content =  (Content)ContentCache.getObject(getString(R.string.cache_sentcontent));
-        content = (Content)intent.getSerializableExtra(getString(R.string.cache_sentcontent));
+        content =  (Content)ContentCache.getObject(getString(R.string.cache_sentcontent));
+        //content = (Content)intent.getSerializableExtra(getString(R.string.cache_sentcontent));
         if(content==null)
         {
             content = (Content) ContentCache.getObject(getString(R.string.cache_savedcontent));
