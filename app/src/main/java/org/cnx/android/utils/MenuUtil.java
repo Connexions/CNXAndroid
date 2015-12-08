@@ -14,6 +14,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 
+import org.cnx.android.R;
+
 /**
  * Utility class for MenuHandler
  * @author Ed Woodward
@@ -103,7 +105,7 @@ public class MenuUtil
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Download");
         alertDialog.setMessage("The requested file cannot be downloaded because an SD Card is not installed.  Please install an SD Card and try again.");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, Constants.OK, new DialogInterface.OnClickListener() 
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, context.getString(R.string.ok), new DialogInterface.OnClickListener()
         {
               public void onClick(DialogInterface dialog, int which) 
               {

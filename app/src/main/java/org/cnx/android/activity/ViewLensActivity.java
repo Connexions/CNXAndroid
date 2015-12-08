@@ -26,6 +26,7 @@ import org.cnx.android.beans.Feed;
 import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.handlers.AtomHandler;
 import org.cnx.android.handlers.RssHandler;
+import org.cnx.android.listeners.DrawerItemClickListener;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.ContentCache;
 
@@ -60,7 +61,6 @@ public class ViewLensActivity extends ListActivity
     /** list of lenses as Content objects */ 
     ArrayList<Content> contentList;
     
-    private List<HashMap<String,String>> navTitles;
     private ActionBarDrawerToggle drawerToggle;
     String[] from = {"nav_icon","nav_item"};
     int[] to = { R.id.nav_icon , R.id.nav_item};
@@ -85,20 +85,28 @@ public class ViewLensActivity extends ListActivity
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.list_view);
         registerForContextMenu(getListView());
-        content = (Content)ContentCache.getObject(getString(R.string.cache_sentcontent));
+        Intent intent = getIntent();
+        content =  (Content)ContentCache.getObject(getString(R.string.cache_sentcontent));
+        //content = (Content)intent.getSerializableExtra(getString(R.string.cache_sentcontent));
         if(content==null)
         {
-            content = (Content)ContentCache.getObject(getString(R.string.cache_savedcontent));
+            content = (Content) ContentCache.getObject(getString(R.string.cache_savedcontent));
             if(content==null)
             {
                 return;
             }
         }
-        contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
+        if(savedInstanceState != null)
+        {
+            contentList = (ArrayList<Content>) savedInstanceState.getSerializable(getString(R.string.cache_contentlist));
+            if(contentList == null)
+            {
+                contentList = (ArrayList<Content>)ContentCache.getObject(getString(R.string.cache_contentlist));
+            }
+        }
         ActionBar aBar = getActionBar();
         aBar.setTitle("  " + content.getTitle());
         setProgressBarIndeterminateVisibility(true);
-        //get stored data if there is any
         if(contentList == null)
         {
             readFeed();
@@ -127,14 +135,12 @@ public class ViewLensActivity extends ListActivity
         ListView listView = getListView();        
         listView.setLayoutAnimation(controller);
 
-        String[] items = getResources().getStringArray(R.array.nav_list);
-        setDrawer(items);
+        List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
         DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         ListView drawerList = (ListView)findViewById(R.id.left_drawer);
         SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
 
-        // Set the list's click listener
-        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        drawerList.setOnItemClickListener(new DrawerItemClickListener(this,drawerLayout));
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
         {
@@ -217,7 +223,7 @@ public class ViewLensActivity extends ListActivity
 
     	if(item.getItemId() == android.R.id.home)
         {
-    		ContentCache.removeObject(getString(R.string.cache_contentlist));
+    		//ContentCache.removeObject(getString(R.string.cache_contentlist));
             Intent mainIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainIntent);
@@ -253,7 +259,7 @@ public class ViewLensActivity extends ListActivity
     {
         if (keyCode == KeyEvent.KEYCODE_BACK) 
         {
-            ContentCache.removeObject(getString(R.string.cache_contentlist));
+            //ContentCache.removeObject(getString(R.string.cache_contentlist));
             return super.onKeyDown(keyCode, event);
         }
         return super.onKeyDown(keyCode, event);
@@ -266,32 +272,6 @@ public class ViewLensActivity extends ListActivity
         ContentCache.setObject(getString(R.string.cache_savedcontent), content);
         ContentCache.setObject(getString(R.string.cache_contentlist), contentList);
         
-    }
-
-    private void selectItem(int position)
-    {
-        switch (position)
-        {
-            case 0:
-                Intent landingIntent = new Intent(getApplicationContext(), LandingActivity.class);
-                startActivity(landingIntent);
-
-                break;
-            case 1:
-                Intent lensesIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
-                startActivity(lensesIntent);
-                break;
-
-            case 2:
-                Intent favsIntent = new Intent(getApplicationContext(), ViewFavsActivity.class);
-                startActivity(favsIntent);
-                break;
-
-            case 3:
-                Intent fileIntent = new Intent(getApplicationContext(), FileBrowserActivity.class);
-                startActivity(fileIntent);
-                break;
-        }
     }
     
     /** reads feed in a separate thread.  Starts progress dialog  */
@@ -353,8 +333,9 @@ public class ViewLensActivity extends ListActivity
     protected void onListItemClick(ListView l, View v, int position, long id) 
     {
         Content content = (Content)getListView().getItemAtPosition(position);
-        ContentCache.setObject(getString(R.string.webcontent), content);
-        startActivity(new Intent(this, WebViewActivity.class));
+        Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
+        i.putExtra(getString(R.string.webcontent),content);
+        startActivity(i);
     }
     
     /** Actions after list is loaded in View */
@@ -376,38 +357,4 @@ public class ViewLensActivity extends ListActivity
         adapter = new LensesAdapter(ViewLensActivity.this, contentList);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener
-    {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id)
-        {
-            selectItem(position);
-        }
-    }
-
-    private void setDrawer(String[] items)
-    {
-        HashMap<String,String> hm1 = new HashMap<>();
-        hm1.put(getString(R.string.nav_icon),Integer.toString(R.drawable.magnify));
-        hm1.put(getString(R.string.nav_item),items[0]);
-
-        HashMap<String,String> hm2 = new HashMap<>();
-        hm2.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
-        hm2.put(getString(R.string.nav_item),items[1]);
-
-        HashMap<String,String> hm3 = new HashMap<>();
-        hm3.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
-        hm3.put(getString(R.string.nav_item),items[2]);
-
-        HashMap<String,String> hm4 = new HashMap<>();
-        hm4.put(getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
-        hm4.put(getString(R.string.nav_item),items[3]);
-
-        navTitles = new ArrayList<>();
-
-        navTitles.add(hm1);
-        navTitles.add(hm2);
-        navTitles.add(hm3);
-        navTitles.add(hm4);
-    }
 }

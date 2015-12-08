@@ -7,9 +7,6 @@
 package org.cnx.android.adapters;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
 
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
@@ -21,14 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 /** Adapter to properly display the Lenses list
  * removes the fast scroll code since it is not working well on the list of lenses. 
  * @author Ed Woodward
  * */
-public class LensesAdapter extends ArrayAdapter<Content>implements SectionIndexer
+public class LensesAdapter extends ArrayAdapter<Content>
 {
     /** Current context */
     private Context context;
@@ -37,11 +33,11 @@ public class LensesAdapter extends ArrayAdapter<Content>implements SectionIndexe
     /**
      * used to create array of alpha characters for section indexer
      */
-    private HashMap<String, Integer> alphaIndexer;
+    //private HashMap<String, Integer> alphaIndexer;
     /**
      * list of alpha characters for section indexer
      */
-    private String[] sections;
+   // private String[] sections;
     /**
      * View holder for list performance
      */
@@ -58,34 +54,7 @@ public class LensesAdapter extends ArrayAdapter<Content>implements SectionIndexe
         this.context = context;
         this.contentList = contentList;
         
-        alphaIndexer = new HashMap<>();
-        int size = contentList.size();
-
-        for (int x = 0; x < size; x++) 
-        {
-            Content s = contentList.get(x);
-
-            String ch =  s.title.substring(0, 1);
-            if(!ch.equals(" "))
-            {
-                 // convert to uppercase otherwise lowercase a -z will be sorted after upper A-Z
-                ch = ch.toUpperCase();
-
-                // HashMap will prevent duplicates
-                alphaIndexer.put(ch, x);
-            }
-        }
-
-        Set<String> sectionLetters = alphaIndexer.keySet();
-
-        // create a list from the set to sort
-        ArrayList<String> sectionList = new ArrayList<String>(sectionLetters); 
-
-        Collections.sort(sectionList);
-        sections = new String[sectionList.size()];
-        sectionList.toArray(sections);
-
-        //Log.d("LensListAdapter constructor", "content list size: " + contentList.size());
+        //Log.d("LensesAdapter constructor", "content list size: " + contentList.size());
     }
     
     /* (non-Javadoc)
@@ -106,7 +75,7 @@ public class LensesAdapter extends ArrayAdapter<Content>implements SectionIndexe
         }
         else
         {
-            //Log.d("LensListAdapter.getView()", "view is NOT null ");
+            //Log.d("LensesAdapter.getView()", "view is NOT null ");
             holder= (ViewHolder)v.getTag();
             if(holder == null)
             {
@@ -118,7 +87,7 @@ public class LensesAdapter extends ArrayAdapter<Content>implements SectionIndexe
         Content c = contentList.get(position);
         if(c != null)
         {
-            //Log.d("LensListAdapter.getView()", "content is not null ");
+            //Log.d("LensesAdapter.getView()", "content is not null ");
             ImageView iv = holder.imageView;
             TextView text = holder.textView;
             TextView other = holder.otherView;
@@ -156,40 +125,5 @@ public class LensesAdapter extends ArrayAdapter<Content>implements SectionIndexe
         return contentList;
     }
     
-    /* (non-Javadoc)
-     * @see android.widget.SectionIndexer#getPositionForSection(int)
-     */
-    public int getPositionForSection(int section) 
-    {
-    	String letter="a";
-        
-    	if(section < sections.length)
-    	{
-    		letter = sections[section];
-    	}
-    	else
-    	{
-    		return 0;
-    	}
-        //Log.d("LensListAdapter ", "letter: " + letter);
-        return alphaIndexer.get(letter);
-    }
-
-    /* (non-Javadoc)
-     * @see android.widget.SectionIndexer#getSectionForPosition(int)
-     */
-    public int getSectionForPosition(int position) 
-    {
-        return 1;
-    }
-
-    /* (non-Javadoc)
-     * @see android.widget.SectionIndexer#getSections()
-     */
-    public Object[] getSections() 
-    {
-         return sections;
-    }
-
 }
 

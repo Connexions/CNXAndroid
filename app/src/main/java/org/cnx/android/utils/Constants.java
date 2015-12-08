@@ -35,8 +35,6 @@ public class Constants
     public static final String TXT_EXTENSION = ".txt";
     public static final String PDF_TYPE = "pdf";
     public static final String EPUB_TYPE = "epub";
-    public static final String OK = "Ok";
-    public static final String CANCEL = "Cancel";
-    
+
 
 }

@@ -56,19 +56,9 @@
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
+                     android:id="@+id/contentFragment"
+                     android:layout_weight="1"
                      android:background="@color/white_text">
-            <GridView
-                android:id="@+id/gridView"
-                android:numColumns="2"
-                android:verticalSpacing="10dp"
-                android:horizontalSpacing="10dp"
-                android:padding="5dp"
-                android:gravity="center"
-                android:columnWidth="200dp"
-                android:stretchMode="columnWidth"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
         </FrameLayout>
 
 
