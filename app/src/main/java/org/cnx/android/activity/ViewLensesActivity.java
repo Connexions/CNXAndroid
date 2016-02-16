@@ -225,7 +225,7 @@ public class ViewLensesActivity extends ListActivity
         	Content c6 = new Content();
             c6.setTitle(OSC);
             c6.setContentString(getString(R.string.lenses_osc_desc));
-            c6.setUrl(new URL("http://cnx.org/lenses/OpenStaxCollege/endorsements/atom"));
+            c6.setUrl(new URL("http://legacy.cnx.org/lenses/OpenStaxCollege/endorsements/atom"));
             c6.setIconDrawable(R.drawable.lenses);
         	
             
@@ -244,7 +244,7 @@ public class ViewLensesActivity extends ListActivity
             Content c4 = new Content();
             c4.setTitle(FEATURED);
             c4.setContentString(getString(R.string.lenses_featured_content_desc));
-            c4.setUrl(new URL("http://cnx.org/lenses/cnxorg/featured/atom"));
+            c4.setUrl(new URL("http://legacy.cnx.org/lenses/cnxorg/featured/atom"));
             c4.setIconDrawable(R.drawable.lenses);
             
             if(content == null)

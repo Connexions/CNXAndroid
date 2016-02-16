@@ -24,7 +24,7 @@ public class EndorsedLensesActivity extends BaseLensesActivity
         
         storedKey = "endorsedlenses";
         
-        atomFeedURL = "http://cnx.org/endorsements/atom";
+        atomFeedURL = "http://legacy.cnx.org/endorsements/atom";
         
     }
     

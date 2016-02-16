@@ -24,7 +24,7 @@ public class AffiliatedLensesActivity extends BaseLensesActivity
         
         storedKey = "affiliatedlenses";
         
-        atomFeedURL = "http://cnx.org/affiliations/atom";
+        atomFeedURL = "http://legacy.cnx.org/affiliations/atom";
     
    
     }
