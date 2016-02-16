@@ -210,7 +210,7 @@ public class BaseLensesActivity extends ListActivity
     public boolean onCreateOptionsMenu(Menu menu) 
     {
 
-        getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+        getMenuInflater().inflate(R.menu.lens_options_menu, menu);
         return true;
         
     }
