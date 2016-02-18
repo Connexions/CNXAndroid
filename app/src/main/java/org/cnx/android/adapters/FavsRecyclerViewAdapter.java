@@ -146,7 +146,7 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
             {
                 viewHolder.logo.setImageResource(R.drawable.collections);
             }
-            else if(content.url.toString().contains("google.com") || content.url.toString().contains("cnx.org/content/search"))
+            else if(content.url.toString().contains("google.com") || content.url.toString().contains("legacy.cnx.org/content/search"))
             {
                 viewHolder.logo.setImageResource(R.drawable.search_selected);
             }
