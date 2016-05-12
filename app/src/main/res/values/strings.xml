@@ -131,5 +131,6 @@
     <string name="cancel">Cancel</string>
     <string name="NAVIGATION_DRAWER_OPEN">Open navigation drawer</string>
     <string name="NAVIGATION_DRAWER_CLOSE">Close navigation drawer</string>
+    <string name="cnx_package">org.cnx.android</string>
 </resources>
  

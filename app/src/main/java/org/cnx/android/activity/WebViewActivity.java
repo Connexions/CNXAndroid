@@ -41,7 +41,7 @@ import android.webkit.WebViewClient;
 import android.webkit.WebSettings.LayoutAlgorithm;
 
 /**
- * Activity to view selected lens content in a web browser.  
+ * Activity to view selected content in a web browser.
  * 
  * @author Ed Woodward
  *
@@ -96,7 +96,8 @@ public class WebViewActivity extends Activity
             {
             	setProgressBarIndeterminateVisibility(true);
             }
-            view.loadUrl(fixURL(url));
+
+            view.loadUrl(url);
             try
             {
                 content.setUrl(new URL(url));
@@ -119,9 +120,15 @@ public class WebViewActivity extends Activity
             //Log.d("WebViewC.onPageFinished", "title: " + view.getTitle());
             //Log.d("WebViewC.onPageFinished", "url: " + url);
             content.setTitle(view.getTitle());
+            if(!url.contains("?minimal=true"))
+            {
+                url = url + "?minimal=true";
+                view.loadUrl(url);
+            }
             try
             {
-                content.setUrl(new URL(url));
+                //content.setUrl(new URL(url));
+                content.setUrl(new URL(view.getUrl()));
 
             }
             catch (MalformedURLException e)
@@ -129,7 +136,6 @@ public class WebViewActivity extends Activity
                 Log.d("WebVA.onPageFinished()", "Error: " + e.toString(),e);
             }
             
-            setLayout(url);
             setProgressBarIndeterminateVisibility(false);
             progressBarRunning = false;
             Log.d("WebViewC.onPageFinished", "setSupportProgressBarIndeterminateVisibility(false) Called");
@@ -159,17 +165,42 @@ public class WebViewActivity extends Activity
         Intent intent = getIntent();
         content = (Content)intent.getSerializableExtra(getString(R.string.webcontent));
 
+        try
+        {
+            if(!content.getUrl().toString().contains("?bookmark=1"))
+            {
 
-        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
-        if(content != null && content.getUrl() != null)
-        {
-            setLayout(content.getUrl().toString());
+                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+                String url = sharedPref.getString(content.getIcon(), "");
+
+                if(!url.equals(""))
+                {
+                    url = convertURL(url);
+                    try
+                    {
+                        content.setUrl(new URL(url));
+                    }
+                    catch(MalformedURLException mue)
+                    {
+                        Log.e("WViewActivity.onResume", mue.toString());
+                    }
+                }
+            }
+            else
+            {
+                //remove bookmark parameter
+                String newURL = content.getUrl().toString().replace("?bookmark=1","");
+                content.setUrl(new URL(newURL));
+
+            }
         }
-        else
+        catch(MalformedURLException mue)
         {
-            setLayout(getString(R.string.mobile_url));
+            Log.e("WViewActivity.onResume", mue.toString());
         }
-        
+
+        aBar.setTitle(Html.fromHtml(getString(R.string.app_name_html)));
+
         if(CNXUtil.isConnected(this))
         {
             setUpViews();
@@ -236,6 +267,16 @@ public class WebViewActivity extends Activity
         return true;
     }
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) 
+    {
+        super.onPrepareOptionsMenu(menu);
+        //handle changing menu based on URL
+        return onCreateOptionsMenu(menu);
+    }
 
     /* (non-Javadoc)
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
@@ -251,13 +292,24 @@ public class WebViewActivity extends Activity
 
     	if(item.getItemId() == android.R.id.home)
         {
-            Intent mainIntent = new Intent(getApplicationContext(), ViewLensesActivity.class);
+            Intent mainIntent = new Intent(getApplicationContext(), LandingActivity.class);
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainIntent);
             return true;
         }
     	else
     	{
+            try
+            {
+
+                content.setTitle(webView.getTitle().replace(" - " + content.getBookTitle() + " - OpenStax CNX",""));
+                content.setUrl(new URL(webView.getUrl()));
+
+            }
+            catch(MalformedURLException mue)
+            {
+
+            }
 	        MenuHandler mh = new MenuHandler();
 	        return mh.handleContextMenu(item, this, content);
 
@@ -299,16 +351,49 @@ public class WebViewActivity extends Activity
     protected void onResume() 
     {
         super.onResume();
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package),MODE_PRIVATE);
+        String url = sharedPref.getString(content.getIcon(), "");
+        //Log.d("WebViewActivity.onResume()","URL retrieved: " + url);
+        if(!url.equals(""))
+        {
+            url = convertURL(url);
+            try
+            {
+                content.setUrl(new URL(url));
+            }
+            catch(MalformedURLException mue)
+            {
+                Log.e("WViewActivity.onResume",mue.toString());
+            }
+        }
 
     }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package),MODE_PRIVATE);
+        SharedPreferences.Editor ed = sharedPref.edit();
+        //Log.d("WVA.onPause()","URL saved: " + content.getUrl().toString());
+        String url = webView.getUrl().replace("?bookmark=1","");
+        ed.putString(content.getIcon(), url);
+        ed.apply();
+    }
+
     
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
         //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
-        outState.putSerializable(getString(R.string.webcontent), content);
-
+        outState.putSerializable(getString(R.string.webcontent),content);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package),MODE_PRIVATE);
+        SharedPreferences.Editor ed = sharedPref.edit();
+        String url = webView.getUrl().replace("?bookmark=1","");
+        ed.putString(content.getIcon(), url);
+        ed.apply();
+        
     }
     
     /** sets properties on WebView and loads selected content into browser. */
@@ -326,62 +411,14 @@ public class WebViewActivity extends Activity
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
-        webView.setOnScrollChangedCallback(new OnScrollChangedCallback(){
-            public void onScroll(int l, int t)
-            {
-            	
-            	String url = content.getUrl().toString();
-            	float newY = webView.getScrollY();
-                //Log.d("WebViewActivity", "newY: " +newY);
-                //Log.d("WebViewActivity", "yPosition: " +yPosition);
-            	if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
-                {
-            		hideToolbar();
-                }
-                else if(newY >= yPosition)
-               {
-              	 //hide layout
-              	 hideToolbar();
-               }
-               else
-               {
-              	 //show toolbar
-              	 showToolbar();
-               }
-               yPosition = newY;
-            }
-         });
-        
-        webView.setWebChromeClient(new WebChromeClient()
+
+        webView.setWebChromeClient(new WebChromeClient() 
         {
 
         });
         
         webView.setWebViewClient(webViewClient);
-        webView.loadUrl(fixURL(content.url.toString()));
-    }        
-    
-    private void emulateShiftHeld(WebView view)
-    {
-        try
-        {
-            KeyEvent shiftPressEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SHIFT_LEFT, 0, 0);
-            shiftPressEvent.dispatch(view);
-            if(Build.VERSION.SDK_INT == 10) 
-            {
-                Toast.makeText(this, getString(R.string.gingerbread_copy_msg), Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                Toast.makeText(this, getString(R.string.froyo_copy_msg), Toast.LENGTH_LONG).show();
-            }
-
-        }
-        catch (Exception e)
-        {
-            Log.e("dd", "Exception in emulateShiftHeld()", e);
-        }
-
+        webView.loadUrl(content.url.toString());
     }
     
     
@@ -411,28 +448,11 @@ public class WebViewActivity extends Activity
         }
         else
         {
-
             return url;
-            //return "http://m.qa.cnx.org/content/m11932/latest/";
         }
     }
-    
-    /**
-     * Displays dialog to start file download
-     * @param type one of 2 types PDF or EPUB
-     */
-    private void download(String type)
-    {
-        if(CNXUtil.isConnected(this))
-        { 
-            MenuHandler mh = new MenuHandler();
-            mh.displayAlert(this, content, type);
-        }
-        else
-        {
-            CNXUtil.makeNoDataToast(this);
-        }
-    }
+
+
     
     private void hideToolbar()
     {
@@ -444,134 +464,20 @@ public class WebViewActivity extends Activity
         }
     }
     
-    private void showToolbar()
-    {
-    	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
-        int visibility = relLayout.getVisibility();
-
-        if(visibility == View.GONE)
-        {
-            relLayout.setVisibility(View.VISIBLE);
-        }
-    }
-    
-    /**
-     * Hides or displays the action bar based on URL.
-     * Should be hidden is search or help is displayed.
-     * @param url - URL used to determine if action bar should be displayed.
-     */
-    private void setLayout(String url)
-    {
-        RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
-        int visibility = relLayout.getVisibility();
-        if(url.contains(getString(R.string.search)) || url.contains(getString(R.string.html_ext)))
-        {
-            if(visibility == View.VISIBLE)
-            {
-                relLayout.setVisibility(View.GONE);
-            }
-        }
-        else
-        {
-            if(visibility == View.GONE)
-            {
-                relLayout.setVisibility(View.VISIBLE);
-            }
-            
-                
-                ImageButton noteButton = (ImageButton)findViewById(R.id.noteButton);
-                noteButton.setOnClickListener(new OnClickListener() 
-                {
-                          
-                      public void onClick(View v) 
-                      {
-                          Intent noteintent = new Intent(getApplicationContext(), NoteEditorActivity.class);
-                          noteintent.putExtra(getString(R.string.content), content);
-                          startActivity(noteintent);
-                      }
-                  });
-                
-                ImageButton shareButton = (ImageButton)findViewById(R.id.shareButton);
-                shareButton.setOnClickListener(new OnClickListener() 
-                {
-                          
-                      public void onClick(View v) 
-                      {
-                          Intent intent = new Intent(Intent.ACTION_SEND);
-                          intent.setType(getString(R.string.mimetype_text));
-
-                          if(content != null)
-                          {
-                              intent.putExtra(Intent.EXTRA_SUBJECT, content.getTitle());
-                              intent.putExtra(Intent.EXTRA_TEXT, content.getUrl().toString() + " " + getString(R.string.shared_via));
-    
-                              Intent chooser = Intent.createChooser(intent, getString(R.string.tell_friend) + " "+ content.getTitle());
-                              startActivity(chooser);
-                          }
-                          else
-                          {
-                              Toast.makeText(WebViewActivity.this, getString(R.string.no_data_msg),  Toast.LENGTH_LONG).show();
-                          }
-
-                      }
-                  });
-                
-                ImageButton epubButton = (ImageButton)findViewById(R.id.epubButton);
-                
-                ImageButton pdfButton = (ImageButton)findViewById(R.id.pdfButton);
-
-                if(content != null && isOSCBook(content.getUrl().toString()))
-                {
-                    epubButton.setVisibility(View.GONE);
-                    pdfButton.setVisibility(View.GONE);
-                }
-                else
-                {
-                    epubButton.setVisibility(View.VISIBLE);
-                    pdfButton.setVisibility(View.VISIBLE);
-                    epubButton.setOnClickListener(new OnClickListener()
-                    {
-
-                        public void onClick(View v)
-                        {
-                            download(Constants.EPUB_TYPE);
-
-                        }
-                    });
-
-                    pdfButton.setOnClickListener(new OnClickListener()
-                    {
-
-                        public void onClick(View v)
-                        {
-                            download(Constants.PDF_TYPE);
-
-                        }
-                    });
-
-                }
-                
-                ImageButton copyButton = (ImageButton)findViewById(R.id.copyButton);
-                if(Build.VERSION.SDK_INT < 11) 
-                {
-                    copyButton.setOnClickListener(new OnClickListener() 
-                    {
-                              
-                          public void onClick(View v) 
-                          {
-                              emulateShiftHeld(webView);
-
-                          }
-                      });
-                }
-                else
-                {
-                    copyButton.setVisibility(View.GONE);
-                }
-
-            
-        }
-    }
+//    private void showToolbar()
+//    {
+//    	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
+//        int visibility = relLayout.getVisibility();
+//
+//        if(url.contains("/content/"))
+//        {
+//            return url.replace("//m.","//");
+//        }
+//        else
+//        {
+//            return url;
+//        }
+//    }
 
     private boolean isOSCBook(String url)
     {
@@ -591,6 +497,19 @@ public class WebViewActivity extends Activity
         }
 
         return isOSC;
+    }
+
+    private String convertURL(String url)
+    {
+
+        if(url.contains("/content/"))
+        {
+            return url.replace("//m.","//");
+        }
+        else
+        {
+            return url;
+        }
     }
     
 }

@@ -5,7 +5,19 @@
           android:title="@string/menu_search" 
           android:showAsAction="ifRoom"/>
     <item android:id="@+id/add_to_favs"
-          android:icon="@drawable/ic_action_new"
+          android:icon="@drawable/ic_bookmark_border_white_24dp"
           android:title="@string/menu_add_to_favs"
+          android:showAsAction="ifRoom"/>
+    <item android:id="@+id/notes"
+          android:icon="@drawable/ic_note_add_white_24dp"
+          android:title="Take Notes"
+          android:showAsAction="ifRoom"/>
+    <item android:id="@+id/go_to_favs"
+          android:icon="@drawable/favorites"
+          android:title="@string/menu_go_to_favs"
+          android:showAsAction="ifRoom"/>
+    <item android:id="@+id/share"
+          android:icon="@drawable/ic_share_white_24dp"
+          android:title="Share"
           android:showAsAction="ifRoom"/>
 </menu>
