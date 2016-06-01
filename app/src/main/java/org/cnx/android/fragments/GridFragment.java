@@ -250,6 +250,7 @@ public class GridFragment extends Fragment
             c14.setContentString(getString(R.string.bus_fundamentals));
             c14.setUrl(new URL("http://cnx.org/contents/1ttgPM0x:KfFg0EJq?minimal=true"));
             c14.setIconDrawable(R.drawable.bus_fundamentals);
+            c14.setIcon(getString(R.string.bus_fundamentals));
             c14.setBookURL("http://cnx.org/contents/1ttgPM0x:KfFg0EJq?minimal=true");
 
             Content c15 = new Content();
@@ -258,6 +259,7 @@ public class GridFragment extends Fragment
             c15.setContentString(getString(R.string.elec_engineering));
             c15.setUrl(new URL("http://cnx.org/contents/d442r0wh:g9deOnx5?minimal=true"));
             c15.setIconDrawable(R.drawable.elec_engineering);
+            c15.setIcon(getString(R.string.elec_engineering));
             c15.setBookURL("http://cnx.org/contents/d442r0wh:g9deOnx5?minimal=true");
 
             Content c16 = new Content();
@@ -266,6 +268,7 @@ public class GridFragment extends Fragment
             c16.setContentString(getString(R.string.elem_algebra));
             c16.setUrl(new URL("http://cnx.org/contents/e9XCtyLF:uUfJZx98?minimal=true"));
             c16.setIconDrawable(R.drawable.elem_algebra);
+            c16.setIcon(getString(R.string.elem_algebra));
             c16.setBookURL("http://cnx.org/contents/e9XCtyLF:uUfJZx98?minimal=true");
 
             Content c17 = new Content();
@@ -274,6 +277,7 @@ public class GridFragment extends Fragment
             c17.setContentString(getString(R.string.advanced_algebra));
             c17.setUrl(new URL("http://cnx.org/contents/MnoU7pX2:FEyXudZI?minimal=true"));
             c17.setIconDrawable(R.drawable.advanced_algebra);
+            c17.setIcon(getString(R.string.advanced_algebra));
             c17.setBookURL("http://cnx.org/contents/MnoU7pX2:FEyXudZI?minimal=true");
 
             Content c18 = new Content();
@@ -282,6 +286,7 @@ public class GridFragment extends Fragment
             c18.setContentString(getString(R.string.applied_probability));
             c18.setUrl(new URL("http://cnx.org/contents/HLT_qvJK:wsOQ6HtH?minimal=true"));
             c18.setIconDrawable(R.drawable.applied_probability);
+            c18.setIcon(getString(R.string.applied_probability));
             c18.setBookURL("http://cnx.org/contents/HLT_qvJK:wsOQ6HtH?minimal=true");
 
             Content c19 = new Content();
@@ -290,6 +295,7 @@ public class GridFragment extends Fragment
             c19.setContentString(getString(R.string.fast_fourier));
             c19.setUrl(new URL("http://cnx.org/contents/gua6b7go:-1XsePkH?minimal=true"));
             c19.setIconDrawable(R.drawable.fast_fourier);
+            c19.setIcon(getString(R.string.fast_fourier));
             c19.setBookURL("http://cnx.org/contents/gua6b7go:-1XsePkH?minimal=true");
 
             Content c20 = new Content();
@@ -298,6 +304,7 @@ public class GridFragment extends Fragment
             c20.setContentString(getString(R.string.first_course));
             c20.setUrl(new URL("http://cnx.org/contents/fpkWedRh:tQa_RWkY?minimal=true"));
             c20.setIconDrawable(R.drawable.first_course);
+            c20.setIcon(getString(R.string.first_course));
             c20.setBookURL("http://cnx.org/contents/fpkWedRh:tQa_RWkY?minimal=true");
 
             Content c21 = new Content();
@@ -306,6 +313,7 @@ public class GridFragment extends Fragment
             c21.setContentString(getString(R.string.flowering_light));
             c21.setUrl(new URL("http://cnx.org/contents/OPolDtlN:KvFTO2EG?minimal=true"));
             c21.setIconDrawable(R.drawable.flowering_light);
+            c21.setIcon(getString(R.string.flowering_light));
             c21.setBookURL("http://cnx.org/contents/OPolDtlN:KvFTO2EG?minimal=true");
 
             //            Content c22 = new Content();
@@ -320,6 +328,7 @@ public class GridFragment extends Fragment
             c23.setContentString(getString(R.string.houston_reflections));
             c23.setUrl(new URL("http://cnx.org/contents/eFQIsJEO:AIRHelyE?minimal=true"));
             c23.setIconDrawable(R.drawable.houston_reflections);
+            c23.setIcon(getString(R.string.houston_reflections));
             c23.setBookURL("http://cnx.org/contents/eFQIsJEO:AIRHelyE?minimal=true");
 
             Content c24 = new Content();
@@ -328,6 +337,7 @@ public class GridFragment extends Fragment
             c24.setContentString(getString(R.string.memorable_cases));
             c24.setUrl(new URL("http://cnx.org/contents/57cfLKUe:SwTmBcjN?minimal=true"));
             c24.setIconDrawable(R.drawable.memorable_cases);
+            c24.setIcon(getString(R.string.memorable_cases));
             c24.setBookURL("http://cnx.org/contents/57cfLKUe:SwTmBcjN?minimal=true");
 
             Content c25 = new Content();
@@ -336,6 +346,7 @@ public class GridFragment extends Fragment
             c25.setContentString(getString(R.string.music_theory));
             c25.setUrl(new URL("http://cnx.org/contents/KtdLe6cv:_GmJ4ENa?minimal=true"));
             c25.setIconDrawable(R.drawable.music_theory);
+            c25.setIcon(getString(R.string.music_theory));
             c25.setBookURL("http://cnx.org/contents/KtdLe6cv:_GmJ4ENa?minimal=true");
 
             Content c26 = new Content();
@@ -344,6 +355,7 @@ public class GridFragment extends Fragment
             c26.setContentString(getString(R.string.programming_fundamentals));
             c26.setUrl(new URL("http://cnx.org/contents/MDgA8wfz:YzfkjC2r?minimal=true"));
             c26.setIconDrawable(R.drawable.programming_fundamentals);
+            c26.setIcon(getString(R.string.programming_fundamentals));
             c26.setBookURL("http://cnx.org/contents/MDgA8wfz:YzfkjC2r?minimal=true");
 
             Content c27 = new Content();

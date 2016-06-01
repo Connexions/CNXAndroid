@@ -15,6 +15,7 @@ import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
 import org.cnx.android.activity.NoteEditorActivity;
 import org.cnx.android.activity.ViewFavsActivity;
+import org.cnx.android.activity.WebViewActivity;
 import org.cnx.android.beans.Content;
 import org.cnx.android.providers.Favs;
 import org.cnx.android.utils.Constants;
@@ -30,6 +31,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+
+import java.net.URL;
 
 /**
  * Handler for context and other menus
@@ -78,8 +81,18 @@ public class MenuHandler
                 context.startActivity(intent);
                 return true;
             case R.id.search:
-                SearchHandler sh = new SearchHandler();
-                sh.displayPopup(context);
+                try
+                {
+                    Intent iweb = new Intent(context, WebViewActivity.class);
+                    currentContent.setBookURL("https://cnx.org/search?minimal=true");
+                    currentContent.setUrl(new URL("https://cnx.org/search?minimal=true"));
+                    iweb.putExtra(context.getString(R.string.webcontent), currentContent);
+                    context.startActivity(iweb);
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
                 return true;
 
             case R.id.viewFile:

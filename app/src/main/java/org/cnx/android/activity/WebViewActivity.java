@@ -352,19 +352,22 @@ public class WebViewActivity extends Activity
     protected void onResume() 
     {
         super.onResume();
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package),MODE_PRIVATE);
-        String url = sharedPref.getString(content.getIcon(), "");
-        //Log.d("WebViewActivity.onResume()","URL retrieved: " + url);
-        if(!url.equals(""))
+        if(content.getIcon() != null)
         {
-            url = convertURL(url);
-            try
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+            String url = sharedPref.getString(content.getIcon(), "");
+            //Log.d("WebViewActivity.onResume()","URL retrieved: " + url);
+            if(!url.equals(""))
             {
-                content.setUrl(new URL(url));
-            }
-            catch(MalformedURLException mue)
-            {
-                Log.e("WViewActivity.onResume",mue.toString());
+                url = convertURL(url);
+                try
+                {
+                    content.setUrl(new URL(url));
+                }
+                catch(MalformedURLException mue)
+                {
+                    Log.e("WViewActivity.onResume", mue.toString());
+                }
             }
         }
 
@@ -374,12 +377,15 @@ public class WebViewActivity extends Activity
     protected void onPause()
     {
         super.onPause();
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package),MODE_PRIVATE);
-        SharedPreferences.Editor ed = sharedPref.edit();
-        //Log.d("WVA.onPause()","URL saved: " + content.getUrl().toString());
-        String url = webView.getUrl().replace("?bookmark=1","");
-        ed.putString(content.getIcon(), url);
-        ed.apply();
+        if(content.getIcon() != null)
+        {
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+            SharedPreferences.Editor ed = sharedPref.edit();
+            //Log.d("WVA.onPause()","URL saved: " + content.getUrl().toString());
+            String url = webView.getUrl().replace("?bookmark=1", "");
+            ed.putString(content.getIcon(), url);
+            ed.apply();
+        }
     }
 
     
@@ -389,11 +395,14 @@ public class WebViewActivity extends Activity
         super.onSaveInstanceState(outState);
         //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
         outState.putSerializable(getString(R.string.webcontent),content);
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package),MODE_PRIVATE);
-        SharedPreferences.Editor ed = sharedPref.edit();
-        String url = webView.getUrl().replace("?bookmark=1","");
-        ed.putString(content.getIcon(), url);
-        ed.apply();
+        if(content.getIcon() != null)
+        {
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+            SharedPreferences.Editor ed = sharedPref.edit();
+            String url = webView.getUrl().replace("?bookmark=1", "");
+            ed.putString(content.getIcon(), url);
+            ed.apply();
+        }
         
     }
     
