@@ -6,6 +6,8 @@
  */
 package org.cnx.android.activity;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import android.app.Activity;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.fragments.GridFragment;
+import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.handlers.SearchHandler;
 import org.cnx.android.listeners.DrawerItemClickListener;
 import org.cnx.android.utils.CNXUtil;
@@ -27,6 +30,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,7 +62,7 @@ public class LandingActivity extends Activity implements GridFragment.OnBookSele
         ActionBar aBar = this.getActionBar();
         aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
 
-        setLayout();
+        //setLayout();
 
         List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
         DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -106,42 +111,75 @@ public class LandingActivity extends Activity implements GridFragment.OnBookSele
         {
             return true;
         }
-        return false;
+        if(item.getItemId() == android.R.id.home)
+        {
+//            Intent mainIntent = new Intent(getApplicationContext(), LandingActivity.class);
+//            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(mainIntent);
+            return true;
+        }
+        else
+        {
+//            try
+//            {
+//
+//                content.setTitle(webView.getTitle().replace(" - " + content.getBookTitle() + " - OpenStax CNX",""));
+//                content.setUrl(new URL(webView.getUrl()));
+//
+//            }
+//            catch(MalformedURLException mue)
+//            {
+//
+//            }
+            MenuHandler mh = new MenuHandler();
+            return mh.handleContextMenu(item, this, new Content());
+
+        }
+        //return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.landing_options_menu, menu);
+
+        return true;
     }
     
     /**
      * Sets the list adapter and adds the listeners to the list and the search button
      */
-    private void setLayout()
-    {
-
-        ImageButton searchButton = (ImageButton)findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new OnClickListener() 
-        {
-                  
-              public void onClick(View v) 
-              {
-                  EditText searchFor = (EditText)findViewById(R.id.searchText);
-                  performSearch(searchFor.getText().toString());
-              }
-          });
-        EditText searchText = (EditText)findViewById(R.id.searchText);
-        searchText.setOnKeyListener(new View.OnKeyListener()
-        {
-            
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event)
-            {
-                if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER))
-                {
-                    EditText searchFor = (EditText)findViewById(R.id.searchText);
-                    performSearch(searchFor.getText().toString());
-                }
-                return false;
-            }
-        });
-
-    }
+//    private void setLayout()
+//    {
+//
+//        ImageButton searchButton = (ImageButton)findViewById(R.id.searchButton);
+//        searchButton.setOnClickListener(new OnClickListener()
+//        {
+//
+//              public void onClick(View v)
+//              {
+//                  EditText searchFor = (EditText)findViewById(R.id.searchText);
+//                  performSearch(searchFor.getText().toString());
+//              }
+//          });
+//        EditText searchText = (EditText)findViewById(R.id.searchText);
+//        searchText.setOnKeyListener(new View.OnKeyListener()
+//        {
+//
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event)
+//            {
+//                if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER))
+//                {
+//                    EditText searchFor = (EditText)findViewById(R.id.searchText);
+//                    performSearch(searchFor.getText().toString());
+//                }
+//                return false;
+//            }
+//        });
+//
+//    }
 
 
     

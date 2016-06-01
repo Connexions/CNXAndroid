@@ -164,6 +164,7 @@ public class WebViewActivity extends Activity
         //Log.d("WebView.onCreate()", "Called");
         Intent intent = getIntent();
         content = (Content)intent.getSerializableExtra(getString(R.string.webcontent));
+        Log.d("url",content.getUrl().toString());
 
         try
         {

@@ -99,19 +99,19 @@ public class CNXUtil
         String[] from = { "nav_icon","nav_item" };
         int[] to = { R.id.nav_icon , R.id.nav_item};
         HashMap<String,String> hm1 = new HashMap<>();
-        hm1.put(c.getString(R.string.nav_icon), Integer.toString(R.drawable.magnify));
+        hm1.put(c.getString(R.string.nav_icon), Integer.toString(R.drawable.ic_search_black_24dp));
         hm1.put(c.getString(R.string.nav_item),items[0]);
 
         HashMap<String,String> hm2 = new HashMap<>();
-        hm2.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_device_access_storage_1));
+        hm2.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_view_list_black_24dp));
         hm2.put(c.getString(R.string.nav_item),items[1]);
 
         HashMap<String,String> hm3 = new HashMap<>();
-        hm3.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_star));
+        hm3.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_star_black_24dp));
         hm3.put(c.getString(R.string.nav_item),items[2]);
 
         HashMap<String,String> hm4 = new HashMap<>();
-        hm4.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_action_download));
+        hm4.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_file_download_black_24dp));
         hm4.put(c.getString(R.string.nav_item),items[3]);
 
         navTitles = new ArrayList<>();

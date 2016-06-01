@@ -128,10 +128,12 @@ public class SearchHandler
         searchFor = searchFor.replaceAll(" ", "+");
         if(searchType == Constants.CNX_SEARCH)
         {
-            sb.append("http://m.cnx.org/content/search?words=");
+            sb.append("https://cnx.org/search?q=");
             sb.append(searchFor);
-            sb.append("&allterms=weakAND&search=Search&subject=");
+            sb.append("&minimal=true");
+            //sb.append("&allterms=weakAND&search=Search&subject=");
         }
+        Log.d("query", sb.toString());
         return sb.toString();
     }
 

@@ -14,6 +14,7 @@ import org.cnx.android.R;
 import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
 import org.cnx.android.activity.NoteEditorActivity;
+import org.cnx.android.activity.ViewFavsActivity;
 import org.cnx.android.beans.Content;
 import org.cnx.android.providers.Favs;
 import org.cnx.android.utils.Constants;
@@ -72,6 +73,10 @@ public class MenuHandler
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
                 Toast.makeText(context, title + " added to Favorites", Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.go_to_favs:
+                Intent intent = new Intent(context, ViewFavsActivity.class);
+                context.startActivity(intent);
+                return true;
             case R.id.search:
                 SearchHandler sh = new SearchHandler();
                 sh.displayPopup(context);
@@ -85,7 +90,7 @@ public class MenuHandler
                 Intent homeIntent = new Intent(context, LandingActivity.class);
                 context.startActivity(homeIntent);
                 return true;
-            case R.id.note:
+            case R.id.notes:
                 //ContentCache.setObject("content", currentContent);
                 Intent noteIntent = new Intent(context, NoteEditorActivity.class);
                 noteIntent.putExtra(context.getString(R.string.content), currentContent);
@@ -93,6 +98,23 @@ public class MenuHandler
                 return true;
             case R.id.viewLicense:
                 displayLicensesAlert(context);
+                return true;
+            case R.id.share:
+                Intent shareintent = new Intent(Intent.ACTION_SEND);
+                shareintent.setType(context.getString(R.string.mimetype_text));
+
+                if(currentContent != null)
+                {
+                    shareintent.putExtra(Intent.EXTRA_SUBJECT, currentContent.getBookTitle() + " : " + currentContent.getTitle());
+                    shareintent.putExtra(Intent.EXTRA_TEXT, currentContent.getUrl().toString() + "\n\n " + context.getString(R.string.shared_via));
+
+                    Intent chooser = Intent.createChooser(shareintent, context.getString(R.string.tell_friend) + " "+ currentContent.getBookTitle());
+                    context.startActivity(chooser);
+                }
+                else
+                {
+                    Toast.makeText(context, context.getString(R.string.no_data_msg),  Toast.LENGTH_LONG).show();
+                }
                 return true;
             default:
                 return false;
