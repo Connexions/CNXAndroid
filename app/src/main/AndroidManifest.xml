@@ -23,13 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ViewLensesActivity" android:label="@string/app_name" />
-        <activity android:name=".activity.ViewLensActivity" android:label="@string/app_name" android:theme="@style/Theme.LensWindow"/>
         <activity android:name=".activity.WebViewActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|screenSize|orientation" />
         <activity android:name=".activity.FileBrowserActivity" android:label="@string/app_name" android:theme="@style/Theme.FavsWindow"/>
         <activity android:name=".activity.ViewFavsActivity" android:label="@string/app_name" android:theme="@style/Theme.LensWindow"/>
-        <activity android:name=".activity.EndorsedLensesActivity" android:label="@string/app_name" android:theme="@style/Theme.FavsWindow"/>
-        <activity android:name=".activity.AffiliatedLensesActivity" android:label="@string/app_name" android:theme="@style/Theme.FavsWindow"/>
         <activity android:name=".activity.NoteEditorActivity" android:label="@string/app_name" android:theme="@style/Theme.FavsWindow"/>
         <service android:name=".service.DownloadService"/>
     </application> 

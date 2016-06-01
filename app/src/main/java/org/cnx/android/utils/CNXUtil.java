@@ -102,9 +102,9 @@ public class CNXUtil
         hm1.put(c.getString(R.string.nav_icon), Integer.toString(R.drawable.ic_search_black_24dp));
         hm1.put(c.getString(R.string.nav_item),items[0]);
 
-        HashMap<String,String> hm2 = new HashMap<>();
-        hm2.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_view_list_black_24dp));
-        hm2.put(c.getString(R.string.nav_item),items[1]);
+//        HashMap<String,String> hm2 = new HashMap<>();
+//        hm2.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_view_list_black_24dp));
+//        hm2.put(c.getString(R.string.nav_item),items[1]);
 
         HashMap<String,String> hm3 = new HashMap<>();
         hm3.put(c.getString(R.string.nav_icon),Integer.toString(R.drawable.ic_star_black_24dp));
@@ -117,7 +117,7 @@ public class CNXUtil
         navTitles = new ArrayList<>();
 
         navTitles.add(hm1);
-        navTitles.add(hm2);
+        //navTitles.add(hm2);
         navTitles.add(hm3);
         navTitles.add(hm4);
 

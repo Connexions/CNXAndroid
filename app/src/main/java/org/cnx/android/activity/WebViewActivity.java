@@ -168,7 +168,7 @@ public class WebViewActivity extends Activity
 
         try
         {
-            if(!content.getUrl().toString().contains("?bookmark=1"))
+            if(!content.getUrl().toString().contains("?bookmark=1") || content.getUrl().toString().contains("/search"))
             {
 
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
@@ -263,7 +263,17 @@ public class WebViewActivity extends Activity
 
         menu.clear();
         inflater.inflate(R.menu.web_options_menu, menu);
-        previousMenu = WEB_MENU;
+        if(content.getUrl().toString().contains("/search"))
+        {
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(false);
+            menu.getItem(4).setVisible(false);
+        }
+//        else
+//        {
+//
+//        }
+        //previousMenu = WEB_MENU;
 
         return true;
     }
@@ -352,7 +362,7 @@ public class WebViewActivity extends Activity
     protected void onResume() 
     {
         super.onResume();
-        if(content.getIcon() != null)
+        if((content.getIcon() != null && !content.getIcon().equals(""))  && !content.getUrl().toString().contains("/search"))
         {
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
             String url = sharedPref.getString(content.getIcon(), "");

@@ -49,21 +49,21 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener
                 drawerLayout.closeDrawers();
                 break;
 
-            case 1:
-                Intent lensesIntent = new Intent(context, ViewLensesActivity.class);
-                lensesIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                context.startActivity(lensesIntent);
-                drawerLayout.closeDrawers();
-                break;
+//            case 1:
+//                Intent lensesIntent = new Intent(context, ViewLensesActivity.class);
+//                lensesIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//                context.startActivity(lensesIntent);
+//                drawerLayout.closeDrawers();
+//                break;
 
-            case 2:
+            case 1:
                 Intent favsIntent = new Intent(context, ViewFavsActivity.class);
                 //favsIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 context.startActivity(favsIntent);
                 drawerLayout.closeDrawers();
                 break;
 
-            case 3:
+            case 2:
                 Intent fileIntent = new Intent(context, FileBrowserActivity.class);
                 //fileIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 context.startActivity(fileIntent);

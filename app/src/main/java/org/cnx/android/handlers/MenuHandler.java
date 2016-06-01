@@ -86,6 +86,8 @@ public class MenuHandler
                     Intent iweb = new Intent(context, WebViewActivity.class);
                     currentContent.setBookURL("https://cnx.org/search?minimal=true");
                     currentContent.setUrl(new URL("https://cnx.org/search?minimal=true"));
+                    currentContent.setBookTitle("Search");
+                    currentContent.setIcon("");
                     iweb.putExtra(context.getString(R.string.webcontent), currentContent);
                     context.startActivity(iweb);
                 }
