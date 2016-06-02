@@ -16,7 +16,6 @@ import android.widget.ListView;
 import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
 import org.cnx.android.activity.ViewFavsActivity;
-import org.cnx.android.activity.ViewLensesActivity;
 
 /**
  * Created by ew2 on 11/18/15.
