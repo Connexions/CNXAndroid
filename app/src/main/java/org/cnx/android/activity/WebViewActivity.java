@@ -27,14 +27,11 @@ import org.cnx.android.listeners.DrawerItemClickListener;
 import org.cnx.android.utils.CNXUtil;
 import org.cnx.android.utils.Constants;
 import org.cnx.android.views.ObservableWebView;
-import org.cnx.android.views.ObservableWebView.OnScrollChangedCallback;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
-import android.os.Bundle; 
+import android.os.Bundle;
 import android.util.Log;
-import android.view.View.OnClickListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -67,16 +64,6 @@ public class WebViewActivity extends Activity
     List<String> bookList = Arrays.asList(oscBooks);
     SharedPreferences sharedPref;
     
-    /**
-     * Progress bar when page is loading
-     */
-    //private ProgressDialog progressBar;
-    
-    /**
-     * keeps track of the previous menu for when the back button is used.
-     */
-    private String previousMenu =  "";
-    
     /** inner class for WebViewClient*/
     private WebViewClient webViewClient = new WebViewClient() {
         @Override
@@ -101,6 +88,7 @@ public class WebViewActivity extends Activity
             try
             {
                 content.setUrl(new URL(url));
+
                 
             }
             catch (MalformedURLException e)
@@ -138,7 +126,7 @@ public class WebViewActivity extends Activity
             
             setProgressBarIndeterminateVisibility(false);
             progressBarRunning = false;
-            Log.d("WebViewC.onPageFinished", "setSupportProgressBarIndeterminateVisibility(false) Called");
+            //Log.d("WebViewC.onPageFinished", "setSupportProgressBarIndeterminateVisibility(false) Called");
             yPosition = 0f;
 
         }
@@ -171,8 +159,9 @@ public class WebViewActivity extends Activity
             if(!content.getUrl().toString().contains("?bookmark=1") || content.getUrl().toString().contains("/search"))
             {
 
-                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
-                String url = sharedPref.getString(content.getIcon(), "");
+                //SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+                //String url = sharedPref.getString(content.getIcon(), "");
+                String url = content.getUrl().toString();
 
                 if(!url.equals(""))
                 {
@@ -247,7 +236,7 @@ public class WebViewActivity extends Activity
             ed.apply();
         }
     }
-    
+
     /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      * Creates option menu
@@ -263,17 +252,7 @@ public class WebViewActivity extends Activity
 
         menu.clear();
         inflater.inflate(R.menu.web_options_menu, menu);
-        if(content.getUrl().toString().contains("/search"))
-        {
-            menu.getItem(0).setVisible(false);
-            menu.getItem(1).setVisible(false);
-            menu.getItem(4).setVisible(false);
-        }
-//        else
-//        {
-//
-//        }
-        //previousMenu = WEB_MENU;
+        //Log.d("WebViewActivity","url: " + content.getUrl().toString());
 
         return true;
     }
@@ -315,6 +294,7 @@ public class WebViewActivity extends Activity
 
                 content.setTitle(webView.getTitle().replace(" - " + content.getBookTitle() + " - OpenStax CNX",""));
                 content.setUrl(new URL(webView.getUrl()));
+                content.setBookTitle(getBookTitle());
 
             }
             catch(MalformedURLException mue)
@@ -362,24 +342,24 @@ public class WebViewActivity extends Activity
     protected void onResume() 
     {
         super.onResume();
-        if((content.getIcon() != null && !content.getIcon().equals(""))  && !content.getUrl().toString().contains("/search"))
-        {
-            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
-            String url = sharedPref.getString(content.getIcon(), "");
-            //Log.d("WebViewActivity.onResume()","URL retrieved: " + url);
-            if(!url.equals(""))
-            {
-                url = convertURL(url);
-                try
-                {
-                    content.setUrl(new URL(url));
-                }
-                catch(MalformedURLException mue)
-                {
-                    Log.e("WViewActivity.onResume", mue.toString());
-                }
-            }
-        }
+//        if((content.getIcon() != null && !content.getIcon().equals(""))  && !content.getUrl().toString().contains("/search"))
+//        {
+//            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+//            String url = sharedPref.getString(content.getIcon(), "");
+//            //Log.d("WebViewActivity.onResume()","URL retrieved: " + url);
+//            if(!url.equals(""))
+//            {
+//                url = convertURL(url);
+//                try
+//                {
+//                    content.setUrl(new URL(url));
+//                }
+//                catch(MalformedURLException mue)
+//                {
+//                    Log.e("WViewActivity.onResume", mue.toString());
+//                }
+//            }
+//        }
 
     }
 
@@ -387,15 +367,15 @@ public class WebViewActivity extends Activity
     protected void onPause()
     {
         super.onPause();
-        if(content.getIcon() != null)
-        {
-            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
-            SharedPreferences.Editor ed = sharedPref.edit();
-            //Log.d("WVA.onPause()","URL saved: " + content.getUrl().toString());
-            String url = webView.getUrl().replace("?bookmark=1", "");
-            ed.putString(content.getIcon(), url);
-            ed.apply();
-        }
+//        if(content.getIcon() != null)
+//        {
+//            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+//            SharedPreferences.Editor ed = sharedPref.edit();
+//            //Log.d("WVA.onPause()","URL saved: " + content.getUrl().toString());
+//            String url = webView.getUrl().replace("?bookmark=1", "");
+//            ed.putString(content.getIcon(), url);
+//            ed.apply();
+//        }
     }
 
     
@@ -405,14 +385,14 @@ public class WebViewActivity extends Activity
         super.onSaveInstanceState(outState);
         //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
         outState.putSerializable(getString(R.string.webcontent),content);
-        if(content.getIcon() != null)
-        {
-            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
-            SharedPreferences.Editor ed = sharedPref.edit();
-            String url = webView.getUrl().replace("?bookmark=1", "");
-            ed.putString(content.getIcon(), url);
-            ed.apply();
-        }
+//        if(content.getIcon() != null)
+//        {
+//            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+//            SharedPreferences.Editor ed = sharedPref.edit();
+//            String url = webView.getUrl().replace("?bookmark=1", "");
+//            ed.putString(content.getIcon(), url);
+//            ed.apply();
+//        }
         
     }
     
@@ -430,7 +410,8 @@ public class WebViewActivity extends Activity
         webView.getSettings().setDefaultFontSize(17);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
+        webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
+        webView.getSettings().setDomStorageEnabled(true);
 
         webView.setWebChromeClient(new WebChromeClient() 
         {
@@ -473,52 +454,6 @@ public class WebViewActivity extends Activity
     }
 
 
-    
-    private void hideToolbar()
-    {
-    	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
-        int visibility = relLayout.getVisibility();
-        if(visibility == View.VISIBLE)
-        {
-            relLayout.setVisibility(View.GONE);
-        }
-    }
-    
-//    private void showToolbar()
-//    {
-//    	RelativeLayout relLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
-//        int visibility = relLayout.getVisibility();
-//
-//        if(url.contains("/content/"))
-//        {
-//            return url.replace("//m.","//");
-//        }
-//        else
-//        {
-//            return url;
-//        }
-//    }
-
-    private boolean isOSCBook(String url)
-    {
-        boolean isOSC = false;
-        if(url.contains("content/m"))
-        {
-            return isOSC;
-        }
-
-        for(int i = 0; i < bookList.size(); i++)
-        {
-            if(url.contains("content/" + bookList.get(i)))
-            {
-                isOSC = true;
-                break;
-            }
-        }
-
-        return isOSC;
-    }
-
     private String convertURL(String url)
     {
 
@@ -531,5 +466,21 @@ public class WebViewActivity extends Activity
             return url;
         }
     }
-    
+
+    private String getBookTitle()
+    {
+        String title = webView.getTitle();
+        int index1 = title.indexOf(" - ");
+        int index2 = title.indexOf(" - ", index1 + 3);
+        Log.d("WebViewActivity","1: " + index1 + " 2: " + index2);
+        if(index2 == -1)
+        {
+            return title.substring(0,index1);
+        }
+        else
+        {
+
+            return title.substring(index1 + 3, index2);
+        }
+    }
 }

@@ -131,29 +131,81 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
             {
                 viewHolder.logo.setImageResource(R.drawable.ap_micro);
             }
-        }
-        else
-        {
-            if(content.url.toString().contains("lenses"))
+            else if(content.getIcon().equals("Business Fundamentals"))
             {
-                viewHolder.logo.setImageResource(R.drawable.lenses);
+                viewHolder.logo.setImageResource(R.drawable.bus_fundamentals);
             }
-            else if(content.url.toString().contains("content/m"))
+            else if(content.getIcon().equals("Fundamentals of Electrical Engineering"))
             {
-                viewHolder.logo.setImageResource(R.drawable.modules);
+                viewHolder.logo.setImageResource(R.drawable.elec_engineering);
             }
-            else if(content.url.toString().contains("content/col"))
+            else if(content.getIcon().equals("Elementary Algebra"))
             {
-                viewHolder.logo.setImageResource(R.drawable.collections);
+                viewHolder.logo.setImageResource(R.drawable.elem_algebra);
             }
-            else if(content.url.toString().contains("google.com") || content.url.toString().contains("legacy.cnx.org/content/search"))
+            else if(content.getIcon().equals("Advanced Algebra II"))
             {
-                viewHolder.logo.setImageResource(R.drawable.search_selected);
+                viewHolder.logo.setImageResource(R.drawable.advanced_algebra);
+            }
+            else if(content.getIcon().equals("Applied Probability"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.applied_probability);
+            }
+            else if(content.getIcon().equals("Fast Fourier Transforms"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.fast_fourier);
+            }
+            else if(content.getIcon().equals("First Course in Electrical Engineering"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.first_course);
+            }
+            else if(content.getIcon().equals("Flowering Light"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.flowering_light);
+            }
+            else if(content.getIcon().equals("Houston Reflections"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.houston_reflections);
+            }
+            else if(content.getIcon().equals("Images of Memorable Cases"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.memorable_cases);
+            }
+            else if(content.getIcon().equals("Understanding Basic Music Theory"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.music_theory);
+            }
+            else if(content.getIcon().equals("Programming Fundamentals"))
+            {
+                viewHolder.logo.setImageResource(R.drawable.programming_fundamentals);
             }
             else
             {
-                viewHolder.logo.setImageResource(R.drawable.lenses);
+                viewHolder.logo.setImageResource(R.drawable.ic_book_black_48dp);
             }
+        }
+        else
+        {
+//            if(content.url.toString().contains("lenses"))
+//            {
+//                viewHolder.logo.setImageResource(R.drawable.lenses);
+//            }
+//            else if(content.url.toString().contains("content/m"))
+//            {
+//                viewHolder.logo.setImageResource(R.drawable.modules);
+//            }
+//            else if(content.url.toString().contains("content/col"))
+//            {
+//                viewHolder.logo.setImageResource(R.drawable.collections);
+//            }
+//            else if(content.url.toString().contains("google.com") || content.url.toString().contains("legacy.cnx.org/content/search"))
+//            {
+//                viewHolder.logo.setImageResource(R.drawable.search_selected);
+//            }
+//            else
+//            {
+                viewHolder.logo.setImageResource(R.drawable.ic_book_black_48dp);
+            //}
         }
 
     }
