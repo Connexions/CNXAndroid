@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.cnx.android.R;
 import org.cnx.android.activity.WebViewActivity;
@@ -223,6 +224,7 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
         context.getContentResolver().delete(Favs.CONTENT_URI, "_id="+ currentContent.getId(), null);
         contentList.remove(position);
         notifyItemRemoved(position);
+        Toast.makeText(context, "Bookmark deleted for " + currentContent.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

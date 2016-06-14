@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="nav_list">
-        <item>Search/Featured Textbooks</item>
-        <item>Discover</item>
+        <item>Featured Textbooks</item>
         <item>Favorites</item>
-        <item>Downloaded Files</item>
-        <item>Help</item>
+        <item>Search</item>
     </string-array>
 </resources>

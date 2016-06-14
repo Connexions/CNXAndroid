@@ -78,20 +78,8 @@ public class MenuHandler
                 context.startActivity(intent);
                 return true;
             case R.id.search:
-                try
-                {
-                    Intent iweb = new Intent(context, WebViewActivity.class);
-                    currentContent.setBookURL("https://cnx.org/search?minimal=true");
-                    currentContent.setUrl(new URL("https://cnx.org/search?minimal=true"));
-                    currentContent.setBookTitle("Search");
-                    currentContent.setIcon("");
-                    iweb.putExtra(context.getString(R.string.webcontent), currentContent);
-                    context.startActivity(iweb);
-                }
-                catch(Exception e)
-                {
-                    e.printStackTrace();
-                }
+//
+                handleSearch(context);
                 return true;
 
             case R.id.viewFile:
@@ -202,6 +190,25 @@ public class MenuHandler
         alertDialog.show();
     }
 
+    public void handleSearch(Context context)
+    {
+        try
+        {
+            Intent iweb = new Intent(context, WebViewActivity.class);
+            Content currentContent = new Content();
+            currentContent.setBookURL("https://cnx.org/search?minimal=true");
+            currentContent.setUrl(new URL("https://cnx.org/search?minimal=true"));
+            currentContent.setBookTitle("Search");
+            currentContent.setIcon("");
+            iweb.putExtra(context.getString(R.string.webcontent), currentContent);
+            context.startActivity(iweb);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     private void displayLicensesAlert(Context context)
     {
         WebView view = (WebView) LayoutInflater.from(context).inflate(R.layout.license_dialog, null);
@@ -222,4 +229,5 @@ public class MenuHandler
         }
         return false;
     }
+
 }

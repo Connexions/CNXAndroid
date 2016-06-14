@@ -60,8 +60,8 @@ public class WebViewActivity extends Activity
     String[] from = { "nav_icon","nav_item"};
     int[] to = { R.id.nav_icon , R.id.nav_item};
 
-    String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562","col11667","col11740","col11629","col11758","col11759","col11760","col11844","col11762","col11858","col11864"};
-    List<String> bookList = Arrays.asList(oscBooks);
+    //String[] oscBooks = new String[]{"col11406","col11407","col11448","col11487","col11613","col11627","col11626","col11496","col11562","col11667","col11740","col11629","col11758","col11759","col11760","col11844","col11762","col11858","col11864"};
+    //List<String> bookList = Arrays.asList(oscBooks);
     SharedPreferences sharedPref;
     
     /** inner class for WebViewClient*/
@@ -115,8 +115,18 @@ public class WebViewActivity extends Activity
             }
             try
             {
-                //content.setUrl(new URL(url));
-                content.setUrl(new URL(view.getUrl()));
+                String currentURL = view.getUrl();
+                content.setUrl(new URL(currentURL));
+                int cIndex = currentURL.lastIndexOf(":");
+                if(cIndex > 5)
+                {
+                    content.setBookURL(currentURL.substring(0,cIndex));
+
+                }
+                else
+                {
+                    content.setBookURL(content.getUrl().toString().replace("?bookmark=1",""));
+                }
 
             }
             catch (MalformedURLException e)
@@ -291,8 +301,16 @@ public class WebViewActivity extends Activity
     	{
             try
             {
-
-                content.setTitle(webView.getTitle().replace(" - " + content.getBookTitle() + " - OpenStax CNX",""));
+                int first = webView.getTitle().indexOf(" - ");
+                int second = webView.getTitle().indexOf(" - ", first + 3);
+                if(second > -1)
+                {
+                    content.setTitle(webView.getTitle().replace(" - " + content.getBookTitle() + " - OpenStax CNX", ""));
+                }
+                else
+                {
+                    content.setTitle(webView.getTitle().replace(" - OpenStax CNX", ""));
+                }
                 content.setUrl(new URL(webView.getUrl()));
                 content.setBookTitle(getBookTitle());
 
@@ -444,7 +462,7 @@ public class WebViewActivity extends Activity
         {
             newURL.append(Constants.MOBILE_CNX_URL);
             newURL.append(url.substring(startIndex));
-            Log.d("WebViewActivity","URL = " + newURL.toString());
+            //Log.d("WebViewActivity","URL = " + newURL.toString());
             return newURL.toString();
         }
         else
@@ -472,7 +490,7 @@ public class WebViewActivity extends Activity
         String title = webView.getTitle();
         int index1 = title.indexOf(" - ");
         int index2 = title.indexOf(" - ", index1 + 3);
-        Log.d("WebViewActivity","1: " + index1 + " 2: " + index2);
+        //Log.d("WebViewActivity","1: " + index1 + " 2: " + index2);
         if(index2 == -1)
         {
             return title.substring(0,index1);

@@ -16,6 +16,7 @@ import android.widget.ListView;
 import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
 import org.cnx.android.activity.ViewFavsActivity;
+import org.cnx.android.handlers.MenuHandler;
 
 /**
  * Created by ew2 on 11/18/15.
@@ -63,9 +64,10 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener
                 break;
 
             case 2:
-                Intent fileIntent = new Intent(context, FileBrowserActivity.class);
-                //fileIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                context.startActivity(fileIntent);
+//                Intent fileIntent = new Intent(context, FileBrowserActivity.class);
+//                //fileIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//                context.startActivity(fileIntent);
+                new MenuHandler().handleSearch(context);
                 drawerLayout.closeDrawers();
                 break;
         }
