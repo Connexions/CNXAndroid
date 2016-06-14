@@ -82,10 +82,10 @@ public class MenuHandler
                 handleSearch(context);
                 return true;
 
-            case R.id.viewFile:
-                Intent viewIntent = new Intent(context, FileBrowserActivity.class);
-                context.startActivity(viewIntent);
-                return true;
+//            case R.id.viewFile:
+//                Intent viewIntent = new Intent(context, FileBrowserActivity.class);
+//                context.startActivity(viewIntent);
+//                return true;
             case R.id.home:
                 Intent homeIntent = new Intent(context, LandingActivity.class);
                 context.startActivity(homeIntent);

@@ -92,7 +92,7 @@ public class ViewFavsActivity extends Activity
       public boolean onCreateOptionsMenu(Menu menu)
       {
           
-          getMenuInflater().inflate(R.menu.lenses_options_menu, menu);
+          getMenuInflater().inflate(R.menu.favs_options_menu, menu);
           return true;
           
       }

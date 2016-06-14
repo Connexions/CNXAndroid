@@ -64,11 +64,7 @@
      <style name="FavsWindowTitleBackground">
            <item name="android:background">@drawable/lenses_window_title_background</item>
      </style>
-     <style name="Animations" />
-     <style name="Animations.GrowFromBottom">
-    <item name="@android:windowEnterAnimation">@anim/grow_from_bottom</item>
-    <item name="@android:windowExitAnimation">@anim/shrink_from_top</item>
-  </style>
+
   <style name="Widget.CNXAndroidTheme.ActionBar" parent="android:Widget.ActionBar">
         <item name="android:background">@drawable/lenses_window_title_background</item>
         <item name="android:icon">@android:color/transparent</item>
