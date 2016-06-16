@@ -41,7 +41,6 @@ public class GridFragment extends Fragment
 
     OnBookSelectedListener bookListener;
 
-    // Container Activity must implement this interface
     public interface OnBookSelectedListener
     {
         void onBookSelected(Content content);
