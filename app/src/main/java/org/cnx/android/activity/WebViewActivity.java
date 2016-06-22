@@ -193,7 +193,7 @@ public class WebViewActivity extends Activity
             {
                 //remove bookmark parameter
                 String newURL = content.getUrl().toString().replace("?bookmark=1","");
-                content.setUrl(new URL(newURL));
+                content.setUrl(new URL(convertURL(newURL)));
 
             }
         }
@@ -304,6 +304,7 @@ public class WebViewActivity extends Activity
     	{
             try
             {
+                content.setBookTitle(getBookTitle());
                 int first = webView.getTitle().indexOf(" - ");
                 int second = webView.getTitle().indexOf(" - ", first + 3);
                 if(second > -1)
@@ -315,7 +316,6 @@ public class WebViewActivity extends Activity
                     content.setTitle(webView.getTitle().replace(" - OpenStax CNX", ""));
                 }
                 content.setUrl(new URL(webView.getUrl()));
-                content.setBookTitle(getBookTitle());
 
             }
             catch(MalformedURLException mue)
