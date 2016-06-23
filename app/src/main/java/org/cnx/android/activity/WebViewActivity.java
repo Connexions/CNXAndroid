@@ -118,16 +118,6 @@ public class WebViewActivity extends Activity
                 WebviewLogic wl = new WebviewLogic();
                 String bookURL = wl.getBookURL(currentURL);
                 content.setBookURL(bookURL);
-//                int cIndex = currentURL.lastIndexOf(":");
-//                if(cIndex > 5)
-//                {
-//                    content.setBookURL(currentURL.substring(0,cIndex));
-//
-//                }
-//                else
-//                {
-//                    content.setBookURL(content.getUrl().toString().replace("?bookmark=1",""));
-//                }
 
             }
             catch (MalformedURLException e)
@@ -174,19 +164,20 @@ public class WebViewActivity extends Activity
                 WebviewLogic wl = new WebviewLogic();
                 String bookURL = wl.getBookURL(content.getUrl().toString());
                 String url = sharedPref.getString(bookURL, "");
-                //String url = content.getUrl().toString();
 
-                if(!url.equals(""))
+                try
                 {
-                    url = convertURL(url);
-                    try
+                    if(url.equals(""))
                     {
-                        content.setUrl(new URL(url));
+                        url = content.getUrl().toString();
+
                     }
-                    catch(MalformedURLException mue)
-                    {
-                        Log.e("WViewActivity.onResume", mue.toString());
-                    }
+
+                    content.setUrl(new URL(convertURL(url)));
+                }
+                catch(MalformedURLException mue)
+                {
+                    Log.e("WViewActivity.onResume", mue.toString());
                 }
             }
             else
@@ -483,15 +474,17 @@ public class WebViewActivity extends Activity
 
     private String convertURL(String url)
     {
+        String temp;
 
         if(url.contains("/content/"))
         {
-            return url.replace("//m.","//");
+            temp = url.replace("//m.","//");
         }
         else
         {
-            return url;
+            temp = url;
         }
+        return temp;
     }
 
     private String getBookTitle()
