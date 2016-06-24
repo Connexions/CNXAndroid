@@ -25,7 +25,6 @@ import org.cnx.android.handlers.MenuHandler;
 import org.cnx.android.listeners.DrawerItemClickListener;
 import org.cnx.android.logic.WebviewLogic;
 import org.cnx.android.utils.CNXUtil;
-import org.cnx.android.utils.Constants;
 import org.cnx.android.views.ObservableWebView;
 
 import android.content.Intent;
@@ -49,11 +48,9 @@ public class WebViewActivity extends Activity
     private ObservableWebView webView;
     /** Variable for serialized Content object */
     private Content content;
-    /** Constant for serialized object passed to Activity */
-    public static final String WEB_MENU = "web";
 
-    private float yPosition = 0f;
-    
+    private WebviewLogic webviewLogic = new WebviewLogic();
+
     private boolean progressBarRunning;
 
     private ActionBarDrawerToggle drawerToggle;
@@ -63,7 +60,8 @@ public class WebViewActivity extends Activity
     SharedPreferences sharedPref;
     
     /** inner class for WebViewClient*/
-    private WebViewClient webViewClient = new WebViewClient() {
+    private WebViewClient webViewClient = new WebViewClient()
+    {
         @Override
         public void onLoadResource(WebView view, String url) 
         {
@@ -111,24 +109,12 @@ public class WebViewActivity extends Activity
                 url = url + "?minimal=true";
                 view.loadUrl(url);
             }
-            try
-            {
-                String currentURL = view.getUrl();
-                content.setUrl(new URL(currentURL));
-                WebviewLogic wl = new WebviewLogic();
-                String bookURL = wl.getBookURL(currentURL);
-                content.setBookURL(bookURL);
 
-            }
-            catch (MalformedURLException e)
-            {
-                Log.d("WebVA.onPageFinished()", "Error: " + e.toString(),e);
-            }
-            
+            webviewLogic.setContentURLs(view.getUrl(), content);
+
             setProgressBarIndeterminateVisibility(false);
             progressBarRunning = false;
             //Log.d("WebViewC.onPageFinished", "setSupportProgressBarIndeterminateVisibility(false) Called");
-            yPosition = 0f;
 
         }
 
@@ -161,8 +147,7 @@ public class WebViewActivity extends Activity
             {
 
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
-                WebviewLogic wl = new WebviewLogic();
-                String bookURL = wl.getBookURL(content.getUrl().toString());
+                String bookURL = webviewLogic.getBookURL(content.getUrl().toString());
                 String url = sharedPref.getString(bookURL, "");
 
                 try
@@ -172,8 +157,7 @@ public class WebViewActivity extends Activity
                         url = content.getUrl().toString();
 
                     }
-
-                    content.setUrl(new URL(convertURL(url)));
+                    content.setUrl(new URL(webviewLogic.convertURL(url)));
                 }
                 catch(MalformedURLException mue)
                 {
@@ -184,7 +168,7 @@ public class WebViewActivity extends Activity
             {
                 //remove bookmark parameter
                 String newURL = content.getUrl().toString().replace("?bookmark=1","");
-                content.setUrl(new URL(convertURL(newURL)));
+                content.setUrl(new URL(webviewLogic.convertURL(newURL)));
 
             }
         }
@@ -293,26 +277,21 @@ public class WebViewActivity extends Activity
         }
     	else
     	{
-            try
+            content.setBookTitle(webviewLogic.getBookTitle(webView.getTitle()));
+            int first = webView.getTitle().indexOf(" - ");
+            int second = webView.getTitle().indexOf(" - ", first + 3);
+            if(second > -1)
             {
-                content.setBookTitle(getBookTitle());
-                int first = webView.getTitle().indexOf(" - ");
-                int second = webView.getTitle().indexOf(" - ", first + 3);
-                if(second > -1)
-                {
-                    content.setTitle(webView.getTitle().replace(" - " + content.getBookTitle() + " - OpenStax CNX", ""));
-                }
-                else
-                {
-                    content.setTitle(webView.getTitle().replace(" - OpenStax CNX", ""));
-                }
-                content.setUrl(new URL(webView.getUrl()));
-
+                content.setTitle(webView.getTitle().replace(" - " + content.getBookTitle() + " - OpenStax CNX", ""));
             }
-            catch(MalformedURLException mue)
+            else
             {
-
+                content.setTitle(webView.getTitle().replace(" - OpenStax CNX", ""));
             }
+            webviewLogic.setContentURLs(webView.getUrl(), content);
+            //Log.d("optionSelected","url - " + content.getBookURL());
+
+
 	        MenuHandler mh = new MenuHandler();
 	        return mh.handleContextMenu(item, this, content);
 
@@ -359,11 +338,12 @@ public class WebViewActivity extends Activity
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
             WebviewLogic wl = new WebviewLogic();
             String bookURL = wl.getBookURL(content.getUrl().toString());
+            //Log.d("onResume", "BookURL - " + bookURL);
             String url = sharedPref.getString(bookURL, "");
             //Log.d("WebViewActivity.onResume()","URL retrieved: " + url);
             if(!url.equals(""))
             {
-                url = convertURL(url);
+                url = webviewLogic.convertURL(url);
                 try
                 {
                     content.setUrl(new URL(url));
@@ -387,6 +367,7 @@ public class WebViewActivity extends Activity
             SharedPreferences.Editor ed = sharedPref.edit();
             WebviewLogic wl = new WebviewLogic();
             String bookURL = wl.getBookURL(content.getUrl().toString());
+            //Log.d("onPause", "BookURL - " + bookURL);
             //Log.d("WVA.onPause()","URL saved: " + content.getUrl().toString());
             String url = webView.getUrl().replace("?bookmark=1", "");
             ed.putString(bookURL, url);
@@ -407,6 +388,7 @@ public class WebViewActivity extends Activity
             SharedPreferences.Editor ed = sharedPref.edit();
             WebviewLogic wl = new WebviewLogic();
             String bookURL = wl.getBookURL(content.getUrl().toString());
+            //Log.d("SIS", "BookURL - " + bookURL);
             String url = webView.getUrl().replace("?bookmark=1", "");
             ed.putString(bookURL, url);
             ed.apply();
@@ -438,69 +420,5 @@ public class WebViewActivity extends Activity
         
         webView.setWebViewClient(webViewClient);
         webView.loadUrl(content.url.toString());
-    }
-    
-    
-    
-    /**
-     * Replace cnx.org with mobile.cnx.org
-     * @param url String - the URL to fix
-     * @return String - either the original URL or the modified URL 
-     */
-    protected String fixURL(String url)
-    {
-        //Log.d("WebView.fixURL()", "url: " + url);
-        StringBuilder newURL = new StringBuilder();
-        int index = url.indexOf(getString(R.string.lenses_fake_url));
-        int startIndex = 14;
-        if(index == -1)
-        {
-            index = url.indexOf(getString(R.string.mobile_url));
-            startIndex = 16;
-        }
-        if(index > -1)
-        {
-            newURL.append(Constants.MOBILE_CNX_URL);
-            newURL.append(url.substring(startIndex));
-            //Log.d("WebViewActivity","URL = " + newURL.toString());
-            return newURL.toString();
-        }
-        else
-        {
-            return url;
-        }
-    }
-
-
-    private String convertURL(String url)
-    {
-        String temp;
-
-        if(url.contains("/content/"))
-        {
-            temp = url.replace("//m.","//");
-        }
-        else
-        {
-            temp = url;
-        }
-        return temp;
-    }
-
-    private String getBookTitle()
-    {
-        String title = webView.getTitle();
-        int index1 = title.indexOf(" - ");
-        int index2 = title.indexOf(" - ", index1 + 3);
-        //Log.d("WebViewActivity","1: " + index1 + " 2: " + index2);
-        if(index2 == -1)
-        {
-            return title.substring(0,index1);
-        }
-        else
-        {
-
-            return title.substring(index1 + 3, index2);
-        }
     }
 }
