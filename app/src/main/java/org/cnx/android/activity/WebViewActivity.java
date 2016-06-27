@@ -104,6 +104,10 @@ public class WebViewActivity extends Activity
             //Log.d("WebViewC.onPageFinished", "title: " + view.getTitle());
             //Log.d("WebViewC.onPageFinished", "url: " + url);
             content.setTitle(view.getTitle());
+            if(content.getBookTitle() == null || (!content.getTitle().contains(content.getBookTitle())))
+            {
+                content.setBookTitle(webviewLogic.getBookTitle(content.getTitle()));
+            }
             if(!url.contains("?minimal=true"))
             {
                 url = url + "?minimal=true";

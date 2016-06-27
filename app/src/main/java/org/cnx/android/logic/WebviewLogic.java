@@ -53,16 +53,23 @@ public class WebviewLogic
     {
         //String title = webView.getTitle();
         int index1 = title.indexOf(" - ");
-        int index2 = title.indexOf(" - ", index1 + 3);
-        //Log.d("WebViewActivity","1: " + index1 + " 2: " + index2);
-        if(index2 == -1)
+        if(index1 > -1)
         {
-            return title.substring(0,index1);
+            int index2 = title.indexOf(" - ", index1 + 3);
+            //Log.d("WebViewActivity","1: " + index1 + " 2: " + index2);
+            if(index2 == -1)
+            {
+                return title.substring(0, index1);
+            }
+            else
+            {
+
+                return title.substring(index1 + 3, index2);
+            }
         }
         else
         {
-
-            return title.substring(index1 + 3, index2);
+            return "";
         }
     }
 
