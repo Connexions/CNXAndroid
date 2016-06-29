@@ -202,10 +202,10 @@ public class GridFragment extends Fragment
             c12.setTitle(getString(R.string.micro_econ));
             c12.setBookTitle(getString(R.string.micro_econ));
             c12.setContentString(getString(R.string.micro_desc));
-            c12.setUrl(new URL("http://cnx.org/contents/QGHIMgmO:JgDXaOLP?minimal=true"));
+            c12.setUrl(new URL("http://cnx.org/contents/6i8iXmBj:JgDXaOLP?minimal=true"));
             c12.setIconDrawable(R.drawable.micro_econ_lg);
             c12.setIcon("micro");
-            c12.setBookURL("http://cnx.org/contents/QGHIMgmO:JgDXaOLP?minimal=true");
+            c12.setBookURL("http://cnx.org/contents/6i8iXmBj:JgDXaOLP?minimal=true");
 
             Content c8 = new Content();
             c8.setTitle(getString(R.string.precalculus));

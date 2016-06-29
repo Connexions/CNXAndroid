@@ -40,7 +40,14 @@ public class WebviewLogic
 
         if(url.contains("/content/"))
         {
-            temp = url.replace("//m.","//");
+            if(url.contains("mobile."))
+            {
+                temp = url.replace("//mobile.","//");
+            }
+            else
+            {
+                temp = url.replace("//m.", "//");
+            }
         }
         else
         {
