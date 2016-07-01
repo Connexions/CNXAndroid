@@ -17,18 +17,17 @@ public class Content implements Serializable, Comparable<Content>
     /** id for serialization */
     public static final long serialVersionUID = 1L;
     
-    /** Constructor */
-    public Content()
-    {
-        
-    }
-    
     /** URL  to retrieve content */
     public URL url;
     /** Title of content */
     public String title;
     /** icon of content.  Only used for Lenses */
     public String icon;
+
+    private String bookTitle;
+
+    private String bookURL;
+
     /**
      * String to hold lens description and keywords
      */
@@ -41,7 +40,33 @@ public class Content implements Serializable, Comparable<Content>
     private Drawable iconImage;
     
     private int iconDrawable = -1;
-       
+
+    /** Constructor */
+    public Content()
+    {
+
+    }
+
+    public String getBookTitle()
+    {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle)
+    {
+        this.bookTitle = bookTitle;
+    }
+
+    public String getBookURL()
+    {
+        return bookURL;
+    }
+
+    public void setBookURL(String bookURL)
+    {
+        this.bookURL = bookURL;
+    }
+
     public int getIconDrawable()
     {
         return iconDrawable;

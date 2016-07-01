@@ -197,7 +197,7 @@ public class NoteEditorFragment extends Fragment
             Toast.makeText(activity, getString(R.string.nothing_to_save), Toast.LENGTH_SHORT).show();
             return;
         }
-        String title = content.getTitle();//.substring(0, Math.min(30, length));
+        String title = content.getBookTitle();//.substring(0, Math.min(30, length));
         if (length > 30)
         {
             int lastSpace = title.lastIndexOf(' ');
@@ -209,14 +209,14 @@ public class NoteEditorFragment extends Fragment
         values.put(Notes.TITLE, title);
 
         values.put(Notes.NOTE, text);
-        values.put(Notes.URL, content.getUrl().toString());
+        values.put(Notes.URL, content.getBookURL());
 
         try
         {
             if (state == STATE_UPDATE)
             {
                 //Log.d("NoteEditorActivity", "updating note");
-                activity.getContentResolver().update(Notes.CONTENT_URI, values, "notes_url=?", new String[]{content.getUrl().toString()});
+                activity.getContentResolver().update(Notes.CONTENT_URI, values, "notes_url=?", new String[]{content.getBookURL()});
             }
             else
             {
@@ -234,7 +234,7 @@ public class NoteEditorFragment extends Fragment
      */
     private final void deleteNote()
     {
-        activity.getContentResolver().delete(Notes.CONTENT_URI, "notes_url=?", new String[]{content.getUrl().toString()});
+        activity.getContentResolver().delete(Notes.CONTENT_URI, "notes_url=?", new String[]{content.getBookURL()});
         editText.setText("");
         activity.finish();
     }
@@ -247,7 +247,7 @@ public class NoteEditorFragment extends Fragment
     {
         if(content != null)
         {
-            cursor = activity.getContentResolver().query(Notes.CONTENT_URI, null, "notes_url='" + content.getUrl().toString() + "'", null, null);
+            cursor = activity.getContentResolver().query(Notes.CONTENT_URI, null, "notes_url='" + content.getBookURL() + "'", null, null);
             if(cursor.getCount()>0)
             {
                 cursor.moveToNext();
@@ -283,7 +283,7 @@ public class NoteEditorFragment extends Fragment
         {
             cnxDir.mkdir();
         }
-        String fileName = MenuUtil.getTitle(content.getTitle()) + ".txt";
+        String fileName = MenuUtil.getTitle(content.getBookTitle()) + ".txt";
         File file = new File(cnxDir, fileName);
         String text = editText.getText().toString();
         PrintWriter pw = null;
@@ -294,7 +294,7 @@ public class NoteEditorFragment extends Fragment
             pw.write(text);
             pw.flush();
             //pw.close();
-            Toast.makeText(activity, fileName + " saved to OpenStaxCollege folder.", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, fileName + " saved to OpenStaxCNX folder.", Toast.LENGTH_LONG).show();
         }
         catch (FileNotFoundException e)
         {
@@ -359,11 +359,11 @@ public class NoteEditorFragment extends Fragment
 
                 if(content != null)
                 {
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "Note for " + content.getTitle());
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Note for " + content.getBookTitle());
                     String text = editText.getText().toString();
                     intent.putExtra(Intent.EXTRA_TEXT, text + "\n\n" + getString(R.string.shared_via));
 
-                    Intent chooser = Intent.createChooser(intent, getString(R.string.tell_friend) + " " + content.getTitle());
+                    Intent chooser = Intent.createChooser(intent, getString(R.string.tell_friend) + " " + content.getBookTitle());
                     startActivity(chooser);
                 }
                 else

@@ -14,6 +14,8 @@ import org.cnx.android.R;
 import org.cnx.android.activity.FileBrowserActivity;
 import org.cnx.android.activity.LandingActivity;
 import org.cnx.android.activity.NoteEditorActivity;
+import org.cnx.android.activity.ViewFavsActivity;
+import org.cnx.android.activity.WebViewActivity;
 import org.cnx.android.beans.Content;
 import org.cnx.android.providers.Favs;
 import org.cnx.android.utils.Constants;
@@ -29,6 +31,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+
+import java.net.URL;
 
 /**
  * Handler for context and other menus
@@ -55,37 +59,42 @@ public class MenuHandler
         {
             case R.id.add_to_favs:
                 ContentValues cv = new ContentValues();
-                String title;
-                if(currentContent.getUrl().toString().contains("http://mobile.cnx.org/content/search") || currentContent.getUrl().toString().contains("http://m.cnx.org/content/search"))
+
+                //Log.d("MenuHandler","title - " + currentContent.getTitle())  ;
+                cv.put(Favs.TITLE, currentContent.getTitle());
+                //Log.d("MnHndlr.handleCont...()","URL: " + currentContent.getUrl().toString());
+                String url = currentContent.getUrl().toString();
+                if(isSearch(url, context))
                 {
-                    title = MenuUtil.getSearchTitle(currentContent.getUrl().toString());
-                    cv.put(Favs.TITLE, title);
+                    return false;
                 }
-                else
-                {
-                    cv.put(Favs.TITLE, currentContent.getTitle());
-                    title = currentContent.getTitle();
-                }
-                cv.put(Favs.URL, currentContent.getUrl().toString());
+                cv.put(Favs.URL, url.replaceAll("@\\d+(\\.\\d+)?","")+ "?bookmark=1");
                 cv.put(Favs.ICON, currentContent.getIcon());
-                cv.put(Favs.OTHER, currentContent.getContentString());
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
-                Toast.makeText(context, title + " added to Favorites", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Bookmark added for " + currentContent.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.go_to_favs:
+                Intent intent = new Intent(context, ViewFavsActivity.class);
+                context.startActivity(intent);
                 return true;
             case R.id.search:
-                SearchHandler sh = new SearchHandler();
-                sh.displayPopup(context);
+//
+                handleSearch(context);
                 return true;
 
-            case R.id.viewFile:
-                Intent viewIntent = new Intent(context, FileBrowserActivity.class);
-                context.startActivity(viewIntent);
-                return true;
+//            case R.id.viewFile:
+//                Intent viewIntent = new Intent(context, FileBrowserActivity.class);
+//                context.startActivity(viewIntent);
+//                return true;
             case R.id.home:
                 Intent homeIntent = new Intent(context, LandingActivity.class);
                 context.startActivity(homeIntent);
                 return true;
-            case R.id.note:
+            case R.id.notes:
+                if(isSearch(currentContent.getUrl().toString(), context))
+                {
+                    return false;
+                }
                 //ContentCache.setObject("content", currentContent);
                 Intent noteIntent = new Intent(context, NoteEditorActivity.class);
                 noteIntent.putExtra(context.getString(R.string.content), currentContent);
@@ -93,6 +102,23 @@ public class MenuHandler
                 return true;
             case R.id.viewLicense:
                 displayLicensesAlert(context);
+                return true;
+            case R.id.share:
+                Intent shareintent = new Intent(Intent.ACTION_SEND);
+                shareintent.setType(context.getString(R.string.mimetype_text));
+
+                if(currentContent != null)
+                {
+                    shareintent.putExtra(Intent.EXTRA_SUBJECT, currentContent.getBookTitle() + " : " + currentContent.getTitle());
+                    shareintent.putExtra(Intent.EXTRA_TEXT, currentContent.getUrl().toString() + "\n\n " + context.getString(R.string.shared_via));
+
+                    Intent chooser = Intent.createChooser(shareintent, context.getString(R.string.tell_friend) + " "+ currentContent.getBookTitle());
+                    context.startActivity(chooser);
+                }
+                else
+                {
+                    Toast.makeText(context, context.getString(R.string.no_data_msg),  Toast.LENGTH_LONG).show();
+                }
                 return true;
             default:
                 return false;
@@ -164,6 +190,25 @@ public class MenuHandler
         alertDialog.show();
     }
 
+    public void handleSearch(Context context)
+    {
+        try
+        {
+            Intent iweb = new Intent(context, WebViewActivity.class);
+            Content currentContent = new Content();
+            currentContent.setBookURL("https://cnx.org/search?minimal=true");
+            currentContent.setUrl(new URL("https://cnx.org/search?minimal=true"));
+            currentContent.setBookTitle("Search");
+            currentContent.setIcon("");
+            iweb.putExtra(context.getString(R.string.webcontent), currentContent);
+            context.startActivity(iweb);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     private void displayLicensesAlert(Context context)
     {
         WebView view = (WebView) LayoutInflater.from(context).inflate(R.layout.license_dialog, null);
@@ -174,4 +219,15 @@ public class MenuHandler
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
     }
+
+    private boolean isSearch(String url, Context context)
+    {
+        if(url.contains("/search"))
+        {
+            Toast.makeText(context, "This feature is not available for searches",  Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
+    }
+
 }
