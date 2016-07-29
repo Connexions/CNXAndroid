@@ -94,5 +94,17 @@
     <string name="NAVIGATION_DRAWER_OPEN">Open navigation drawer</string>
     <string name="NAVIGATION_DRAWER_CLOSE">Close navigation drawer</string>
     <string name="cnx_package">org.cnx.android</string>
+    <string name="american_gov">American Government</string>
+    <string name="american_gov_icon">american-gov</string>
+    <string name="calculus1">Calculus Volume 1</string>
+    <string name="calculus1_icon">calculus1</string>
+    <string name="calculus2">Calculus Volume 2</string>
+    <string name="calculus2_icon">calculus2</string>
+    <string name="calculus3">Calculus Volume 3</string>
+    <string name="calculus3_icon">calculus3</string>
+    <string name="chemistry_atoms">Chemistry: Atoms First</string>
+    <string name="chemistry_atoms_icon">chemistry-atoms</string>
+    <string name="prealgebra">Prealgebra</string>
+    <string name="prealgebra_icon">prealgebra</string>
 </resources>
  
