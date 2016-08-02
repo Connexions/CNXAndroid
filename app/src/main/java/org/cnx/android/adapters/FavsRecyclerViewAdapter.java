@@ -180,6 +180,30 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
             {
                 viewHolder.logo.setImageResource(R.drawable.programming_fundamentals);
             }
+            else if(content.getIcon().equals(context.getString(R.string.american_gov_icon)))
+            {
+                viewHolder.logo.setImageResource(R.drawable.american_gov);
+            }
+            else if(content.getIcon().equals(context.getString(R.string.calculus1_icon)))
+            {
+                viewHolder.logo.setImageResource(R.drawable.calculus1);
+            }
+            else if(content.getIcon().equals(context.getString(R.string.calculus2_icon)))
+            {
+                viewHolder.logo.setImageResource(R.drawable.calculus2);
+            }
+            else if(content.getIcon().equals(context.getString(R.string.calculus3_icon)))
+            {
+                viewHolder.logo.setImageResource(R.drawable.calculus3);
+            }
+            else if(content.getIcon().equals(context.getString(R.string.chemistry_atoms_icon)))
+            {
+                viewHolder.logo.setImageResource(R.drawable.chemistry_atoms);
+            }
+            else if(content.getIcon().equals(context.getString(R.string.prealgebra_icon)))
+            {
+                viewHolder.logo.setImageResource(R.drawable.prealgebra);
+            }
             else
             {
                 viewHolder.logo.setImageResource(R.drawable.ic_book_black_48dp);
