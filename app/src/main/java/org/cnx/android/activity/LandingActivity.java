@@ -6,43 +6,31 @@
  */
 package org.cnx.android.activity;
 
-import java.util.HashMap;
-import java.util.List;
-
-import android.app.ActionBar;
-import android.app.Activity;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
-import org.cnx.android.fragments.GridFragment;
+import org.cnx.android.fragments.LandingListFragment;
 import org.cnx.android.handlers.MenuHandler;
-import org.cnx.android.listeners.DrawerItemClickListener;
-import org.cnx.android.utils.CNXUtil;
 
-import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 /**
  * Activity for Landing page
  * @author Ed Woodward
  *
  */
-public class LandingActivity extends Activity implements GridFragment.OnBookSelectedListener
+public class LandingActivity extends BaseActivity
 {
-    
-    private ActionBarDrawerToggle drawerToggle;
-    String[] from = { "nav_icon","nav_item" };
-    int[] to = { R.id.nav_icon , R.id.nav_item};
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -50,38 +38,54 @@ public class LandingActivity extends Activity implements GridFragment.OnBookSele
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_landing);
-        ActionBar aBar = this.getActionBar();
-        aBar.setTitle(Html.fromHtml("&nbsp;&nbsp;" + getString(R.string.app_name_html)));
+        setContentView(R.layout.activity_landing);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        getSupportActionBar().setTitle(Html.fromHtml(getString(R.string.app_name_html)));
 
-        List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
-        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
-        SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
+        setNavDrawer();
 
-        drawerList.setOnItemClickListener(new DrawerItemClickListener(this,drawerLayout));
+//        List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
+//        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+//        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
+//        SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
+//
+//        drawerList.setOnItemClickListener(new DrawerItemClickListener(this,drawerLayout));
+//
+//        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
+//        {
+//            public void onDrawerClosed(View view) {
+//                invalidateOptionsMenu();
+//            }
+//
+//            public void onDrawerOpened(View drawerView) {
+//                invalidateOptionsMenu();
+//            }
+//        };
+//        drawerToggle.setDrawerIndicatorEnabled(true);
+//        drawerToggle.syncState();
+//        drawerLayout.addDrawerListener(drawerToggle);
+//        //aBar.setDisplayHomeAsUpEnabled(true);
+//        //aBar.setHomeButtonEnabled(true);
+//        drawerList.setAdapter(sAdapter);
 
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
-        {
-            public void onDrawerClosed(View view) {
-                invalidateOptionsMenu();
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                invalidateOptionsMenu();
-            }
-        };
-        drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerToggle.syncState();
-        drawerLayout.setDrawerListener(drawerToggle);
-        aBar.setDisplayHomeAsUpEnabled(true);
-        aBar.setHomeButtonEnabled(true);
-        drawerList.setAdapter(sAdapter);
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        GridFragment fragment = new GridFragment();
-        transaction.replace(R.id.contentFragment, fragment);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        LandingListFragment fragment = new LandingListFragment();
+        transaction.replace(R.id.sample_content_fragment, fragment);
         transaction.commit();
+
+        final Context context = this;
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(context, WebViewActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     public void onBookSelected(Content content)

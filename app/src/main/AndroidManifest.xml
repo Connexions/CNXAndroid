@@ -16,7 +16,7 @@
         <provider android:name="org.cnx.android.providers.NotesProvider" android:authorities="org.cnx.android.providers.NotesProvider" />
         <activity android:name=".activity.LandingActivity"
                   android:label="@string/app_name"
-                  android:theme="@style/Theme.LensWindow"
+                  android:theme="@style/AppTheme.NoActionBar"
                   android:windowSoftInputMode="stateUnchanged">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -82,19 +82,19 @@ public class WebviewLogic
 
     public void setContentURLs(String currentURL, Content content)
     {
-        try
-        {
+//        try
+//        {
             //String currentURL = webView.getUrl();
-            content.setUrl(new URL(currentURL));
+            content.setUrl(currentURL);
             WebviewLogic wl = new WebviewLogic();
             String bookURL = wl.getBookURL(currentURL);
-            content.setBookURL(bookURL);
+            content.setBookUrl(bookURL);
 
-        }
-        catch (MalformedURLException e)
-        {
-            Log.d("WebVA.setContentURLs()", "Error: " + e.toString(),e);
-        }
+//        }
+//        catch (MalformedURLException e)
+//        {
+//            Log.d("WebVA.setContentURLs()", "Error: " + e.toString(),e);
+//        }
 
     }
 }

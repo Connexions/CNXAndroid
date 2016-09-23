@@ -81,16 +81,16 @@ public class WebViewActivity extends Activity
             }
 
             view.loadUrl(url);
-            try
-            {
-                content.setUrl(new URL(url));
+//            try
+//            {
+                content.setUrl(url);
 
                 
-            }
-            catch (MalformedURLException e)
-            {
-                Log.d("WV.shouldOverrideUrl()", "Error: " + e.toString(),e);
-            }
+//            }
+//            catch (MalformedURLException e)
+//            {
+//                Log.d("WV.shouldOverrideUrl()", "Error: " + e.toString(),e);
+//            }
             return true;
         }
         
@@ -145,8 +145,8 @@ public class WebViewActivity extends Activity
         content = (Content)intent.getSerializableExtra(getString(R.string.webcontent));
         Log.d("url",content.getUrl().toString());
 
-        try
-        {
+//        try
+//        {
             if(!content.getUrl().toString().contains("?bookmark=1") || content.getUrl().toString().contains("/search"))
             {
 
@@ -154,32 +154,32 @@ public class WebViewActivity extends Activity
                 String bookURL = webviewLogic.getBookURL(content.getUrl().toString());
                 String url = sharedPref.getString(bookURL, "");
 
-                try
-                {
+//                try
+//                {
                     if(url.equals(""))
                     {
                         url = content.getUrl().toString();
 
                     }
-                    content.setUrl(new URL(webviewLogic.convertURL(url)));
-                }
-                catch(MalformedURLException mue)
-                {
-                    Log.e("WViewActivity.onResume", mue.toString());
-                }
+                    content.setUrl(webviewLogic.convertURL(url));
+//                }
+//                catch(MalformedURLException mue)
+//                {
+//                    Log.e("WViewActivity.onResume", mue.toString());
+//                }
             }
             else
             {
                 //remove bookmark parameter
                 String newURL = content.getUrl().toString().replace("?bookmark=1","");
-                content.setUrl(new URL(webviewLogic.convertURL(newURL)));
+                content.setUrl(webviewLogic.convertURL(newURL));
 
             }
-        }
-        catch(MalformedURLException mue)
-        {
-            Log.e("WViewActivity.onResume", mue.toString());
-        }
+//        }
+//        catch(MalformedURLException mue)
+//        {
+//            Log.e("WViewActivity.onResume", mue.toString());
+//        }
 
         aBar.setTitle(Html.fromHtml(getString(R.string.app_name_html)));
 
@@ -348,14 +348,14 @@ public class WebViewActivity extends Activity
             if(!url.equals(""))
             {
                 url = webviewLogic.convertURL(url);
-                try
-                {
-                    content.setUrl(new URL(url));
-                }
-                catch(MalformedURLException mue)
-                {
-                    Log.e("WViewActivity.onResume", mue.toString());
-                }
+//                try
+//                {
+                    content.setUrl(url);
+//                }
+//                catch(MalformedURLException mue)
+//                {
+//                    Log.e("WViewActivity.onResume", mue.toString());
+//                }
             }
         }
 
@@ -403,7 +403,7 @@ public class WebViewActivity extends Activity
     /** sets properties on WebView and loads selected content into browser. */
     private void setUpViews() 
     {
-        if(content == null || content.url == null)
+        if(content == null || content.getUrl() == null)
         {
             return;
         }
@@ -423,6 +423,6 @@ public class WebViewActivity extends Activity
         });
         
         webView.setWebViewClient(webViewClient);
-        webView.loadUrl(content.url.toString());
+        webView.loadUrl(content.getUrl());
     }
 }

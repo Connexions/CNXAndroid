@@ -106,5 +106,23 @@
     <string name="chemistry_atoms_icon">chemistry-atoms</string>
     <string name="prealgebra">Prealgebra</string>
     <string name="prealgebra_icon">prealgebra</string>
+    <string name="physics_icon">physics</string>
+    <string name="sociology_icon">sociology2e</string>
+    <string name="biology_icon">biology</string>
+    <string name="concepts_icon">concepts</string>
+    <string name="anatomy_icon">anatomy</string>
+    <string name="statistics_icon">statistics</string>
+    <string name="econ_icon">econ</string>
+    <string name="macro_icon">macro</string>
+    <string name="micro_icon">micro</string>
+    <string name="precalculus_icon">precalculus</string>
+    <string name="psychology_icon">psychology</string>
+    <string name="history_icon">history</string>
+    <string name="chemistry_icon">chemistry</string>
+    <string name="algebra_icon">algebra</string>
+    <string name="trig_icon">trig</string>
+    <string name="ap_physics_icon">ap-physics</string>
+    <string name="ap_macro_icon">ap-macro</string>
+    <string name="ap_micro_icon">ap-micro</string>
 </resources>
  

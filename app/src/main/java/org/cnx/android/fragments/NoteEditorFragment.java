@@ -209,14 +209,14 @@ public class NoteEditorFragment extends Fragment
         values.put(Notes.TITLE, title);
 
         values.put(Notes.NOTE, text);
-        values.put(Notes.URL, content.getBookURL());
+        values.put(Notes.URL, content.getBookUrl());
 
         try
         {
             if (state == STATE_UPDATE)
             {
                 //Log.d("NoteEditorActivity", "updating note");
-                activity.getContentResolver().update(Notes.CONTENT_URI, values, "notes_url=?", new String[]{content.getBookURL()});
+                activity.getContentResolver().update(Notes.CONTENT_URI, values, "notes_url=?", new String[]{content.getBookUrl()});
             }
             else
             {
@@ -234,7 +234,7 @@ public class NoteEditorFragment extends Fragment
      */
     private final void deleteNote()
     {
-        activity.getContentResolver().delete(Notes.CONTENT_URI, "notes_url=?", new String[]{content.getBookURL()});
+        activity.getContentResolver().delete(Notes.CONTENT_URI, "notes_url=?", new String[]{content.getBookUrl()});
         editText.setText("");
         activity.finish();
     }
@@ -247,7 +247,7 @@ public class NoteEditorFragment extends Fragment
     {
         if(content != null)
         {
-            cursor = activity.getContentResolver().query(Notes.CONTENT_URI, null, "notes_url='" + content.getBookURL() + "'", null, null);
+            cursor = activity.getContentResolver().query(Notes.CONTENT_URI, null, "notes_url='" + content.getBookUrl() + "'", null, null);
             if(cursor.getCount()>0)
             {
                 cursor.moveToNext();

@@ -56,7 +56,7 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
     {
         content = contentList.get(i);
         viewHolder.title.setText(content.getTitle());
-        if (viewHolder.logo != null && content.icon != null)
+        if (viewHolder.logo != null && content.getIcon() != null)
         {
 
             //set correct icon based on URL

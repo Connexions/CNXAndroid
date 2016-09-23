@@ -49,20 +49,20 @@ public class DBUtils
             c.moveToNext();
             do
             {
-                try
-                {
+//                try
+//                {
                     Content con = new Content();
                     con.setTitle(c.getString(titleColumn));
-                    con.setUrl(new URL(c.getString(urlColumn)));
+                    con.setUrl(c.getString(urlColumn));
                     con.setId(c.getInt(idColumn));
                     con.setIcon(c.getString(iconColumn));
                     con.setContentString(c.getString(otherColumn));
                     contentList.add(con);
-                }
-                catch (MalformedURLException e)
-                {
-                    e.printStackTrace();
-                }
+//                }
+//                catch (MalformedURLException e)
+//                {
+//                    e.printStackTrace();
+//                }
             }while(c.moveToNext());
         }
         c.close();
