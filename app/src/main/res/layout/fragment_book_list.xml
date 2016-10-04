@@ -3,14 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">>
+    android:layout_height="match_parent">
     <TextView
         android:id="@+id/optionName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Featured Textbooks"
         android:gravity="center"
-        android:background="@color/blue_background"
+        android:background="@color/colorPrimaryDark"
         style="@style/TextAppearance.Title.Landing" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/book_list"

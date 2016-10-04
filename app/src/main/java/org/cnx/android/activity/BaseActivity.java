@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class BaseActivity extends AppCompatActivity
 {
-    protected ActionBarDrawerToggle drawerToggle;
+    public ActionBarDrawerToggle drawerToggle;
     String[] from = {"nav_icon","nav_item"};
     int[] to = { R.id.nav_icon , R.id.nav_item};
 

@@ -43,8 +43,7 @@ public class LandingActivity extends BaseActivity
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         getSupportActionBar().setTitle(Html.fromHtml(getString(R.string.app_name_html)));
-
-        setNavDrawer();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
 //        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -82,10 +81,14 @@ public class LandingActivity extends BaseActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(context, WebViewActivity.class);
-                context.startActivity(intent);
+                //Intent intent = new Intent(context, WebViewActivity.class);
+                //context.startActivity(intent);
+                MenuHandler mh = new MenuHandler();
+                mh.handleSearch(context);
             }
         });
+        setNavDrawer();
+
     }
 
     public void onBookSelected(Content content)

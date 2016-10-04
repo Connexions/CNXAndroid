@@ -70,6 +70,7 @@ public class MenuHandler
                 }
                 cv.put(Favs.URL, url.replaceAll("@\\d+(\\.\\d+)?","")+ "?bookmark=1");
                 cv.put(Favs.ICON, currentContent.getIcon());
+                cv.put(Favs.OTHER, currentContent.getBookTitle());
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
                 Toast.makeText(context, "Bookmark added for " + currentContent.getTitle(), Toast.LENGTH_SHORT).show();
                 return true;

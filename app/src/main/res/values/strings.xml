@@ -124,5 +124,10 @@
     <string name="ap_physics_icon">ap-physics</string>
     <string name="ap_macro_icon">ap-macro</string>
     <string name="ap_micro_icon">ap-micro</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_export">Export Note</string>
+    <string name="menu_delete">Delete Note</string>
+    <string name="external_storage_request">Permission is needed to store the exported notes on your device</string>
+    <string name="ok_button">OK</string>
 </resources>
  
