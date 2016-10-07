@@ -56,6 +56,7 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
     {
         content = contentList.get(i);
         viewHolder.title.setText(content.getTitle());
+        viewHolder.other.setText(content.getContentString());
         if (viewHolder.logo != null && content.getIcon() != null)
         {
 
@@ -261,6 +262,7 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
     {
         public ImageView logo;
         public TextView title;
+        public TextView other;
         public View view;
         ArrayList<Content> contentList;
 
@@ -272,6 +274,7 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
 
             logo = (ImageView) itemView.findViewById(R.id.logoView);
             title = (TextView)itemView.findViewById(R.id.bookName);
+            other = (TextView)itemView.findViewById(R.id.other);
             itemView.setOnClickListener(this);
         }
 

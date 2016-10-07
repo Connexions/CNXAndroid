@@ -25,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings.LayoutAlgorithm;
@@ -145,18 +146,18 @@ public class WebViewActivity extends BaseActivity
 
 //        try
 //        {
-            if(!content.getUrl().toString().contains("?bookmark=1") || content.getUrl().toString().contains("/search"))
+            if(!content.getUrl().contains("?bookmark=1") || !content.getUrl().contains("/search"))
             {
 
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
-                String bookURL = webviewLogic.getBookURL(content.getUrl().toString());
+                String bookURL = webviewLogic.getBookURL(content.getUrl());
                 String url = sharedPref.getString(bookURL, "");
 
 //                try
 //                {
                     if(url.equals(""))
                     {
-                        url = content.getUrl().toString();
+                        url = content.getUrl();
 
                     }
                     content.setUrl(webviewLogic.convertURL(url));
@@ -364,7 +365,7 @@ public class WebViewActivity extends BaseActivity
     protected void onPause()
     {
         super.onPause();
-        if(content.getIcon() != null)
+        if(!(content.getIcon().equals("")))
         {
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
             SharedPreferences.Editor ed = sharedPref.edit();
@@ -385,7 +386,7 @@ public class WebViewActivity extends BaseActivity
         super.onSaveInstanceState(outState);
         //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
         outState.putSerializable(getString(R.string.webcontent),content);
-        if(content.getIcon() != null)
+        if(!content.getIcon().equals(""))
         {
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
             SharedPreferences.Editor ed = sharedPref.edit();
@@ -415,6 +416,7 @@ public class WebViewActivity extends BaseActivity
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
         webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         webView.setWebChromeClient(new WebChromeClient() 
         {

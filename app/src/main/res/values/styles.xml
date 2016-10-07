@@ -16,6 +16,9 @@
   <style name="TextAppearance.Title">
         <item name="android:textStyle">bold</item>
   </style>
+    <style name="TextAppearance.Book">
+        <item name="android:textColor">#888888</item>
+    </style>
   <style name="TextAppearance.Button">
     <item name="android:textStyle">bold</item>
   </style>

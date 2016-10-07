@@ -81,10 +81,10 @@ public class LandingActivity extends BaseActivity
             @Override
             public void onClick(View view)
             {
-                //Intent intent = new Intent(context, WebViewActivity.class);
-                //context.startActivity(intent);
-                MenuHandler mh = new MenuHandler();
-                mh.handleSearch(context);
+                Intent intent = new Intent(context, ViewFavsActivity.class);
+                context.startActivity(intent);
+                //MenuHandler mh = new MenuHandler();
+                //mh.handleSearch(context);
             }
         });
         setNavDrawer();

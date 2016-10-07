@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/nav_icon"
             android:layout_centerVertical="true"
-            android:textColor="@color/black_text"
+            android:textColor="@color/white_text"
             android:textSize="15sp" />
 
 </RelativeLayout>
