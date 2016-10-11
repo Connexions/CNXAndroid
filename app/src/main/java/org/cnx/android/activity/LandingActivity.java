@@ -45,30 +45,6 @@ public class LandingActivity extends BaseActivity
         getSupportActionBar().setTitle(Html.fromHtml(getString(R.string.app_name_html)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
-//        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-//        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
-//        SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
-//
-//        drawerList.setOnItemClickListener(new DrawerItemClickListener(this,drawerLayout));
-//
-//        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
-//        {
-//            public void onDrawerClosed(View view) {
-//                invalidateOptionsMenu();
-//            }
-//
-//            public void onDrawerOpened(View drawerView) {
-//                invalidateOptionsMenu();
-//            }
-//        };
-//        drawerToggle.setDrawerIndicatorEnabled(true);
-//        drawerToggle.syncState();
-//        drawerLayout.addDrawerListener(drawerToggle);
-//        //aBar.setDisplayHomeAsUpEnabled(true);
-//        //aBar.setHomeButtonEnabled(true);
-//        drawerList.setAdapter(sAdapter);
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         LandingListFragment fragment = new LandingListFragment();
         transaction.replace(R.id.sample_content_fragment, fragment);
@@ -83,21 +59,9 @@ public class LandingActivity extends BaseActivity
             {
                 Intent intent = new Intent(context, ViewFavsActivity.class);
                 context.startActivity(intent);
-                //MenuHandler mh = new MenuHandler();
-                //mh.handleSearch(context);
             }
         });
         setNavDrawer();
-
-    }
-
-    public void onBookSelected(Content content)
-    {
-
-        Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
-        i.putExtra(getString(R.string.webcontent),content);
-        startActivity(i);
-
 
     }
 

@@ -81,7 +81,6 @@ public class FavsFragment extends Fragment implements OnStartDragListener
 
 
         //get already retrieved feed and reuse if it is there
-        //content = (ArrayList<Content>)activity.getLastNonConfigurationInstance();
         if(content == null)
         {
             //no previous data, so database must be read
@@ -142,12 +141,12 @@ public class FavsFragment extends Fragment implements OnStartDragListener
             public void run()
             {
 
-                content = DBUtils.readCursorIntoList(activity.getContentResolver().query(Favs.CONTENT_URI, null, null, null, null));
+            content = DBUtils.readCursorIntoList(activity.getContentResolver().query(Favs.CONTENT_URI, null, null, null, null));
 
-                Collections.sort(content);
+            Collections.sort(content);
 
-                fillData(content);
-                handler.post(finishedLoadingListTask);
+            fillData(content);
+            handler.post(finishedLoadingListTask);
             }
         };
         loadFavsThread.start();

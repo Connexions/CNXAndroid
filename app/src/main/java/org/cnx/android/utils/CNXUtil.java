@@ -123,149 +123,168 @@ public class CNXUtil
     {
         int coverId = 0;
 
-        if(icon.equals(context.getString(R.string.physics_icon)))
+        if(icon == null || icon.equals(""))
         {
-            coverId = R.drawable.physics_lg;
+            coverId = R.drawable.ic_book_black_48dp;
         }
-        else if(icon.equals(context.getString(R.string.sociology_icon)))
+        else
         {
-            coverId = R.drawable.sociology_lg;
-        }
-        else if(icon.equals(context.getString(R.string.biology_icon)))
-        {
-            coverId = R.drawable.biology_lg;
-        }
-        else if(icon.equals(context.getString(R.string.concepts_icon)) )
-        {
-            coverId = R.drawable.concepts_biology_lg;
-        }
-        else if(icon.equals(context.getString(R.string.anatomy_icon)))
-        {
-            coverId = R.drawable.anatomy_lg;
-        }
-        else if(icon.equals(context.getString(R.string.statistics_icon)))
-        {
-            coverId = R.drawable.statistics_lg;
-        }
-        else if(icon.equals(context.getString(R.string.econ_icon)))
-        {
-            coverId = R.drawable.econ_lg;
-        }
-        else if(icon.equals(context.getString(R.string.macro_icon)))
-        {
-            coverId = R.drawable.macro_econ_lg;
-        }
-        else if(icon.equals(context.getString(R.string.micro_icon)))
-        {
-            coverId = R.drawable.micro_econ_lg;
-        }
-        else if(icon.equals(context.getString(R.string.precalculus_icon)))
-        {
-            coverId = R.drawable.precalculus_lg;
-        }
-        else if(icon.equals(context.getString(R.string.psychology_icon)))
-        {
-            coverId = R.drawable.psychology_lg;
-        }
-        else if(icon.equals(context.getString(R.string.history_icon)))
-        {
-            coverId = R.drawable.history_lg;
-        }
-        else if(icon.equals(context.getString(R.string.chemistry_icon)))
-        {
-            coverId = R.drawable.chemistry_lg;
-        }
-        else if(icon.equals(context.getString(R.string.algebra_icon)))
-        {
-            coverId = R.drawable.algebra_lg;
-        }
-        else if(icon.equals(context.getString(R.string.trig_icon)))
-        {
-            coverId = R.drawable.trig_lg;
-        }
-        else if(icon.equals(context.getString(R.string.ap_physics_icon)))
-        {
-            coverId = R.drawable.ap_physics_lg;
-        }
-        else if(icon.equals(context.getString(R.string.ap_macro_icon)))
-        {
-            coverId = R.drawable.ap_macro;
-        }
-        else if(icon.equals(context.getString(R.string.ap_micro_icon)))
-        {
-            coverId = R.drawable.ap_micro;
-        }
-        else if(icon.equals(context.getString(R.string.american_gov_icon)))
-        {
-            coverId = R.drawable.american_gov;
-        }
-        else if(icon.equals(context.getString(R.string.calculus1_icon)))
-        {
-            coverId = R.drawable.calculus1;
-        }
-        else if(icon.equals(context.getString(R.string.calculus2_icon)))
-        {
-            coverId = R.drawable.calculus2;
-        }
-        else if(icon.equals(context.getString(R.string.calculus3_icon)))
-        {
-            coverId = R.drawable.calculus3;
-        }
-        else if(icon.equals(context.getString(R.string.chemistry_atoms_icon)))
-        {
-            coverId = R.drawable.chemistry_atoms;
-        }
-        else if(icon.equals(context.getString(R.string.prealgebra_icon)))
-        {
-            coverId = R.drawable.prealgebra;
-        }
-        else if(icon.equals(context.getString(R.string.bus_fundamentals)))
-        {
-            coverId = R.drawable.bus_fundamentals;
-        }
-        else if(icon.equals(context.getString(R.string.elec_engineering)))
-        {
-            coverId = R.drawable.elec_engineering;
-        }
-        else if(icon.equals(context.getString(R.string.elem_algebra)))
-        {
-            coverId = R.drawable.elem_algebra;
-        }
-        else if(icon.equals(context.getString(R.string.advanced_algebra)))
-        {
-            coverId = R.drawable.advanced_algebra;
-        }
-        else if(icon.equals(context.getString(R.string.applied_probability)))
-        {
-            coverId = R.drawable.applied_probability;
-        }
-        else if(icon.equals(context.getString(R.string.fast_fourier)))
-        {
-            coverId = R.drawable.fast_fourier;
-        }
-        else if(icon.equals(context.getString(R.string.first_course)))
-        {
-            coverId = R.drawable.first_course;
-        }
-        else if(icon.equals(context.getString(R.string.flowering_light)))
-        {
-            coverId = R.drawable.flowering_light;
-        }
-        else if(icon.equals(context.getString(R.string.houston_reflections)))
-        {
-            coverId = R.drawable.houston_reflections;
-        }
-        else if(icon.equals(context.getString(R.string.memorable_cases)))
-        {
-            coverId = R.drawable.memorable_cases;
-        }
-        else if(icon.equals(context.getString(R.string.music_theory)))
-        {
-            coverId = R.drawable.music_theory;
-        }
-        else if(icon.equals(context.getString(R.string.programming_fundamentals)))
-        {
-            coverId = R.drawable.programming_fundamentals;
+            if(icon.equals(context.getString(R.string.physics_icon)))
+            {
+                coverId = R.drawable.physics_lg;
+            }
+            else if(icon.equals(context.getString(R.string.sociology_icon)))
+            {
+                coverId = R.drawable.sociology_lg;
+            }
+            else if(icon.equals(context.getString(R.string.biology_icon)))
+            {
+                coverId = R.drawable.biology_lg;
+            }
+            else if(icon.equals(context.getString(R.string.concepts_icon)))
+            {
+                coverId = R.drawable.concepts_biology_lg;
+            }
+            else if(icon.equals(context.getString(R.string.anatomy_icon)))
+            {
+                coverId = R.drawable.anatomy_lg;
+            }
+            else if(icon.equals(context.getString(R.string.statistics_icon)))
+            {
+                coverId = R.drawable.statistics_lg;
+            }
+            else if(icon.equals(context.getString(R.string.econ_icon)))
+            {
+                coverId = R.drawable.econ_lg;
+            }
+            else if(icon.equals(context.getString(R.string.macro_icon)))
+            {
+                coverId = R.drawable.macro_econ_lg;
+            }
+            else if(icon.equals(context.getString(R.string.micro_icon)))
+            {
+                coverId = R.drawable.micro_econ_lg;
+            }
+            else if(icon.equals(context.getString(R.string.precalculus_icon)))
+            {
+                coverId = R.drawable.precalculus_lg;
+            }
+            else if(icon.equals(context.getString(R.string.psychology_icon)))
+            {
+                coverId = R.drawable.psychology_lg;
+            }
+            else if(icon.equals(context.getString(R.string.history_icon)))
+            {
+                coverId = R.drawable.history_lg;
+            }
+            else if(icon.equals(context.getString(R.string.chemistry_icon)))
+            {
+                coverId = R.drawable.chemistry_lg;
+            }
+            else if(icon.equals(context.getString(R.string.algebra_icon)))
+            {
+                coverId = R.drawable.algebra_lg;
+            }
+            else if(icon.equals(context.getString(R.string.trig_icon)))
+            {
+                coverId = R.drawable.trig_lg;
+            }
+            else if(icon.equals(context.getString(R.string.ap_physics_icon)))
+            {
+                coverId = R.drawable.ap_physics_lg;
+            }
+            else if(icon.equals(context.getString(R.string.ap_macro_icon)))
+            {
+                coverId = R.drawable.ap_macro;
+            }
+            else if(icon.equals(context.getString(R.string.ap_micro_icon)))
+            {
+                coverId = R.drawable.ap_micro;
+            }
+            else if(icon.equals(context.getString(R.string.american_gov_icon)))
+            {
+                coverId = R.drawable.american_gov;
+            }
+            else if(icon.equals(context.getString(R.string.calculus1_icon)))
+            {
+                coverId = R.drawable.calculus1;
+            }
+            else if(icon.equals(context.getString(R.string.calculus2_icon)))
+            {
+                coverId = R.drawable.calculus2;
+            }
+            else if(icon.equals(context.getString(R.string.calculus3_icon)))
+            {
+                coverId = R.drawable.calculus3;
+            }
+            else if(icon.equals(context.getString(R.string.chemistry_atoms_icon)))
+            {
+                coverId = R.drawable.chemistry_atoms;
+            }
+            else if(icon.equals(context.getString(R.string.prealgebra_icon)))
+            {
+                coverId = R.drawable.prealgebra;
+            }
+            else if(icon.equals(context.getString(R.string.bus_fundamentals)))
+            {
+                coverId = R.drawable.bus_fundamentals;
+            }
+            else if(icon.equals(context.getString(R.string.elec_engineering)))
+            {
+                coverId = R.drawable.elec_engineering;
+            }
+            else if(icon.equals(context.getString(R.string.elem_algebra)))
+            {
+                coverId = R.drawable.elem_algebra;
+            }
+            else if(icon.equals(context.getString(R.string.advanced_algebra)))
+            {
+                coverId = R.drawable.advanced_algebra;
+            }
+            else if(icon.equals(context.getString(R.string.applied_probability)))
+            {
+                coverId = R.drawable.applied_probability;
+            }
+            else if(icon.equals(context.getString(R.string.fast_fourier)))
+            {
+                coverId = R.drawable.fast_fourier;
+            }
+            else if(icon.equals(context.getString(R.string.first_course)))
+            {
+                coverId = R.drawable.first_course;
+            }
+            else if(icon.equals(context.getString(R.string.flowering_light)))
+            {
+                coverId = R.drawable.flowering_light;
+            }
+            else if(icon.equals(context.getString(R.string.houston_reflections)))
+            {
+                coverId = R.drawable.houston_reflections;
+            }
+            else if(icon.equals(context.getString(R.string.memorable_cases)))
+            {
+                coverId = R.drawable.memorable_cases;
+            }
+            else if(icon.equals(context.getString(R.string.music_theory)))
+            {
+                coverId = R.drawable.music_theory;
+            }
+            else if(icon.equals(context.getString(R.string.programming_fundamentals)))
+            {
+                coverId = R.drawable.programming_fundamentals;
+            }
+            else if(icon.equals(context.getString(R.string.univ_physics1_icon)))
+            {
+                coverId = R.drawable.university_physics_vol1;
+            }
+            else if(icon.equals(context.getString(R.string.univ_physics2_icon)))
+            {
+                coverId = R.drawable.university_physics_vol2;
+            }
+            else if(icon.equals(context.getString(R.string.univ_physics3_icon)))
+            {
+                coverId = R.drawable.university_physics_vol3;
+            }
         }
 
         return coverId;

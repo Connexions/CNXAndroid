@@ -129,5 +129,8 @@
     <string name="menu_delete">Delete Note</string>
     <string name="external_storage_request">Permission is needed to store the exported notes on your device</string>
     <string name="ok_button">OK</string>
+    <string name="univ_physics1_icon">University Physics Volume 1</string>
+    <string name="univ_physics2_icon">University Physics Volume 2</string>
+    <string name="univ_physics3_icon">University Physics Volume 3</string>
 </resources>
  

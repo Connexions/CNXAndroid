@@ -96,7 +96,6 @@ public class MenuHandler
                 {
                     return false;
                 }
-                //ContentCache.setObject("content", currentContent);
                 Intent noteIntent = new Intent(context, NoteEditorActivity.class);
                 noteIntent.putExtra(context.getString(R.string.content), currentContent);
                 context.startActivity(noteIntent);

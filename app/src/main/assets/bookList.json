@@ -287,6 +287,30 @@
       "url":"http://cnx.org/contents/MDgA8wfz:YzfkjC2r?minimal=true",
       "bookUrl":"http://cnx.org/contents/MDgA8wfz:YzfkjC2r?minimal=true",
       "icon":"Programming Fundamentals"
+    },
+    {
+      "bookTitle":"University Physics Volume 1",
+      "title":"University Physics Volume 1",
+      "contentString":"",
+      "url":"http://cnx.org/contents/1Q9uMg_a:bG-_rWXy?minimal=true",
+      "bookUrl":"http://cnx.org/contents/1Q9uMg_a:bG-_rWXy?minimal=true",
+      "icon":"University Physics Volume 1"
+    },
+    {
+      "bookTitle":"University Physics Volume 2",
+      "title":"University Physics Volume 2",
+      "contentString":"",
+      "url":"http://cnx.org/contents/eg-XcBxE:DSrCtKWS?minimal=true",
+      "bookUrl":"http://cnx.org/contents/eg-XcBxE:DSrCtKWS?minimal=true",
+      "icon":"University Physics Volume 2"
+    },
+    {
+      "bookTitle":"University Physics Volume 3",
+      "title":"University Physics Volume 3",
+      "contentString":"",
+      "url":"http://cnx.org/contents/rydUIGBQ:bq-wv5M8?minimal=true",
+      "bookUrl":"http://cnx.org/contents/rydUIGBQ:bq-wv5M8?minimal=true",
+      "icon":"University Physics Volume 3"
     }
   ]
 }

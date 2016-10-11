@@ -75,7 +75,6 @@ public class NoteEditorFragment extends Fragment
         private Rect rect;
         private Paint paint;
 
-        // we need this constructor for LayoutInflater
         public LinedEditText(Context context, AttributeSet attrs)
         {
             super(context, attrs);
@@ -137,7 +136,6 @@ public class NoteEditorFragment extends Fragment
         {
             originalContent = savedInstanceState.getString(ORIGINAL_CONTENT);
         }
-        //setActionBar(v);
         return v;
     }
 

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class BookList
 {
-    ArrayList<Content> bookList;
+    private ArrayList<Content> bookList;
 
     public ArrayList<Content> getBookList()
     {

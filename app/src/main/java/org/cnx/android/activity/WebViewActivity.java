@@ -47,10 +47,6 @@ public class WebViewActivity extends BaseActivity
 
     private boolean progressBarRunning;
 
-//    private ActionBarDrawerToggle drawerToggle;
-//    String[] from = { "nav_icon","nav_item"};
-//    int[] to = { R.id.nav_icon , R.id.nav_item};
-
     SharedPreferences sharedPref;
     
     /** inner class for WebViewClient*/
@@ -75,16 +71,8 @@ public class WebViewActivity extends BaseActivity
             }
 
             view.loadUrl(url);
-//            try
-//            {
-                content.setUrl(url);
+            content.setUrl(url);
 
-                
-//            }
-//            catch (MalformedURLException e)
-//            {
-//                Log.d("WV.shouldOverrideUrl()", "Error: " + e.toString(),e);
-//            }
             return true;
         }
         
@@ -134,53 +122,36 @@ public class WebViewActivity extends BaseActivity
         getSupportActionBar().setTitle(Html.fromHtml(getString(R.string.app_name_html)));;
 
         
-        //setContentView(R.layout.new_web_view);
-        //ActionBar aBar = this.getActionBar();
         sharedPref = getSharedPreferences("org.cnx.android",MODE_PRIVATE);
         setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
         //Log.d("WebView.onCreate()", "Called");
         Intent intent = getIntent();
         content = (Content)intent.getSerializableExtra(getString(R.string.webcontent));
-        Log.d("url",content.getUrl().toString());
+        Log.d("url",content.getUrl());
 
-//        try
-//        {
-            if(!content.getUrl().contains("?bookmark=1") || !content.getUrl().contains("/search"))
+        if(!content.getUrl().contains("?bookmark=1") && !content.getUrl().contains("/search"))
+        {
+
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+            String bookURL = webviewLogic.getBookURL(content.getUrl());
+            String url = sharedPref.getString(bookURL, "");
+
+            if(url.equals(""))
             {
-
-                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
-                String bookURL = webviewLogic.getBookURL(content.getUrl());
-                String url = sharedPref.getString(bookURL, "");
-
-//                try
-//                {
-                    if(url.equals(""))
-                    {
-                        url = content.getUrl();
-
-                    }
-                    content.setUrl(webviewLogic.convertURL(url));
-//                }
-//                catch(MalformedURLException mue)
-//                {
-//                    Log.e("WViewActivity.onResume", mue.toString());
-//                }
-            }
-            else
-            {
-                //remove bookmark parameter
-                String newURL = content.getUrl().toString().replace("?bookmark=1","");
-                content.setUrl(webviewLogic.convertURL(newURL));
+                url = content.getUrl();
 
             }
-//        }
-//        catch(MalformedURLException mue)
-//        {
-//            Log.e("WViewActivity.onResume", mue.toString());
-//        }
+            content.setUrl(webviewLogic.convertURL(url));
 
-        //aBar.setTitle(Html.fromHtml(getString(R.string.app_name_html)));
+        }
+        else
+        {
+            //remove bookmark parameter
+            String newURL = content.getUrl().replace("?bookmark=1","");
+            content.setUrl(webviewLogic.convertURL(newURL));
+
+        }
 
         if(CNXUtil.isConnected(this))
         {
@@ -193,31 +164,6 @@ public class WebViewActivity extends BaseActivity
             CNXUtil.makeNoDataToast(this);
         }
 
-//        List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
-//        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-//        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
-//        SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
-//
-//        drawerList.setOnItemClickListener(new DrawerItemClickListener(this, drawerLayout));
-//
-//        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
-//        {
-//            public void onDrawerClosed(View view)
-//            {
-//                invalidateOptionsMenu();
-//            }
-//
-//            public void onDrawerOpened(View drawerView)
-//            {
-//                invalidateOptionsMenu();
-//            }
-//        };
-//        drawerToggle.setDrawerIndicatorEnabled(true);
-//        drawerToggle.syncState();
-//        drawerLayout.setDrawerListener(drawerToggle);
-        //aBar.setDisplayHomeAsUpEnabled(true);
-        //aBar.setHomeButtonEnabled(true);
-        //drawerList.setAdapter(sAdapter);
         String pref = sharedPref.getString("cacheCleared", "");
         if(pref.equals(""))
         {
@@ -348,14 +294,8 @@ public class WebViewActivity extends BaseActivity
             if(!url.equals(""))
             {
                 url = webviewLogic.convertURL(url);
-//                try
-//                {
-                    content.setUrl(url);
-//                }
-//                catch(MalformedURLException mue)
-//                {
-//                    Log.e("WViewActivity.onResume", mue.toString());
-//                }
+                content.setUrl(url);
+
             }
         }
 
@@ -391,7 +331,7 @@ public class WebViewActivity extends BaseActivity
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
             SharedPreferences.Editor ed = sharedPref.edit();
             WebviewLogic wl = new WebviewLogic();
-            String bookURL = wl.getBookURL(content.getUrl().toString());
+            String bookURL = wl.getBookURL(content.getUrl());
             //Log.d("SIS", "BookURL - " + bookURL);
             String url = webView.getUrl().replace("?bookmark=1", "");
             ed.putString(bookURL, url);

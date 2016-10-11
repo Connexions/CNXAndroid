@@ -44,7 +44,7 @@ public class NoteEditorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        Content content = (Content)intent.getSerializableExtra(getString(R.string.content));
+        content = (Content)intent.getSerializableExtra(getString(R.string.content));
 
         if(content == null)
         {

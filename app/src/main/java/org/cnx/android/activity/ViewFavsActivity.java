@@ -9,7 +9,6 @@ package org.cnx.android.activity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import android.content.Intent;
@@ -27,9 +26,6 @@ import org.cnx.android.handlers.MenuHandler;
 public class ViewFavsActivity extends BaseActivity
 {
 
-    String[] from = {"nav_icon","nav_item"};
-    int[] to = { R.id.nav_icon , R.id.nav_item};
-    
       /* (non-Javadoc)
        * @see android.app.Activity#onCreate(android.os.Bundle)
        * Called when the activity is first created.
@@ -50,31 +46,6 @@ public class ViewFavsActivity extends BaseActivity
           transaction.add(R.id.container, fragment);
           transaction.commit();
 
-//          List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
-//          DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-//          ListView drawerList = (ListView)findViewById(R.id.left_drawer);
-//          SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
-//
-//          drawerList.setOnItemClickListener(new DrawerItemClickListener(this, drawerLayout));
-//
-//          drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
-//          {
-//              public void onDrawerClosed(View view)
-//              {
-//                  invalidateOptionsMenu();
-//              }
-//
-//              public void onDrawerOpened(View drawerView)
-//              {
-//                  invalidateOptionsMenu();
-//              }
-//          };
-//          drawerToggle.setDrawerIndicatorEnabled(true);
-//          drawerToggle.syncState();
-//          drawerLayout.setDrawerListener(drawerToggle);
-//          aBar.setDisplayHomeAsUpEnabled(true);
-//          aBar.setHomeButtonEnabled(true);
-//          drawerList.setAdapter(sAdapter);
       }
       
 
