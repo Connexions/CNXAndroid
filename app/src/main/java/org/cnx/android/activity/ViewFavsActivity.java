@@ -9,6 +9,7 @@ package org.cnx.android.activity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import android.content.Intent;
@@ -68,6 +69,15 @@ public class ViewFavsActivity extends BaseActivity
             MenuHandler mh = new MenuHandler();
             return mh.handleContextMenu(item, this, null);
         }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.favs_options_menu, menu);
+        return true;
 
     }
 
