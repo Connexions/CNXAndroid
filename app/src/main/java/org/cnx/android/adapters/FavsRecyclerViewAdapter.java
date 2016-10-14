@@ -61,7 +61,7 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
         viewHolder.other.setText(content.getContentString());
         if (viewHolder.logo != null)
         {
-            viewHolder.logo.setImageResource(CNXUtil.getCoverId(content.getIcon(),context));
+            viewHolder.logo.setImageResource(CNXUtil.getCoverId(content,context));
 
         }
 

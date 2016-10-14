@@ -53,7 +53,7 @@ public class LandingListRecyclerViewAdapter  extends RecyclerView.Adapter<Landin
         holder.bookTitle.setText(book.getBookTitle());
         if (holder.logo != null && book.getIcon() != null)
         {
-            holder.logo.setImageResource(CNXUtil.getCoverId(book.getIcon(), context));
+            holder.logo.setImageResource(CNXUtil.getCoverId(book, context));
 
         }
     }
