@@ -293,6 +293,10 @@ public class CNXUtil
         {
             coverId = R.drawable.university_physics_vol3;
         }
+        else if(icon.equals(context.getString(R.string.astronomy_icon)) || contentString.equals(context.getString(R.string.astronomy_icon)))
+        {
+            coverId = R.drawable.astronomy;
+        }
         else
         {
             coverId = R.drawable.ic_book_black_48dp;
