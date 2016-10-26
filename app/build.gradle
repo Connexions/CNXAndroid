@@ -1,29 +1,32 @@
 apply plugin: 'com.android.application'
-apply from: '../config/quality.gradle'
+//apply from: '../config/quality.gradle'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
     project.archivesBaseName = "CNXAndroid";
 
     defaultConfig {
         applicationId "org.cnx.android"
-        minSdkVersion 14
-        targetSdkVersion 21
-        versionCode 34
-        versionName "5.1"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 35
+        versionName "6.0"
     }
     dependencies{
-        compile 'com.android.support:support-v4:22.2.0'
-        compile 'com.android.support:appcompat-v7:22.2.0'
-        compile 'com.android.support:recyclerview-v7:22.2.0'
-        compile 'com.android.support:cardview-v7:22.2.0'
+        compile 'com.android.support:appcompat-v7:23.4.0'
+        compile 'com.android.support:design:23.4.0'
+        compile 'com.android.support:support-v4:23.4.0'
+        compile 'com.android.support:recyclerview-v7:23.4.0'
+        compile 'com.android.support:cardview-v7:23.4.0'
+        compile 'com.google.code.gson:gson:2.7'
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-cnx-app.pro'
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     output.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace(".apk", "-" + defaultConfig.versionName + ".apk"))

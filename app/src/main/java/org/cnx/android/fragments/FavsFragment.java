@@ -7,10 +7,10 @@
 package org.cnx.android.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -73,14 +73,14 @@ public class FavsFragment extends Fragment implements OnStartDragListener
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        recyclerView = (RecyclerView)getView().findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView)getView().findViewById(R.id.book_list);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setNestedScrollingEnabled(false);
 
 
         //get already retrieved feed and reuse if it is there
-        //content = (ArrayList<Content>)activity.getLastNonConfigurationInstance();
         if(content == null)
         {
             //no previous data, so database must be read
@@ -141,12 +141,12 @@ public class FavsFragment extends Fragment implements OnStartDragListener
             public void run()
             {
 
-                content = DBUtils.readCursorIntoList(activity.getContentResolver().query(Favs.CONTENT_URI, null, null, null, null));
+            content = DBUtils.readCursorIntoList(activity.getContentResolver().query(Favs.CONTENT_URI, null, null, null, null));
 
-                Collections.sort(content);
+            Collections.sort(content);
 
-                fillData(content);
-                handler.post(finishedLoadingListTask);
+            fillData(content);
+            handler.post(finishedLoadingListTask);
             }
         };
         loadFavsThread.start();

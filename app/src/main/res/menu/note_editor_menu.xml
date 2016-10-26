@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/delete_note"
+          android:icon="@drawable/ic_delete_white_24dp"
+          android:title="@string/menu_delete"
+          app:showAsAction="always"/>
+    <item android:id="@+id/share"
+          android:icon="@drawable/ic_share_white_24dp"
+          android:title="@string/menu_share"
+          app:showAsAction="ifRoom"/>
+    <item android:id="@+id/export_note"
+          android:icon="@drawable/ic_file_download_white_24dp"
+          android:title="@string/menu_export"
+          app:showAsAction="ifRoom"/>
+</menu>

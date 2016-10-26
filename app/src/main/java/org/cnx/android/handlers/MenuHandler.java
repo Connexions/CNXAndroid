@@ -70,6 +70,7 @@ public class MenuHandler
                 }
                 cv.put(Favs.URL, url.replaceAll("@\\d+(\\.\\d+)?","")+ "?bookmark=1");
                 cv.put(Favs.ICON, currentContent.getIcon());
+                cv.put(Favs.OTHER, currentContent.getBookTitle());
                 context.getContentResolver().insert(Favs.CONTENT_URI, cv);
                 Toast.makeText(context, "Bookmark added for " + currentContent.getTitle(), Toast.LENGTH_SHORT).show();
                 return true;
@@ -95,7 +96,6 @@ public class MenuHandler
                 {
                     return false;
                 }
-                //ContentCache.setObject("content", currentContent);
                 Intent noteIntent = new Intent(context, NoteEditorActivity.class);
                 noteIntent.putExtra(context.getString(R.string.content), currentContent);
                 context.startActivity(noteIntent);
@@ -196,8 +196,8 @@ public class MenuHandler
         {
             Intent iweb = new Intent(context, WebViewActivity.class);
             Content currentContent = new Content();
-            currentContent.setBookURL("https://cnx.org/search?minimal=true");
-            currentContent.setUrl(new URL("https://cnx.org/search?minimal=true"));
+            currentContent.setBookUrl("https://cnx.org/search?minimal=true");
+            currentContent.setUrl("https://cnx.org/search?minimal=true");
             currentContent.setBookTitle("Search");
             currentContent.setIcon("");
             iweb.putExtra(context.getString(R.string.webcontent), currentContent);

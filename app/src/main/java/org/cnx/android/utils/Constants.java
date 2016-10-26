@@ -28,8 +28,6 @@ public class Constants
     //public static final String HELP_FILE_URL = "http://cnx.org/android/help/Connexions_Android_App_Help.html/";
     public static final int COLLECTION_TYPE = 1;
     public static final int MODULE_TYPE = 0;
-    public static final int CNX_SEARCH = 2;
-    public static final String MOBILE_CNX_URL = "http://mobile.cnx.org";
     public static final String PDF_EXTENSION = ".pdf";
     public static final String EPUB_EXTENSION = ".epub";
     public static final String TXT_EXTENSION = ".txt";

@@ -7,15 +7,20 @@
 package org.cnx.android.activity;
 
 
-import android.app.ActionBar;
-import android.app.Activity;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.fragments.NoteEditorFragment;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
 import android.widget.Toast;
 
 /**
@@ -24,10 +29,11 @@ import android.widget.Toast;
  * @author Ed Woodward
  *
  */
-public class NoteEditorActivity extends Activity
+public class NoteEditorActivity extends AppCompatActivity
 {
 
-    //private Content content;
+    private Content content;
+
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -38,7 +44,7 @@ public class NoteEditorActivity extends Activity
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        Content content = (Content)intent.getSerializableExtra(getString(R.string.content));
+        content = (Content)intent.getSerializableExtra(getString(R.string.content));
 
         if(content == null)
         {
@@ -46,24 +52,54 @@ public class NoteEditorActivity extends Activity
             return;
         }
 
-        setContentView(R.layout.editor_activity);
-        
-        ActionBar aBar = getActionBar();
-        
+        setContentView(R.layout.activity_noteeditor);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar aBar = getSupportActionBar();
+
         if(content == null)
         {
             aBar.setTitle("Note not created correctly.");
         }
         else
         {
-            aBar.setTitle("Note for " + content.getBookTitle());
+            aBar.setTitle(content.getBookTitle() + " Note");
         }
-        
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        NoteEditorFragment fragment = NoteEditorFragment.newInstance(content);
-        transaction.replace(R.id.noteFragment, fragment);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        final NoteEditorFragment fragment = NoteEditorFragment.newInstance(content);
+        transaction.replace(R.id.contentFragment, fragment);
         transaction.commit();
+
+        final AppCompatActivity activity = this;
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                fragment.saveNote();
+                activity.finish();
+            }
+        });
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        if(content == null)
+        {
+            return false;
+        }
+
+        menu.clear();
+        inflater.inflate(R.menu.note_editor_menu, menu);
+
+        return true;
+    }
+
 
 
 }

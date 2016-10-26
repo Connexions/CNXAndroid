@@ -6,32 +6,26 @@
  */
 package org.cnx.android.activity;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.view.*;
-import android.widget.*;
 import org.cnx.android.R;
 import org.cnx.android.beans.Content;
 import org.cnx.android.handlers.MenuHandler;
-import org.cnx.android.listeners.DrawerItemClickListener;
 import org.cnx.android.logic.WebviewLogic;
 import org.cnx.android.utils.CNXUtil;
-import org.cnx.android.views.ObservableWebView;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.Window;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings.LayoutAlgorithm;
@@ -42,20 +36,16 @@ import android.webkit.WebSettings.LayoutAlgorithm;
  * @author Ed Woodward
  *
  */
-public class WebViewActivity extends Activity
+public class WebViewActivity extends BaseActivity
 {
     /** Web browser view for Activity */
-    private ObservableWebView webView;
+    private WebView webView;
     /** Variable for serialized Content object */
     private Content content;
 
     private WebviewLogic webviewLogic = new WebviewLogic();
 
     private boolean progressBarRunning;
-
-    private ActionBarDrawerToggle drawerToggle;
-    String[] from = { "nav_icon","nav_item"};
-    int[] to = { R.id.nav_icon , R.id.nav_item};
 
     SharedPreferences sharedPref;
     
@@ -81,16 +71,8 @@ public class WebViewActivity extends Activity
             }
 
             view.loadUrl(url);
-            try
-            {
-                content.setUrl(new URL(url));
+            content.setUrl(url);
 
-                
-            }
-            catch (MalformedURLException e)
-            {
-                Log.d("WV.shouldOverrideUrl()", "Error: " + e.toString(),e);
-            }
             return true;
         }
         
@@ -133,55 +115,43 @@ public class WebViewActivity extends Activity
     {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
-        //Log.d("LensWebView.onCreate()", "Called");
+        setContentView(R.layout.web_view);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(Html.fromHtml(getString(R.string.app_name_html)));;
+
         
-        setContentView(R.layout.new_web_view);
-        ActionBar aBar = this.getActionBar();
         sharedPref = getSharedPreferences("org.cnx.android",MODE_PRIVATE);
         setProgressBarIndeterminateVisibility(true);
         progressBarRunning = true;
         //Log.d("WebView.onCreate()", "Called");
         Intent intent = getIntent();
         content = (Content)intent.getSerializableExtra(getString(R.string.webcontent));
-        Log.d("url",content.getUrl().toString());
+        Log.d("url",content.getUrl());
 
-        try
+        if(!content.getUrl().contains("?bookmark=1") && !content.getUrl().contains("/search"))
         {
-            if(!content.getUrl().toString().contains("?bookmark=1") || content.getUrl().toString().contains("/search"))
+
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
+            String bookURL = webviewLogic.getBookURL(content.getUrl());
+            String url = sharedPref.getString(bookURL, "");
+
+            if(url.equals(""))
             {
-
-                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
-                String bookURL = webviewLogic.getBookURL(content.getUrl().toString());
-                String url = sharedPref.getString(bookURL, "");
-
-                try
-                {
-                    if(url.equals(""))
-                    {
-                        url = content.getUrl().toString();
-
-                    }
-                    content.setUrl(new URL(webviewLogic.convertURL(url)));
-                }
-                catch(MalformedURLException mue)
-                {
-                    Log.e("WViewActivity.onResume", mue.toString());
-                }
-            }
-            else
-            {
-                //remove bookmark parameter
-                String newURL = content.getUrl().toString().replace("?bookmark=1","");
-                content.setUrl(new URL(webviewLogic.convertURL(newURL)));
+                url = content.getUrl();
 
             }
-        }
-        catch(MalformedURLException mue)
-        {
-            Log.e("WViewActivity.onResume", mue.toString());
-        }
+            content.setUrl(webviewLogic.convertURL(url));
 
-        aBar.setTitle(Html.fromHtml(getString(R.string.app_name_html)));
+        }
+        else
+        {
+            //remove bookmark parameter
+            String newURL = content.getUrl().replace("?bookmark=1","");
+            content.setUrl(webviewLogic.convertURL(newURL));
+
+        }
 
         if(CNXUtil.isConnected(this))
         {
@@ -190,35 +160,10 @@ public class WebViewActivity extends Activity
         }
         else
         {
-            webView = (ObservableWebView)findViewById(R.id.web_view);
+            webView = (WebView)findViewById(R.id.web_view);
             CNXUtil.makeNoDataToast(this);
         }
 
-        List<HashMap<String,String>> navTitles = CNXUtil.createNavItems(this);
-        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        ListView drawerList = (ListView)findViewById(R.id.left_drawer);
-        SimpleAdapter sAdapter = new SimpleAdapter(this,navTitles, R.layout.nav_drawer,from,to);
-
-        drawerList.setOnItemClickListener(new DrawerItemClickListener(this, drawerLayout));
-
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close)
-        {
-            public void onDrawerClosed(View view)
-            {
-                invalidateOptionsMenu();
-            }
-
-            public void onDrawerOpened(View drawerView)
-            {
-                invalidateOptionsMenu();
-            }
-        };
-        drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerToggle.syncState();
-        drawerLayout.setDrawerListener(drawerToggle);
-        aBar.setDisplayHomeAsUpEnabled(true);
-        aBar.setHomeButtonEnabled(true);
-        drawerList.setAdapter(sAdapter);
         String pref = sharedPref.getString("cacheCleared", "");
         if(pref.equals(""))
         {
@@ -227,6 +172,7 @@ public class WebViewActivity extends Activity
             ed.putString("cacheCleared", "true");
             ed.apply();
         }
+        setNavDrawer();
     }
 
     /* (non-Javadoc)
@@ -265,7 +211,7 @@ public class WebViewActivity extends Activity
      * Handles selected options menu item
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) 
+    public boolean onOptionsItemSelected(MenuItem item)
     {
         if (drawerToggle.onOptionsItemSelected(item))
         {
@@ -275,7 +221,7 @@ public class WebViewActivity extends Activity
     	if(item.getItemId() == android.R.id.home)
         {
             Intent mainIntent = new Intent(getApplicationContext(), LandingActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(mainIntent);
             return true;
         }
@@ -308,7 +254,7 @@ public class WebViewActivity extends Activity
      * Handles use of back button on browser 
      */
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) 
+    public boolean onKeyDown(int keyCode, KeyEvent event)
     {
         if (webView != null && ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()))
         {
@@ -348,14 +294,8 @@ public class WebViewActivity extends Activity
             if(!url.equals(""))
             {
                 url = webviewLogic.convertURL(url);
-                try
-                {
-                    content.setUrl(new URL(url));
-                }
-                catch(MalformedURLException mue)
-                {
-                    Log.e("WViewActivity.onResume", mue.toString());
-                }
+                content.setUrl(url);
+
             }
         }
 
@@ -365,7 +305,7 @@ public class WebViewActivity extends Activity
     protected void onPause()
     {
         super.onPause();
-        if(content.getIcon() != null)
+        if(!(content.getIcon().equals("")))
         {
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
             SharedPreferences.Editor ed = sharedPref.edit();
@@ -386,12 +326,12 @@ public class WebViewActivity extends Activity
         super.onSaveInstanceState(outState);
         //Log.d("ViewLenses.onSaveInstanceState()", "saving data");
         outState.putSerializable(getString(R.string.webcontent),content);
-        if(content.getIcon() != null)
+        if(!content.getIcon().equals(""))
         {
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
             SharedPreferences.Editor ed = sharedPref.edit();
             WebviewLogic wl = new WebviewLogic();
-            String bookURL = wl.getBookURL(content.getUrl().toString());
+            String bookURL = wl.getBookURL(content.getUrl());
             //Log.d("SIS", "BookURL - " + bookURL);
             String url = webView.getUrl().replace("?bookmark=1", "");
             ed.putString(bookURL, url);
@@ -403,19 +343,20 @@ public class WebViewActivity extends Activity
     /** sets properties on WebView and loads selected content into browser. */
     private void setUpViews() 
     {
-        if(content == null || content.url == null)
+        if(content == null || content.getUrl() == null)
         {
             return;
         }
         
         //Log.d("WebViewView.setupViews()", "Called");
-        webView = (ObservableWebView)findViewById(R.id.web_view);
+        webView = (WebView)findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDefaultFontSize(17);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
         webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         webView.setWebChromeClient(new WebChromeClient() 
         {
@@ -423,6 +364,6 @@ public class WebViewActivity extends Activity
         });
         
         webView.setWebViewClient(webViewClient);
-        webView.loadUrl(content.url.toString());
+        webView.loadUrl(content.getUrl());
     }
 }

@@ -64,7 +64,7 @@ public class FileFragment extends Fragment implements OnStartDragListener
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        recyclerView = (RecyclerView)getView().findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView)getView().findViewById(R.id.book_list);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setItemAnimator(new DefaultItemAnimator());

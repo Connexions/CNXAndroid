@@ -1,11 +1,15 @@
+/**
+ * Copyright (c) 2016 Rice University
+ *
+ * This software is subject to the provisions of the GNU Lesser General
+ * Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
+ */
 package org.cnx.android.logic;
 
-import android.util.Log;
+//import android.util.Log;
 
 import org.cnx.android.beans.Content;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Created by ew2 on 6/15/16.
@@ -82,19 +86,9 @@ public class WebviewLogic
 
     public void setContentURLs(String currentURL, Content content)
     {
-        try
-        {
-            //String currentURL = webView.getUrl();
-            content.setUrl(new URL(currentURL));
-            WebviewLogic wl = new WebviewLogic();
-            String bookURL = wl.getBookURL(currentURL);
-            content.setBookURL(bookURL);
-
-        }
-        catch (MalformedURLException e)
-        {
-            Log.d("WebVA.setContentURLs()", "Error: " + e.toString(),e);
-        }
-
+        content.setUrl(currentURL);
+        WebviewLogic wl = new WebviewLogic();
+        String bookURL = wl.getBookURL(currentURL);
+        content.setBookUrl(bookURL);
     }
 }

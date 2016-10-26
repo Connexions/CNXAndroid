@@ -19,7 +19,9 @@ import android.widget.Toast;
 import org.cnx.android.R;
 import org.cnx.android.activity.WebViewActivity;
 import org.cnx.android.beans.Content;
+import org.cnx.android.logic.WebviewLogic;
 import org.cnx.android.providers.Favs;
+import org.cnx.android.utils.CNXUtil;
 
 import java.util.ArrayList;
 
@@ -56,181 +58,11 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
     {
         content = contentList.get(i);
         viewHolder.title.setText(content.getTitle());
-        if (viewHolder.logo != null && content.icon != null)
+        viewHolder.other.setText(content.getContentString());
+        if (viewHolder.logo != null)
         {
+            viewHolder.logo.setImageResource(CNXUtil.getCoverId(content,context));
 
-            //set correct icon based on URL
-            if(content.getIcon().equals("physics"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.physics_lg);
-            }
-            else if(content.getIcon().equals("sociology"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.sociology_lg);
-            }
-            else if(content.getIcon().equals("biology"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.biology_lg);
-            }
-            else if(content.getIcon().equals("concepts"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.concepts_biology_lg);
-            }
-            else if(content.getIcon().equals("anatomy"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.anatomy_lg);
-            }
-            else if(content.getIcon().equals("statistics"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.statistics_lg);
-            }
-            else if(content.getIcon().equals("econ"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.econ_lg);
-            }
-            else if(content.getIcon().equals("macro"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.macro_econ_lg);
-            }
-            else if(content.getIcon().equals("micro"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.micro_econ_lg);
-            }
-            else if(content.getIcon().equals("precalculus"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.precalculus_lg);
-            }
-            else if(content.getIcon().equals("psychology"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.psychology_lg);
-            }
-            else if(content.getIcon().equals("history"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.history_lg);
-            }
-            else if(content.getIcon().equals("chemistry"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.chemistry_lg);
-            }
-            else if(content.getIcon().equals("algebra"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.algebra_lg);
-            }
-            else if(content.getIcon().equals("trig"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.trig_lg);
-            }
-            else if(content.getIcon().equals("ap-physics"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.ap_physics_lg);
-            }
-            else if(content.getIcon().equals("ap-macro"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.ap_macro);
-            }
-            else if(content.getIcon().equals("ap-micro"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.ap_micro);
-            }
-            else if(content.getIcon().equals("Business Fundamentals"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.bus_fundamentals);
-            }
-            else if(content.getIcon().equals("Fundamentals of Electrical Engineering"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.elec_engineering);
-            }
-            else if(content.getIcon().equals("Elementary Algebra"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.elem_algebra);
-            }
-            else if(content.getIcon().equals("Advanced Algebra II"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.advanced_algebra);
-            }
-            else if(content.getIcon().equals("Applied Probability"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.applied_probability);
-            }
-            else if(content.getIcon().equals("Fast Fourier Transforms"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.fast_fourier);
-            }
-            else if(content.getIcon().equals("First Course in Electrical Engineering"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.first_course);
-            }
-            else if(content.getIcon().equals("Flowering Light"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.flowering_light);
-            }
-            else if(content.getIcon().equals("Houston Reflections"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.houston_reflections);
-            }
-            else if(content.getIcon().equals("Images of Memorable Cases"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.memorable_cases);
-            }
-            else if(content.getIcon().equals("Understanding Basic Music Theory"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.music_theory);
-            }
-            else if(content.getIcon().equals("Programming Fundamentals"))
-            {
-                viewHolder.logo.setImageResource(R.drawable.programming_fundamentals);
-            }
-            else if(content.getIcon().equals(context.getString(R.string.american_gov_icon)))
-            {
-                viewHolder.logo.setImageResource(R.drawable.american_gov);
-            }
-            else if(content.getIcon().equals(context.getString(R.string.calculus1_icon)))
-            {
-                viewHolder.logo.setImageResource(R.drawable.calculus1);
-            }
-            else if(content.getIcon().equals(context.getString(R.string.calculus2_icon)))
-            {
-                viewHolder.logo.setImageResource(R.drawable.calculus2);
-            }
-            else if(content.getIcon().equals(context.getString(R.string.calculus3_icon)))
-            {
-                viewHolder.logo.setImageResource(R.drawable.calculus3);
-            }
-            else if(content.getIcon().equals(context.getString(R.string.chemistry_atoms_icon)))
-            {
-                viewHolder.logo.setImageResource(R.drawable.chemistry_atoms);
-            }
-            else if(content.getIcon().equals(context.getString(R.string.prealgebra_icon)))
-            {
-                viewHolder.logo.setImageResource(R.drawable.prealgebra);
-            }
-            else
-            {
-                viewHolder.logo.setImageResource(R.drawable.ic_book_black_48dp);
-            }
-        }
-        else
-        {
-//            if(content.url.toString().contains("lenses"))
-//            {
-//                viewHolder.logo.setImageResource(R.drawable.lenses);
-//            }
-//            else if(content.url.toString().contains("content/m"))
-//            {
-//                viewHolder.logo.setImageResource(R.drawable.modules);
-//            }
-//            else if(content.url.toString().contains("content/col"))
-//            {
-//                viewHolder.logo.setImageResource(R.drawable.collections);
-//            }
-//            else if(content.url.toString().contains("google.com") || content.url.toString().contains("legacy.cnx.org/content/search"))
-//            {
-//                viewHolder.logo.setImageResource(R.drawable.search_selected);
-//            }
-//            else
-//            {
-                viewHolder.logo.setImageResource(R.drawable.ic_book_black_48dp);
-            //}
         }
 
     }
@@ -261,6 +93,7 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
     {
         public ImageView logo;
         public TextView title;
+        public TextView other;
         public View view;
         ArrayList<Content> contentList;
 
@@ -272,6 +105,7 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
 
             logo = (ImageView) itemView.findViewById(R.id.logoView);
             title = (TextView)itemView.findViewById(R.id.bookName);
+            other = (TextView)itemView.findViewById(R.id.other);
             itemView.setOnClickListener(this);
         }
 
@@ -280,6 +114,8 @@ public class FavsRecyclerViewAdapter extends RecyclerView.Adapter<FavsRecyclerVi
         public void onClick(View v)
         {
             Content content = contentList.get(getAdapterPosition());
+            WebviewLogic wl = new WebviewLogic();
+            wl.setContentURLs(content.getUrl(), content);
             Context context = v.getContext();
             Intent wv = new Intent(v.getContext(), WebViewActivity.class);
             wv.putExtra(v.getContext().getString(R.string.webcontent), content);
