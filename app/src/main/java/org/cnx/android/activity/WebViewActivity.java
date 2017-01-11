@@ -310,10 +310,18 @@ public class WebViewActivity extends BaseActivity
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.cnx_package), MODE_PRIVATE);
             SharedPreferences.Editor ed = sharedPref.edit();
             WebviewLogic wl = new WebviewLogic();
-            String bookURL = wl.getBookURL(content.getUrl().toString());
+            String bookURL = wl.getBookURL(content.getUrl());
             //Log.d("onPause", "BookURL - " + bookURL);
             //Log.d("WVA.onPause()","URL saved: " + content.getUrl().toString());
-            String url = webView.getUrl().replace("?bookmark=1", "");
+            String url;
+            if(webView.getUrl() != null)
+            {
+                url = webView.getUrl().replace("?bookmark=1", "");
+            }
+            else
+            {
+                url = content.getUrl();
+            }
             ed.putString(bookURL, url);
             ed.apply();
         }

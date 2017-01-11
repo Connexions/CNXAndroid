@@ -3,15 +3,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '25.0.0'
     project.archivesBaseName = "CNXAndroid";
 
     defaultConfig {
         applicationId "org.cnx.android"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 35
-        versionName "6.0"
+        versionCode 36
+        versionName "6.1"
     }
     dependencies{
         compile 'com.android.support:appcompat-v7:23.4.0'
