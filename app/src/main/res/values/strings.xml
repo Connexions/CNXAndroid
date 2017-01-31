@@ -108,5 +108,8 @@
     <string name="univ_physics2_icon">University Physics Volume 2</string>
     <string name="univ_physics3_icon">University Physics Volume 3</string>
     <string name="astronomy_icon">Astronomy</string>
+    <string name="bookmarks_shortcut_short_label">Bookmarks</string>
+    <string name="bookmarks_shortcut_long_label">Open Bookmarks</string>
+    <string name="bookmarks_shortcut_disabled_message">Shortcut is disabled</string>
 </resources>
  
