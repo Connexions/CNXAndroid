@@ -297,6 +297,14 @@ public class CNXUtil
         {
             coverId = R.drawable.astronomy;
         }
+        else if(icon.equals(context.getString(R.string.elem_algebra_icon)))
+        {
+            coverId = R.drawable.elementary_algebra;
+        }
+        else if(icon.equals(context.getString(R.string.intermediate_algebra_icon)))
+        {
+            coverId = R.drawable.intermediate_algebra;
+        }
         else
         {
             coverId = R.drawable.ic_book_black_48dp;

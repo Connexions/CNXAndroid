@@ -319,6 +319,22 @@
       "url":"http://cnx.org/contents/LnN76Opl:_45u6IpQ?minimal=true",
       "bookUrl":"http://cnx.org/contents/LnN76Opl:_45u6IpQ?minimal=true",
       "icon":"Astronomy"
+    },
+    {
+      "bookTitle":"Elementary Algebra",
+      "title":"Elementary Algebra",
+      "contentString":"",
+      "url":"http://cnx.org/contents/CImQfPDv:GfaWl1GG?minimal=true",
+      "bookUrl":"http://cnx.org/contents/CImQfPDv:GfaWl1GG?minimal=true",
+      "icon":"Elementary Algebra OS"
+    },
+    {
+      "bookTitle":"Intermediate Algebra",
+      "title":"Intermediate Algebra",
+      "contentString":"",
+      "url":"http://cnx.org/contents/AndhM9Sd:HCaG_W5c?minimal=true",
+      "bookUrl":"http://cnx.org/contents/AndhM9Sd:HCaG_W5c?minimal=true",
+      "icon":"Intermediate Algebra"
     }
   ]
 }
