@@ -111,5 +111,7 @@
     <string name="bookmarks_shortcut_short_label">Bookmarks</string>
     <string name="bookmarks_shortcut_long_label">Open Bookmarks</string>
     <string name="bookmarks_shortcut_disabled_message">Shortcut is disabled</string>
+    <string name="elem_algebra_icon">Elementary Algebra OS</string>
+    <string name="intermediate_algebra_icon">Intermediate Algebra</string>
 </resources>
  
