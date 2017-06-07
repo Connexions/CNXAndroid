@@ -241,10 +241,6 @@ public class CNXUtil
         {
             coverId = R.drawable.elec_engineering;
         }
-        else if(icon.equals(context.getString(R.string.elem_algebra)) || contentString.equals(context.getString(R.string.elem_algebra)))
-        {
-            coverId = R.drawable.elem_algebra;
-        }
         else if(icon.equals(context.getString(R.string.advanced_algebra)) || contentString.equals(context.getString(R.string.advanced_algebra)))
         {
             coverId = R.drawable.advanced_algebra;
