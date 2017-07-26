@@ -29,19 +29,11 @@
             style="@style/TextAppearance.Title"
             android:layout_below="@+id/logoView"
             android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
             android:padding="10dp"
             android:textSize="24sp"
             android:layout_marginLeft="5dip"/>
-
-        <!--<TextView
-            android:id="@+id/details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true"
-            android:padding="15dp"
-            android:textSize="20sp"/>-->
 
     </RelativeLayout>
 

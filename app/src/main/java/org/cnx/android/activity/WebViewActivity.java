@@ -341,9 +341,12 @@ public class WebViewActivity extends BaseActivity
             WebviewLogic wl = new WebviewLogic();
             String bookURL = wl.getBookURL(content.getUrl());
             //Log.d("SIS", "BookURL - " + bookURL);
-            String url = webView.getUrl().replace("?bookmark=1", "");
-            ed.putString(bookURL, url);
-            ed.apply();
+            if(webView != null && webView.getUrl() != null)
+            {
+                String url = webView.getUrl().replace("?bookmark=1", "");
+                ed.putString(bookURL, url);
+                ed.apply();
+            }
         }
         
     }
