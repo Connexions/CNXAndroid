@@ -18,6 +18,10 @@ public class WebviewLogic
 {
     public String getBookURL(String url)
     {
+        if(url == null)
+        {
+            return "";
+        }
         int cIndex = url.lastIndexOf(":");
         if(cIndex > 5)
         {
@@ -87,8 +91,9 @@ public class WebviewLogic
     public void setContentURLs(String currentURL, Content content)
     {
         content.setUrl(currentURL);
-        WebviewLogic wl = new WebviewLogic();
-        String bookURL = wl.getBookURL(currentURL);
+        //WebviewLogic wl = new WebviewLogic();
+        //String bookURL = wl.getBookURL(currentURL);
+        String bookURL = getBookURL(currentURL);
         content.setBookUrl(bookURL);
     }
 }
