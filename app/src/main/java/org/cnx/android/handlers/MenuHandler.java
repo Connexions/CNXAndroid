@@ -63,8 +63,8 @@ public class MenuHandler
                 //Log.d("MenuHandler","title - " + currentContent.getTitle())  ;
                 cv.put(Favs.TITLE, currentContent.getTitle());
                 //Log.d("MnHndlr.handleCont...()","URL: " + currentContent.getUrl().toString());
-                String url = currentContent.getUrl().toString();
-                if(isSearch(url, context))
+                String url = currentContent.getUrl();
+                if(url == null || url.equals("") || isSearch(url, context))
                 {
                     return false;
                 }
